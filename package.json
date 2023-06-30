@@ -1,0 +1,39 @@
+{
+  "author": "Praxis Tech <tech@praxisinstitute.org>",
+  "bugs": {
+      "url": "https://github.com/rhi-isncsci/ui/issues"
+  },
+  "description": "Web components package for the ISNCSCI project.",
+  "devDependencies": {},
+  "homepage": "https://github.com/rhi-isncsci/ui",
+  "keywords": [
+      "Praxis",
+      "Spinal",
+      "Coord",
+      "Institute",
+      "custom elements",
+      "components",
+      "ISNCSCI",
+      "algorithm"
+  ],
+  "license": "Apache-2.0",
+  "main": "./umd/index.js",
+  "module": "./index.js",
+  "name": "praxis-isncsci-ui",
+  "private": false,
+  "repository": "https://github.com/praxis-isncsci/ui.git",
+  "scripts": {
+      "prebuild": "rimraf ./demo/scripts",
+      "build": "rollup -c",
+      "postbuild": "node postbuild/index",
+      "prebuild:prod": "rimraf ./dist",
+      "build:prod": "rollup -c --environment BUILD:production",
+      "postbuild:prod": "node -e \"process.env.BUILD='production'; require('./postbuild/index')\"",
+      "preserve": "npm run build",
+      "serve": "concurrently \"npm start\" \"rollup -c --watch\" --kill-others-on-fail",
+      "start": "http-server ./demo -o -c-1 -p 8081",
+      "tslint": "tslint -p ."
+  },
+  "types": "./index.d.ts",
+  "version": "0.0.1"
+}
