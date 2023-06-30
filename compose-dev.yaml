@@ -1,16 +1,14 @@
 services:
   app:
     entrypoint:
-      - sleep
-      - infinity
+    - sleep
+    - infinity
     image: node:20.3.1-slim
     init: true
-    ports:
-      - '8100:8100'
-      - '35729:35729'
     volumes:
-      - .:/opt/ui
-      - /opt/ui/node_modules
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
     command: apt-get update && apt-get install -y git bzip2 openssh-client && \
       npm install -g --unsafe-perm @ionic/cli@${IONIC_VERSION} && \
       ionic --version && \
