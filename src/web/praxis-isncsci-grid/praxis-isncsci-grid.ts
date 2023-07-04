@@ -1,6 +1,6 @@
 'use strict';
 
-import '@web/praxis-isncsci-cell/praxis-isncsci-cell';
+import '@web/praxis-isncsci-cell';
 
 export class PraxisIsncsciGrid extends HTMLElement {
   public static get is(): string {
@@ -13,6 +13,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
       display: block;
     }
     </style>
+    <h1>ISNCSCI Grid</h1>
     <praxis-isncsci-cell></praxis-isncsci-cell>
     <praxis-isncsci-cell></praxis-isncsci-cell>
     <praxis-isncsci-cell></praxis-isncsci-cell>

@@ -19,4 +19,5 @@ Docker will use the file `.devcontainer/devcontainer.json` to setup the developm
 
 ### Ionic
 
+`npx storybook@latest init`
 `npm install -g @ionic/cli@7.1.1`
