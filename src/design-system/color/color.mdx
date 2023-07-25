@@ -1,0 +1,79 @@
+{/* Color.mdx */}
+
+import { Canvas, Meta } from '@storybook/blocks';
+import * as ColorStories from './color.stories';
+
+<Meta of={ColorStories} />
+
+# Color
+
+## Design Problem
+
+We need a color system that gives designers an organized palette to work with in Figma that can easily be referrenced in code.
+The color token nomenclature should provide enough information to make it easy to ensure foreground and background colors provide enough
+contrast to meet WCAG 2 and WCAG 3 and make it easy to build dark modes.
+
+## Approach
+
+When naming our colors we use _semantic_ names as opposed to _definitive_ names.
+_Definitive_ nomenclatures use brand color names, like _peach_ or _cornflower blue_.
+In our palette we use _semantic_ names, like _primary_, _secondary_, _neutral_, _error_, etc.
+The purpose is to make it easy to change the values when building new palettes or implementing dark mode.
+Our tokens will have _contextual_ names like `--color-text` and `--color-text-link-hover` and will be based on our semantic colors.
+
+Our color token names will include _weights_.
+Different design systems use different approaches.
+While _Material Design_ uses 10 step ranges between 50 and 900, _Ant Design_ ranges go between 1 and 10.
+Our ranges will mimic the weight structure used by web fonts where 400 is the normal weight and `700` is bold.
+Our range will be from `000` to `1000` with `400` containing the base color and `800` for the darkest recommended shade.
+`000` maps to **white** and `1000` to **black**.
+
+We calculate the lightness value for each token (_L*_ or "L star") to make it easy to swap one color with another without affecting the contrast.
+Lightness, or color value, defines black as `0` and white as `100`, with colors with `L*50` being true mid-tones.
+
+Color ranges are created using
+[AccessiblePalette.com](https://accessiblepalette.com/?lightness=85,70,55,50,45,40,35,25,20,10&e13215=0,0&d53f8c=0,0&e1e1e1=0,0)
+and then added to **Figma** as variables under `Primitives`, making **Figma** our source of truth for all things design.
+
+Following the same process as [Kevin Muldoon](https://medium.com/user-experience-design-1/how-should-you-name-your-colors-in-a-design-system-3086513476df),
+we have two broad weight categories, _incidental_ and _essential_, which maps to the **WCAG** contrast specifications.
+
+### Incidental weights
+
+Between `L*60` and `L*100`, they include tints for paperwhites, separators, border colors, and disabled controls.
+They should not be used on components that have accessibility requirements.
+
+- **Weights 025, 015, 000:** (L*95, L*98, L*0) Common paperwhites, used in almost every design. Use white for knockout treatments on weight-200 and weight-400 and above backgrounds.
+- **Weight 050:** (L*85) Used for lighter separator lines on paperwhites
+- **Weight 075:** (L*80) Used for darker separator lines on paperwhites and prototypical disabled states for controls
+
+### Essential weights
+
+Between `L*60` and `L*0`.
+
+- **Weight 200:** (L*55) Tint for WCAG 3:1 on paperwhites. Commonly used for text-field outlines, hint-text, and the minimum contrast for icons and large text.
+- **Weight 400:** (L*45) The base color from which all tints and shades are created. Typically, most brand colors meet this density and are used for primary buttons to support the brand. It should be dark enough to pass WCAG 4.5:1 contrast on three incidental paperwhite tints (000, 015, 025)
+- **Weight 600:** (L*35) The shade for WCAG 7:1 on paperwhites. Used for hover states on button backgrounds and slightly darker text treatments.
+- **Weight 800:** (L*20) The darkest recommended shade for designs in light mode. Used for typography for emphasis. Resist the urge to use weight-900s and neutral-950 (100% black), but they are valuable in dark-mode.
+
+## Adding a new color
+
+1. Add the color to the accessible palette
+   The values for the different weights are calculated automatically
+2. Add the color range to the **Figma** `Primitives` library
+   Make sure to add the luminicense value in the description field
+3. Export the updated **Figma** library using the plugin **Variables import export**
+4. Replace the file `assets/tokens/tokens.json` with the one generated from **Figma**
+5. Run `npm run update-design-tokens` to generate the new tokens and update the CSS files
+
+---
+
+
+## Primary
+
+## Secondary
+
+## Neutral
+
+
+<Canvas of={ColorStories.Primary} />

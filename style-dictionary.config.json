@@ -1,0 +1,16 @@
+{
+  "source": [
+    "assets/tokens/primitives.value.tokens.json",
+    "assets/tokens/tokens.mode-1.tokens.json"
+  ],
+  "platforms": {
+    "css": {
+      "transformGroup": "css",
+      "buildPath": "assets/css/",
+      "files": [{
+        "destination": "_primitives-tokens.css",
+        "format": "css/variables"
+      }]
+    }
+  }
+}

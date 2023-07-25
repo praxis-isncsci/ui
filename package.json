@@ -23,7 +23,8 @@
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.1",
     "rollup": "^3.26.0",
-    "storybook": "^7.0.24",
+    "storybook": "^7.3.0",
+    "style-dictionary": "^3.8.0",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "tslint": "^6.1.3",
     "typescript": "^5.1.6"
@@ -48,10 +49,12 @@
   "scripts": {
     "prebuild": "rimraf ./demo/scripts",
     "build": "rollup -c",
+    "build-styles": "style-dictionary build --config style-dictionary.config.json",
     "start": "http-server build/ -s -c-1 -p 44333",
     "tslint": "tslint -p .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "update-design-tokens": "node ./scripts/generate-token-files.ts && npm run build-styles"
   },
   "types": "./index.d.ts",
   "version": "0.0.1"
