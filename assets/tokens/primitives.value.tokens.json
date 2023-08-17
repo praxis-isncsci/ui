@@ -1,0 +1,62 @@
+{
+  "color": {
+    "gray": {
+      "100": {
+        "type": "color",
+        "value": "#ababab"
+      },
+      "200": {
+        "type": "color",
+        "value": "#848484"
+      },
+      "300": {
+        "type": "color",
+        "value": "#777777"
+      },
+      "400": {
+        "type": "color",
+        "value": "#6a6a6a"
+      },
+      "500": {
+        "type": "color",
+        "value": "#5e5e5e"
+      },
+      "600": {
+        "type": "color",
+        "value": "#525252"
+      },
+      "700": {
+        "type": "color",
+        "value": "#3b3b3b"
+      },
+      "800": {
+        "type": "color",
+        "value": "#303030"
+      },
+      "900": {
+        "type": "color",
+        "value": "#1b1b1b"
+      },
+      "1000": {
+        "type": "color",
+        "value": "#000000"
+      },
+      "015": {
+        "type": "color",
+        "value": "#f9f9f9"
+      },
+      "025": {
+        "type": "color",
+        "value": "#f1f1f1"
+      },
+      "050": {
+        "type": "color",
+        "value": "#d4d4d4"
+      },
+      "000": {
+        "type": "color",
+        "value": "#ffffff"
+      }
+    }
+  }
+}

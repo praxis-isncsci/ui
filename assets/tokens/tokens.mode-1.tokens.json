@@ -1,0 +1,8 @@
+{
+  "text": {
+    "text-primary": {
+      "type": "color",
+      "value": "{color.gray.900}"
+    }
+  }
+}
