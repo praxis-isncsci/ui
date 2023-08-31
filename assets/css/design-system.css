@@ -1,1 +1,35 @@
-@import url('_primitives-tokens.css');
+@import url('_tokens.css');
+@import url('_text-scale.css');
+
+body {
+  font-family: Inter, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+  font-weight: lighter;
+  background-image: linear-gradient(to bottom right, rgba(51, 47, 255, .2), rgba(249, 107, 252, .5));
+}
+
+body::after {
+  background-image: url('../images/cross-section-blur-black.png');
+  background-blend-mode: hard-light;
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
+  content: '';
+  opacity: 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: -1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}

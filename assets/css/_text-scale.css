@@ -1,0 +1,64 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/Inter-VariableFont_slnt,wght.ttf');
+}
+
+:root {
+  --text-font-family: Inter, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+}
+
+.text-caption-2 {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-caption-2-font-size);
+  font-weight: var(--type-scale-caption-2-font-weight);
+  line-height: var(--type-scale-caption-2-line-height);
+}
+
+.text-caption-2-strong {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-caption-2-strong-font-size);
+  font-weight: var(--type-scale-caption-2-strong-font-weight);
+  line-height: var(--type-scale-caption-2-strong-line-height);
+}
+
+.text-caption-1 {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-caption-1-font-size);
+  font-weight: var(--type-scale-caption-1-font-weight);
+  line-height: var(--type-scale-caption-1-line-height);
+}
+
+.text-caption-1-strong {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-caption-1-strong-font-size);
+  font-weight: var(--type-scale-caption-1-strong-font-weight);
+  line-height: var(--type-scale-caption-1-strong-line-height);
+}
+
+.text-caption-1-stronger {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-caption-1-stronger-font-size);
+  font-weight: var(--type-scale-caption-1-stronger-font-weight);
+  line-height: var(--type-scale-caption-1-stronger-line-height);
+}
+
+.text-body-1 {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-body-1-font-size);
+  font-weight: var(--type-scale-body-1-font-weight);
+  line-height: var(--type-scale-body-1-line-height);
+}
+
+.text-body-1-strong {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-body-1-strong-font-size);
+  font-weight: var(--type-scale-body-1-strong-font-weight);
+  line-height: var(--type-scale-body-1-strong-line-height);
+}
+
+.text-body-1-stronger {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-body-1-stronger-font-size);
+  font-weight: var(--type-scale-body-1-stronger-font-weight);
+  line-height: var(--type-scale-body-1-stronger-line-height);
+}
