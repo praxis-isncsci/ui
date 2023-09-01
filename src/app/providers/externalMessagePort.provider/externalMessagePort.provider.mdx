@@ -1,0 +1,89 @@
+{/* externalMessagePort.provider.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as ExternalMessagePortProviderStories from './externalMessagePort.provider.stories';
+
+<Meta of={ExternalMessagePortProviderStories} />
+
+# External message port provider
+
+## Problem
+
+Some systems do not want to import the ISNCSCI libraries and implement their own component.
+They would prefer to use an `<iframe>` to load a simplified version of the web app.
+We need to provide a way to send messages to the app for these types of implementations in a secure way.
+
+## Solution
+
+We will provide a way to send and receive messages from the app via a [message port](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort).
+The `ExternalMessagePortProvider` implements `@core/boundaries/IExternalMessageProvider`.
+It listens to the window's `MessageEvent` with the `MessageEvent.data.action === 'INITIALIZE_PORT'` and the port to be used to communicate as the first entry of `MessageEvent.ports`.
+Once it has initialized, it will send out messages through the port everytime the ISNCSCI form is updated.
+
+The following is a simple example on how to register a port with the `ExternalMessagePortProvider`:
+
+```typescript
+// 1. Create a MessageChannel and get a reference to `port1`
+//    so we can use it to listen for messages
+const channel = new MessageChannel();
+const port1 = channel.port1;
+
+// Listen for messages on `port1`
+port1.onmessage = (e) => {
+  console.log('Message received from iframe', e.data);
+};
+
+// 2. Register `port2` with the ExternalMessagePortProvider
+//    using the IFrame's `postMessage` mehtod.
+const isncsciIframe = document.querySelector('iframe');
+
+isncsciIframe.addEventListener('load', () => {
+    isncsciIframe.contentWindow.postMessage({action: 'INITIALIZE_PORT'}, '*', [channel.port2]);
+});
+```
+
+You can pass exam data to the ISNCSCI form by sending a message with the `action` of `SET_EXAM_DATA` and the exam data.
+
+```typescript
+import {Exam} from 'isncsci';
+
+// Create exam
+let exam: Exam = {
+  deepAnalPressure: 'Yes',
+  voluntaryAnalContraction: 'Yes',
+  right: {
+    lowestNonKeyMuscleWithMotorFunction: 'C8',
+    motor: {
+      C5: '5',
+      /* ... */
+      S1: '2*',
+    },
+    lightTouch: {
+      C2: '2',
+      /* ... */
+      S4_5: '1*',
+    },
+    pinPrick: {
+      C2: '1**',
+      /* ... */
+      S4_5: '0',
+    }
+  },
+  left: {
+    motor: { /* ... */ },
+    lightTouch: { /* ... */ },
+    pinPrick: { /* ... */ },
+  },
+}
+
+// Send the exam data through the port
+port1.postMessage({action: 'SET_EXAM_DATA', exam});
+```
+
+> Reference: [MDN: Using window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
+
+### Primary
+
+> This example loads http://localhost:44333/ on the iFrame. Make sure to have the site up by running `npm start` in the root of the project.
+
+<Canvas of={ExternalMessagePortProviderStories.Primary} />

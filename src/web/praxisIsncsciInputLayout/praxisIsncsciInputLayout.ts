@@ -1,6 +1,6 @@
 'use strict';
 
-import '@web/praxis-isncsci-grid';
+import '@web/praxisIsncsciGrid';
 
 export class PraxisIsncsciInputLayout extends HTMLElement {
   public static get is(): string {

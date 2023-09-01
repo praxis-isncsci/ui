@@ -1,0 +1,1 @@
+export {PraxisIsncsciCell} from './praxisIsncsciCell';

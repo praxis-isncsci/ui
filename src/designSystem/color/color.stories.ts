@@ -1,6 +1,6 @@
 import {html} from 'lit';
 import type {Meta, StoryObj} from '@storybook/web-components';
-import '/workspaces/isncsci-ui/assets/css/design-system.css';
+import '/assets/css/design-system.css';
 import  './';
 
 import * as Primitives from 'assets/tokens/primitives.value.tokens.json';

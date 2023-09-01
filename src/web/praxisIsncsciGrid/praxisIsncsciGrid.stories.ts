@@ -1,13 +1,12 @@
 import {html} from 'lit';
 import type {Meta, StoryObj} from '@storybook/web-components';
-import './praxis-isncsci-input-layout';
-import '/workspaces/isncsci-ui/assets/css/design-system.css';
+import './praxisIsncsciGrid';
 
 // More on how to set up stories at: https://storybook.js.org/docs/web-components/writing-stories/introduction
 const meta = {
-  title: 'Example/PraxisIsncsciInputLayout',
+  title: 'Example/PraxisIsncsciGrid',
   tags: ['autodocs'],
-  render: () => html`<praxis-isncsci-input-layout></praxis-isncsci-grid-input-layout>`,
+  render: () => html`<praxis-isncsci-grid></praxis-isncsci-grid>`,
 } satisfies Meta;
 
 export default meta;

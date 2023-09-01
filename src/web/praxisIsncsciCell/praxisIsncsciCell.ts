@@ -31,7 +31,7 @@ export class PraxisIsncsciCell extends HTMLElement {
     <slot></slot>
   `;
 
-  private messageElement: HTMLElement;
+  private messageElement: HTMLElement | null = null;
 
   public constructor() {
     super();
@@ -50,7 +50,7 @@ export class PraxisIsncsciCell extends HTMLElement {
       return;
     }
 
-    if (name === 'message') {
+    if (name === 'message' && this.messageElement) {
       this.messageElement.textContent = newValue;
       return;
     }

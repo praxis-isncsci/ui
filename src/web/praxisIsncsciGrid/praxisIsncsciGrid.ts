@@ -1,7 +1,5 @@
-'use strict';
-
-import { MotorLevels, SensoryLevel, SensoryLevels } from '@core/entities/isncsci-levels';
-import '@web/praxis-isncsci-cell';
+import {MotorLevels, SensoryLevel, SensoryLevels} from '@core/domain/isncsciLevels';
+import '@web/praxisIsncsciCell';
 
 export class PraxisIsncsciGrid extends HTMLElement {
   public static get is(): string {
