@@ -1,1 +1,4 @@
-import '@web/praxis-isncsci-grid';
+import {App} from './app';
+import '@web/praxisIsncsciGrid';
+
+console.log(App);

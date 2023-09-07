@@ -17,7 +17,7 @@
     "removeComments": false,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "target": "es6",
     "paths": {
       "@app/*": ["src/app/*"],

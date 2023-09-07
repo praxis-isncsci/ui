@@ -23,7 +23,8 @@ const config: StorybookConfig = {
       // Modify config for production
     }
     return config;
-  },     
+  },
+  staticDirs: [{from: '../assets/css', to: '/assets/css'}],
 };
 
 export default config;

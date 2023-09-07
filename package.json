@@ -1,7 +1,13 @@
 {
-  "author": "Praxis Tech <tech@praxisinstitute.org>",
+  "author": {
+    "name": "Praxis Tech",
+    "email": "tech@praxisinstitute.org"
+  },
   "bugs": {
     "url": "https://github.com/rhi-isncsci/ui/issues"
+  },
+  "dependencies": {
+    "isncsci": "^2.0.6"
   },
   "description": "Web components package for the ISNCSCI project.",
   "devDependencies": {
@@ -15,6 +21,7 @@
     "@storybook/blocks": "^7.0.24",
     "@storybook/web-components": "^7.0.24",
     "@storybook/web-components-webpack5": "^7.0.24",
+    "chromatic": "^7.0.0",
     "copyfiles": "^2.4.1",
     "http-server": "^14.1.1",
     "lit": "^2.7.5",
@@ -45,9 +52,12 @@
   "module": "./index.js",
   "name": "praxis-isncsci-ui",
   "private": false,
-  "repository": "https://github.com/praxis-isncsci/ui.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/praxis-isncsci/ui.git"
+  },
   "scripts": {
-    "prebuild": "rimraf ./demo/scripts",
+    "prebuild": "rimraf ./build",
     "build": "rollup -c",
     "build-styles": "style-dictionary build --config style-dictionary.config.json",
     "start": "http-server build/ -s -c-1 -p 44333",
@@ -57,5 +67,7 @@
     "update-design-tokens": "node ./scripts/generate-token-files.ts && npm run build-styles"
   },
   "types": "./index.d.ts",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "readme": "README.md",
+  "_id": "praxis-isncsci-ui@0.0.1"
 }
