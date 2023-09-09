@@ -1,0 +1,1 @@
+export {getGridModel} from './gridModelHelper';
