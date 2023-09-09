@@ -1,4 +1,4 @@
-import {MotorLevels, SensoryLevel, SensoryLevels} from '@core/domain/isncsciLevels';
+import {MotorLevels, SensoryLevel, SensoryLevels} from '@core/domain';
 import '@web/praxisIsncsciCell';
 
 export class PraxisIsncsciGrid extends HTMLElement {
@@ -75,15 +75,15 @@ export class PraxisIsncsciGrid extends HTMLElement {
         padding-right: 12px;
       }
 
-      [data-observation$="motor"] {
+      [data-observation^="motor-"] {
         grid-column: motor;
       }
 
-      [data-observation$="-light-touch"] {
+      [data-observation^="light-touch-"] {
         grid-column: light-touch;
       }
 
-      [data-observation$="-pin-prick"] {
+      [data-observation^="pin-prick-"] {
         grid-column: pin-prick;
       }
     </style>
@@ -114,7 +114,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
       return '';
     }
 
-    const slug = `${level}-${observationType}`;
+    const slug = `${observationType}-${level}`;
     const value = this.getAttribute(slug);
     return `<praxis-isncsci-cell data-observation="${slug}">${value ?? ''}</praxis-isncsci-cell>`;
   }
@@ -144,7 +144,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
           `
         : `
             <div class="label">${level}</div>
-            ${MotorLevels.includes(level) ? `<praxis-isncsci-cell data-observation="${level}-motor"></praxis-isncsci-cell>` : ''}
+            ${this.getCell(level, 'motor')}
             ${this.getCell(level, 'light-touch')}
             ${this.getCell(level, 'pin-prick')}
           `;

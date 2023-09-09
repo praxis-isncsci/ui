@@ -1,4 +1,4 @@
-import {Cell, MotorLevels, SensoryLevels} from '../domain';
+import {Cell, MotorLevels, SensoryLevels} from '@core/domain';
 
 const getCell = (name: string): Cell => {
   const cell: Cell = {
@@ -16,9 +16,9 @@ const getMotorRow = (level: string): Array<Cell | null> => {
   const row: Array<Cell | null> = [
     getCell(`right-motor-${level}`),
     getCell(`right-light-touch-${level}`),
-    getCell(`right-pinPrick-${level}`),
-    getCell(`left-lightTouch-${level}`),
-    getCell(`left-pinPrick-${level}`),
+    getCell(`right-pin-prick-${level}`),
+    getCell(`left-light-touch-${level}`),
+    getCell(`left-pin-prick-${level}`),
     getCell(`left-motor-${level}`),
   ];
   
@@ -29,9 +29,9 @@ const getSensoryRow = (level: string): Array<Cell | null> => {
   const row: Array<Cell | null> = [
     null,
     getCell(`right-light-touch-${level}`),
-    getCell(`right-pinPrick-${level}`),
-    getCell(`left-lightTouch-${level}`),
-    getCell(`left-pinPrick-${level}`),
+    getCell(`right-pin-prick-${level}`),
+    getCell(`left-light-touch-${level}`),
+    getCell(`left-pin-prick-${level}`),
     null,
   ];
 

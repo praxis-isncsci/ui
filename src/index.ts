@@ -1,4 +1,8 @@
-import {App} from './app';
-import '@web/praxisIsncsciGrid';
+import {AppStoreProvider} from '@app/providers';
+import {appStore} from '@app/store';
 
-console.log(App);
+import {App} from './app';
+
+import '@web/praxisIsncsciInputLayout';
+
+const app = new App(appStore, new AppStoreProvider(appStore));
