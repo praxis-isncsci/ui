@@ -26,14 +26,13 @@ export class InputLayoutController {
 
   private updateView(gridModel: Array<Cell | null>[]): void {
     gridModel.forEach((row) => {
-      row.forEach((cell, cellIndex) => {
+      row.forEach((cell) => {
         if (!cell) {
           return;
         }
         
-        const prefix = cellIndex < 3 ? 'left' : 'right';
         const cellElement = this.cells[`${cell?.name}`];
-        console.log('cellElement', cellElement, `${cell?.name}`);
+        
         if (cellElement) {
           cellElement.innerHTML = cell?.value ?? '';
         }

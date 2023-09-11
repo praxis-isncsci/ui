@@ -1,1 +1,1 @@
-export {getGridModel} from './gridModelHelper';
+export {bindExamDataToGridModel, validateExamData} from './examData.helper';

@@ -13,7 +13,7 @@ export const SensoryLevels: SensoryLevel[] = [
   'S2', 'S3', 'S4_5',
 ];
 
-export const MotorLevels = [
+export const MotorLevels: MotorLevel[] = [
   'C5', 'C6', 'C7', 'C8', 'T1',
   'L2', 'L3', 'L4', 'L5', 'S1',
 ];
@@ -21,3 +21,17 @@ export const MotorLevels = [
 export type MotorLevel =
   'C5' | 'C6' | 'C7' | 'C8' | 'T1' |
   'L2' | 'L3' | 'L4' | 'L5' | 'S1';
+
+export const ValidSensoryValues = [
+  '0', '1', '2',
+  '0*', '1*',
+  '0**', '1**',
+  'NT', 'NT*', 'NT**',
+];
+
+export const ValidMotorValues = [
+  '0', '1', '2', '3', '4', '5',
+  '0*', '1*', '2*', '3*', '4*',
+  '0**', '1**', '2**', '3**', '4**',
+  'NT', 'NT*', 'NT**',
+];
