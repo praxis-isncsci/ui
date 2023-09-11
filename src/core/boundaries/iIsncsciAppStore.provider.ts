@@ -3,7 +3,6 @@ import {Exam} from 'isncsci';
 import {Cell} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
-  setExam(exam: Exam): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
   // clearDermatomeSelection(): Promise<void>;
   selectDermatome(dermatomeName: string): Promise<void>;

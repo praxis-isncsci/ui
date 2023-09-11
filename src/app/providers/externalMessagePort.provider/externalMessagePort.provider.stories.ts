@@ -1,7 +1,10 @@
 import {html} from 'lit';
 import type {Meta, StoryObj} from '@storybook/web-components';
-import {MotorLevels as ML, SensoryLevels as SL} from '@core/domain';
-import {MotorLevel} from 'isncsci/cjs/interfaces';
+import {
+  MotorLevel,
+  MotorLevels as ML,
+  SensoryLevels as SL,
+} from '@core/domain';
 
 const SensoryLevels = SL.splice(0);
 const MotorLevels = ML.splice(0);
@@ -83,7 +86,7 @@ const template = () => html`
       width: 100%;
     }
     </style>
-    <iframe isncsci src="http://localhost:44333/"></iframe>
+    <iframe isncsci src="https://ashy-river-029cc4703.3.azurestaticapps.net/"></iframe>
     <button test-button>Load random exam</button>
     <script>
       // We register this way to avoid getting exceptions of functions being already declared when navigating between stories.

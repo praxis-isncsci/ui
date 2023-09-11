@@ -6,10 +6,6 @@ import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
 export class AppStoreProvider implements IIsncsciAppStoreProvider {
   public constructor(private appStore: IDataStore<IAppState>) {}
 
-  public setExam(exam: Exam): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-
   public selectDermatome(dermatomeName: string): Promise<void> {
     throw new Error('Method not implemented.');
   }

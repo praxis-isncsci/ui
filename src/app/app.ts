@@ -1,9 +1,7 @@
-import {Exam} from 'isncsci';
-
 import {IAppState, IIsncsciAppStoreProvider, StatusCodes} from '@core/boundaries';
 import {
   initializeAppUseCase,
-  setExamFromExternalSourceUseCase,
+  loadExternalExamDataUseCase
 } from '@core/useCases';
 
 import {IDataStore} from '@app/store';
@@ -19,7 +17,7 @@ export class App {
   public constructor(private appStore: IDataStore<IAppState>, private appStoreProvider: IIsncsciAppStoreProvider) {
     this.unsubscribeFromStoreHandler = appStore.subscribe((state: IAppState, actionType: string) => this.stateChanged(state, actionType));
     this.unsubscribeFromExternalChannelHandler =
-      this.externalMessagePortProvider.subscribe((action: string, exam: Exam | null) => this.externalMessagePortProvider_onAction(action, exam));
+      this.externalMessagePortProvider.subscribe((action: string, examData: {[key: string]: string} | null) => this.externalMessagePortProvider_onAction(action, examData));
 
     window.addEventListener('load', () => this.window_onLoad());
   }
@@ -50,14 +48,13 @@ export class App {
     initializeAppUseCase(this.appStoreProvider);
   };
 
-  private externalMessagePortProvider_onAction(actionType: string, exam: Exam | null) {
+  private externalMessagePortProvider_onAction(actionType: string, examData: {[key: string]: string} | null) {
     switch(actionType) {
       case ExternalMessagePortProviderActions.ON_EXTERNAL_PORT:
         console.log('An external message port has been registered');
         break;
       case ExternalMessagePortProviderActions.ON_EXAM_DATA:
-        console.log('An exam has been received from the external message port', exam);
-        setExamFromExternalSourceUseCase(this.appStoreProvider, exam as Exam);
+        loadExternalExamDataUseCase(this.appStoreProvider, examData ?? {});
         break;
     }
   }

@@ -10,6 +10,5 @@ export class StatusCodes {
 
 export interface IAppState {
   gridModel: Array<Cell | null>[];
-  currentExam: Exam | null;
   status: number;
 }

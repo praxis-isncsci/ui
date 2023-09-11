@@ -1,4 +1,6 @@
 import {MotorLevels, SensoryLevel, SensoryLevels} from '@core/domain';
+import {MotorLevel} from '@core/domain';
+
 import '@web/praxisIsncsciCell';
 
 export class PraxisIsncsciGrid extends HTMLElement {
@@ -110,7 +112,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   private getCell(level: SensoryLevel, observationType: string): string {
-    if (observationType === 'motor' && !MotorLevels.includes(level)) {
+    if (observationType === 'motor' && !MotorLevels.includes(level as MotorLevel)) {
       return '';
     }
 

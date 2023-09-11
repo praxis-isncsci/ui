@@ -1,11 +1,11 @@
 import {
   Cell,
+  MotorLevel,
   MotorLevels,
   SensoryLevels,
   ValidMotorValues,
   ValidSensoryValues,
 } from '@core/domain';
-import {MotorLevel} from 'isncsci/cjs/interfaces';
 
 const validateSensoryValue = (dataKey: string, examData: any, errors: string[], validValues: string[]) => {
   const value = examData[dataKey];
