@@ -45,39 +45,26 @@ isncsciIframe.addEventListener('load', () => {
 You can pass exam data to the ISNCSCI form by sending a message with the `action` of `SET_EXAM_DATA` and the exam data.
 
 ```typescript
-import {Exam} from 'isncsci';
-
-// Create exam
-let exam: Exam = {
+// Create exam data
+let examData = {
   deepAnalPressure: 'Yes',
   voluntaryAnalContraction: 'Yes',
-  right: {
-    lowestNonKeyMuscleWithMotorFunction: 'C8',
-    motor: {
-      C5: '5',
-      /* ... */
-      S1: '2*',
-    },
-    lightTouch: {
-      C2: '2',
-      /* ... */
-      S4_5: '1*',
-    },
-    pinPrick: {
-      C2: '1**',
-      /* ... */
-      S4_5: '0',
-    }
-  },
-  left: {
-    motor: { /* ... */ },
-    lightTouch: { /* ... */ },
-    pinPrick: { /* ... */ },
-  },
+  rightMotorC5: '5',
+  /* ... */
+  rightMotorS1: '2*',
+  rightLightTouchC2: '2',
+  /* ... */
+  rightLightTouchS4_5: '1*',
+  rightPinPrickC2: '1**',
+  /* ... */
+  rightPinPrickS4_5: '0',
+  leftMotorC5: { /* ... */ },
+  leftLightTouchC2: { /* ... */ },
+  leftPinPrickC2: { /* ... */ },
 }
 
 // Send the exam data through the port
-port1.postMessage({action: 'SET_EXAM_DATA', exam});
+port1.postMessage({action: 'SET_EXAM_DATA', examData});
 ```
 
 > Reference: [MDN: Using window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
