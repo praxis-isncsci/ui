@@ -34,10 +34,12 @@ export const validateExamData = (examData: {[key: string]: string}) => {
   SensoryLevels.forEach(level => {
     validateSensoryValue(`rightLightTouch${level}`, examData, errors, ValidSensoryValues);
     validateSensoryValue(`rightPinPrick${level}`, examData, errors, ValidSensoryValues);
+    validateSensoryValue(`leftLightTouch${level}`, examData, errors, ValidSensoryValues);
+    validateSensoryValue(`leftPinPrick${level}`, examData, errors, ValidSensoryValues);
 
     if (MotorLevels.includes(level as MotorLevel)) {
       validateSensoryValue(`rightMotor${level}`, examData, errors, ValidMotorValues);
-      validateSensoryValue(`rightMotor${level}`, examData, errors, ValidMotorValues);
+      validateSensoryValue(`leftMotor${level}`, examData, errors, ValidMotorValues);
     }
   });
 
