@@ -1,5 +1,7 @@
 import {Exam} from 'isncsci';
 
+import {Cell} from '@core/domain'
+
 export class StatusCodes {
   public static Initializing: number = 2;
   public static NotInitialized: number = 0;
@@ -7,6 +9,6 @@ export class StatusCodes {
 }
 
 export interface IAppState {
-  currentExam: Exam | null;
+  gridModel: Array<Cell | null>[];
   status: number;
 }

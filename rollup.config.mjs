@@ -1,5 +1,3 @@
-'use strict';
-
 import copyfiles from 'copyfiles';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';

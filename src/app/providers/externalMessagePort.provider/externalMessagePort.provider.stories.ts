@@ -1,173 +1,41 @@
 import {html} from 'lit';
 import type {Meta, StoryObj} from '@storybook/web-components';
-import {Exam} from 'isncsci';
-import {BinaryObservation, MotorMuscleValue, SensoryPointValue} from 'isncsci/cjs/interfaces';
+import {
+  MotorLevel,
+  MotorLevels as ML,
+  SensoryLevels as SL,
+} from '@core/domain';
 
-const getRandomIsncsciExam = () => {
-  const motorValues: MotorMuscleValue[] = ['0', '1', '2', '3', '4', '5'];
-  const sensoryValues: SensoryPointValue[] = ['0', '1', '2'];
-  const binaryObservation: BinaryObservation[] = ['Yes', 'No'];
+const SensoryLevels = SL.splice(0);
+const MotorLevels = ML.splice(0);
+
+const getRandomExamData = () => {
+  const motorValues = ['0', '1', '2', '3', '4', '5'];
+  const sensoryValues = ['0', '1', '2'];
+  const binaryObservation = ['Yes', 'No'];
 
   const randomElement = <T>(array: T[]): T => {
     return array[Math.floor(Math.random() * array.length)];
   }
 
-  const exam: Exam = {
-    deepAnalPressure: randomElement(binaryObservation),
-    left: {
-      motor: {
-        C5: randomElement(motorValues),
-        C6: randomElement(motorValues),
-        C7: randomElement(motorValues),
-        C8: randomElement(motorValues),
-        T1: randomElement(motorValues),
-        L2: randomElement(motorValues),
-        L3: randomElement(motorValues),
-        L4: randomElement(motorValues),
-        L5: randomElement(motorValues),
-        S1: randomElement(motorValues),
-      },
-      lightTouch: {
-        C2: randomElement(sensoryValues),
-        C3: randomElement(sensoryValues),
-        C4: randomElement(sensoryValues),
-        C5: randomElement(sensoryValues),
-        C6: randomElement(sensoryValues),
-        C7: randomElement(sensoryValues),
-        C8: randomElement(sensoryValues),
-        T1: randomElement(sensoryValues),
-        T2: randomElement(sensoryValues),
-        T3: randomElement(sensoryValues),
-        T4: randomElement(sensoryValues),
-        T5: randomElement(sensoryValues),
-        T6: randomElement(sensoryValues),
-        T7: randomElement(sensoryValues),
-        T8: randomElement(sensoryValues),
-        T9: randomElement(sensoryValues),
-        T10: randomElement(sensoryValues),
-        T11: randomElement(sensoryValues),
-        T12: randomElement(sensoryValues),
-        L1: randomElement(sensoryValues),
-        L2: randomElement(sensoryValues),
-        L3: randomElement(sensoryValues),
-        L4: randomElement(sensoryValues),
-        L5: randomElement(sensoryValues),
-        S1: randomElement(sensoryValues),
-        S2: randomElement(sensoryValues),
-        S3: randomElement(sensoryValues),
-        S4_5: randomElement(sensoryValues),
-      },
-      pinPrick: {
-        C2: randomElement(sensoryValues),
-        C3: randomElement(sensoryValues),
-        C4: randomElement(sensoryValues),
-        C5: randomElement(sensoryValues),
-        C6: randomElement(sensoryValues),
-        C7: randomElement(sensoryValues),
-        C8: randomElement(sensoryValues),
-        T1: randomElement(sensoryValues),
-        T2: randomElement(sensoryValues),
-        T3: randomElement(sensoryValues),
-        T4: randomElement(sensoryValues),
-        T5: randomElement(sensoryValues),
-        T6: randomElement(sensoryValues),
-        T7: randomElement(sensoryValues),
-        T8: randomElement(sensoryValues),
-        T9: randomElement(sensoryValues),
-        T10: randomElement(sensoryValues),
-        T11: randomElement(sensoryValues),
-        T12: randomElement(sensoryValues),
-        L1: randomElement(sensoryValues),
-        L2: randomElement(sensoryValues),
-        L3: randomElement(sensoryValues),
-        L4: randomElement(sensoryValues),
-        L5: randomElement(sensoryValues),
-        S1: randomElement(sensoryValues),
-        S2: randomElement(sensoryValues),
-        S3: randomElement(sensoryValues),
-        S4_5: randomElement(sensoryValues),
-      },
-      // lowestNonKeyMuscleWithMotorFunction: convertStringToMotorLevel(examData.LowestNonkeyMotorFunctionLeft),
-    },
-    right: {
-      motor: {
-        C5: randomElement(motorValues),
-        C6: randomElement(motorValues),
-        C7: randomElement(motorValues),
-        C8: randomElement(motorValues),
-        T1: randomElement(motorValues),
-        L2: randomElement(motorValues),
-        L3: randomElement(motorValues),
-        L4: randomElement(motorValues),
-        L5: randomElement(motorValues),
-        S1: randomElement(motorValues),
-      },
-      lightTouch: {
-        C2: randomElement(sensoryValues),
-        C3: randomElement(sensoryValues),
-        C4: randomElement(sensoryValues),
-        C5: randomElement(sensoryValues),
-        C6: randomElement(sensoryValues),
-        C7: randomElement(sensoryValues),
-        C8: randomElement(sensoryValues),
-        T1: randomElement(sensoryValues),
-        T2: randomElement(sensoryValues),
-        T3: randomElement(sensoryValues),
-        T4: randomElement(sensoryValues),
-        T5: randomElement(sensoryValues),
-        T6: randomElement(sensoryValues),
-        T7: randomElement(sensoryValues),
-        T8: randomElement(sensoryValues),
-        T9: randomElement(sensoryValues),
-        T10: randomElement(sensoryValues),
-        T11: randomElement(sensoryValues),
-        T12: randomElement(sensoryValues),
-        L1: randomElement(sensoryValues),
-        L2: randomElement(sensoryValues),
-        L3: randomElement(sensoryValues),
-        L4: randomElement(sensoryValues),
-        L5: randomElement(sensoryValues),
-        S1: randomElement(sensoryValues),
-        S2: randomElement(sensoryValues),
-        S3: randomElement(sensoryValues),
-        S4_5: randomElement(sensoryValues),
-      },
-      pinPrick: {
-        C2: randomElement(sensoryValues),
-        C3: randomElement(sensoryValues),
-        C4: randomElement(sensoryValues),
-        C5: randomElement(sensoryValues),
-        C6: randomElement(sensoryValues),
-        C7: randomElement(sensoryValues),
-        C8: randomElement(sensoryValues),
-        T1: randomElement(sensoryValues),
-        T2: randomElement(sensoryValues),
-        T3: randomElement(sensoryValues),
-        T4: randomElement(sensoryValues),
-        T5: randomElement(sensoryValues),
-        T6: randomElement(sensoryValues),
-        T7: randomElement(sensoryValues),
-        T8: randomElement(sensoryValues),
-        T9: randomElement(sensoryValues),
-        T10: randomElement(sensoryValues),
-        T11: randomElement(sensoryValues),
-        T12: randomElement(sensoryValues),
-        L1: randomElement(sensoryValues),
-        L2: randomElement(sensoryValues),
-        L3: randomElement(sensoryValues),
-        L4: randomElement(sensoryValues),
-        L5: randomElement(sensoryValues),
-        S1: randomElement(sensoryValues),
-        S2: randomElement(sensoryValues),
-        S3: randomElement(sensoryValues),
-        S4_5: randomElement(sensoryValues),
-      },
-      // lowestNonKeyMuscleWithMotorFunction: convertStringToMotorLevel(examData.LowestNonkeyMotorFunctionRight),
-    },
-    voluntaryAnalContraction: randomElement(binaryObservation),
+  const examData = {
+    'deepAnalPressure': randomElement(binaryObservation),
+    'voluntaryAnalContraction': randomElement(binaryObservation),
   };
 
-  return exam;
+  SensoryLevels.forEach(level => {
+    examData[`rightLightTouch${level}`] = randomElement(sensoryValues);
+    examData[`rightPinPrick${level}`] = randomElement(sensoryValues);
+    examData[`leftLightTouch${level}`] = randomElement(sensoryValues);
+    examData[`leftPinPrick${level}`] = randomElement(sensoryValues);
+
+    if (MotorLevels.includes(level as MotorLevel)) {
+      examData[`rightMotor${level}`] = randomElement(motorValues);
+      examData[`leftMotor${level}`] = randomElement(motorValues);
+    }
+  });
+
+  return examData;
 };
 
 /*
@@ -203,7 +71,7 @@ const storyInitializer  = () => {
       'click',
       () => {
         console.log('Message sent to iframe');
-        port1.postMessage({action: 'SET_EXAM_DATA', exam: getRandomIsncsciExam()});
+        port1.postMessage({action: 'SET_EXAM_DATA', examData: getRandomExamData()});
       }
     );
   });
@@ -218,12 +86,14 @@ const template = () => html`
       width: 100%;
     }
     </style>
-    <iframe isncsci src="https://ashy-river-029cc4703-12.westeurope.3.azurestaticapps.net"></iframe>
+    <iframe isncsci src="https://ashy-river-029cc4703.3.azurestaticapps.net/"></iframe>
     <button test-button>Load random exam</button>
     <script>
       // We register this way to avoid getting exceptions of functions being already declared when navigating between stories.
       (() => {
-        const getRandomIsncsciExam = ${getRandomIsncsciExam.toString()};
+        const SensoryLevels =  ${JSON.stringify(SensoryLevels)};
+        const MotorLevels =  ${JSON.stringify(MotorLevels)};
+        const getRandomExamData = ${getRandomExamData.toString()};
         const storyInitializer = ${storyInitializer.toString()};
         storyInitializer();
       })();

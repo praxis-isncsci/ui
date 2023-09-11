@@ -5,7 +5,7 @@ import * as Reducers from './reducers';
 class AppStore implements IDataStore<IAppState> {
   private handlers: Function[] = [];
   private state: IAppState = {
-    currentExam: null,
+    gridModel: [],
     status: StatusCodes.NotInitialized,
   };
 

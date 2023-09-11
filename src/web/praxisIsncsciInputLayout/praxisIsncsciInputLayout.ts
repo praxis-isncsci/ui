@@ -1,5 +1,3 @@
-'use strict';
-
 import '@web/praxisIsncsciGrid';
 
 export class PraxisIsncsciInputLayout extends HTMLElement {
