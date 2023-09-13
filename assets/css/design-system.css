@@ -4,10 +4,13 @@
 body {
   font-family: Inter, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
   font-weight: lighter;
+}
+
+body.app {
   background-image: linear-gradient(to bottom right, rgba(51, 47, 255, .2), rgba(249, 107, 252, .5));
 }
 
-body::after {
+body.app::after {
   background-image: url('../images/cross-section-blur-black.png');
   background-blend-mode: hard-light;
   background-position: center;
