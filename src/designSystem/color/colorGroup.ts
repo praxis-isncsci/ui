@@ -1,6 +1,6 @@
 export class ColorGroup extends HTMLElement {
   public static get is(): string {
-    return 'color-group';
+    return "color-group";
   }
 
   private template: string = `
@@ -17,7 +17,7 @@ export class ColorGroup extends HTMLElement {
   public constructor() {
     super();
 
-    const shadowRoot: ShadowRoot = this.attachShadow({ mode: 'open' });
+    const shadowRoot: ShadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = this.template;
   }
 }
