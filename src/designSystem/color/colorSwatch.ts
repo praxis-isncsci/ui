@@ -1,3 +1,6 @@
+/**
+ * @tagname color-swatch
+ */
 export class ColorSwatch extends HTMLElement {
   public static get is(): string {
     return 'color-swatch';

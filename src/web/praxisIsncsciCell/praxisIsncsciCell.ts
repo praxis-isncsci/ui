@@ -1,5 +1,6 @@
-'use strict';
-
+/**
+ * @tagname praxis-isncsci-cell
+ */
 export class PraxisIsncsciCell extends HTMLElement {
   public static get is(): string {
     return 'praxis-isncsci-cell';
@@ -36,7 +37,7 @@ export class PraxisIsncsciCell extends HTMLElement {
   public constructor() {
     super();
 
-    const shadowRoot: ShadowRoot = this.attachShadow({ mode: 'open' });
+    const shadowRoot: ShadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.innerHTML = this.template;
   }
 
@@ -44,7 +45,6 @@ export class PraxisIsncsciCell extends HTMLElement {
     name: string,
     oldValue: string,
     newValue: string,
-    namespace: string,
   ): void {
     if (oldValue === newValue) {
       return;
