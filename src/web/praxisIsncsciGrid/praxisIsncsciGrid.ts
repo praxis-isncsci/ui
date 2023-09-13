@@ -1,5 +1,4 @@
-import {MotorLevels, SensoryLevel, SensoryLevels} from '@core/domain';
-import {MotorLevel} from '@core/domain';
+import {MotorLevel, MotorLevels, SensoryLevel, SensoryLevels} from '@core/domain';
 
 import '@web/praxisIsncsciCell';
 

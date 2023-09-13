@@ -4,7 +4,7 @@ import './praxisIsncsciGrid';
 
 // More on how to set up stories at: https://storybook.js.org/docs/web-components/writing-stories/introduction
 const meta = {
-  title: 'Example/PraxisIsncsciGrid',
+  title: 'WebComponents/PraxisIsncsciGrid',
   tags: ['autodocs'],
   render: () => html`<praxis-isncsci-grid></praxis-isncsci-grid>`,
 } satisfies Meta;
