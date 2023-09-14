@@ -1,11 +1,18 @@
-import {IAppState, IIsncsciAppStoreProvider, StatusCodes} from '@core/boundaries';
+import {
+  IAppState,
+  IIsncsciAppStoreProvider,
+  StatusCodes,
+} from '@core/boundaries';
 import {
   initializeAppUseCase,
-  loadExternalExamDataUseCase
+  loadExternalExamDataUseCase,
 } from '@core/useCases';
 
 import {IDataStore} from '@app/store';
-import {ExternalMessagePortProvider, ExternalMessagePortProviderActions} from '@app/providers';
+import {
+  ExternalMessagePortProvider,
+  ExternalMessagePortProviderActions,
+} from '@app/providers';
 import {InputLayoutController} from '@app/controllers/inputLayout.controller';
 
 export class App {
@@ -14,10 +21,19 @@ export class App {
   private unsubscribeFromExternalChannelHandler: Function | null = null;
   private ready = false;
 
-  public constructor(private appStore: IDataStore<IAppState>, private appStoreProvider: IIsncsciAppStoreProvider) {
-    this.unsubscribeFromStoreHandler = appStore.subscribe((state: IAppState, actionType: string) => this.stateChanged(state, actionType));
+  public constructor(
+    private appStore: IDataStore<IAppState>,
+    private appStoreProvider: IIsncsciAppStoreProvider,
+  ) {
+    this.unsubscribeFromStoreHandler = appStore.subscribe(
+      (state: IAppState, actionType: string) =>
+        this.stateChanged(state, actionType),
+    );
     this.unsubscribeFromExternalChannelHandler =
-      this.externalMessagePortProvider.subscribe((action: string, examData: {[key: string]: string} | null) => this.externalMessagePortProvider_onAction(action, examData));
+      this.externalMessagePortProvider.subscribe(
+        (action: string, examData: {[key: string]: string} | null) =>
+          this.externalMessagePortProvider_onAction(action, examData),
+      );
 
     window.addEventListener('load', () => this.window_onLoad());
   }
@@ -32,24 +48,33 @@ export class App {
     }
   }
 
-  public loadExam() {
-    console.log('loadExam');
-  }
-
   private window_onLoad() {
     const inputLayout = document.querySelector('praxis-isncsci-input-layout');
-    
-    if (!inputLayout || !inputLayout.shadowRoot) {
-      throw new Error('The input layout has not been initialized');
+    const totalsView = document.querySelector('praxis-isncsci-totals');
+
+    if (
+      !inputLayout ||
+      !inputLayout.shadowRoot ||
+      !totalsView ||
+      !totalsView.shadowRoot
+    ) {
+      throw new Error('The views have not been initialized');
     }
 
-    new InputLayoutController(this.appStore, inputLayout as HTMLElement);
+    new InputLayoutController(
+      this.appStore,
+      inputLayout as HTMLElement,
+      totalsView as HTMLElement,
+    );
 
     initializeAppUseCase(this.appStoreProvider);
-  };
+  }
 
-  private externalMessagePortProvider_onAction(actionType: string, examData: {[key: string]: string} | null) {
-    switch(actionType) {
+  private externalMessagePortProvider_onAction(
+    actionType: string,
+    examData: {[key: string]: string} | null,
+  ) {
+    switch (actionType) {
       case ExternalMessagePortProviderActions.ON_EXTERNAL_PORT:
         console.log('An external message port has been registered');
         break;
