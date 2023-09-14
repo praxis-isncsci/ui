@@ -7,6 +7,35 @@ class AppStore implements IDataStore<IAppState> {
   private state: IAppState = {
     gridModel: [],
     status: StatusCodes.NotInitialized,
+    totals: {
+      asiaImpairmentScale: '',
+      injuryComplete: '',
+      leftLightTouchTotal: '',
+      leftLowerMotorTotal: '',
+      leftMotor: '',
+      leftMotorTotal: '',
+      leftMotorZpp: '',
+      leftPinPrickTotal: '',
+      leftSensory: '',
+      leftSensoryZpp: '',
+      leftTouchTotal: '',
+      leftUpperMotorTotal: '',
+      lowerMotorTotal: '',
+      neurologicalLevelOfInjury: '',
+      pinPrickTotal: '',
+      rightLightTouchTotal: '',
+      rightLowerMotorTotal: '',
+      rightMotor: '',
+      rightMotorTotal: '',
+      rightMotorZpp: '',
+      rightPinPrickTotal: '',
+      rightSensory: '',
+      rightSensoryZpp: '',
+      rightTouchTotal: '',
+      rightUpperMotorTotal: '',
+      touchTotal: '',
+      upperMotorTotal: '',
+    },
   };
 
   public subscribe(handler: Function) {
@@ -17,8 +46,12 @@ class AppStore implements IDataStore<IAppState> {
       // The code after, however, will stop once it finds the handler to be removed from the subscriber's list.
       // this.handlers = this.handlers.filter((value: Function) => value != handler);
 
-      const index: number = this.handlers.findIndex((value: Function) => value === handler);
-      if (index > -1) { this.handlers.splice(index, 1); }
+      const index: number = this.handlers.findIndex(
+        (value: Function) => value === handler,
+      );
+      if (index > -1) {
+        this.handlers.splice(index, 1);
+      }
     };
   }
 
@@ -31,7 +64,9 @@ class AppStore implements IDataStore<IAppState> {
       this.state = reducer(this.state, action);
     });
 
-    this.handlers.forEach((handler: Function) => handler(this.state, action.type));
+    this.handlers.forEach((handler: Function) =>
+      handler(this.state, action.type),
+    );
   }
 }
 

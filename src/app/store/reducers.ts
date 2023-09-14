@@ -1,61 +1,50 @@
 import {IAppState} from '@core/boundaries';
-import {Exam} from 'isncsci';
+import {Totals} from '@core/domain';
+
 import {IActionWithPayload} from './';
 
 export class Actions {
-  public static SET_CURRENT_EXAM = 'SET_CURRENT_EXAM';
   public static UPDATE_STATUS = 'UPDATE_STATUS';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
+  public static SET_TOTALS = 'SET_TOTALS';
 }
 
-const currentExam = (state: IAppState, action: IActionWithPayload<{exam: Exam}>): IAppState => {
-  if (action.type !== Actions.SET_CURRENT_EXAM) {
-      return state;
-  }
-
-  return Object.assign(
-    {},
-    state,
-    {
-      currentExam: action.payload.exam,
-    }
-  );
-};
-
-const gridModel = (state: IAppState, action: IActionWithPayload<Array<any>>): IAppState => {
-  switch(action.type) {
+const gridModel = (
+  state: IAppState,
+  action: IActionWithPayload<Array<any>>,
+): IAppState => {
+  switch (action.type) {
     case Actions.SET_GRID_MODEL:
-      return Object.assign(
-        {},
-        state,
-        {gridModel: action.payload}
-      );
+      return Object.assign({}, state, {gridModel: action.payload});
     default:
       return state;
   }
 };
 
-const status = (state: IAppState, action: IActionWithPayload<number>): IAppState => {
-  switch(action.type) {
+const status = (
+  state: IAppState,
+  action: IActionWithPayload<number>,
+): IAppState => {
+  switch (action.type) {
     case Actions.UPDATE_STATUS:
-      return Object.assign(
-        {},
-        state,
-        {status: action.payload}
-      );
+      return Object.assign({}, state, {status: action.payload});
     default:
       return state;
   }
 };
 
-export {
-  currentExam,
-  gridModel,
-  status,
+const totals = (
+  state: IAppState,
+  action: IActionWithPayload<Totals>,
+): IAppState => {
+  switch (action.type) {
+    case Actions.SET_TOTALS:
+      return Object.assign({}, state, {totals: action.payload});
+    default:
+      return state;
+  }
 };
 
-export default [
-  currentExam,
-  gridModel,
-  status,
-];
+export {gridModel, status, totals};
+
+export default [gridModel, status, totals];

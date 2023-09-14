@@ -8,8 +8,8 @@ export class PraxisIsncsciTotals extends HTMLElement {
 
   public static get observedAttributes(): string[] {
     return [
-      'asia-level',
-      'complete-injury',
+      'asia-impairment-scale',
+      'injury-complete',
       'left-light-touch-total',
       'left-lower-motor-total',
       'left-motor',
@@ -21,7 +21,7 @@ export class PraxisIsncsciTotals extends HTMLElement {
       'left-touch-total',
       'left-upper-motor-total',
       'lower-motor-total',
-      'neurological-level',
+      'neurological-level-of-injury',
       'pin-prick-total',
       'right-light-touch-total',
       'right-lower-motor-total',
@@ -169,20 +169,20 @@ export class PraxisIsncsciTotals extends HTMLElement {
         <div>
           <div class="label-total">
             <div>Neurological level of injury (NLI)</div>
-            <div class="total" data-observation="neurological-level"></div>
+            <div class="total" data-observation="neurological-level-of-injury"></div>
           </div>
         </div>
         <div>
           <div>Complete or incomplete?</div>
           <div class="label-total">
             <div>Incomplete = Any sensory or motor funtion in S4-5</div>
-            <div class="total" data-observation="complete-injury"></div>
+            <div class="total" data-observation="injury-complete"></div>
           </div>
         </div>
         <div>
           <div class="label-total">
             <div>ASIA impairment scale (AIS)</div>
-            <div class="total" data-observation="asia-level"></div>
+            <div class="total" data-observation="asia-impairment-scale"></div>
           </div>
         </div>
         <div>

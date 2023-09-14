@@ -11,17 +11,18 @@
     <!-- Add any global styles for body, document, etc. -->
     <style>
       body {
-        font-family: var(--theme-font-family, 'Segoe UI',Arial, sans-serif);
+        font-family: var(--theme-font-family, 'Segoe UI', Arial, sans-serif);
       }
     </style>
-    <script>window.process = {env: {NODE_ENV: 'development'} };</script>
+    <script>
+      window.process = {env: {NODE_ENV: 'development'}};
+    </script>
   </head>
   <body class="text-body-1">
-    <noscript>
-      Please enable JavaScript to view this website.
-    </noscript>
+    <noscript> Please enable JavaScript to view this website. </noscript>
     <h1>ISNCSCI Algorithm App</h1>
     <praxis-isncsci-input-layout></praxis-isncsci-input-layout>
+    <praxis-isncsci-totals></praxis-isncsci-totals>
     <script src="scripts/bundle.js" type="module"></script>
   </body>
 </html>
