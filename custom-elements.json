@@ -1,0 +1,456 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciCell/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciCell",
+          "declaration": {
+            "name": "PraxisIsncsciCell",
+            "module": "./praxisIsncsciCell"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciCell/praxisIsncsciCell.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciCell",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "`\n    <style>\n      :host {\n        align-items: center;\n        background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));\n        /*backdrop-filter: blur(150px);*/\n        box-shadow: 0 1px 2px rgba(0, 0, 0, .1);\n        border: solid .5px rgba(0, 0, 0, .2);\n        border-radius: 2px;\n        display: flex;\n        justify-content: center;\n        min-height: 32px;\n        min-width: 32px;\n      }\n\n      :host([selected]) {\n        transform: scale(1.1);\n      }\n    </style>\n    <slot></slot>\n  `"
+            },
+            {
+              "kind": "field",
+              "name": "messageElement",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "message"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-cell",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciCell",
+          "declaration": {
+            "name": "PraxisIsncsciCell",
+            "module": "src/web/praxisIsncsciCell/praxisIsncsciCell.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciCell",
+            "module": "src/web/praxisIsncsciCell/praxisIsncsciCell.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciGrid/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciGrid",
+          "declaration": {
+            "name": "PraxisIsncsciGrid",
+            "module": "./praxisIsncsciGrid"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciGrid/praxisIsncsciGrid.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciGrid",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "`\n    <style>\n      :host {\n        --cell-gap: 0;\n        --cell-height: 38px;\n        --cell-width: 40px;\n        column-gap: var(--cell-gap);\n        display: grid;\n        grid-template-columns: var(--cell-width) var(--cell-width) var(--cell-width) var(--cell-width);\n        /*grid-template-rows: var(--cell-height) var(--cell-height) repeat(28, var(--cell-height));*/\n        grid-template-areas:\n          'side side side side'\n          '. mh lth pph'\n          'label motor light-touch pin-prick';\n        grid-template-rows: 26px 24px repeat(28, var(--cell-height));\n        row-gap: var(--cell-gap);\n      }\n\n      :host([left]) {\n        grid-template-areas:\n          'side side side side'\n          'lth pph mh .'\n          'light-touch pin-prick motor label';\n      }\n\n      :host([left]) .label {\n        padding-left: 12px;\n        padding-right: 0;\n      }\n\n      :host([labels-hidden]) .label {\n        display: none;\n      }\n\n      .header {\n        font-weight: lighter;\n        margin: 0;\n        padding: 0;\n        text-align: center;\n      }\n\n      .header.side {\n        grid-column: side;\n      }\n\n      .header.motor {\n        grid-column: mh;\n      }\n\n      .header.light-touch {\n        grid-column: lth;\n      }\n\n      .header.pin-prick {\n        grid-column: pph;\n      }\n\n      .label {\n        align-items: center;\n        display: flex;\n        grid-column: label;\n        justify-content: right;\n        padding-right: 12px;\n      }\n\n      [data-observation^=\"motor-\"] {\n        grid-column: motor;\n      }\n\n      [data-observation^=\"light-touch-\"] {\n        grid-column: light-touch;\n      }\n\n      [data-observation^=\"pin-prick-\"] {\n        grid-column: pin-prick;\n      }\n    </style>\n  `"
+            },
+            {
+              "kind": "method",
+              "name": "getCell",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "level",
+                  "type": {
+                    "text": "SensoryLevel"
+                  }
+                },
+                {
+                  "name": "observationType",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getHeader",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "left",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getLevels",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "left",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateView",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "left",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "left"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-grid",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciGrid",
+          "declaration": {
+            "name": "PraxisIsncsciGrid",
+            "module": "src/web/praxisIsncsciGrid/praxisIsncsciGrid.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciGrid",
+            "module": "src/web/praxisIsncsciGrid/praxisIsncsciGrid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciInputLayout/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciInputLayout",
+          "declaration": {
+            "name": "PraxisIsncsciInputLayout",
+            "module": "./praxisIsncsciInputLayout"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciInputLayout",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "`\n    <style>\n    :host {\n      --grid-gap: 4px;\n      display: flex;\n      --input-layout-mobile-breakpoint: 600px;\n    }\n\n    [right-dermatomes] {\n      margin-right: var(--grid-gap);\n    }\n\n    /*\n    [right-dermatomes],\n    [left-dermatomes] {\n      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .3));\n    }\n    */\n\n    [diagram] {\n      background-color: #E2E2E2;\n      display: none;\n      flex-grow: 1;\n    }\n\n    @media (min-width: 22.5rem) {\n      [diagram] {\n        display: block;\n      }\n    }\n    </style>\n    <div right-dermatomes>\n      <praxis-isncsci-grid></praxis-isncsci-grid>\n    </div>\n    <div diagram>Body diagram</div>\n    <div left-dermatomes>\n      <praxis-isncsci-grid left labels-hidden C5-light-touch=\"2\" C6-pin-prick=\"2\" C7-motor=\"NT\"></praxis-isncsci-grid>\n    </div>\n  `"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-input-layout",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciInputLayout",
+          "declaration": {
+            "name": "PraxisIsncsciInputLayout",
+            "module": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciInputLayout",
+            "module": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciTotals/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciTotals",
+          "declaration": {
+            "name": "PraxisIsncsciTotals",
+            "module": "./praxisIsncsciTotals"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciTotals/praxisIsncsciTotals.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciTotals",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "template",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "updateView",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "asia-level"
+            },
+            {
+              "name": "complete-injury"
+            },
+            {
+              "name": "left-light-touch-total"
+            },
+            {
+              "name": "left-lower-motor-total"
+            },
+            {
+              "name": "left-motor"
+            },
+            {
+              "name": "left-motor-total"
+            },
+            {
+              "name": "left-motor-zpp"
+            },
+            {
+              "name": "left-pin-prick-total"
+            },
+            {
+              "name": "left-sensory"
+            },
+            {
+              "name": "left-sensory-zpp"
+            },
+            {
+              "name": "left-touch-total"
+            },
+            {
+              "name": "left-upper-motor-total"
+            },
+            {
+              "name": "lower-motor-total"
+            },
+            {
+              "name": "neurological-level"
+            },
+            {
+              "name": "pin-prick-total"
+            },
+            {
+              "name": "right-light-touch-total"
+            },
+            {
+              "name": "right-lower-motor-total"
+            },
+            {
+              "name": "right-motor"
+            },
+            {
+              "name": "right-motor-total"
+            },
+            {
+              "name": "right-motor-zpp"
+            },
+            {
+              "name": "right-pin-prick-total"
+            },
+            {
+              "name": "right-sensory"
+            },
+            {
+              "name": "right-sensory-zpp"
+            },
+            {
+              "name": "right-touch-total"
+            },
+            {
+              "name": "right-upper-motor-total"
+            },
+            {
+              "name": "touch-total"
+            },
+            {
+              "name": "upper-motor-total"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-totals",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciTotals",
+          "declaration": {
+            "name": "PraxisIsncsciTotals",
+            "module": "src/web/praxisIsncsciTotals/praxisIsncsciTotals.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciTotals",
+            "module": "src/web/praxisIsncsciTotals/praxisIsncsciTotals.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

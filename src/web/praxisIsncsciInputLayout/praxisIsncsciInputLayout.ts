@@ -1,5 +1,8 @@
 import '@web/praxisIsncsciGrid';
 
+/**
+ * @tagname praxis-isncsci-input-layout
+ */
 export class PraxisIsncsciInputLayout extends HTMLElement {
   public static get is(): string {
     return 'praxis-isncsci-input-layout';
@@ -48,9 +51,12 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
   public constructor() {
     super();
 
-    const shadowRoot: ShadowRoot = this.attachShadow({ mode: 'open' });
+    const shadowRoot: ShadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.innerHTML = this.template;
   }
 }
 
-window.customElements.define(PraxisIsncsciInputLayout.is, PraxisIsncsciInputLayout);
+window.customElements.define(
+  PraxisIsncsciInputLayout.is,
+  PraxisIsncsciInputLayout,
+);

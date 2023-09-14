@@ -1,6 +1,6 @@
 {/* Color.mdx */}
 
-import { Canvas, Meta } from '@storybook/blocks';
+import {Canvas, Meta} from '@storybook/blocks';
 import * as ColorStories from './color.stories';
 
 <Meta of={ColorStories} />
@@ -28,11 +28,11 @@ Our ranges will mimic the weight structure used by web fonts where 400 is the no
 Our range will be from `000` to `1000` with `400` containing the base color and `800` for the darkest recommended shade.
 `000` maps to **white** and `1000` to **black**.
 
-We calculate the lightness value for each token (_L*_ or "L star") to make it easy to swap one color with another without affecting the contrast.
+We calculate the lightness value for each token (_L\*_ or "L star") to make it easy to swap one color with another without affecting the contrast.
 Lightness, or color value, defines black as `0` and white as `100`, with colors with `L*50` being true mid-tones.
 
 Color ranges are created using
-[AccessiblePalette.com](https://accessiblepalette.com/?lightness=85,70,55,50,45,40,35,25,20,10&e13215=0,0&d53f8c=0,0&e1e1e1=0,0)
+[AccessiblePalette.com](https://accessiblepalette.com/?lightness=85,70,55,50,45,40,35,25,20,10&e13215=0,0&f15a24=0,0&00ccff=0,0&cc33ff=0,0&ff3399=0,0&e1e1e1=0,0)
 and then added to **Figma** as variables under `Primitives`, making **Figma** our source of truth for all things design.
 
 Following the same process as [Kevin Muldoon](https://medium.com/user-experience-design-1/how-should-you-name-your-colors-in-a-design-system-3086513476df),
@@ -43,18 +43,18 @@ we have two broad weight categories, _incidental_ and _essential_, which maps to
 Between `L*60` and `L*100`, they include tints for paperwhites, separators, border colors, and disabled controls.
 They should not be used on components that have accessibility requirements.
 
-- **Weights 025, 015, 000:** (L*95, L*98, L*0) Common paperwhites, used in almost every design. Use white for knockout treatments on weight-200 and weight-400 and above backgrounds.
-- **Weight 050:** (L*85) Used for lighter separator lines on paperwhites
-- **Weight 075:** (L*80) Used for darker separator lines on paperwhites and prototypical disabled states for controls
+- **Weights 025, 015, 000:** (L*95, L*98, L\*0) Common paperwhites, used in almost every design. Use white for knockout treatments on weight-200 and weight-400 and above backgrounds.
+- **Weight 050:** (L\*85) Used for lighter separator lines on paperwhites
+- **Weight 075:** (L\*80) Used for darker separator lines on paperwhites and prototypical disabled states for controls
 
 ### Essential weights
 
 Between `L*60` and `L*0`.
 
-- **Weight 200:** (L*55) Tint for WCAG 3:1 on paperwhites. Commonly used for text-field outlines, hint-text, and the minimum contrast for icons and large text.
-- **Weight 400:** (L*45) The base color from which all tints and shades are created. Typically, most brand colors meet this density and are used for primary buttons to support the brand. It should be dark enough to pass WCAG 4.5:1 contrast on three incidental paperwhite tints (000, 015, 025)
-- **Weight 600:** (L*35) The shade for WCAG 7:1 on paperwhites. Used for hover states on button backgrounds and slightly darker text treatments.
-- **Weight 800:** (L*20) The darkest recommended shade for designs in light mode. Used for typography for emphasis. Resist the urge to use weight-900s and neutral-950 (100% black), but they are valuable in dark-mode.
+- **Weight 200:** (L\*55) Tint for WCAG 3:1 on paperwhites. Commonly used for text-field outlines, hint-text, and the minimum contrast for icons and large text.
+- **Weight 400:** (L\*45) The base color from which all tints and shades are created. Typically, most brand colors meet this density and are used for primary buttons to support the brand. It should be dark enough to pass WCAG 4.5:1 contrast on three incidental paperwhite tints (000, 015, 025)
+- **Weight 600:** (L\*35) The shade for WCAG 7:1 on paperwhites. Used for hover states on button backgrounds and slightly darker text treatments.
+- **Weight 800:** (L\*20) The darkest recommended shade for designs in light mode. Used for typography for emphasis. Resist the urge to use weight-900s and neutral-950 (100% black), but they are valuable in dark-mode.
 
 ## Adding a new color
 
@@ -68,12 +68,10 @@ Between `L*60` and `L*0`.
 
 ---
 
-
 ## Primary
 
 ## Secondary
 
 ## Neutral
-
 
 <Canvas of={ColorStories.Primary} />

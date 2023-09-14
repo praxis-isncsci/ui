@@ -1,7 +1,15 @@
-import {MotorLevel, MotorLevels, SensoryLevel, SensoryLevels} from '@core/domain';
+import {
+  MotorLevel,
+  MotorLevels,
+  SensoryLevel,
+  SensoryLevels,
+} from '@core/domain';
 
 import '@web/praxisIsncsciCell';
 
+/**
+ * @tagname praxis-isncsci-grid
+ */
 export class PraxisIsncsciGrid extends HTMLElement {
   public static get is(): string {
     return 'praxis-isncsci-grid';
@@ -93,14 +101,18 @@ export class PraxisIsncsciGrid extends HTMLElement {
   public constructor() {
     super();
 
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({mode: 'open'});
   }
 
   public connectedCallback() {
     this.updateView(this.hasAttribute('left'));
   }
 
-  public attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+  public attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string,
+  ) {
     if (oldValue === newValue) {
       return;
     }
@@ -111,13 +123,18 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   private getCell(level: SensoryLevel, observationType: string): string {
-    if (observationType === 'motor' && !MotorLevels.includes(level as MotorLevel)) {
+    if (
+      observationType === 'motor' &&
+      !MotorLevels.includes(level as MotorLevel)
+    ) {
       return '';
     }
 
     const slug = `${observationType}-${level}`;
     const value = this.getAttribute(slug);
-    return `<praxis-isncsci-cell data-observation="${slug}">${value ?? ''}</praxis-isncsci-cell>`;
+    return `<praxis-isncsci-cell data-observation="${slug}">${
+      value ?? ''
+    }</praxis-isncsci-cell>`;
   }
 
   private getHeader(left: boolean) {
@@ -129,13 +146,13 @@ export class PraxisIsncsciGrid extends HTMLElement {
       : `
           <h3 class="header side">Right</h3>
           <div class="header motor">M</div><div class="header light-touch">LT</div><div class="header pin-prick">PP</div>
-        `
+        `;
   }
 
   private getLevels(left: boolean) {
     let levels = '';
 
-    SensoryLevels.forEach(level => {
+    SensoryLevels.forEach((level) => {
       levels += left
         ? `
             ${this.getCell(level, 'light-touch')}
@@ -156,7 +173,9 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
   private updateView(left: boolean) {
     if (!this.shadowRoot) {
-      throw new Error(`${PraxisIsncsciGrid.is} :: updateView :: No shadowroot available`);
+      throw new Error(
+        `${PraxisIsncsciGrid.is} :: updateView :: No shadowroot available`,
+      );
     }
 
     this.shadowRoot.innerHTML = `
