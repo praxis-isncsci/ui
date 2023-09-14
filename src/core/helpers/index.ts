@@ -1,1 +1,5 @@
-export {bindExamDataToGridModel, validateExamData} from './examData.helper';
+export {
+  bindExamDataToTotals,
+  bindExamDataToGridModel,
+  validateExamData,
+} from './examData.helper';

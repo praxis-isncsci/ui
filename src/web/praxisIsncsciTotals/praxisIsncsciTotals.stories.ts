@@ -30,8 +30,8 @@ const getTemplateAttributes = (args: Args) => {
 const getTemplate = (args) =>
   html`
     <praxis-isncsci-totals
-      asia-level="${args['asia-level']}"
-      complete-injury="${args['complete-injury']}"
+      asia-impairment-scale="${args['asia-impairment-scale']}"
+      injury-complete="${args['injury-complete']}"
       left-light-touch-total="${args['left-light-touch-total']}"
       left-lower-motor-total="${args['left-lower-motor-total']}"
       left-motor="${args['left-motor']}"
@@ -43,7 +43,7 @@ const getTemplate = (args) =>
       left-touch-total="${args['left-touch-total']}"
       left-upper-motor-total="${args['left-upper-motor-total']}"
       lower-motor-total="${args['lower-motor-total']}"
-      neurological-level="${args['neurological-level']}"
+      neurological-level-of-injury="${args['neurological-level-of-injury']}"
       pin-prick-total="${args['pin-prick-total']}"
       right-light-touch-total="${args['right-light-touch-total']}"
       right-lower-motor-total="${args['right-lower-motor-total']}"

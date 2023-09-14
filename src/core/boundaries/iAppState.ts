@@ -1,6 +1,4 @@
-import {Exam} from 'isncsci';
-
-import {Cell} from '@core/domain'
+import {Cell, Totals} from '@core/domain';
 
 export class StatusCodes {
   public static Initializing: number = 2;
@@ -11,4 +9,5 @@ export class StatusCodes {
 export interface IAppState {
   gridModel: Array<Cell | null>[];
   status: number;
+  totals: Totals;
 }

@@ -9,3 +9,4 @@ export {
   ValidMotorValues,
   ValidSensoryValues,
 } from './isncsciLevels';
+export {Totals} from './totals';
