@@ -1,0 +1,117 @@
+{/* responsive-layout-milestone.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+
+<Meta title="App/Milestones/1. Responsive layout milestone" />
+
+# 1. Responsive layout
+
+_September, 2023_
+
+## Design Problem
+
+The new version of the ISNCSCI app must work on all devices, from mobile to desktop.
+The biggest design challenge is fitting all the information on a small screen while still supporting fast data entry.
+
+<iframe
+  style={{border: '1px solid rgba(0, 0, 0, 0.1);'}}
+  width="800"
+  height="940"
+  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F82mMuohRV0zPWnZbZ5upup%2Fisncsci-app%3Ftype%3Ddesign%26node-id%3D800%253A76682%26mode%3Ddesign%26t%3DxrbWsAoKPNEdcQw2-1"
+  allowfullscreen
+></iframe>
+
+## Approach
+
+For **v2** of the interface, we are following a mobile-first approach.
+We are also focusing on the following principles:
+
+- Elegance
+- Consistency
+- Reusability
+
+In terms of _elegance_, we want to make sure that the interface is as simple as possible, while still supporting all the necessary functionality.
+We want to avoid clutter and unnecessary elements.
+**v1** of the interface was designed with a desktop-first approach which gave us the luxury of space which we gladly filled with text.
+There are several items, like labels and helper text, that produce visual clutter and can be simplified.
+
+When it comes to _consistency_, we want to make sure that the interface is predictable and behaves in a way that is familiar to the user.
+We want to avoid elements being in different places on different screens, or behaving differently in different contexts.
+
+Finally, we want to make sure that we are reusing our components in the different screen sizes.
+We want to avoid having to maintain multiple versions of the same component, and instead have a single component that can be used in different contexts.
+
+## Design Solution
+
+### Mobile
+
+We want to focus on data entry. The users of the app follow different entry approaches which may include completing the exam column by colum, or entering data row by row.
+Having all columns accessible, will allow the user to enter data in the way that is most comfortable to them.
+We are moving the rest of the entry elements, like VAC, DAP, key muslces, and comments, below the grid, as they tend to be entered at the end of the examination.
+We make sure that VAC and DAP are close to S4-5, as a way to determine an `ASIA A` is by checking if `N-0-0-0-0-N` is present at the end of the exam (No VAC, zeros for light touch and pin prick on both sides, and no DAP).
+We break our consistency principle with the input controls on mobile and we place them at the bottom of the interface because we want them to remain visible when the digital keyboard is present.
+When collecting values flagged with a star, we may need to enter information in a text area or dropdown, which will push the interface up to make room for the digital keyboard.
+We want those elements to remain in view.
+
+<iframe
+  style={{border: '1px solid rgba(0, 0, 0, 0.1);'}}
+  width="480"
+  height="1400"
+  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F82mMuohRV0zPWnZbZ5upup%2Fisncsci-app%3Ftype%3Ddesign%26node-id%3D814%253A16408%26mode%3Ddesign%26t%3D4nEUUAR2hPuClGd9-1"
+  allowfullscreen
+></iframe>
+
+<iframe
+  style={{border: '1px solid rgba(0, 0, 0, 0.1);'}}
+  width="480"
+  height="1400"
+  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F82mMuohRV0zPWnZbZ5upup%2Fisncsci-app%3Ftype%3Ddesign%26node-id%3D847%253A30274%26mode%3Ddesign%26t%3D4nEUUAR2hPuClGd9-1"
+  allowfullscreen
+></iframe>
+
+### Tablet and Desktop
+
+When we move to larger screens, we want the components to resize based on their new context.
+As mentioned before, the input buttons move to the top of the interface.
+The main reasons for this are:
+
+- Current users are already familiar with this layout
+- It prevents users not seeing the controls on very large screens where negative space is present
+
+> Below is an interactive prototype showing the responsive properties of the interface. Click on it to interact with it.
+
+<iframe
+  style={{border: '1px solid rgba(0, 0, 0, 0.1);'}}
+  width="800"
+  height="560"
+  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F82mMuohRV0zPWnZbZ5upup%2Fisncsci-app%3Ftype%3Ddesign%26node-id%3D352-424643%26t%3DDbHe1lMochRm7qNa-1%26scaling%3Dcontaining%26page-id%3D207%253A9677%26starting-point-node-id%3D352%253A424643%26mode%3Ddesign&hide-ui=1"
+  allowfullscreen
+></iframe>
+
+The totals, both on mobile and larger screens, will be presented as a popup that appears when the user clicks on the _calculate_ button.
+To remain consistent with **v1**, we will fix them at the bottom of the screen, but they will go away if the values of the exam are changed.
+On mobile, they will appear as a full screen modal.
+By using dialogs we can make sure to only show them when they are needed and to trigger a change on the interface to prompt the users that things have changed.
+We can also use _aria_ attributes to make sure that screen readers are aware of the change.
+This is in contrast to **v1** where the totals may not be visible to the user, and they may not be aware that the values have changed.
+We have redesigned the totals to be more compact and better use the space available.
+
+> Below: Totals modal on mobile
+
+<iframe
+  style={{border: '1px solid rgba(0, 0, 0, 0.1);'}}
+  width="360"
+  height="640"
+  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F82mMuohRV0zPWnZbZ5upup%2Fisncsci-app%3Ftype%3Ddesign%26node-id%3D1004%253A31699%26mode%3Ddesign%26t%3DPP1YSdR7qyRgEEAp-1"
+  allowfullscreen
+></iframe>
+
+> Below: Totals popup on larger screen
+
+<iframe
+  style={{border: '1px solid rgba(0, 0, 0, 0.1);'}}
+  width="800"
+  height="560"
+  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F82mMuohRV0zPWnZbZ5upup%2Fisncsci-app%3Ftype%3Ddesign%26node-id%3D780%253A74098%26mode%3Ddesign%26t%3DPP1YSdR7qyRgEEAp-1%26scaling%3Dcontaining"
+  allowfullscreen
+></iframe>
