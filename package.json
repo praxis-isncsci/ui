@@ -4,7 +4,7 @@
     "email": "tech@praxisinstitute.org"
   },
   "bugs": {
-    "url": "https://github.com/rhi-isncsci/ui/issues"
+    "url": "https://github.com/praxis-isncsci/ui/issues"
   },
   "customElements": "custom-elements.json",
   "dependencies": {
@@ -43,6 +43,18 @@
     "tslint": "^6.1.3",
     "typescript": "^5.1.6"
   },
+  "files": [
+    "app/cjs/index.js",
+    "app/esm/index.js",
+    "core/boundaries/cjs/index.js",
+    "core/boundaries/esm/index.js",
+    "core/domain/cjs/index.js",
+    "core/domain/esm/index.js",
+    "core/useCases/cjs/index.js",
+    "core/useCases/esm/index.js",
+    "web/cjs/index.js",
+    "web/esm/index.js"
+  ],
   "homepage": "https://github.com/rhi-isncsci/ui",
   "keywords": [
     "Praxis",
@@ -55,16 +67,16 @@
     "algorithm"
   ],
   "license": "Apache-2.0",
-  "main": "./umd/index.js",
-  "module": "./index.js",
-  "name": "praxis-isncsci-ui",
+  "main": "./web/cjs/index.js",
+  "module": "./web/esm/index.js",
+  "name": "isncsci-ui",
   "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/praxis-isncsci/ui.git"
   },
   "scripts": {
-    "prebuild": "rimraf ./build",
+    "prebuild": "rimraf ./build ./app ./core ./web",
     "build": "rollup -c",
     "build-styles": "style-dictionary build --config style-dictionary.config.json",
     "start": "http-server build/ -s -c-1 -p 44333",
@@ -74,10 +86,11 @@
     "update-design-tokens": "node ./scripts/generate-token-files.ts && npm run build-styles",
     "test": "jest",
     "test:watch": "jest --watch",
-    "create-custom-elements-manifest": "custom-elements-manifest analyze"
+    "create-custom-elements-manifest": "custom-elements-manifest analyze",
+    "create-custom-elements-manifest:dist": "cem analyze --config custom-elements-manifest-dist.config.mjs"
   },
   "types": "./index.d.ts",
   "version": "0.0.1",
   "readme": "README.md",
-  "_id": "praxis-isncsci-ui@0.0.1"
+  "_id": "isncsci-ui@0.0.1"
 }
