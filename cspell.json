@@ -1,0 +1,5 @@
+{
+  "ignorePaths": ["build/**", "node_modules/**", "package-lock.json"],
+  "ignoreWords": ["xdescribe"],
+  "words": ["ESNEXT", "iife", "isncsci", "prebuild", "sourcemap", "zpp"]
+}
