@@ -1,0 +1,28 @@
+{/* praxisIsncsciIcon.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciIcon.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI Icon
+
+## Problem
+
+- We need an icon component that can receive a name, theme, and size and render the appropriate SVG icon graphic
+- The element needs to be implemented in a way that only the referenced icons end up as part of the code bundle
+- The close icon is the first icon we need to support as it is needed for the classification dialog
+
+## Solution
+
+We created individual custom elements, with SVG icons as their shadow DOM, that can be referenced by name and theme using the `<praxis-isncsci-icon />` component.
+
+Example:
+
+```html
+<praxis-isncsci-icon component="regular-close-24" />
+```
+
+### Icons
+
+<Canvas of={Stories.Primary} />
