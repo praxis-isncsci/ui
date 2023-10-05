@@ -26,45 +26,67 @@ const getIconGroup = (name: string, theme: string) => html`<div
   ${getIcon(name, '48', theme)}
 </div>`;
 
+const iconsTemplate = html`<style>
+    .icon-grid {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .icon-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+    }
+
+    .group-name {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .icon {
+      border: dashed 0.5px #999;
+      border-radius: 8px;
+      min-width: 48px;
+      min-height: 24px;
+      padding: 4px;
+    }
+
+    .icon .size {
+      color: #666;
+      font-size: 0.75rem;
+    }
+  </style>
+  <div class="icon-grid">${getIconCollection('close')}</div>`;
+
 const meta = {
   title: 'WebComponents/PraxisIsncsciIcon',
-  // tags: ['autodocs'],
-  render: () =>
-    html`<style>
-        .icon-grid {
-          display: flex;
-          flex-direction: row;
-        }
-
-        .icon-group {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          text-align: center;
-        }
-
-        .group-name {
-          color: #666;
-          font-size: 0.9rem;
-        }
-
-        .icon {
-          border: dashed 0.5px #999;
-          border-radius: 8px;
-          min-width: 48px;
-          min-height: 24px;
-          padding: 4px;
-        }
-
-        .icon .size {
-          color: #666;
-          font-size: 0.75rem;
-        }
-      </style>
-      <div class="icon-grid">${getIconCollection('close')}</div>`,
+  render: () => iconsTemplate,
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj;
 
-export const Primary: Story = {};
+const iconNames = ['close'];
+const sizes = ['12', '16', '20', '24', '28', '32', '48'];
+const themes = ['regular'];
+
+export const Primary: Story = {
+  args: {
+    theme: themes[0],
+    iconName: iconNames[0],
+    size: sizes[3],
+  },
+  argTypes: {
+    iconName: {control: 'select', options: iconNames},
+    size: {control: 'select', options: sizes},
+    theme: {control: 'select', options: themes},
+  },
+  render: (args) =>
+    html`<praxis-isncsci-icon
+        component="${args.theme}-${args.iconName}-${args.size}"
+      ></praxis-isncsci-icon
+      >${console.log(args)}`,
+};
+
+export const Icons: Story = {render: () => iconsTemplate};
