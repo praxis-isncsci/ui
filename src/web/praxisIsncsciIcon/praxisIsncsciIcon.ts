@@ -7,7 +7,7 @@ export class PraxisIsncsciIcon extends HTMLElement {
   }
 
   public static get observedAttributes(): string[] {
-    return ['component', 'size', 'theme'];
+    return ['component'];
   }
 
   private template = (component: string): string => `
@@ -45,7 +45,7 @@ export class PraxisIsncsciIcon extends HTMLElement {
       return;
     }
 
-    if (/(component)/.test(name) && this.shadowRoot) {
+    if ('component' === name && this.shadowRoot) {
       this.shadowRoot.innerHTML = this.template(`<${newValue}></${newValue}>`);
     }
   }

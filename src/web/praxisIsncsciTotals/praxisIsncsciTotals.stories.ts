@@ -20,13 +20,6 @@ const getArgs = () => {
   return args;
 };
 
-const getTemplateAttributes = (args: Args) => {
-  const attributes = Object.getOwnPropertyNames(args)
-    .map((attribute) => `${attribute}="${args[attribute]}"`)
-    .join(' ');
-  return attributes;
-};
-
 const getTemplate = (args) =>
   html`
     <praxis-isncsci-totals
