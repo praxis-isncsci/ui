@@ -10,18 +10,20 @@ import * as Stories from './praxisIsncsciIcon.stories';
 ## Problem
 
 - We need an icon component that can receive a name, theme, and size and render the appropriate SVG icon graphic
-- The element needs to be implemented in a way that only the referenced icons end up as part of the code bundle
-- The close icon is the first icon we need to support as it is needed for the classification dialog
+- It should allow us to switch between icon sets, as they may needed by different themes
 
 ## Solution
 
-We created individual custom elements, with SVG icons as their shadow DOM, that can be referenced by name and theme using the `<praxis-isncsci-icon />` component.
+We are using SVG _sprites_. All of our icons are in a single SVG file.
+The `<praxis-isncsci-icon />` loads the sprites using the `<use>` tag.
+One donwside of the approach is that we do not add the needed icons to the bundle, but it gives us more flexibility with our caching.
+This approach also makes it possible for us to switch from one icon collection to another when a theme requires it.
 The supported icon sizes are: `12`, `16`, `20`, `24`, `32`, and `48`.
 
 Example:
 
 ```html
-<praxis-isncsci-icon component="regular-close-24" />
+<praxis-isncsci-icon href="/icons/regular.svg#icon-close-24" size="24" />
 ```
 
 ### Icons
