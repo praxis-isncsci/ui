@@ -7,33 +7,24 @@ export class PraxisIsncsciIcon extends HTMLElement {
   }
 
   public static get observedAttributes(): string[] {
-    return ['component'];
+    return ['href', 'size'];
   }
 
-  private template = (component: string): string => `
+  private template = (href: string, size: string): string => `
     <style>
       :host {
-        --placeholder-border-radius: 4px;
         display: inline-block;
-        color: red;
-      }
-
-      .placeholder {
-        border-radius: var(--placeholder-border-radius);
-        border: 1px solid #ccc;
-        display: inline-block;
-        height: 1em;
-        width: 1em;
       }
     </style>
-    ${component}
+    <svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+      <use xlink:href="${href}"></use>
+    </svg>
   `;
 
   public constructor() {
     super();
 
     const shadowRoot: ShadowRoot = this.attachShadow({mode: 'open'});
-    shadowRoot.innerHTML = this.template('<span class="placeholder"></span>');
   }
 
   public attributeChangedCallback(
@@ -45,8 +36,11 @@ export class PraxisIsncsciIcon extends HTMLElement {
       return;
     }
 
-    if ('component' === name && this.shadowRoot) {
-      this.shadowRoot.innerHTML = this.template(`<${newValue}></${newValue}>`);
+    if (/^(href|size)$/.test(name) && this.shadowRoot) {
+      this.shadowRoot.innerHTML = this.template(
+        this.getAttribute('href') || '',
+        this.getAttribute('size') || '24',
+      );
     }
   }
 }

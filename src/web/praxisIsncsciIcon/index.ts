@@ -1,0 +1,1 @@
+export {PraxisIsncsciIcon} from './praxisIsncsciIcon';

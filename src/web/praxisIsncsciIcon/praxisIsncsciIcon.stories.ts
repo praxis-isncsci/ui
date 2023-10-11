@@ -1,12 +1,14 @@
 import {html} from 'lit';
 import type {Meta, StoryObj} from '@storybook/web-components';
-import './icons';
 import './praxisIsncsciIcon';
+
+const iconsPath = 'assets/icons';
 
 const getIcon = (name: string, size: string, theme: string) => html`
   <div class="icon">
     <praxis-isncsci-icon
-      component="${theme}-${name}-${size}"
+      href="${iconsPath}/${theme}.svg#icon-${name}-${size}"
+      size="${size}"
     ></praxis-isncsci-icon>
     <div class="size">${size}</div>
   </div>
@@ -83,10 +85,10 @@ export const Primary: Story = {
     theme: {control: 'select', options: themes},
   },
   render: (args) =>
-    html`<praxis-isncsci-icon
-        component="${args.theme}-${args.iconName}-${args.size}"
-      ></praxis-isncsci-icon
-      >${console.log(args)}`,
+    html` <praxis-isncsci-icon
+      href="${iconsPath}/${args.theme}.svg#icon-${args.iconName}-${args.size}"
+      size="${args.size}"
+    ></praxis-isncsci-icon>`,
 };
 
 export const Icons: Story = {render: () => iconsTemplate};
