@@ -105,144 +105,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "PraxisIsncsciIcon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "component"
-            },
-            {
-              "name": "size"
-            },
-            {
-              "name": "theme"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "praxis-isncsci-icon",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciIcon",
-          "declaration": {
-            "name": "PraxisIsncsciIcon",
-            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "PraxisIsncsciIcon",
-            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciInputLayout/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciInputLayout",
-          "declaration": {
-            "name": "PraxisIsncsciInputLayout",
-            "module": "./praxisIsncsciInputLayout"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "PraxisIsncsciInputLayout",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n    <style>\n    :host {\n      --grid-gap: 4px;\n      display: flex;\n      --input-layout-mobile-breakpoint: 600px;\n    }\n\n    [right-dermatomes] {\n      margin-right: var(--grid-gap);\n    }\n\n    /*\n    [right-dermatomes],\n    [left-dermatomes] {\n      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .3));\n    }\n    */\n\n    [diagram] {\n      background-color: #E2E2E2;\n      display: none;\n      flex-grow: 1;\n    }\n\n    @media (min-width: 22.5rem) {\n      [diagram] {\n        display: block;\n      }\n    }\n    </style>\n    <div right-dermatomes>\n      <praxis-isncsci-grid></praxis-isncsci-grid>\n    </div>\n    <div diagram>Body diagram</div>\n    <div left-dermatomes>\n      <praxis-isncsci-grid left labels-hidden C5-light-touch=\"2\" C6-pin-prick=\"2\" C7-motor=\"NT\"></praxis-isncsci-grid>\n    </div>\n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "praxis-isncsci-input-layout",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciInputLayout",
-          "declaration": {
-            "name": "PraxisIsncsciInputLayout",
-            "module": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "PraxisIsncsciInputLayout",
-            "module": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/web/praxisIsncsciGrid/index.ts",
       "declarations": [],
       "exports": [
@@ -374,6 +236,156 @@
           "declaration": {
             "name": "PraxisIsncsciGrid",
             "module": "src/web/praxisIsncsciGrid/praxisIsncsciGrid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciIcon/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciIcon",
+          "declaration": {
+            "name": "PraxisIsncsciIcon",
+            "module": "./praxisIsncsciIcon"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciIcon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "href"
+            },
+            {
+              "name": "size"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-icon",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciIcon",
+          "declaration": {
+            "name": "PraxisIsncsciIcon",
+            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciIcon",
+            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciInputLayout/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciInputLayout",
+          "declaration": {
+            "name": "PraxisIsncsciInputLayout",
+            "module": "./praxisIsncsciInputLayout"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciInputLayout",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "`\n    <style>\n    :host {\n      --grid-gap: 4px;\n      display: flex;\n      --input-layout-mobile-breakpoint: 600px;\n    }\n\n    [right-dermatomes] {\n      margin-right: var(--grid-gap);\n    }\n\n    /*\n    [right-dermatomes],\n    [left-dermatomes] {\n      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .3));\n    }\n    */\n\n    [diagram] {\n      background-color: #E2E2E2;\n      display: none;\n      flex-grow: 1;\n    }\n\n    @media (min-width: 22.5rem) {\n      [diagram] {\n        display: block;\n      }\n    }\n    </style>\n    <div right-dermatomes>\n      <praxis-isncsci-grid></praxis-isncsci-grid>\n    </div>\n    <div diagram>Body diagram</div>\n    <div left-dermatomes>\n      <praxis-isncsci-grid left labels-hidden C5-light-touch=\"2\" C6-pin-prick=\"2\" C7-motor=\"NT\"></praxis-isncsci-grid>\n    </div>\n  `"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-input-layout",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciInputLayout",
+          "declaration": {
+            "name": "PraxisIsncsciInputLayout",
+            "module": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciInputLayout",
+            "module": "src/web/praxisIsncsciInputLayout/praxisIsncsciInputLayout.ts"
           }
         }
       ]
@@ -527,482 +539,6 @@
           "declaration": {
             "name": "PraxisIsncsciTotals",
             "module": "src/web/praxisIsncsciTotals/praxisIsncsciTotals.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose12",
-          "declaration": {
-            "name": "RegularClose12",
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RegularClose16",
-          "declaration": {
-            "name": "RegularClose16",
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RegularClose20",
-          "declaration": {
-            "name": "RegularClose20",
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RegularClose24",
-          "declaration": {
-            "name": "RegularClose24",
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RegularClose28",
-          "declaration": {
-            "name": "RegularClose28",
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RegularClose32",
-          "declaration": {
-            "name": "RegularClose32",
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RegularClose48",
-          "declaration": {
-            "name": "RegularClose48",
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/web/praxisIsncsciIcon/icons/index.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/regularClose12.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RegularClose12",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n  <svg width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path d=\"M9.5 2.5L2.5 9.5M2.5 2.5L9.5 9.5\" stroke=\"black\"/>\n  </svg>\n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "regular-close-12",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose12",
-          "declaration": {
-            "name": "RegularClose12",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose12.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "RegularClose12",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose12.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/regularClose16.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RegularClose16",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n  <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path d=\"M3 3L13 13M13 3L3 13\" stroke=\"black\" stroke-width=\"1.5\"/>\n  </svg>\n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "regular-close-16",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose16",
-          "declaration": {
-            "name": "RegularClose16",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose16.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "RegularClose16",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose16.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/regularClose20.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RegularClose20",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n  <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path d=\"M4.5 4.5L15.5 15.5M15.5 4.5L4.5 15.5\" stroke=\"black\" stroke-width=\"1.5\"/>\n  </svg>\n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "regular-close-20",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose20",
-          "declaration": {
-            "name": "RegularClose20",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose20.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "RegularClose20",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose20.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/regularClose24.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RegularClose24",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n    <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <path d=\"M19 5L5 19M5 5L19 19\" stroke=\"black\" stroke-width=\"2\"/>\n    </svg>\n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "regular-close-24",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose24",
-          "declaration": {
-            "name": "RegularClose24",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose24.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "RegularClose24",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose24.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/regularClose28.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RegularClose28",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n  <svg width=\"28\" height=\"28\" viewBox=\"0 0 28 28\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path d=\"M5.5 5.5L22.5 22.5M22.5 5.5L5.5 22.5\" stroke=\"black\" stroke-width=\"2\"/>\n  </svg>  \n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "regular-close-28",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose28",
-          "declaration": {
-            "name": "RegularClose28",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose28.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "RegularClose28",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose28.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/regularClose32.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RegularClose32",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n    <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <path d=\"M25 7L7 25\" stroke=\"black\" stroke-width=\"2.5\"/>\n    <path d=\"M7 7L25 25\" stroke=\"black\" stroke-width=\"2.5\"/>\n    </svg>  \n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "regular-close-32",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose32",
-          "declaration": {
-            "name": "RegularClose32",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose32.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "RegularClose32",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose32.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/icons/regularClose48.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RegularClose48",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "`\n  <svg width=\"48\" height=\"48\" viewBox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path d=\"M10 10L38 38M38 10L10 38\" stroke=\"black\" stroke-width=\"2\"/>\n  </svg>  \n  `"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "regular-close-48",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RegularClose48",
-          "declaration": {
-            "name": "RegularClose48",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose48.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "RegularClose48",
-            "module": "src/web/praxisIsncsciIcon/icons/regularClose48.ts"
           }
         }
       ]

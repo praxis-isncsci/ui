@@ -1,17 +1,17 @@
-import type { StorybookConfig } from "@storybook/web-components-webpack5";
+import type {StorybookConfig} from '@storybook/web-components-webpack5';
 import {TsconfigPathsPlugin} from 'tsconfig-paths-webpack-plugin';
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   framework: {
-    name: "@storybook/web-components-webpack5",
+    name: '@storybook/web-components-webpack5',
     options: {},
   },
   docs: {
-    autodocs: "tag",
+    autodocs: 'tag',
   },
-  async webpackFinal(config, { configType }) {
+  async webpackFinal(config, {configType}) {
     if (config.resolve) {
       config.resolve.plugins = [new TsconfigPathsPlugin()];
     }
@@ -24,7 +24,10 @@ const config: StorybookConfig = {
     }
     return config;
   },
-  staticDirs: [{from: '../assets/css', to: '/assets/css'}],
+  staticDirs: [
+    {from: '../assets/css', to: '/assets/css'},
+    {from: '../assets/icons', to: '/assets/icons'},
+  ],
 };
 
 export default config;
