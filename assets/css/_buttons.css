@@ -1,0 +1,54 @@
+.button {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--button-border-radius, 0.25rem);
+  display: inline-flex;
+  height: var(--button-height, 2.5rem);
+  justify-content: center;
+  position: relative;
+}
+
+.button > * {
+  z-index: 1;
+}
+
+.button::before {
+  background-color: var(--button-surface, rgba(0, 0, 0, 0));
+  border-radius: var(--button-border-radius, 0.25rem);
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  transition: background-color 120ms ease-in, transform 120ms ease-out;
+}
+
+.button:focus::before {
+  background-color: var(--button-surface-active, rgba(0, 0, 0, 0.12));
+}
+
+.button:active::before {
+  transform: scale(0.9);
+}
+
+.button:not(:focus):hover::before {
+  animation: button-surface-hover 120ms ease-in;
+  background-color: var(--button-surface, rgba(0, 0, 0, 0.12));
+}
+
+.icon-button {
+  text-align: center;
+  width: var(--button-width, 2.5rem);
+}
+
+@keyframes button-surface-hover {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
