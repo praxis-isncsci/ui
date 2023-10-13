@@ -1,0 +1,31 @@
+{/* buttons.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './buttons.stories';
+
+<Meta of={Stories} />
+
+# Button styles
+
+## Design Problem
+
+We want to have custom looking buttons in our application.
+We did not want to have a button web component as, like all other input elements, buttons have significant native functionality that we do not want to replicate.
+The solution needs also to be applicable to links as it is common to style links as buttons.
+
+## Approach
+
+CSS styles to customize the appearance of buttons and links.
+We are using class names, as opposed of targetting elements directly, to allow us to choose which elements to style.
+
+## .button
+
+- Adds a surface to the element
+
+<Canvas of={Stories.Button} />
+
+## .icon-button
+
+- Aligns the icon to the center of the button and ensures it is of fixed size.
+
+<Canvas of={Stories.IconButton} />

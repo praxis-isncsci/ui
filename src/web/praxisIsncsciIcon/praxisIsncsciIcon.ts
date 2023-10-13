@@ -13,7 +13,9 @@ export class PraxisIsncsciIcon extends HTMLElement {
   private template = (href: string, size: string): string => `
     <style>
       :host {
-        display: inline-block;
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
       }
     </style>
     <svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
