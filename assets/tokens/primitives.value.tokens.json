@@ -18,7 +18,7 @@
     },
     "lg": {
       "type": "number",
-      "value": "65rem"
+      "value": "64rem"
     }
   },
   "z-index": {
@@ -499,6 +499,10 @@
       }
     },
     "weight": {
+      "lighter": {
+        "type": "number",
+        "value": 100
+      },
       "semibold": {
         "type": "number",
         "value": 600
