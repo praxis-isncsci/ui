@@ -31,11 +31,24 @@ export const Button: Story = {
 };
 
 export const IconButton: Story = {
-  render: () =>
-    html`<button class="button icon-button">
-      <praxis-isncsci-icon
-        href="assets/icons/regular.svg#icon-close-24"
-        size="24"
-      ></praxis-isncsci-icon>
-    </button>`,
+  args: {
+    variant: 'md',
+  },
+  argTypes: {
+    variant: {control: 'select', options: ['md', 'sm']},
+  },
+  render: (args) =>
+    args.variant === 'md'
+      ? html`<button class="button icon-button">
+          <praxis-isncsci-icon
+            href="assets/icons/regular.svg#icon-close-32"
+            size="32"
+          ></praxis-isncsci-icon>
+        </button>`
+      : html`<button class="button icon-button sm">
+          <praxis-isncsci-icon
+            href="assets/icons/regular.svg#icon-close-24"
+            size="24"
+          ></praxis-isncsci-icon>
+        </button>`,
 };
