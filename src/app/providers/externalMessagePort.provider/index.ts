@@ -1,4 +1,3 @@
-export {AppStoreProvider} from './appStore.provider';
 export {
   ExternalMessagePortProvider,
   ExternalMessagePortProviderActions,
