@@ -50,7 +50,7 @@ const getConfig = ({output = {}, plugins = [], dir = './'}) => {
     input: {
       'app/index': 'src/app/index.ts',
       'app/providers/index': 'src/app/providers/index.ts',
-      'app/providers/externalMessagePort.provider/index':
+      'app/providers/externalMessagePort.provider/index.ts':
         'src/app/providers/externalMessagePort.provider/index.ts',
       'app/store/index': 'src/app/store/index.ts',
       'core/boundaries/index': 'src/core/boundaries/index.ts',
