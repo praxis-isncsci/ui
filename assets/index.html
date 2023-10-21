@@ -9,9 +9,10 @@
     <title>ISNCSCI Algorithm App</title>
     <meta name="description" content="Sandbox" />
     <!-- Add any global styles for body, document, etc. -->
+    <link rel="stylesheet" href="css/design-system.css" />
     <style>
       body {
-        font-family: var(--theme-font-family, 'Segoe UI', Arial, sans-serif);
+        font-family: var(--text-font-family, 'Segoe UI', Arial, sans-serif);
       }
     </style>
     <script>
@@ -20,9 +21,35 @@
   </head>
   <body class="text-body-1">
     <noscript> Please enable JavaScript to view this website. </noscript>
-    <h1>ISNCSCI Algorithm App</h1>
+    <praxis-isncsci-app-bar><button>C</button></praxis-isncsci-app-bar>
     <praxis-isncsci-input-layout></praxis-isncsci-input-layout>
-    <praxis-isncsci-totals></praxis-isncsci-totals>
+    <praxis-isncsci-totals>
+      <praxis-isncsci-classification-grid
+        slot="neurological-levels"
+        class="classification-grid"
+      >
+        <h3 slot="heading">Neurological levels</h3>
+        <div slot="grid">
+          <div>&nbsp;</div>
+          <div class="text-caption-2 col-header">R</div>
+          <div class="text-caption-2 col-header">L</div>
+          <div class="text-caption-2 row-header">Sensory</div>
+          <praxis-isncsci-classification-total data-total="right-sensory"
+            >&nbsp;</praxis-isncsci-classification-total
+          >
+          <praxis-isncsci-classification-total data-total="left-sensory"
+            >&nbsp;</praxis-isncsci-classification-total
+          >
+          <div class="text-caption-2 row-header">Motor</div>
+          <praxis-isncsci-classification-total data-total="right-motor"
+            >&nbsp;</praxis-isncsci-classification-total
+          >
+          <praxis-isncsci-classification-total data-total="left-motor"
+            >&nbsp;</praxis-isncsci-classification-total
+          >
+        </div>
+      </praxis-isncsci-classification-grid>
+    </praxis-isncsci-totals>
     <script src="scripts/bundle.js" type="module"></script>
   </body>
 </html>
