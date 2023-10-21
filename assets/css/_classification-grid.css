@@ -1,0 +1,16 @@
+praxis-isncsci-classification-grid {
+  --gap: var(--space-2);
+  --heading-font-family: var(--text-font-family);
+  --heading-foreground: var(--light-totals-label-foreground);
+  --heading-font-size: var(--type-scale-caption-2-font-size);
+  --heading-weight: var(--type-scale-caption-2-weight);
+  --heading-line-height: var(--type-scale-caption-2-line-height);
+}
+
+praxis-isncsci-classification-grid .col-header {
+  text-align: center;
+}
+
+praxis-isncsci-classification-grid .row-header {
+  text-align: right;
+}

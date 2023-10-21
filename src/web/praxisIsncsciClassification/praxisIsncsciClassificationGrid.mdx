@@ -1,0 +1,157 @@
+{/* PraxisIsncsciClassificationGrid.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciClassificationGrid.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI Classification Grid
+
+## Design Problem
+
+The classification dialog uses grids to display the classification results.
+The grids are used to display the classification results for the motor and sensory scores, as well as the sub-scores.
+
+## Approach
+
+A grid component that can be used to display the classification results.
+We favour composition, so we are using slots to allow the user to customize the heading and the grid.
+I believe this approach will prove beneficial when we add internationalization.
+
+### Slots
+
+- `heading` - The heading of the grid
+- `grid` - The grid itself
+
+### CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--gap</code>
+      </td>
+      <td>Sets the distance between heading and grid</td>
+      <td>
+        <code>0.5rem</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### [slot="heading"]
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--heading-foreground</code>
+      </td>
+      <td>Heading text color</td>
+      <td>
+        <code>#5E5E5E</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--heading-font-family</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>sans-serif</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--heading-font-size</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.625rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--heading-font-weight</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>400</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--heading-line-height</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>1.875rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--heading-text-align</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>center</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### [slot="grid"]
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--grid-gap</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--grid-template-columns</code>
+      </td>
+      <td>Use it to modify the number of columns and their sizes</td>
+      <td>
+        <code>auto auto auto</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+### Classification grid with 3 columns
+
+<Canvas of={Stories.Primary} />
+
+### Classification grid with 4 columns
+
+<Canvas of={Stories.Subscores} />

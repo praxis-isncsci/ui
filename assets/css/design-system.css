@@ -1,5 +1,7 @@
 @import url('_tokens.css');
 @import url('_text-scale.css');
+@import url('_classification-grid.css');
+@import url('_classification-total.css');
 
 body {
   font-family: Inter, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
@@ -7,7 +9,11 @@ body {
 }
 
 body.app {
-  background-image: linear-gradient(to bottom right, rgba(51, 47, 255, .2), rgba(249, 107, 252, .5));
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(51, 47, 255, 0.2),
+    rgba(249, 107, 252, 0.5)
+  );
 }
 
 body.app::after {
@@ -23,7 +29,7 @@ body.app::after {
   left: 0;
   width: 100vw;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
 
