@@ -1,0 +1,8 @@
+praxis-isncsci-classification-total {
+  --border-color: var(--light-primary);
+  --font-family: var(--text-font-family);
+  --font-size: var(--type-scale-caption-1-font-size);
+  --font-weight: var(--type-scale-caption-1-weight);
+  --line-height: var(--type-scale-caption-1-line-height);
+  min-width: var(--totals-cell-width);
+}

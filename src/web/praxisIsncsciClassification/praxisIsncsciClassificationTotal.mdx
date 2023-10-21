@@ -1,0 +1,87 @@
+{/* PraxisIsncsciClassificationTotal.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciClassificationTotal.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI Classification Total
+
+## Design Problem
+
+The classification dialog uses multiple times a cell like element, with underline, to display the classification results.
+
+## Approach
+
+A grid _total_ component to store individual classification results.
+The component uses a `slot` for the content.
+
+### CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--border-color</code>
+      </td>
+      <td>Used for the underlining bottom border</td>
+      <td>
+        <code>rgba(0, 0, 0, 0.6)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--font-family</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>sans-serif</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--font-size</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.625rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--font-weight</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>400</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--line-height</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>1.875rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--text-align</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>center</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={Stories.Primary} />
