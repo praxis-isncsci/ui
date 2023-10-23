@@ -3,6 +3,9 @@ import type {Meta, StoryObj} from '@storybook/web-components';
 import './praxisIsncsciIcon';
 
 const iconsPath = 'assets/icons';
+const iconNames = ['close', 'hamburger-menu'];
+const sizes = ['12', '16', '20', '24', '28', '32', '48'];
+const themes = ['regular'];
 
 const getIcon = (name: string, size: string, theme: string) => html`
   <div class="icon">
@@ -29,6 +32,12 @@ const getIconGroup = (name: string, theme: string) => html`<div
 </div>`;
 
 const iconsTemplate = html`<style>
+    .theme {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+    }
+
     .icon-grid {
       display: flex;
       flex-direction: row;
@@ -59,19 +68,18 @@ const iconsTemplate = html`<style>
       font-size: 0.75rem;
     }
   </style>
-  <div class="icon-grid">${getIconCollection('close')}</div>`;
+  <div class="theme">
+    ${iconNames.map(
+      (name) => html`<div class="icon-grid">${getIconCollection(name)}</div>`,
+    )}
+  </div>`;
 
 const meta = {
   title: 'WebComponents/PraxisIsncsciIcon',
-  render: () => iconsTemplate,
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj;
-
-const iconNames = ['close'];
-const sizes = ['12', '16', '20', '24', '28', '32', '48'];
-const themes = ['regular'];
 
 export const Primary: Story = {
   args: {
