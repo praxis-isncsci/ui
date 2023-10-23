@@ -1,0 +1,106 @@
+{/* PraxisIsncsciAppBar.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciAppBar.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI App Bar
+
+## Design Problem
+
+The application needs an app bar that allows the use of the following optional subcomponents:
+
+- Menu button (hamburger icon button)
+- Title
+- Actions (buttons like "calculate", "download", etc.)
+
+## Approach
+
+We are favoring composition so we add slots for the optional subcomponents.
+This will make it easy for the component or controller adding them to control their appearance and subscribe to their events.
+
+### Slots
+
+- `menu-button` - Expects a button with a hamburger icon
+- `title` - Expects an element with text
+- `actions` - Expects a container, preferably a `<div>` with buttons
+
+### CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--height</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>3.5rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--padding</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.75rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--gap</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>1.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-font-family</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>sans-serif</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-font-size</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>1rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-font-weight</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>400</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-line-height</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>1.375rem</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={Stories.Primary} />
