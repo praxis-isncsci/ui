@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/web-components';
 import './praxisIsncsciIcon';
 
 const iconsPath = 'assets/icons';
-const iconNames = ['close', 'hamburger-menu'];
+const iconNames = ['calculator', 'close', 'hamburger-menu'];
 const sizes = ['12', '16', '20', '24', '28', '32', '48'];
 const themes = ['regular'];
 
