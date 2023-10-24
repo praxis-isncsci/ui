@@ -56,5 +56,87 @@
       <rect x="6" y="22" width="36" height="3" fill="black"/>
       <rect x="6" y="32" width="36" height="3" fill="black"/>
     </g>
+    <g id="icon-calculator-12">
+      <rect x="8" y="8" width="1" height="1" fill="black"/>
+      <rect x="6" y="8" width="1" height="1" fill="black"/>
+      <rect x="4" y="8" width="1" height="1" fill="black"/>
+      <rect x="8" y="6" width="1" height="1" fill="black"/>
+      <rect x="6" y="6" width="1" height="1" fill="black"/>
+      <rect x="4" y="6" width="1" height="1" fill="black"/>
+      <rect x="3" y="3" width="6" height="2" fill="black"/>
+      <rect x="2.5" y="1.5" width="7" height="9" rx="0.5" stroke="black" fill="none"/>
+    </g>
+    <g id="icon-calculator-16">
+      <rect x="9" y="9" width="2" height="3" fill="black"/>
+      <rect x="7" y="11" width="1" height="1" fill="black"/>
+      <rect x="5" y="11" width="1" height="1" fill="black"/>
+      <rect x="7" y="9" width="1" height="1" fill="black"/>
+      <rect x="5" y="9" width="1" height="1" fill="black"/>
+      <rect x="9" y="7" width="2" height="1" fill="black"/>
+      <rect x="7" y="7" width="1" height="1" fill="black"/>
+      <rect x="5" y="7" width="1" height="1" fill="black"/>
+      <rect x="4" y="4" width="8" height="2" fill="black"/>
+      <rect x="3.5" y="1.5" width="9" height="13" rx="0.5" stroke="black" fill="none"/>
+    </g>
+    <g id="icon-calculator-20">
+      <rect x="12" y="11" width="2" height="5" fill="black"/>
+      <rect x="9" y="14" width="2" height="2" fill="black"/>
+      <rect x="6" y="14" width="2" height="2" fill="black"/>
+      <rect x="9" y="11" width="2" height="2" fill="black"/>
+      <rect x="6" y="11" width="2" height="2" fill="black"/>
+      <rect x="12" y="8" width="2" height="2" fill="black"/>
+      <rect x="9" y="8" width="2" height="2" fill="black"/>
+      <rect x="6" y="8" width="2" height="2" fill="black"/>
+      <rect x="6" y="4" width="8" height="3" fill="black"/>
+      <rect x="4.5" y="2.5" width="11" height="15" rx="0.5" stroke="black" fill="none"/>
+    </g>
+    <g id="icon-calculator-24">
+      <rect x="14" y="13" width="2" height="5" fill="black"/>
+      <rect x="11" y="16" width="2" height="2" fill="black"/>
+      <rect x="8" y="16" width="2" height="2" fill="black"/>
+      <rect x="11" y="13" width="2" height="2" fill="black"/>
+      <rect x="8" y="13" width="2" height="2" fill="black"/>
+      <rect x="14" y="10" width="2" height="2" fill="black"/>
+      <rect x="11" y="10" width="2" height="2" fill="black"/>
+      <rect x="8" y="10" width="2" height="2" fill="black"/>
+      <rect x="8" y="6" width="8" height="3" fill="black"/>
+      <rect x="5" y="3" width="14" height="18" rx="1" stroke="black" stroke-width="2" fill="none"/>
+    </g>
+    <g id="icon-calculator-28">
+      <rect x="17" y="15" width="2" height="7" fill="black"/>
+      <rect x="13" y="19" width="3" height="3" fill="black"/>
+      <rect x="9" y="19" width="3" height="3" fill="black"/>
+      <rect x="13" y="15" width="3" height="3" fill="black"/>
+      <rect x="9" y="15" width="3" height="3" fill="black"/>
+      <rect x="17" y="11" width="2" height="3" fill="black"/>
+      <rect x="13" y="11" width="3" height="3" fill="black"/>
+      <rect x="9" y="11" width="3" height="3" fill="black"/>
+      <rect x="8" y="6" width="12" height="3" fill="black"/>
+      <rect x="5" y="3" width="18" height="22" rx="1" stroke="black" stroke-width="2" fill="none"/>
+    </g>
+    <g id="icon-calculator-32">
+      <rect x="19" y="16" width="2" height="7" fill="black"/>
+      <rect x="15" y="20" width="3" height="3" fill="black"/>
+      <rect x="11" y="20" width="3" height="3" fill="black"/>
+      <rect x="15" y="16" width="3" height="3" fill="black"/>
+      <rect x="11" y="16" width="3" height="3" fill="black"/>
+      <rect x="19" y="13" width="2" height="2" fill="black"/>
+      <rect x="15" y="13" width="3" height="2" fill="black"/>
+      <rect x="11" y="13" width="3" height="2" fill="black"/>
+      <rect x="11" y="9" width="10" height="3" fill="black"/>
+      <rect x="8" y="6" width="16" height="20" rx="1" stroke="black" stroke-width="2" fill="none"/>
+    </g>
+    <g id="icon-calculator-48">
+      <rect x="29" y="27" width="4" height="11" fill="black"/>
+      <rect x="22" y="34" width="4" height="4" fill="black"/>
+      <rect x="15" y="34" width="4" height="4" fill="black"/>
+      <rect x="22" y="27" width="4" height="4" fill="black"/>
+      <rect x="15" y="27" width="4" height="4" fill="black"/>
+      <rect x="29" y="20" width="4" height="4" fill="black"/>
+      <rect x="22" y="20" width="4" height="4" fill="black"/>
+      <rect x="15" y="20" width="4" height="4" fill="black"/>
+      <rect x="14" y="10" width="20" height="6" fill="black"/>
+      <rect x="9" y="5" width="30" height="38" rx="1" stroke="black" stroke-width="2" fill="none" />
+    </g>
   </defs>
 </svg>
