@@ -62,3 +62,10 @@
   font-weight: var(--type-scale-body-1-stronger-weight);
   line-height: var(--type-scale-body-1-stronger-line-height);
 }
+
+.text-subtitle-2 {
+  font-family: var(--text-font-family);
+  font-size: var(--type-scale-subtitle-2-font-size);
+  font-weight: var(--type-scale-subtitle-2-weight);
+  line-height: var(--type-scale-subtitle-2-line-height);
+}
