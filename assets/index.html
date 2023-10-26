@@ -21,7 +21,24 @@
   </head>
   <body class="text-body-1">
     <noscript> Please enable JavaScript to view this website. </noscript>
-    <praxis-isncsci-app-bar><button>C</button></praxis-isncsci-app-bar>
+    <praxis-isncsci-app-bar>
+      <button class="button icon-button" slot="menu-button">
+        <praxis-isncsci-icon
+          href="icons/regular.svg#icon-hamburger-menu-24"
+          size="24"
+        ></praxis-isncsci-icon>
+      </button>
+      <span slot="title">&nbsp;</span>
+      <div slot="actions">
+        <button class="button">
+          <praxis-isncsci-icon
+            href="icons/regular.svg#icon-calculator-20"
+            size="20"
+          ></praxis-isncsci-icon>
+          Calculate
+        </button>
+      </div>
+    </praxis-isncsci-app-bar>
     <praxis-isncsci-input-layout></praxis-isncsci-input-layout>
     <praxis-isncsci-totals>
       <praxis-isncsci-classification-grid
