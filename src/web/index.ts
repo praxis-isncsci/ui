@@ -1,9 +1,11 @@
+import {PraxisIsncsciAppBar} from './praxisIsncsciAppBar';
 import {PraxisIsncsciCell} from './praxisIsncsciCell';
 import {PraxisIsncsciGrid} from './praxisIsncsciGrid';
 import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
 import {PraxisIsncsciTotals} from './praxisIsncsciTotals';
 
 [
+  PraxisIsncsciAppBar,
   PraxisIsncsciCell,
   PraxisIsncsciGrid,
   PraxisIsncsciInputLayout,
