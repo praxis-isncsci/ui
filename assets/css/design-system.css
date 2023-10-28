@@ -4,6 +4,7 @@
 @import url('_buttons.css');
 @import url('_classification-grid.css');
 @import url('_classification-total.css');
+@import url('_dialog-header.css');
 
 body {
   font-family: Inter, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;

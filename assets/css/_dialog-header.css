@@ -1,0 +1,12 @@
+praxis-isncsci-dialog-header {
+  --gap: var(--dialog-header-gap);
+  --height: var(--dialog-header-height);
+  --padding-bottom: var(--dialog-header-padding-bottom);
+  --padding-left: var(--dialog-header-padding-left);
+  --padding-right: var(--dialog-header-padding-right);
+  --padding-top: var(--dialog-header-padding-top);
+  --title-font-family: var(--text-font-family);
+  --title-font-size: var(--type-scale-subtitle-2-font-size);
+  --title-font-weight: var(--type-scale-subtitle-2-weight);
+  --title-line-height: var(--type-scale-subtitle-2-line-height);
+}
