@@ -1,1 +1,0 @@
-export {PraxisIsncsciTotals} from './praxisIsncsciTotals';

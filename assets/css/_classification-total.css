@@ -4,5 +4,9 @@ praxis-isncsci-classification-total {
   --font-size: var(--type-scale-caption-1-font-size);
   --font-weight: var(--type-scale-caption-1-weight);
   --line-height: var(--type-scale-caption-1-line-height);
+  --padding-bottom: var(--classification-total-padding-bottom);
+  --padding-left: var(--classification-total-padding--left);
+  --padding-right: var(--classification-total-padding-right);
+  --padding-top: var(--classification-total-padding-top);
   min-width: var(--totals-cell-width);
 }

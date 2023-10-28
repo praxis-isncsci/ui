@@ -10,6 +10,7 @@ export class PraxisIsncsciClassificationGrid extends HTMLElement {
     return `
       <style>
         :host {
+          align-items: center;
           display: flex;
           flex-direction: column;
           gap: var(--gap, 0.5rem);
@@ -25,9 +26,10 @@ export class PraxisIsncsciClassificationGrid extends HTMLElement {
         }
 
         ::slotted([slot="grid"]) {
-          align-items: center;
+          align-items: end;
           display: inline-grid;
           gap: var(--grid-gap, 0.25rem);
+          grid-auto-rows: max-content;
           grid-template-columns: var(--grid-template-columns, auto auto auto);
         }]
       </style>

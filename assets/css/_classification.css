@@ -1,0 +1,17 @@
+praxis-isncsci-classification {
+  --gap: var(--classification-gap);
+  --padding: var(--classification-padding);
+}
+
+praxis-isncsci-classification-grid[slot='nli'],
+praxis-isncsci-classification-grid[slot='ais'] {
+  --grid-template-columns: auto;
+}
+
+praxis-isncsci-classification-grid[slot='ais'] {
+  --grid-gap: 16px;
+}
+
+praxis-isncsci-classification-grid[slot='sub-scores'] {
+  --grid-template-columns: auto auto auto auto;
+}

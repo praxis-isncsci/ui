@@ -18,7 +18,7 @@ export class PraxisIsncsciClassificationTotal extends HTMLElement {
 
           border-bottom: solid 0.0625rem var(--border-color, rgba(0, 0, 0, 0.6));
           display: inline-block;
-          padding: 0.25rem 0;
+          padding: var(--padding-top, 0.25rem) var(--padding-right, 0.5rem) var(--padding-bottom, 0.25rem) var(--padding-left, 0.5rem);
         }
       </style>
       <slot></slot>
