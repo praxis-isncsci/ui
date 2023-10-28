@@ -1,15 +1,23 @@
 import {PraxisIsncsciAppBar} from './praxisIsncsciAppBar';
 import {PraxisIsncsciCell} from './praxisIsncsciCell';
+import {
+  PraxisIsncsciClassification,
+  PraxisIsncsciClassificationGrid,
+  PraxisIsncsciClassificationTotal,
+} from './praxisIsncsciClassification';
+import {PraxisIsncsciDialogHeader} from './praxisIsncsciDialogHeader';
 import {PraxisIsncsciGrid} from './praxisIsncsciGrid';
 import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
-import {PraxisIsncsciTotals} from './praxisIsncsciTotals';
 
 [
   PraxisIsncsciAppBar,
   PraxisIsncsciCell,
+  PraxisIsncsciClassification,
+  PraxisIsncsciClassificationGrid,
+  PraxisIsncsciClassificationTotal,
+  PraxisIsncsciDialogHeader,
   PraxisIsncsciGrid,
   PraxisIsncsciInputLayout,
-  PraxisIsncsciTotals,
 ].forEach((component) => {
   if (!window.customElements.get(component.is)) {
     window.customElements.define(component.is, component);

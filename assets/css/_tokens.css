@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 26 Oct 2023 20:34:49 GMT
+ * Generated on Sat, 28 Oct 2023 06:05:26 GMT
  */
 
 :root {
@@ -135,22 +135,22 @@
   --light-grid-border-cell: #d4d4d4;
   --light-input-label-foreground: #5e5e5e;
   --light-input-foreground: #000000;
-  --light-foreground-catption-2: #5e5e5e;
-  --light-foreground-caption: #000000;
-  --light-foreground-primary: #000000;
-  --light-foreground-subdued: #5e5e5e;
+  --light-shadow: #5f1877;
   --light-body-diagram-bg: #ababab;
   --light-body-diagram-segment-bg: #f9f9f9;
   --light-body-diagram-key-sensory-point-bg: #848484;
   --light-body-diagram-foreground: #6a6a6a;
   --light-body-diagram-guide-bg: #848484;
-  --light-shadow: #5f1877;
+  --light-foreground-primary: #000000;
+  --light-foreground-caption: #000000;
+  --light-foreground-catption-2: #5e5e5e;
+  --light-foreground-subdued: #5e5e5e;
   --light-acrylic-bg: rgba(255, 255, 255, 0.4000);
+  --light-primary: #a82ad1;
   --light-button-surface: rgba(255, 255, 255, 0.0000);
   --light-button-surface-hover: rgba(51, 4, 73, 0.0800);
   --light-button-on-surface: #1b1b1b;
   --light-button-surface-active: rgba(51, 4, 73, 0.1200);
-  --light-primary: #a82ad1;
   --light-on-primary: #ffffff;
   --light-error: #b8451c;
   --light-secondary: #007491;
@@ -169,9 +169,9 @@
   --light-primary-container: #eed7f6;
   --light-secondary-container: #cfe5ea;
   --light-error-container: #f2dcd4;
-  --light-text-area-border: #848484;
   --light-drop-down-border: #ababab;
   --light-totals-label-foreground: #5e5e5e;
+  --light-text-area-border: #848484;
   --totals-cell-width: 3.25rem;
   --type-scale-caption-2-font-size: .625rem;
   --type-scale-caption-2-weight: 400;
@@ -241,5 +241,15 @@
   --exam-padding-bottom: 7.5rem;
   --exam-large-padding-bottom: 1.75rem;
   --exam-large-padding-top: 7.5rem;
-  --number: 0;
+  --dialog-header-padding-top: 0;
+  --dialog-header-height: 3.5rem;
+  --dialog-header-padding-right: .75rem;
+  --dialog-header-padding-botton: 0;
+  --dialog-header-padding-left: 3.25rem;
+  --classification-gap: 2.5rem;
+  --classification-padding: 1rem;
+  --classification-total-padding-left: .5rem;
+  --classification-total-padding-right: .5rem;
+  --classification-total-padding-top: .25rem;
+  --classification-total-padding-bottom: .25rem;
 }
