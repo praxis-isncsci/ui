@@ -1,0 +1,128 @@
+{/* PraxisIsncsciDialogHeader.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciDialogHeader.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI Dialog Header
+
+## Design Problem
+
+Dialogs, like the _classification_ dialog, require a header to display the title and close button.
+
+## Approach
+
+We are favoring composition.
+We provide a component that can be used to compose a dialog header.
+
+### Slots
+
+- `title` - Expects an element with text
+- `close` - Expects an icon button
+
+### CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--height</code>
+      </td>
+      <td></td>
+      <td>
+        <code>3.5rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--gap</code>
+      </td>
+      <td></td>
+      <td>
+        <code>0.5rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--padding-bottom</code>
+      </td>
+      <td></td>
+      <td>
+        <code>0</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--padding-left</code>
+      </td>
+      <td></td>
+      <td>
+        <code>3.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--padding-right</code>
+      </td>
+      <td></td>
+      <td>
+        <code>0.75rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--padding-top</code>
+      </td>
+      <td></td>
+      <td>
+        <code>0</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-font-family</code>
+      </td>
+      <td></td>
+      <td>
+        <code>sans-serif</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-font-size</code>
+      </td>
+      <td></td>
+      <td>
+        <code>1rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-font-weight</code>
+      </td>
+      <td></td>
+      <td>
+        <code>400</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--title-line-height</code>
+      </td>
+      <td></td>
+      <td>
+        <code>1.375rem</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={Stories.Primary} />

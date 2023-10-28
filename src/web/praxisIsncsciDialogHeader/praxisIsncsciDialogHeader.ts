@@ -1,11 +1,9 @@
-import '@web/praxisIsncsciIcon';
-
 /**
- * @tagname praxis-isncsci-app-bar
+ * @tagname praxis-isncsci-dialog-header
  */
-export class PraxisIsncsciAppBar extends HTMLElement {
+export class PraxisIsncsciDialogHeader extends HTMLElement {
   public static get is(): string {
-    return 'praxis-isncsci-app-bar';
+    return 'praxis-isncsci-dialog-header';
   }
 
   private template() {
@@ -16,8 +14,8 @@ export class PraxisIsncsciAppBar extends HTMLElement {
           display: flex;
           flex-direction: row;
           height: var(--height, 3.5rem);
-          padding: var(--padding, 0.75rem);
-          gap: var(--gap, 1.25rem);
+          gap: var(--gap, 0.5rem);
+          padding: var(--padding-top, 0) var(--padding-right, 0.75rem) var(--padding-bottom, 0) var(--padding-left, 3.25rem);
         }
 
         ::slotted([slot="title"]) {
@@ -26,11 +24,11 @@ export class PraxisIsncsciAppBar extends HTMLElement {
           font-size: var(--title-font-size, 1rem);
           font-weight: var(--title-font-weight, 400);
           line-height: var(--title-line-height, 1.375rem);
+          text-align: center;
         }
       </style>
-      <slot name="menu-button"></slot>
       <slot name="title"></slot>
-      <slot name="actions"></slot>
+      <slot name="close"></slot>
     `;
   }
 
@@ -42,4 +40,7 @@ export class PraxisIsncsciAppBar extends HTMLElement {
   }
 }
 
-window.customElements.define(PraxisIsncsciAppBar.is, PraxisIsncsciAppBar);
+window.customElements.define(
+  PraxisIsncsciDialogHeader.is,
+  PraxisIsncsciDialogHeader,
+);

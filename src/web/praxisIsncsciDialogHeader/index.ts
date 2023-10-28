@@ -1,0 +1,1 @@
+export {PraxisIsncsciDialogHeader} from './praxisIsncsciDialogHeader';
