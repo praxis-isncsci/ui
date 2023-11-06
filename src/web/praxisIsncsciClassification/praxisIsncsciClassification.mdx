@@ -9,87 +9,8 @@ import * as Stories from './praxisIsncsciClassification.stories';
 
 ## Design Problem
 
-We need a section to be use as a dialog or docked at the bottom of the screen to capture the ISNCSCI classification.
-Contains the values used to determine the level and severity of the injury and to monitor neurological recovery.
-
 ## Approach
 
-The section is composed of a header and a body. The header contains a title and a close button.
-The body contains the different sections for the classification values.
-We give it an acrylic material look to make it look like it's floating on top of the content.
-We use composition and provide slots for the dirrerent sub-sections.
-
-### Slots
-
-- `header` - Contains the value to be displayed in the dialog's header
-- `neurological-levels` - Section for the neurological levels
-- `nli` - Section for the Neurological Level of Injury
-- `ais` - Section for the Asia Impairment Scale and injury completeness
-- `zpp` - Section for the Zone of Partial Preservation
-- `sub-scores` - Section for the sub-scores
-
-### CSS Variables
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--backdrop-filter</code>
-      </td>
-      <td>Provides the acrylic material look</td>
-      <td>
-        <code>blur(1.5rem)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--background-color</code>
-      </td>
-      <td></td>
-      <td>
-        <code>rgba(255, 255, 255, 0.4)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--box-shadow</code>
-      </td>
-      <td>
-        Small glow needed for the acrylic look and a drop shadow for elevation
-      </td>
-      <td>
-        <code>
-          inset 0 0 1rem rgba(255, 255, 255, 0.4), 0 2px 4px rgba(95, 24,
-          119,0.1), 0 1px 6px rgba(95, 24, 119, 0.05)
-        </code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--gap</code>
-      </td>
-      <td></td>
-      <td>
-        <code>2.5rem</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--padding</code>
-      </td>
-      <td></td>
-      <td>
-        <code>1rem</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+## Primary
 
 <Canvas of={Stories.Primary} />

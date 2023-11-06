@@ -1,7 +1,4 @@
 praxis-isncsci-classification {
-  --backdrop-filter: var(--acrylic-backdrop-filter);
-  --background-color: var(--light-acrylic);
-  --box-shadow: var(--acrylic-inner-shadow), var(--shadow-medium);
   --gap: var(--classification-gap);
   --padding: var(--classification-padding);
 }
