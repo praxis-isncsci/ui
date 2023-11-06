@@ -10,9 +10,6 @@ export class PraxisIsncsciClassification extends HTMLElement {
     return `
       <style>
         :host {
-          backdrop-filter: var(--backdrop-filter, blur(1.5rem));
-          background-color: var(--background-color, rgba(255, 255, 255, 0.4));
-          box-shadow: var(--box-shadow, inset 0 0 1rem rgba(255, 255, 255, 0.4), 0 2px 4px rgba(95, 24, 119, 0.1), 0 1px 6px rgba(95, 24, 119, 0.05));
           display: flex;
           flex-direction: column;
         }
