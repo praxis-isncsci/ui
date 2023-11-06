@@ -10,11 +10,11 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
     return `
       <style>
         :host {
+          container-type: inline-size;
           display: flex;
           flex-direction: column;
           flex: 1;
           overflow: hidden;
-          position: relative;
         }
 
         :host([classification-style="static"]) {
@@ -23,7 +23,8 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
         }
         
         :host([classification-style="visible"]) :has(> [name="classification"]) {
-          display: block;
+          display: flex;
+          flex-direction: column;
         }
 
         :host([classification-style="static"]) :has(> [name="classification"]) {
@@ -41,14 +42,26 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
 
         :has(> [name="classification"]) {
           display: none;
-          position: absolute;
+          position: fixed;
           bottom: 0;
           left: 0;
           right: 0;
+          top: 0;
+          z-index: var(--classification-z-index, 1);
+        }
+
+        ::slotted([slot="classification"]) {
+          flex-grow: 1;
         }
 
         :has(> [name="input-layout"]) {
           overflow-y: auto;
+        }
+
+        @container (min-width: 48rem) {
+          :has(> [name="classification"]) {
+            top: auto;
+          }
         }
       </style>
       <div>
