@@ -45,6 +45,17 @@ const demoSiteConfig = {
   ],
 };
 
+const templateConfig = {
+  input: 'src/web/praxisIsncsciAppLayout/appLayoutTemplate.ts',
+  output: {
+    dir: `${demoDir}/scripts`,
+    entryFileNames: 'appLayoutTemplate.js',
+    format: 'cjs',
+    sourcemap: true,
+  },
+  plugins: [resolve(), typescript(tsconfig)],
+};
+
 const getConfig = ({output = {}, plugins = [], dir = './'}) => {
   return {
     input: {
@@ -80,4 +91,8 @@ const configs = ['cjs', 'esm'].map((format) => {
   };
 });
 
-export default [demoSiteConfig, ...configs.map((c) => getConfig(c))];
+export default [
+  demoSiteConfig,
+  ...configs.map((c) => getConfig(c)),
+  templateConfig,
+];
