@@ -70,6 +70,7 @@
     "url": "git+https://github.com/praxis-isncsci/ui.git"
   },
   "scripts": {
+    "postbuild": "node ./scripts/update-template-markup.ts",
     "prebuild": "rimraf ./build ./app ./core ./web",
     "build": "rollup -c",
     "build-styles": "style-dictionary build --config style-dictionary.config.json",
