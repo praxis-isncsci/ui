@@ -1,4 +1,5 @@
 import {PraxisIsncsciAppBar} from './praxisIsncsciAppBar';
+import {PraxisIsncsciAppLayout} from './praxisIsncsciAppLayout';
 import {PraxisIsncsciCell} from './praxisIsncsciCell';
 import {
   PraxisIsncsciClassification,
@@ -11,6 +12,7 @@ import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
 
 [
   PraxisIsncsciAppBar,
+  PraxisIsncsciAppLayout,
   PraxisIsncsciCell,
   PraxisIsncsciClassification,
   PraxisIsncsciClassificationGrid,
