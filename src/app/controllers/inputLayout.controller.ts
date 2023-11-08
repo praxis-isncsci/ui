@@ -4,17 +4,18 @@ import {Cell, Totals} from '@core/domain';
 
 export class InputLayoutController {
   private cells: HTMLElement[] = [];
+  private classificationTotals: HTMLElement[] = [];
 
   public constructor(
     appStore: IDataStore<IAppState>,
     inputLayout: HTMLElement,
-    private totalsView: HTMLElement,
+    classificationView: HTMLElement,
   ) {
     if (!inputLayout.shadowRoot) {
       throw new Error('The input layout has not been initialized');
     }
 
-    if (!totalsView.shadowRoot) {
+    if (!classificationView.shadowRoot) {
       throw new Error('The totals have not been initialized');
     }
 
@@ -35,6 +36,10 @@ export class InputLayoutController {
               cell),
         );
       });
+
+    this.classificationTotals = Array.from(
+      classificationView.querySelectorAll('[data-total]'),
+    );
 
     appStore.subscribe((state: IAppState, actionType: string) =>
       this.stateChanged(state, actionType),
@@ -58,11 +63,11 @@ export class InputLayoutController {
   }
 
   private updateTotals(totals: Totals) {
-    Object.keys(totals).forEach((key) => {
-      const kebabCaseKey = key
-        .replace(/([a-z])([A-Z])/g, '$1-$2')
-        .toLowerCase();
-      this.totalsView.setAttribute(kebabCaseKey, totals[key]);
+    this.classificationTotals.forEach((classificationTotal) => {
+      const key = (
+        classificationTotal.getAttribute('data-total') ?? ''
+      ).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+      classificationTotal.innerHTML = totals[key] ?? '';
     });
   }
 
