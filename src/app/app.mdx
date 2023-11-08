@@ -9,7 +9,23 @@ import * as Stories from './app.stories';
 
 ## Design Problem
 
+We need a component that will manage the business logic and user interaction and will call the appropriate use cases to update the state of the application.
+
 ## Approach
+
+The web app component adds the needed event listeners and controllers to manage user interaction.
+It exposes the `initialize` method where different implementations can pass in their own providers.
+
+## Public methods
+
+### initialize
+
+```js
+public initialize(
+  appStore: IDataStore<IAppState>,
+  appStoreProvider: IIsncsciAppStoreProvider,
+): void
+```
 
 ## Primary
 
