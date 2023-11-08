@@ -39,6 +39,15 @@ const demoSiteConfig = {
               );
             }
           });
+          copyfiles(['assets/css/**/*.css', 'css'], {up: 2}, (err) => {
+            if (err) {
+              console.error(err);
+            } else {
+              console.log(
+                '\x1b[32m' + `assets/**/* were copied to css` + '\x1b[0m',
+              );
+            }
+          });
         }
       },
     },
@@ -61,7 +70,7 @@ const getConfig = ({output = {}, plugins = [], dir = './'}) => {
     input: {
       'app/index': 'src/app/index.ts',
       'app/providers/index': 'src/app/providers/index.ts',
-      'app/providers/externalMessagePort.provider/index.ts':
+      'app/providers/externalMessagePort.provider/index':
         'src/app/providers/externalMessagePort.provider/index.ts',
       'app/store/index': 'src/app/store/index.ts',
       'core/boundaries/index': 'src/core/boundaries/index.ts',
