@@ -67,7 +67,7 @@ export const getAppLayoutTemplate = (
         <praxis-isncsci-classification-grid slot="nli">
           <h3 slot="heading">Neurological Level of Injury<br />(NLI)</h3>
           <div slot="grid">
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="neurological-level-of-injury"
               >&nbsp;</praxis-isncsci-classification-total
             >
           </div>
@@ -76,10 +76,10 @@ export const getAppLayoutTemplate = (
         <praxis-isncsci-classification-grid slot="ais">
           <h3 slot="heading">Asia Impairment Scale<br />(AIS)</h3>
           <div slot="grid">
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="asia-impairment-scale"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="injury-complete"
               >&nbsp;</praxis-isncsci-classification-total
             >
           </div>
@@ -92,17 +92,17 @@ export const getAppLayoutTemplate = (
             <div class="text-caption-2 col-header">R</div>
             <div class="text-caption-2 col-header">L</div>
             <div class="text-caption-2 row-header">Sensory</div>
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="right-sensory-zpp"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="left-sensory-zpp"
               >&nbsp;</praxis-isncsci-classification-total
             >
             <div class="text-caption-2 row-header">Motor</div>
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="right-motor-zpp"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="left-motor-zpp"
               >&nbsp;</praxis-isncsci-classification-total
             >
           </div>
@@ -116,43 +116,43 @@ export const getAppLayoutTemplate = (
             <div class="text-caption-2 col-header">L</div>
             <div class="text-caption-2 col-header">Total</div>
             <div class="text-caption-2 row-header">UEMS</div>
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="right-upper-motor-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="left-upper-motor-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="upper-motor-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
             <div class="text-caption-2 row-header">LEMS</div>
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="right-lower-motor-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="left-lower-motor-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="lower-motor-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
             <div class="text-caption-2 row-header">Light touch</div>
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="right-light-touch-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="left-light-touch-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="touch-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
             <div class="text-caption-2 row-header">Pin prick</div>
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="right-pin-prick-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="left-pin-prick-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
-            <praxis-isncsci-classification-total
+            <praxis-isncsci-classification-total data-total="pin-prick-total"
               >&nbsp;</praxis-isncsci-classification-total
             >
           </div>

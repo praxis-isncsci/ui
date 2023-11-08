@@ -63,7 +63,6 @@ export class InputLayoutController {
   }
 
   private updateTotals(totals: Totals) {
-    console.log(totals);
     this.classificationTotals.forEach((classificationTotal) => {
       const key = (
         classificationTotal.getAttribute('data-total') ?? ''

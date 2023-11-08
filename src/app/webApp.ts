@@ -129,6 +129,8 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       );
     }
 
+    this.externalMessagePortProvider?.sendOutExamData();
+
     return false;
   }
 

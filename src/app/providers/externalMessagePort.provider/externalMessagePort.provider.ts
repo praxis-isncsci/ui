@@ -8,7 +8,9 @@ export class ExternalMessagePortProviderActions {
 }
 
 export class ExternalMessagePortProvider implements IExternalMessageProvider {
-  private handlers: Array<(actionType: string, examData: {[key: string]: string} | null) => void> = [];
+  private handlers: Array<
+    (actionType: string, examData: {[key: string]: string} | null) => void
+  > = [];
   private port: MessagePort | null = null;
 
   constructor() {
@@ -17,37 +19,59 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
   }
 
   private initPort(e: MessageEvent) {
-    if (e.data.action && e.data.action === ExternalMessagePortProviderActions.INITIALIZE_PORT) {
+    if (
+      e.data.action &&
+      e.data.action === ExternalMessagePortProviderActions.INITIALIZE_PORT
+    ) {
       this.port = e.ports[0] ?? null;
-      this.port.onmessage = (e: MessageEvent) => this.onPortMessage(e.data.action, e.data.examData);
-      this.dispatch({examData: null, type: ExternalMessagePortProviderActions.ON_EXTERNAL_PORT});
+      this.port.onmessage = (e: MessageEvent) =>
+        this.onPortMessage(e.data.action, e.data.examData);
+      this.dispatch({
+        examData: null,
+        type: ExternalMessagePortProviderActions.ON_EXTERNAL_PORT,
+      });
     }
   }
 
-  private onPortMessage(action: string, examData: {[key: string]: string} | null) {
+  private onPortMessage(
+    action: string,
+    examData: {[key: string]: string} | null,
+  ) {
     if (action === ExternalMessagePortProviderActions.SET_EXAM_DATA) {
-      this.dispatch({examData, type: ExternalMessagePortProviderActions.ON_EXAM_DATA});
+      this.dispatch({
+        examData,
+        type: ExternalMessagePortProviderActions.ON_EXAM_DATA,
+      });
     }
   }
 
   public sendOutExamData() {
     console.log('sendExamDataThroughExternalChannel');
-    this.port?.postMessage('message from outside iframe');
+    this.port?.postMessage('message from inside iframe');
   }
 
-  private dispatch(action: {type: string; examData: {[key: string]: string} | null;}) {
+  private dispatch(action: {
+    type: string;
+    examData: {[key: string]: string} | null;
+  }) {
     this.handlers.forEach((handler) => handler(action.type, action.examData));
   }
 
   /*
    * returns the unsubscribe function
    */
-  public subscribe(handler: (action: string, examData: {[key: string]: string} | null) => void) {
+  public subscribe(
+    handler: (action: string, examData: {[key: string]: string} | null) => void,
+  ) {
     this.handlers.push(handler);
 
     return () => {
-      const index: number = this.handlers.findIndex((value: Function) => value === handler);
-      if (index > -1) { this.handlers.splice(index, 1); }
+      const index: number = this.handlers.findIndex(
+        (value: Function) => value === handler,
+      );
+      if (index > -1) {
+        this.handlers.splice(index, 1);
+      }
     };
   }
 }
