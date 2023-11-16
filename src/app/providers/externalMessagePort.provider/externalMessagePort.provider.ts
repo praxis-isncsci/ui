@@ -1,4 +1,5 @@
 import {IExternalMessageProvider} from '@core/boundaries';
+import {ExamData} from '@core/domain';
 
 export class ExternalMessagePortProviderActions {
   public static INITIALIZE_PORT: string = 'INITIALIZE_PORT';
@@ -45,9 +46,9 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     }
   }
 
-  public sendOutExamData() {
-    console.log('sendExamDataThroughExternalChannel');
-    this.port?.postMessage('message from inside iframe');
+  public sendOutExamData(examData: ExamData) {
+    console.log(`sendExamDataThroughExternalChannel ${examData}`);
+    this.port?.postMessage(examData);
   }
 
   private dispatch(action: {

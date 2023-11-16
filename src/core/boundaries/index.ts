@@ -1,3 +1,4 @@
 export {IAppState, StatusCodes} from './iAppState';
-export {IIsncsciAppStoreProvider} from './iIsncsciAppStore.provider';
 export {IExternalMessageProvider} from './iExternalMessage.provider';
+export {IIsncsciAppStoreProvider} from './iIsncsciAppStore.provider';
+export {IIsncsciExamProvider} from './iIsncsciExam.provider';

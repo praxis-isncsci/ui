@@ -1,3 +1,5 @@
+import {ExamData} from '@core/domain';
+
 export interface IExternalMessageProvider {
-  sendOutExamData(): void;
+  sendOutExamData(examData: ExamData): void;
 }

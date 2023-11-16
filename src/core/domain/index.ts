@@ -1,4 +1,5 @@
 export {Cell} from './cell';
+export {ExamData} from './examData';
 export {
   MotorLevel,
   MotorLevels,

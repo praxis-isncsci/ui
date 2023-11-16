@@ -5,7 +5,7 @@ import {MotorLevel, MotorLevels as ML, SensoryLevels as SL} from '@core/domain';
 const SensoryLevels = SL.splice(0);
 const MotorLevels = ML.splice(0);
 
-const getRandomExamData = () => {
+export const getRandomExamData = () => {
   const motorValues = ['0', '1', '2', '3', '4', '5'];
   const sensoryValues = ['0', '1', '2'];
   const binaryObservation = ['Yes', 'No'];
