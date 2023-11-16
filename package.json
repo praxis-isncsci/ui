@@ -86,7 +86,7 @@
     "create-custom-elements-manifest:dist": "cem analyze --config custom-elements-manifest-dist.config.mjs"
   },
   "types": "./index.d.ts",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "readme": "README.md",
-  "_id": "isncsci-ui@0.0.15"
+  "_id": "isncsci-ui@0.0.16"
 }
