@@ -1,9 +1,11 @@
 import {
   IAppState,
   IIsncsciAppStoreProvider,
+  IIsncsciExamProvider,
   StatusCodes,
 } from '@core/boundaries';
 import {
+  calculateUseCase,
   initializeAppUseCase,
   loadExternalExamDataUseCase,
 } from '@core/useCases';
@@ -14,6 +16,7 @@ import {
   ExternalMessagePortProviderActions,
 } from '@app/providers';
 import {InputLayoutController} from '@app/controllers/inputLayout.controller';
+import {getRandomExamData} from './providers/externalMessagePort.provider/externalMessagePort.provider.stories';
 
 export class PraxisIsncsciWebApp extends HTMLElement {
   public static get is(): string {
@@ -37,6 +40,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   private appStore: IDataStore<IAppState> | null = null;
   private appStoreProvider: IIsncsciAppStoreProvider | null = null;
   private externalMessagePortProvider = new ExternalMessagePortProvider();
+  private isncsciExamProvider: IIsncsciExamProvider | null = null;
   private unsubscribeFromStoreHandler: Function | null = null;
   private unsubscribeFromExternalChannelHandler: Function | null = null;
   private ready = false;
@@ -51,9 +55,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   public initialize(
     appStore: IDataStore<IAppState>,
     appStoreProvider: IIsncsciAppStoreProvider,
+    isncsciExamProvider: IIsncsciExamProvider,
   ) {
     this.appStore = appStore;
     this.appStoreProvider = appStoreProvider;
+    this.isncsciExamProvider = isncsciExamProvider;
 
     this.unsubscribeFromStoreHandler = this.appStore.subscribe(
       (state: IAppState, actionType: string) =>
@@ -121,6 +127,16 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       return;
     }
 
+    if (
+      !this.appStoreProvider ||
+      !this.isncsciExamProvider ||
+      !this.externalMessagePortProvider
+    ) {
+      throw new Error(
+        'The application store provider, the exam provider, and the external message port provider have not been initialized',
+      );
+    }
+
     if (this.appLayout.getAttribute('classification-style') !== 'fixed') {
       this.appLayout.setAttribute('classification-style', 'visible');
       document.documentElement.style.setProperty(
@@ -129,7 +145,15 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       );
     }
 
-    this.externalMessagePortProvider?.sendOutExamData();
+    const examData = getRandomExamData();
+    loadExternalExamDataUseCase(this.appStoreProvider, examData);
+
+    calculateUseCase(
+      this.appStoreProvider,
+      this.isncsciExamProvider,
+      this.externalMessagePortProvider,
+      this.appStore?.getState().gridModel ?? [],
+    );
 
     return false;
   }

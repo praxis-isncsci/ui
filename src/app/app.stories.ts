@@ -15,6 +15,7 @@ import '@web/praxisIsncsciClassification';
 import 'assets/css/design-system.css';
 import {PraxisIsncsciWebApp} from '@app/webApp';
 import {appStore} from './store';
+import {IsncsciExamProvider} from './providers/isncsciExam.provider';
 
 const styles = html`
   <style>
@@ -56,7 +57,11 @@ class webAppStory extends HTMLElement {
     ) as PraxisIsncsciWebApp;
 
     if (webApp) {
-      webApp.initialize(appStore, new AppStoreProvider(appStore));
+      webApp.initialize(
+        appStore,
+        new AppStoreProvider(appStore),
+        new IsncsciExamProvider(),
+      );
     }
   }
 }
