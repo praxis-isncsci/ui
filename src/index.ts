@@ -1,5 +1,4 @@
-import {AppStoreProvider} from '@app/providers';
-import {IsncsciExamProvider} from '@app/providers/isncsciExam.provider';
+import {AppStoreProvider, IsncsciExamProvider} from '@app/providers';
 import {appStore} from '@app/store';
 import {PraxisIsncsciWebApp} from '@app/webApp';
 

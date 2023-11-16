@@ -3,3 +3,4 @@ export {
   ExternalMessagePortProvider,
   ExternalMessagePortProviderActions,
 } from './externalMessagePort.provider';
+export {IsncsciExamProvider} from './isncsciExam.provider';
