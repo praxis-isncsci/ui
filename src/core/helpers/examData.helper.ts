@@ -7,8 +7,9 @@ import {
   ValidMotorValues,
   ValidSensoryValues,
 } from '@core/domain';
+import {ExamData} from '@core/domain/examData';
 
-const validateSensoryValue = (
+const validateValue = (
   dataKey: string,
   examData: any,
   errors: string[],
@@ -42,44 +43,29 @@ export const validateExamData = (examData: {[key: string]: string}) => {
   const errors: string[] = [];
 
   SensoryLevels.forEach((level) => {
-    validateSensoryValue(
+    validateValue(
       `rightLightTouch${level}`,
       examData,
       errors,
       ValidSensoryValues,
     );
-    validateSensoryValue(
+    validateValue(
       `rightPinPrick${level}`,
       examData,
       errors,
       ValidSensoryValues,
     );
-    validateSensoryValue(
+    validateValue(
       `leftLightTouch${level}`,
       examData,
       errors,
       ValidSensoryValues,
     );
-    validateSensoryValue(
-      `leftPinPrick${level}`,
-      examData,
-      errors,
-      ValidSensoryValues,
-    );
+    validateValue(`leftPinPrick${level}`, examData, errors, ValidSensoryValues);
 
     if (MotorLevels.includes(level as MotorLevel)) {
-      validateSensoryValue(
-        `rightMotor${level}`,
-        examData,
-        errors,
-        ValidMotorValues,
-      );
-      validateSensoryValue(
-        `leftMotor${level}`,
-        examData,
-        errors,
-        ValidMotorValues,
-      );
+      validateValue(`rightMotor${level}`, examData, errors, ValidMotorValues);
+      validateValue(`leftMotor${level}`, examData, errors, ValidMotorValues);
     }
   });
 
@@ -168,4 +154,25 @@ export const bindExamDataToTotals = (examData: {
     touchTotal: examData['touchTotal'] ?? '',
     upperMotorTotal: examData['upperMotorTotal'] ?? '',
   };
+};
+
+export const getExamDataFromGridModel = (gridModel: Array<Cell | null>[]) => {
+  const examData: {[key: string]: string} = {};
+  let isMissingValues = false;
+
+  gridModel.flat().forEach((cell) => {
+    if (cell) {
+      const key = cell.name.replace(/-([a-z])/gi, (a: string) =>
+        a[1].toUpperCase(),
+      );
+
+      if (!cell.value) {
+        isMissingValues = true;
+      }
+
+      examData[key] = cell.value;
+    }
+  });
+
+  return {examData: examData as ExamData, isMissingValues};
 };
