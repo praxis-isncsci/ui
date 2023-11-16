@@ -5,11 +5,7 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "ESNext"
-    ],
+    "lib": ["dom", "dom.iterable", "ESNext"],
     "module": "es6",
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -22,14 +18,10 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@core/*": ["src/core/*"],
+      "@testHelpers/*": ["src/testHelpers/*"],
       "@web/*": ["src/web/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "**/*.spec.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*", "**/*.spec.ts"],
+  "exclude": ["node_modules"]
 }

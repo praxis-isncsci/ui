@@ -16,7 +16,7 @@ import {
   ExternalMessagePortProviderActions,
 } from '@app/providers';
 import {InputLayoutController} from '@app/controllers/inputLayout.controller';
-import {getRandomExamData} from './providers/externalMessagePort.provider/externalMessagePort.provider.stories';
+import {getRandomExamData} from '@testHelpers/examDataHelper';
 
 export class PraxisIsncsciWebApp extends HTMLElement {
   public static get is(): string {
