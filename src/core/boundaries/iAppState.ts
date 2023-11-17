@@ -8,6 +8,7 @@ export class StatusCodes {
 
 export interface IAppState {
   gridModel: Array<Cell | null>[];
+  selectedPoint: string | null;
   status: number;
   totals: Totals;
 }

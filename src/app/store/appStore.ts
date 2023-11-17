@@ -6,6 +6,7 @@ class AppStore implements IDataStore<IAppState> {
   private handlers: Function[] = [];
   private state: IAppState = {
     gridModel: [],
+    selectedPoint: null,
     status: StatusCodes.NotInitialized,
     totals: {
       asiaImpairmentScale: '',

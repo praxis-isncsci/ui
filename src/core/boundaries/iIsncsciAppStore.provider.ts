@@ -1,8 +1,8 @@
 import {Cell, Totals} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
-  selectDermatome(dermatomeName: string): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
+  setSelectedPoint(name: string | null): Promise<void>;
   setTotals(totals: Totals): Promise<void>;
   // clearDermatomeSelection(): Promise<void>;
   // setDermatomeValue(dermatomeName: string, value: string): Promise<void>;
