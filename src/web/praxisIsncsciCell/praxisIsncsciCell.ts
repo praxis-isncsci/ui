@@ -23,10 +23,12 @@ export class PraxisIsncsciCell extends HTMLElement {
         justify-content: center;
         min-height: 32px;
         min-width: 32px;
+        transition: all .3s ease-in-out;
       }
 
-      :host([selected]) {
+      :host([highlighted]) {
         transform: scale(1.1);
+        border: solid 1px var(--highlighted-cell-border-color, orange);
       }
     </style>
     <slot></slot>

@@ -1,0 +1,58 @@
+{/* PraxisIsncsciCell.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciCell.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI Cell
+
+## Design Problem
+
+We need a cell component to compose our ISNCSCI table.
+
+## Approach
+
+We are favoring composition so we add slots for the optional subcomponents.
+This will make it easy for the component or controller adding them to control their appearance and subscribe to their events.
+
+### Slots
+
+- There is a deffault slot for the cell content.
+
+### Attributes
+
+- `highlighted` - boolean - if true, the cell will be highlighted
+
+### CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--highlighted-cell-border-color</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>orange</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+### Default
+
+<Canvas of={Stories.Primary} />
+
+### Highlighted
+
+<Canvas of={Stories.Highlighted} />
