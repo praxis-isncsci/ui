@@ -5,6 +5,7 @@ import {IActionWithPayload} from './';
 
 export class Actions {
   public static UPDATE_STATUS = 'UPDATE_STATUS';
+  public static SET_SELECTED_POINT = 'SET_SELECTED_POINT';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
   public static SET_TOTALS = 'SET_TOTALS';
 }
@@ -16,6 +17,18 @@ const gridModel = (
   switch (action.type) {
     case Actions.SET_GRID_MODEL:
       return Object.assign({}, state, {gridModel: action.payload});
+    default:
+      return state;
+  }
+};
+
+const selectedPoint = (
+  state: IAppState,
+  action: IActionWithPayload<string | null>,
+): IAppState => {
+  switch (action.type) {
+    case Actions.SET_SELECTED_POINT:
+      return Object.assign({}, state, {selectedPoint: action.payload});
     default:
       return state;
   }
@@ -45,6 +58,6 @@ const totals = (
   }
 };
 
-export {gridModel, status, totals};
+export {gridModel, selectedPoint, status, totals};
 
-export default [gridModel, status, totals];
+export default [gridModel, selectedPoint, status, totals];

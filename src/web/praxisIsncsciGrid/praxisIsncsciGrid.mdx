@@ -1,0 +1,63 @@
+{/* PraxisIsncsciGrid.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciGrid.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI Grid
+
+## Design Problem
+
+## Approach
+
+### Attributes
+
+- `highlighted-cells` - string - A pipe (|) separated list of cells to highlight.
+- `labels-hidden` - boolean - Used to hide the labels for the level names.
+- `left` - boolean - Used to render as a left examination grid, right otherwise.
+
+### CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--cell-gap</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--cell-height</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>2.375rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--cell-width</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>2.5rem</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+<Canvas of={Stories.Primary} />
