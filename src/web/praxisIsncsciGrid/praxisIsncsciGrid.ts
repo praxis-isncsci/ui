@@ -16,25 +16,21 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   public static get observedAttributes(): string[] {
-    return ['left'];
+    return ['left', 'highlighted-cells'];
   }
 
   private template: string = `
     <style>
       :host {
-        --cell-gap: 0;
-        --cell-height: 38px;
-        --cell-width: 40px;
         column-gap: var(--cell-gap);
         display: grid;
-        grid-template-columns: var(--cell-width) var(--cell-width) var(--cell-width) var(--cell-width);
-        /*grid-template-rows: var(--cell-height) var(--cell-height) repeat(28, var(--cell-height));*/
+        grid-template-columns: repeat(4, var(--cell-width, 2.5rem));
         grid-template-areas:
           'side side side side'
           '. mh lth pph'
           'label motor light-touch pin-prick';
-        grid-template-rows: 26px 24px repeat(28, var(--cell-height));
-        row-gap: var(--cell-gap);
+        grid-template-rows: 1.625rem 1.5rem repeat(28, var(--cell-height, 2.375rem));
+        row-gap: var(--cell-gap, 0);
       }
 
       :host([left]) {
@@ -84,15 +80,15 @@ export class PraxisIsncsciGrid extends HTMLElement {
         padding-right: 12px;
       }
 
-      [data-observation^="motor-"] {
+      [motor] {
         grid-column: motor;
       }
 
-      [data-observation^="light-touch-"] {
+      [light-touch] {
         grid-column: light-touch;
       }
 
-      [data-observation^="pin-prick-"] {
+      [pin-prick] {
         grid-column: pin-prick;
       }
     </style>
@@ -119,10 +115,20 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
     if (name === 'left') {
       console.log('ToDo: Dynamically change side');
+      return;
+    }
+
+    if (name === 'highlighted-cells') {
+      this.updateHighlights(oldValue, newValue);
+      return;
     }
   }
 
-  private getCell(level: SensoryLevel, observationType: string): string {
+  private getCell(
+    side: string,
+    observationType: string,
+    level: SensoryLevel,
+  ): string {
     if (
       observationType === 'motor' &&
       !MotorLevels.includes(level as MotorLevel)
@@ -130,9 +136,9 @@ export class PraxisIsncsciGrid extends HTMLElement {
       return '';
     }
 
-    const slug = `${observationType}-${level}`;
+    const slug = `${side}-${observationType}-${level.toLowerCase()}`;
     const value = this.getAttribute(slug);
-    return `<praxis-isncsci-cell data-observation="${slug}">${
+    return `<praxis-isncsci-cell data-observation="${slug}" ${observationType}>${
       value ?? ''
     }</praxis-isncsci-cell>`;
   }
@@ -155,16 +161,17 @@ export class PraxisIsncsciGrid extends HTMLElement {
     SensoryLevels.forEach((level) => {
       levels += left
         ? `
-            ${this.getCell(level, 'light-touch')}
-            ${this.getCell(level, 'pin-prick')}
-            ${this.getCell(level, 'motor')}
+            ${this.getCell('left', 'light-touch', level)}
+            ${this.getCell('left', 'pin-prick', level)}
+            ${this.getCell('left', 'motor', level)}
+
             <div class="label">${level}</div>
           `
         : `
             <div class="label">${level}</div>
-            ${this.getCell(level, 'motor')}
-            ${this.getCell(level, 'light-touch')}
-            ${this.getCell(level, 'pin-prick')}
+            ${this.getCell('right', 'motor', level)}
+            ${this.getCell('right', 'light-touch', level)}
+            ${this.getCell('right', 'pin-prick', level)}
           `;
     });
 
@@ -174,7 +181,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
   private updateView(left: boolean) {
     if (!this.shadowRoot) {
       throw new Error(
-        `${PraxisIsncsciGrid.is} :: updateView :: No shadowroot available`,
+        `${PraxisIsncsciGrid.is} :: updateView :: No shadow root available`,
       );
     }
 
@@ -183,6 +190,26 @@ export class PraxisIsncsciGrid extends HTMLElement {
       ${this.getHeader(left)}
       ${this.getLevels(left)}
     `;
+  }
+
+  private updateHighlights(oldValue: string, newValue: string) {
+    if (!this.shadowRoot) {
+      throw new Error('No shadow root available');
+    }
+
+    this.shadowRoot
+      .querySelectorAll('praxis-isncsci-cell[highlighted]')
+      .forEach((cell) => cell.removeAttribute('highlighted'));
+    const attribute = newValue
+      .split('|')
+      .map((observation) => `[data-observation="${observation}"]`)
+      .join(',');
+    console.log(attribute);
+    console.log(this.shadowRoot.querySelectorAll(attribute));
+
+    this.shadowRoot
+      .querySelectorAll(attribute)
+      .forEach((cell) => cell.setAttribute('highlighted', ''));
   }
 }
 
