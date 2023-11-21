@@ -1,8 +1,11 @@
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {html} from 'lit-html';
 import type {Meta, StoryObj} from '@storybook/web-components';
-import {getAppLayoutTemplate} from '@web/praxisIsncsciAppLayout';
 import {AppStoreProvider} from '@app/providers';
+import {PraxisIsncsciWebApp} from '@app/webApp';
+import {getAppLayoutTemplate} from '@web/praxisIsncsciAppLayout';
+import {appStore} from './store';
+import {IsncsciExamProvider} from './providers/isncsciExam.provider';
 
 import '@app/webApp';
 import '@web/praxisIsncsciAppBar';
@@ -13,9 +16,6 @@ import '@web/praxisIsncsciInputLayout';
 import '@web/praxisIsncsciClassification';
 
 import 'assets/css/design-system.css';
-import {PraxisIsncsciWebApp} from '@app/webApp';
-import {appStore} from './store';
-import {IsncsciExamProvider} from './providers/isncsciExam.provider';
 
 const styles = html`
   <style>

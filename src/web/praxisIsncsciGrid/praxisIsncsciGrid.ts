@@ -119,7 +119,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
     }
 
     if (name === 'highlighted-cells') {
-      this.updateHighlights(oldValue, newValue);
+      this.updateHighlights(newValue);
       return;
     }
   }
@@ -192,20 +192,25 @@ export class PraxisIsncsciGrid extends HTMLElement {
     `;
   }
 
-  private updateHighlights(oldValue: string, newValue: string) {
+  private updateHighlights(newValue: string) {
     if (!this.shadowRoot) {
       throw new Error('No shadow root available');
     }
 
+    // Clear previous highlights
     this.shadowRoot
       .querySelectorAll('praxis-isncsci-cell[highlighted]')
       .forEach((cell) => cell.removeAttribute('highlighted'));
+
+    // Set new highlights
+    if (!newValue) {
+      return;
+    }
+
     const attribute = newValue
       .split('|')
       .map((observation) => `[data-observation="${observation}"]`)
       .join(',');
-    console.log(attribute);
-    console.log(this.shadowRoot.querySelectorAll(attribute));
 
     this.shadowRoot
       .querySelectorAll(attribute)
