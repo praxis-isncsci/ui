@@ -8,17 +8,19 @@ const points = ['right-light-touch-c5', 'right-pin-prick-c6', 'right-motor-c7'];
 const meta = {
   title: 'WebComponents/PraxisIsncsciGrid',
   args: {
-    left: false,
     highlightedCells: [],
+    labelsHidden: false,
+    left: false,
   },
   argTypes: {
-    left: {control: 'boolean'},
     highlightedCells: {control: 'multi-select', options: points},
+    labelsHidden: {control: 'boolean'},
+    left: {control: 'boolean'},
   },
-  // tags: ['autodocs'],
   render: (args) =>
     html`<praxis-isncsci-grid
       highlighted-cells="${args.highlightedCells.join('|')}"
+      ?labels-hidden="${args.labelsHidden}"
       ?left="${args.left}"
     ></praxis-isncsci-grid>`,
 } satisfies Meta;

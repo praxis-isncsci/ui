@@ -18,75 +18,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciAppBar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciAppBar",
-          "declaration": {
-            "name": "PraxisIsncsciAppBar",
-            "module": "./praxisIsncsciAppBar"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciAppBar/praxisIsncsciAppBar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "PraxisIsncsciAppBar",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "template",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "praxis-isncsci-app-bar",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciAppBar",
-          "declaration": {
-            "name": "PraxisIsncsciAppBar",
-            "module": "src/web/praxisIsncsciAppBar/praxisIsncsciAppBar.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "PraxisIsncsciAppBar",
-            "module": "src/web/praxisIsncsciAppBar/praxisIsncsciAppBar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/web/praxisIsncsciCell/index.ts",
       "declarations": [],
       "exports": [
@@ -168,119 +99,6 @@
           "declaration": {
             "name": "PraxisIsncsciCell",
             "module": "src/web/praxisIsncsciCell/praxisIsncsciCell.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciAppLayout/appLayoutTemplate.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getAppLayoutTemplate",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "classificationStyle",
-              "type": {
-                "text": "'' | 'visible' | 'static'"
-              }
-            },
-            {
-              "name": "iconsPath",
-              "type": {
-                "text": "string"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getAppLayoutTemplate",
-          "declaration": {
-            "name": "getAppLayoutTemplate",
-            "module": "src/web/praxisIsncsciAppLayout/appLayoutTemplate.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciAppLayout/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getAppLayoutTemplate",
-          "declaration": {
-            "name": "getAppLayoutTemplate",
-            "module": "./appLayoutTemplate"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciAppLayout",
-          "declaration": {
-            "name": "PraxisIsncsciAppLayout",
-            "module": "./praxisIsncsciAppLayout"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciAppLayout/praxisIsncsciAppLayout.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "PraxisIsncsciAppLayout",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "template",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "innerHTML"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "praxis-isncsci-app-layout",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciAppLayout",
-          "declaration": {
-            "name": "PraxisIsncsciAppLayout",
-            "module": "src/web/praxisIsncsciAppLayout/praxisIsncsciAppLayout.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "PraxisIsncsciAppLayout",
-            "module": "src/web/praxisIsncsciAppLayout/praxisIsncsciAppLayout.ts"
           }
         }
       ]
@@ -478,6 +296,188 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciAppBar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciAppBar",
+          "declaration": {
+            "name": "PraxisIsncsciAppBar",
+            "module": "./praxisIsncsciAppBar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciAppBar/praxisIsncsciAppBar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciAppBar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "template",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-app-bar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciAppBar",
+          "declaration": {
+            "name": "PraxisIsncsciAppBar",
+            "module": "src/web/praxisIsncsciAppBar/praxisIsncsciAppBar.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciAppBar",
+            "module": "src/web/praxisIsncsciAppBar/praxisIsncsciAppBar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciAppLayout/appLayoutTemplate.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getAppLayoutTemplate",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "classificationStyle",
+              "type": {
+                "text": "'' | 'visible' | 'static'"
+              }
+            },
+            {
+              "name": "iconsPath",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getAppLayoutTemplate",
+          "declaration": {
+            "name": "getAppLayoutTemplate",
+            "module": "src/web/praxisIsncsciAppLayout/appLayoutTemplate.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciAppLayout/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getAppLayoutTemplate",
+          "declaration": {
+            "name": "getAppLayoutTemplate",
+            "module": "./appLayoutTemplate"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciAppLayout",
+          "declaration": {
+            "name": "PraxisIsncsciAppLayout",
+            "module": "./praxisIsncsciAppLayout"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciAppLayout/praxisIsncsciAppLayout.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciAppLayout",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "template",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-app-layout",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciAppLayout",
+          "declaration": {
+            "name": "PraxisIsncsciAppLayout",
+            "module": "src/web/praxisIsncsciAppLayout/praxisIsncsciAppLayout.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciAppLayout",
+            "module": "src/web/praxisIsncsciAppLayout/praxisIsncsciAppLayout.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/web/praxisIsncsciDialogHeader/index.ts",
       "declarations": [],
       "exports": [
@@ -541,6 +541,79 @@
           "declaration": {
             "name": "PraxisIsncsciDialogHeader",
             "module": "src/web/praxisIsncsciDialogHeader/praxisIsncsciDialogHeader.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciIcon/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciIcon",
+          "declaration": {
+            "name": "PraxisIsncsciIcon",
+            "module": "./praxisIsncsciIcon"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PraxisIsncsciIcon",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "static": true,
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "href"
+            },
+            {
+              "name": "size"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "praxis-isncsci-icon",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PraxisIsncsciIcon",
+          "declaration": {
+            "name": "PraxisIsncsciIcon",
+            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "PraxisIsncsciIcon",
+            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
           }
         }
       ]
@@ -663,12 +736,6 @@
               "privacy": "private",
               "parameters": [
                 {
-                  "name": "oldValue",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
                   "name": "newValue",
                   "type": {
                     "text": "string"
@@ -679,10 +746,10 @@
           ],
           "attributes": [
             {
-              "name": "left"
+              "name": "highlighted-cells"
             },
             {
-              "name": "highlighted-cells"
+              "name": "left"
             }
           ],
           "superclass": {
@@ -706,79 +773,6 @@
           "declaration": {
             "name": "PraxisIsncsciGrid",
             "module": "src/web/praxisIsncsciGrid/praxisIsncsciGrid.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciIcon",
-          "declaration": {
-            "name": "PraxisIsncsciIcon",
-            "module": "./praxisIsncsciIcon"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "PraxisIsncsciIcon",
-          "members": [
-            {
-              "kind": "field",
-              "name": "is",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "public",
-              "static": true,
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "privacy": "private"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "href"
-            },
-            {
-              "name": "size"
-            }
-          ],
-          "superclass": {
-            "name": "HTMLElement"
-          },
-          "tagName": "praxis-isncsci-icon",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "PraxisIsncsciIcon",
-          "declaration": {
-            "name": "PraxisIsncsciIcon",
-            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "declaration": {
-            "name": "PraxisIsncsciIcon",
-            "module": "src/web/praxisIsncsciIcon/praxisIsncsciIcon.ts"
           }
         }
       ]
@@ -824,7 +818,7 @@
                 "text": "string"
               },
               "privacy": "private",
-              "default": "`\n    <style>\n    :host {\n      --grid-gap: 4px;\n      display: flex;\n      --input-layout-mobile-breakpoint: 600px;\n    }\n\n    [right-dermatomes] {\n      margin-right: var(--grid-gap);\n    }\n\n    /*\n    [right-dermatomes],\n    [left-dermatomes] {\n      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .3));\n    }\n    */\n\n    [diagram] {\n      background-color: #E2E2E2;\n      display: none;\n      flex-grow: 1;\n    }\n\n    @media (min-width: 22.5rem) {\n      [diagram] {\n        display: block;\n      }\n    }\n    </style>\n    <div right-dermatomes>\n      <praxis-isncsci-grid></praxis-isncsci-grid>\n    </div>\n    <div diagram>Body diagram</div>\n    <div left-dermatomes>\n      <praxis-isncsci-grid left labels-hidden C5-light-touch=\"2\" C6-pin-prick=\"2\" C7-motor=\"NT\"></praxis-isncsci-grid>\n    </div>\n  `"
+              "default": "`\n    <style>\n    :host {\n      --grid-gap: 4px;\n      display: flex;\n      --input-layout-mobile-breakpoint: 600px;\n    }\n\n    [right-dermatomes] {\n      margin-right: var(--grid-gap);\n    }\n\n    /*\n    [right-dermatomes],\n    [left-dermatomes] {\n      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .3));\n    }\n    */\n\n    [diagram] {\n      background-color: #E2E2E2;\n      display: none;\n      flex-grow: 1;\n    }\n\n    @media (min-width: 22.5rem) {\n      [diagram] {\n        display: block;\n      }\n    }\n    </style>\n    <div right-dermatomes>\n      <praxis-isncsci-grid></praxis-isncsci-grid>\n    </div>\n    <div diagram>Body diagram</div>\n    <div left-dermatomes>\n      <praxis-isncsci-grid left></praxis-isncsci-grid>\n    </div>\n  `"
             },
             {
               "kind": "field",

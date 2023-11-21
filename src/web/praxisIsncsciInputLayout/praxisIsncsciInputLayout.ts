@@ -44,7 +44,7 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
     </div>
     <div diagram>Body diagram</div>
     <div left-dermatomes>
-      <praxis-isncsci-grid left labels-hidden C5-light-touch="2" C6-pin-prick="2" C7-motor="NT"></praxis-isncsci-grid>
+      <praxis-isncsci-grid left></praxis-isncsci-grid>
     </div>
   `;
 

@@ -16,7 +16,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   public static get observedAttributes(): string[] {
-    return ['left', 'highlighted-cells'];
+    return ['highlighted-cells', 'left'];
   }
 
   private template: string = `
