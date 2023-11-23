@@ -23,14 +23,18 @@ export class PraxisIsncsciInput extends HTMLElement {
         }
 
         button {
-          background-color: var(--button-surface, #fff);
-          border: solid var(--button-border-width, 0.0625rem) var(--button-border-color, #ccc);
-          border-radius: var(--button-border-radius, 0.25rem);
-          color: var(--button-on-surface, #6a6a6a);
-          height: var(--button-height, 2.375rem);
-          display: flex;
-          justify-content: center;
           align-items: center;
+          background-color: var(--button-surface, #fff);
+          border-radius: var(--button-border-radius, 0.25rem);
+          border: solid var(--button-border-width, 0.0625rem) var(--button-border-color, #ccc);
+          color: var(--button-on-surface, #6a6a6a);
+          display: flex;
+          font-family: var(--button-font-family, sans-serif);
+          font-size: var(--button-font-size, 0.875rem);
+          font-weight: var(--button-font-weight, 400);
+          height: var(--button-height, 2.375rem);
+          justify-content: center;
+          line-height: var(--button-line-height, 1.25rem);
           padding: 0;
         }
         
