@@ -1,0 +1,14 @@
+praxis-isncsci-input {
+  --button-border-width: var(--isncsci-input-button-border-width);
+  --button-border-color: var(--light-isncsci-input-button-border);
+  --button-border-radius: var(--isncsci-input-button-border-radius);
+  --button-border-radius-none: var(--isncsci-input-button-border-radius-none);
+  --button-color: var(--light-isncsci-input-button-on-surface);
+  --button-divider-color: var(--light-isncsci-input-button-divider);
+  --button-divider-gap: var(--isncsci-input-button-divider-gap);
+  --button-divider-width: var(--isncsci-input-button-divider-width);
+  --button-height: var(--isncsci-input-button-height);
+  --button-on-surface: var(--light-isncsci-input-button-on-surface);
+  --button-surface: var(--light-isncsci-input-button-surface);
+  --buttons-gap: var(--isncsci-input-buttons-gap);
+}

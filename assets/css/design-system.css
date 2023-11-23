@@ -7,6 +7,7 @@
 @import url('_classification-grid.css');
 @import url('_classification-total.css');
 @import url('_dialog-header.css');
+@import url('_isncsci-input.css');
 
 body {
   font-family: Inter, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;

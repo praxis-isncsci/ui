@@ -8,6 +8,7 @@ import {
 } from './praxisIsncsciClassification';
 import {PraxisIsncsciDialogHeader} from './praxisIsncsciDialogHeader';
 import {PraxisIsncsciGrid} from './praxisIsncsciGrid';
+import {PraxisIsncsciInput} from './praxisIsncsciInput';
 import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
 
 [
@@ -19,6 +20,7 @@ import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
   PraxisIsncsciClassificationTotal,
   PraxisIsncsciDialogHeader,
   PraxisIsncsciGrid,
+  PraxisIsncsciInput,
   PraxisIsncsciInputLayout,
 ].forEach((component) => {
   if (!window.customElements.get(component.is)) {
