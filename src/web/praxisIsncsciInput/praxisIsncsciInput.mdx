@@ -1,0 +1,188 @@
+{/* PraxisIsncsciInput.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciInput.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI Input
+
+## Design Problem
+
+An imput component that docks at the top of the input layout on large screens and is fixed to the bottom of the input layout on small screens.
+
+It is made of two sections:
+
+- A grid of buttons to input sensory and motor values.
+- Input controls to capture extra information when using the _star (\*)_ flag. This section should be hidden when the _star (\*)_ flag is not selected.
+
+## Approach
+
+We use a flex layout to easily switch from row, when on large screens, to column, when on small screens.
+For the button section we use a grid layout to easily align the buttons.
+
+### Slots
+
+## Attributes
+
+## Events
+
+## CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--button-border-color</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>#ccc</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-border-radius</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-border-radius-none</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-border-width</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.0625rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-divider-color</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>#ccc</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-divider-gap</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.5rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-divider-width</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.0625rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-font-family</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>sans-serif</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-font-size</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.875rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-font-weight</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>400</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-height</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>2.375rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-line-height</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>1.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-on-surface</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>#6a6a6a</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--button-surface</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>#fff</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--buttons-gap</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--buttons-width</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>20.75rem</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={Stories.Primary} />
