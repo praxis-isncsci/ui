@@ -81,6 +81,7 @@
     "build-storybook": "storybook build",
     "update-design-tokens": "node ./scripts/generate-token-files.ts && npm run build-styles",
     "test": "jest",
+    "test-specific": "jest --testNamePattern 'setActiveCellUseCase' src/core/useCases/setActiveCell.useCase.spec.ts",
     "test:watch": "jest --watch",
     "create-custom-elements-manifest": "custom-elements-manifest analyze",
     "create-custom-elements-manifest:dist": "cem analyze --config custom-elements-manifest-dist.config.mjs"

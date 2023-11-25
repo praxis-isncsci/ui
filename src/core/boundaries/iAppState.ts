@@ -7,8 +7,10 @@ export class StatusCodes {
 }
 
 export interface IAppState {
+  activeCell: Cell | null;
   gridModel: Array<Cell | null>[];
   selectedPoint: string | null;
+  selectedCells: Cell[];
   status: number;
   totals: Totals;
 }
