@@ -1,13 +1,14 @@
 import {IAppState} from '@core/boundaries';
-import {Totals} from '@core/domain';
+import {Cell, Totals} from '@core/domain';
 
 import {IActionWithPayload} from './';
 
 export class Actions {
-  public static UPDATE_STATUS = 'UPDATE_STATUS';
-  public static SET_SELECTED_POINT = 'SET_SELECTED_POINT';
+  public static SET_ACTIVE_CELL = 'SET_ACTIVE_CELL';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
+  public static SET_SELECTED_CELLS = 'SET_SELECTED_CELLS';
   public static SET_TOTALS = 'SET_TOTALS';
+  public static UPDATE_STATUS = 'UPDATE_STATUS';
 }
 
 const gridModel = (
@@ -22,13 +23,25 @@ const gridModel = (
   }
 };
 
-const selectedPoint = (
+const activeCell = (
   state: IAppState,
-  action: IActionWithPayload<string | null>,
+  action: IActionWithPayload<Cell | null>,
 ): IAppState => {
   switch (action.type) {
-    case Actions.SET_SELECTED_POINT:
-      return Object.assign({}, state, {selectedPoint: action.payload});
+    case Actions.SET_ACTIVE_CELL:
+      return Object.assign({}, state, {activeCell: action.payload});
+    default:
+      return state;
+  }
+};
+
+const selectedCells = (
+  state: IAppState,
+  action: IActionWithPayload<Cell[]>,
+): IAppState => {
+  switch (action.type) {
+    case Actions.SET_SELECTED_CELLS:
+      return Object.assign({}, state, {selectedCells: action.payload});
     default:
       return state;
   }
@@ -58,6 +71,6 @@ const totals = (
   }
 };
 
-export {gridModel, selectedPoint, status, totals};
+export {activeCell, gridModel, selectedCells, status, totals};
 
-export default [gridModel, selectedPoint, status, totals];
+export default [activeCell, gridModel, selectedCells, status, totals];

@@ -6,7 +6,8 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
   public constructor(private appStore: IDataStore<IAppState>) {}
 
   public setActiveCell(cell: Cell | null): Promise<void> {
-    throw new Error('Method not implemented.');
+    this.appStore.dispatch({type: Actions.SET_ACTIVE_CELL, payload: cell});
+    return Promise.resolve();
   }
 
   public setGridModel(gridModel: Array<any>): Promise<void> {
@@ -14,13 +15,9 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     return Promise.resolve();
   }
 
-  public setSelectedPoint(name: string | null): Promise<void> {
-    this.appStore.dispatch({type: Actions.SET_SELECTED_POINT, payload: name});
-    return Promise.resolve();
-  }
-
   public setSelectedCells(cells: Cell[]): Promise<void> {
-    throw new Error('Method not implemented.');
+    this.appStore.dispatch({type: Actions.SET_SELECTED_CELLS, payload: cells});
+    return Promise.resolve();
   }
 
   public setTotals(totals: Totals): Promise<void> {

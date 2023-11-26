@@ -3,7 +3,6 @@ import {Cell, Totals} from '@core/domain';
 export interface IIsncsciAppStoreProvider {
   setActiveCell(cell: Cell | null): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
-  setSelectedPoint(name: string | null): Promise<void>;
   setSelectedCells(cells: Cell[]): Promise<void>;
   setTotals(totals: Totals): Promise<void>;
   // clearDermatomeSelection(): Promise<void>;
