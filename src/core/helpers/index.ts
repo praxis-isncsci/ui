@@ -1,6 +1,7 @@
 export {
   bindExamDataToGridModel,
   bindExamDataToTotals,
+  findCell,
   getExamDataFromGridModel,
   validateExamData,
 } from './examData.helper';

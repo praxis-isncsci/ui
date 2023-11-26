@@ -1,17 +1,22 @@
 import {Actions, IDataStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
-import {Totals} from '@core/domain';
+import {Cell, Totals} from '@core/domain';
 
 export class AppStoreProvider implements IIsncsciAppStoreProvider {
   public constructor(private appStore: IDataStore<IAppState>) {}
+
+  public setActiveCell(cell: Cell | null): Promise<void> {
+    this.appStore.dispatch({type: Actions.SET_ACTIVE_CELL, payload: cell});
+    return Promise.resolve();
+  }
 
   public setGridModel(gridModel: Array<any>): Promise<void> {
     this.appStore.dispatch({type: Actions.SET_GRID_MODEL, payload: gridModel});
     return Promise.resolve();
   }
 
-  public setSelectedPoint(name: string | null): Promise<void> {
-    this.appStore.dispatch({type: Actions.SET_SELECTED_POINT, payload: name});
+  public setSelectedCells(cells: Cell[]): Promise<void> {
+    this.appStore.dispatch({type: Actions.SET_SELECTED_CELLS, payload: cells});
     return Promise.resolve();
   }
 

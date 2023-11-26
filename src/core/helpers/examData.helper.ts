@@ -8,6 +8,7 @@ import {
   ValidSensoryValues,
 } from '@core/domain';
 import {ExamData} from '@core/domain/examData';
+import {validCellNameRegex} from './regularExpressions';
 
 const validateValue = (
   dataKey: string,
@@ -97,17 +98,30 @@ const getCell = (
 
 const getRow = (level: string, examData: {[key: string]: string}) => {
   const isMotor = MotorLevels.includes(level as MotorLevel);
+  const levelToLower = level.toLowerCase();
 
   return [
     isMotor
-      ? getCell(`right-motor-${level}`, `rightMotor${level}`, examData)
+      ? getCell(`right-motor-${levelToLower}`, `rightMotor${level}`, examData)
       : null,
-    getCell(`right-light-touch-${level}`, `rightLightTouch${level}`, examData),
-    getCell(`right-pin-prick-${level}`, `rightPinPrick${level}`, examData),
-    getCell(`left-light-touch-${level}`, `leftLightTouch${level}`, examData),
-    getCell(`left-pin-prick-${level}`, `leftPinPrick${level}`, examData),
+    getCell(
+      `right-light-touch-${levelToLower}`,
+      `rightLightTouch${level}`,
+      examData,
+    ),
+    getCell(
+      `right-pin-prick-${levelToLower}`,
+      `rightPinPrick${level}`,
+      examData,
+    ),
+    getCell(
+      `left-light-touch-${levelToLower}`,
+      `leftLightTouch${level}`,
+      examData,
+    ),
+    getCell(`left-pin-prick-${levelToLower}`, `leftPinPrick${level}`, examData),
     isMotor
-      ? getCell(`left-motor-${level}`, `leftMotor${level}`, examData)
+      ? getCell(`left-motor-${levelToLower}`, `leftMotor${level}`, examData)
       : null,
   ];
 };
@@ -175,4 +189,18 @@ export const getExamDataFromGridModel = (gridModel: Array<Cell | null>[]) => {
   });
 
   return {examData: examData as ExamData, isMissingValues};
+};
+
+export const findCell = (cellName: string, gridModel: Array<Cell | null>[]) => {
+  if (!validCellNameRegex.test(cellName)) {
+    throw new Error(`Invalid cell name ${cellName}`);
+  }
+
+  const cell = gridModel.flat().find((cell) => cell?.name === cellName);
+
+  if (!cell) {
+    throw new Error(`Cell ${cellName} not found`);
+  }
+
+  return cell;
 };

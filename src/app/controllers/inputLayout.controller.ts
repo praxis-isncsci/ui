@@ -1,7 +1,7 @@
-import {Actions, IDataStore} from '@app/store';
+import {Actions, IDataStore, appStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell, Totals} from '@core/domain';
-import {selectedPointUseCase} from '@core/useCases/selectPoint.useCase';
+import {setActiveCellUseCase} from '@core/useCases/setActiveCell.useCase';
 
 export class InputLayoutController {
   private cells: HTMLElement[] = [];
@@ -114,8 +114,8 @@ export class InputLayoutController {
       this.updateTotals(state.totals);
     }
 
-    if (actionType === Actions.SET_SELECTED_POINT) {
-      this.updateGridSelection(state.selectedPoint);
+    if (actionType === Actions.SET_ACTIVE_CELL) {
+      this.updateGridSelection(state.activeCell ? state.activeCell.name : null);
     }
   }
 
@@ -130,6 +130,15 @@ export class InputLayoutController {
       return;
     }
 
-    selectedPointUseCase(this.appStoreProvider, name);
+    const state = appStore.getState();
+
+    setActiveCellUseCase(
+      name,
+      state.activeCell,
+      'single',
+      state.selectedCells,
+      state.gridModel,
+      this.appStoreProvider,
+    );
   }
 }
