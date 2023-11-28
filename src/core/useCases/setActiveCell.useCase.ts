@@ -1,100 +1,6 @@
 import {IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell} from '@core/domain';
-import {findCell, validCellNameRegex} from '@core/helpers';
-
-/*
- * Returns a number between 0 and 5 representing the column index of a cell in the grid model.
- * Throws and error when the cell name is invalid.
- */
-export const getCellColumn = (cellName: string) => {
-  if (!validCellNameRegex.test(cellName)) {
-    throw new Error(`Invalid cell name ${cellName}`);
-  }
-
-  switch (true) {
-    case /right-motor/.test(cellName):
-      return 0;
-    case /right-light-touch/.test(cellName):
-      return 1;
-    case /right-pin-prick/.test(cellName):
-      return 2;
-    case /left-light-touch/.test(cellName):
-      return 3;
-    case /left-pin-prick/.test(cellName):
-      return 4;
-    case /left-motor/.test(cellName):
-      return 5;
-    default:
-      throw new Error(`Invalid cell name ${cellName}`);
-  }
-};
-
-/*
- * Returns a number between 0 and 27 representing the row index of a cell in the grid model.
- * Throws and error if the cell name is invalid.
- */
-export const getCellRow = (cellName: string) => {
-  const level = /((?!-)(c|t|l|s)1?[0-9]$)|((?!-)s4_5)/.exec(cellName)?.[0];
-
-  if (!level) {
-    throw new Error(`Invalid cell name ${cellName}`);
-  }
-
-  if (level === 's4_5') {
-    return 27;
-  }
-
-  const numericSegment = parseInt(level.slice(1));
-
-  switch (level[0]) {
-    case 'c':
-      return numericSegment - 2;
-    case 't':
-      return numericSegment + 6;
-    case 'l':
-      return numericSegment + 18;
-    case 's':
-      return numericSegment + 23;
-    default:
-      throw new Error(`Invalid cell name ${cellName}`);
-  }
-};
-
-/*
- * Returns the column and row index of a cell in the grid model.
- */
-export const getCellPosition = (cellName: string) => {
-  return {column: getCellColumn(cellName), row: getCellRow(cellName)};
-};
-
-/*
- * Returns an array of cells between two cells in the grid model.
- * The range is inclusive of the start and end cells.
- */
-export const getRange = (
-  start: {column: number; row: number},
-  end: {column: number; row: number},
-  gridModel: Array<Cell | null>[],
-) => {
-  const range: Cell[] = [];
-
-  const rowStart = Math.min(start.row, end.row);
-  const rowEnd = Math.max(start.row, end.row);
-  const columnStart = Math.min(start.column, end.column);
-  const columnEnd = Math.max(start.column, end.column);
-
-  for (let row = rowStart; row <= rowEnd; row++) {
-    for (let column = columnStart; column <= columnEnd; column++) {
-      const cell = gridModel[row][column];
-
-      if (cell) {
-        range.push(cell);
-      }
-    }
-  }
-
-  return range;
-};
+import {findCell, getCellPosition, getCellRange} from '@core/helpers';
 
 /*
  * Updates the state's active cell and cell selection through the app store provider.
@@ -181,11 +87,13 @@ export const setActiveCellUseCase = async (
   const selectedCells = [...currentCellsSelected];
 
   // 6.2. Produce a new aggregated selection without duplicates between the range and the existing selection.
-  getRange(
+  const {motorRange, sensoryRange} = getCellRange(
     getCellPosition(cell.name),
     getCellPosition(currentActiveCell.name),
     gridModel,
-  ).forEach((cell) => {
+  );
+
+  motorRange.concat(sensoryRange).forEach((cell) => {
     if (!currentCellsSelected.find((c) => c.name === cell.name)) {
       selectedCells.push(cell);
     }
