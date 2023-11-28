@@ -2,6 +2,10 @@ export {
   bindExamDataToGridModel,
   bindExamDataToTotals,
   findCell,
+  getCellColumn,
+  getCellPosition,
+  getCellRange,
+  getCellRow,
   getExamDataFromGridModel,
   validateExamData,
 } from './examData.helper';
