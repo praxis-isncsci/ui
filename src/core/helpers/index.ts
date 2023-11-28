@@ -7,9 +7,12 @@ export {
 } from './examData.helper';
 
 export {
-  validCellNameRegex,
-  lightTouchCellRegex,
-  pinPrickCellRegex,
-  motorCellRegex,
   cellLevelRegex,
+  lightTouchCellRegex,
+  motorCellRegex,
+  motorValueRegex,
+  pinPrickCellRegex,
+  sensoryCellRegex,
+  sensoryValueRegex,
+  validCellNameRegex,
 } from './regularExpressions';
