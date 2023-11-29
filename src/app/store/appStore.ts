@@ -10,6 +10,7 @@ class AppStore implements IDataStore<IAppState> {
     selectedCells: [],
     selectedPoint: null,
     status: StatusCodes.NotInitialized,
+    updatedCells: [],
     totals: {
       asiaImpairmentScale: '',
       injuryComplete: '',
