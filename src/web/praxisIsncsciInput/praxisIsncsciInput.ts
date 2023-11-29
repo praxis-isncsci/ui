@@ -112,6 +112,24 @@ export class PraxisIsncsciInput extends HTMLElement {
     const shadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.innerHTML = this.template();
   }
+
+  public connectedCallback() {
+    this.shadowRoot
+      ?.querySelectorAll('button')
+      .forEach((b) =>
+        b.addEventListener('click', (e) => this.buttons_onClick(b)),
+      );
+  }
+
+  private buttons_onClick(button: HTMLButtonElement) {
+    const value = button.value;
+
+    if (!value || !/^([0-4]\*?|5|NT\*{0,2})$/.test(value)) {
+      return;
+    }
+
+    this.dispatchEvent(new CustomEvent('value_click', {detail: {value}}));
+  }
 }
 
 window.customElements.define(PraxisIsncsciInput.is, PraxisIsncsciInput);

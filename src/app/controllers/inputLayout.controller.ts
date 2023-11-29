@@ -1,10 +1,10 @@
 import {Actions, IDataStore, appStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell, Totals} from '@core/domain';
+import {setCellsValueUseCase} from '@core/useCases';
 import {setActiveCellUseCase} from '@core/useCases/setActiveCell.useCase';
 
 export class InputLayoutController {
-  private cells: HTMLElement[] = [];
   private classificationTotals: HTMLElement[] = [];
   private rightGrid: HTMLElement | null = null;
   private leftGrid: HTMLElement | null = null;
@@ -31,6 +31,12 @@ export class InputLayoutController {
       inputLayout.shadowRoot.querySelectorAll('praxis-isncsci-grid'),
     );
 
+    inputLayout.shadowRoot
+      .querySelector('praxis-isncsci-input')
+      ?.addEventListener('value_click', (e) =>
+        this.inputValue_onClick(e as CustomEvent),
+      );
+
     appStore.subscribe((state: IAppState, actionType: string) =>
       this.stateChanged(state, actionType),
     );
@@ -50,33 +56,35 @@ export class InputLayoutController {
         this.rightGrid = grid;
       }
 
-      const gridCells = grid.shadowRoot.querySelectorAll('praxis-isncsci-cell');
-      gridCells.forEach(
-        (cell) =>
-          (this.cells[`${prefix}-${cell.getAttribute('data-observation')}`] =
-            cell),
-      );
-
       grid.shadowRoot.addEventListener('click', (e) =>
         this.grid_onClick(e as MouseEvent),
       );
     });
   }
 
+  private updateCellView(cell: Cell) {
+    const grid = /^right-/.test(cell.name) ? this.rightGrid : this.leftGrid;
+    const cellElement = grid?.shadowRoot?.querySelector(
+      `[data-observation="${cell.name}"]`,
+    );
+
+    if (cellElement) {
+      cellElement.innerHTML = cell.value;
+    }
+  }
+
   private updateView(gridModel: Array<Cell | null>[]) {
     gridModel.forEach((row) => {
       row.forEach((cell) => {
-        if (!cell) {
-          return;
-        }
-
-        const cellElement = this.cells[`${cell?.name}`];
-
-        if (cellElement) {
-          cellElement.innerHTML = cell?.value ?? '';
+        if (cell) {
+          this.updateCellView(cell);
         }
       });
     });
+  }
+
+  private updateCellViews(updatedCells: Cell[]) {
+    updatedCells.forEach((cell) => this.updateCellView(cell));
   }
 
   private updateGridSelection(selectedPoint: string | null) {
@@ -105,9 +113,25 @@ export class InputLayoutController {
     });
   }
 
+  private inputValue_onClick(e: CustomEvent) {
+    const state = appStore.getState();
+
+    if (!state.activeCell) {
+      return;
+    }
+
+    setCellsValueUseCase(
+      e.detail.value,
+      state.selectedCells.slice(),
+      state.gridModel.slice(),
+      true,
+      this.appStoreProvider,
+    );
+  }
+
   private stateChanged(state: IAppState, actionType: string) {
     if (actionType === Actions.SET_GRID_MODEL) {
-      this.updateView(state.gridModel);
+      this.updateView(state.gridModel.slice());
     }
 
     if (actionType === Actions.SET_TOTALS) {
@@ -116,6 +140,10 @@ export class InputLayoutController {
 
     if (actionType === Actions.SET_ACTIVE_CELL) {
       this.updateGridSelection(state.activeCell ? state.activeCell.name : null);
+    }
+
+    if (actionType === Actions.SET_CELLS_VALUE) {
+      this.updateCellViews(state.updatedCells.slice());
     }
   }
 
@@ -131,13 +159,15 @@ export class InputLayoutController {
     }
 
     const state = appStore.getState();
+    const selectionMode =
+      e.ctrlKey || e.metaKey ? 'multiple' : e.shiftKey ? 'range' : 'single';
 
     setActiveCellUseCase(
       name,
       state.activeCell,
-      'single',
+      selectionMode,
       state.selectedCells,
-      state.gridModel,
+      state.gridModel.slice(),
       this.appStoreProvider,
     );
   }

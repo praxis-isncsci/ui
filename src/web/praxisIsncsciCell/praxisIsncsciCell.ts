@@ -24,6 +24,7 @@ export class PraxisIsncsciCell extends HTMLElement {
         min-height: 32px;
         min-width: 32px;
         transition: all .3s ease-in-out;
+        user-select: none;
       }
 
       :host([highlighted]) {
