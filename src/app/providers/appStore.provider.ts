@@ -10,6 +10,14 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     return Promise.resolve();
   }
 
+  public setCellsValue(cellsToUpdate: Cell[], value: string): Promise<void> {
+    this.appStore.dispatch({
+      type: Actions.SET_CELLS_VALUE,
+      payload: {cellsToUpdate, value},
+    });
+    return Promise.resolve();
+  }
+
   public setGridModel(gridModel: Array<any>): Promise<void> {
     this.appStore.dispatch({type: Actions.SET_GRID_MODEL, payload: gridModel});
     return Promise.resolve();

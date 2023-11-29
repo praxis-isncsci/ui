@@ -2,6 +2,7 @@ import {Cell, Totals} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
   setActiveCell(cell: Cell | null): Promise<void>;
+  setCellsValue(cells: Cell[], value: string): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
   setSelectedCells(cells: Cell[]): Promise<void>;
   setTotals(totals: Totals): Promise<void>;

@@ -24,6 +24,7 @@ describe('setActiveCell.useCase.ts', () => {
 
       appStoreProvider = {
         setActiveCell: jest.fn(() => Promise.resolve()),
+        setCellsValue: jest.fn(() => Promise.resolve()),
         setGridModel: jest.fn(() => Promise.resolve()),
         setSelectedCells: jest.fn(() => Promise.resolve()),
         setTotals: jest.fn(() => Promise.resolve()),

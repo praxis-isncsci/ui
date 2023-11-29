@@ -13,4 +13,5 @@ export interface IAppState {
   selectedCells: Cell[];
   status: number;
   totals: Totals;
+  updatedCells: Cell[];
 }
