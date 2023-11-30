@@ -65,7 +65,7 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
         <praxis-isncsci-grid left></praxis-isncsci-grid>
       </div>
     </div>
-    <praxis-isncsci-input></praxis-isncsci-input>
+    <praxis-isncsci-input disabled></praxis-isncsci-input>
   `;
 
   public constructor() {
