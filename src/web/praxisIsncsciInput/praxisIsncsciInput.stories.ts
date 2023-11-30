@@ -31,27 +31,33 @@ const sensoryValues = ['0', '0*', '1', '1*', '2', 'NT', 'NT*'];
 
 export const Sensory: Story = {
   args: {
+    disabled: false,
     selectedValue: '',
   },
   argTypes: {
+    disabled: {control: 'boolean'},
     selectedValue: {control: 'select', options: sensoryValues},
   },
   render: (args) =>
     html`<praxis-isncsci-input
       sensory
       selected-value="${args.selectedValue}"
+      ?disabled="${args.disabled}"
     ></praxis-isncsci-input>`,
 };
 
 export const Motor: Story = {
   args: {
+    disabled: false,
     selectedValue: '',
   },
   argTypes: {
+    disabled: {control: 'boolean'},
     selectedValue: {control: 'select', options: motorValues},
   },
   render: (args) =>
     html`<praxis-isncsci-input
       selected-value="${args.selectedValue}"
+      ?disabled="${args.disabled}"
     ></praxis-isncsci-input>`,
 };

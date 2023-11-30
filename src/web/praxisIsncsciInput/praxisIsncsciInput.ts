@@ -4,7 +4,7 @@ export class PraxisIsncsciInput extends HTMLElement {
   }
 
   public static get observedAttributes() {
-    return ['sensory', 'selected-value'];
+    return ['disabled', 'sensory', 'selected-value'];
   }
 
   private template() {
@@ -194,6 +194,21 @@ export class PraxisIsncsciInput extends HTMLElement {
       this.shadowRoot
         ?.querySelectorAll(`button[value="${newValue}"]`)
         .forEach((b) => b.setAttribute('selected', ''));
+    }
+
+    if (name === 'disabled') {
+      if (newValue === null) {
+        const selector = this.hasAttribute('sensory')
+          ? 'button:not([motor-only])'
+          : 'button';
+        this.shadowRoot?.querySelectorAll(selector).forEach((b) => {
+          b.removeAttribute('disabled');
+        });
+      } else {
+        this.shadowRoot?.querySelectorAll('button').forEach((b) => {
+          b.setAttribute('disabled', '');
+        });
+      }
     }
   }
 }
