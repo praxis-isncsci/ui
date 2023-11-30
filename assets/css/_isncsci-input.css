@@ -1,14 +1,26 @@
 praxis-isncsci-input {
+  --button-active-font-size: var(--isncsci-input-button-active-font-size);
+  --button-active-surface: var(--light-isncsci-input-button-active-surface);
   --button-border-width: var(--isncsci-input-button-border-width);
   --button-border-color: var(--light-isncsci-input-button-border);
   --button-border-radius: var(--isncsci-input-button-border-radius);
   --button-border-radius-none: var(--isncsci-input-button-border-radius-none);
   --button-color: var(--light-isncsci-input-button-on-surface);
+  --button-disabled-on-surface: var(
+    --light-isncsci-input-button-disabled-on-surface
+  );
+  --button-disabled-surface: var(--light-isncsci-input-button-disabled-surface);
   --button-divider-color: var(--light-isncsci-input-button-divider);
   --button-divider-gap: var(--isncsci-input-button-divider-gap);
   --button-divider-width: var(--isncsci-input-button-divider-width);
   --button-height: var(--isncsci-input-button-height);
+  --button-hover-surface: var(--light-isncsci-input-button-hover-surface);
+  --button-hover-box-shadow: var(--shadow-medium);
   --button-on-surface: var(--light-isncsci-input-button-on-surface);
+  --button-selected-on-surface: var(
+    --light-isncsci-input-button-selected-on-surface
+  );
+  --button-selected-surface: var(--light-isncsci-input-button-selected-surface);
   --button-surface: var(--light-isncsci-input-button-surface);
   --buttons-gap: var(--isncsci-input-buttons-gap);
 }

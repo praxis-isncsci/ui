@@ -21,11 +21,34 @@ It is made of two sections:
 We use a flex layout to easily switch from row, when on large screens, to column, when on small screens.
 For the button section we use a grid layout to easily align the buttons.
 
-### Slots
-
 ## Attributes
 
+- `sensory` - `boolean` - Disables the motor only values when set to `true`.
+- `selected-value` - `string` - It highlights the appropriate button based on the value of the cell highlighted in the grid.
+  Expects one of the following values: `['0', '0*', '1', '1*', '2', '2*', '3', '3*', '4', 4*', '5', 'NT', 'NT*', 'NT**']`.
+
 ## Events
+
+<table>
+  <thead>
+    <tr>
+      <th>Event name</th>
+      <th>Description</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>`value_click`</code>
+      </td>
+      <td>Fires when an input button is clicked</td>
+      <td>
+        <code>`CustomEvent: {detail: {value: string}}`</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## CSS Variables
 
@@ -40,149 +63,229 @@ For the button section we use a grid layout to easily align the buttons.
   <tbody>
     <tr>
       <td>
-        <code>--button-border-color</code>
+        <code>`--button-active-font-size`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>#ccc</code>
+        <code>`0.75rem`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-border-radius</code>
+        <code>`--button-active-surface`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>0.25rem</code>
+        <code>`#f1c6ff`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-border-radius-none</code>
+        <code>`--button-border-color`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>0</code>
+        <code>`#ccc`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-border-width</code>
+        <code>`--button-border-radius`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>0.0625rem</code>
+        <code>`0.25rem`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-divider-color</code>
+        <code>`--button-border-radius-none`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>#ccc</code>
+        <code>`0`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-divider-gap</code>
+        <code>`--button-border-width`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>0.5rem</code>
+        <code>`0.0625rem`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-divider-width</code>
+        <code>`--button-disabled-on-surface`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>0.0625rem</code>
+        <code>`#9e9e9e`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-font-family</code>
+        <code>`--button-disabled-surface`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>sans-serif</code>
+        <code>`#f5f5f5`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-font-size</code>
+        <code>`--button-divider-color`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>0.875rem</code>
+        <code>`#ccc`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-font-weight</code>
+        <code>`--button-divider-gap`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>400</code>
+        <code>`0.5rem`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-height</code>
+        <code>`--button-divider-width`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>2.375rem</code>
+        <code>`0.0625rem`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-line-height</code>
+        <code>`--button-font-family`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>1.25rem</code>
+        <code>`sans-serif`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-on-surface</code>
+        <code>`--button-font-size`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>#6a6a6a</code>
+        <code>`0.875rem`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--button-surface</code>
+        <code>`--button-font-weight`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>#fff</code>
+        <code>`400`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--buttons-gap</code>
+        <code>`--button-height`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>0.25rem</code>
+        <code>`2.375rem`</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>--buttons-width</code>
+        <code>`--button-hover-box-shadow`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>20.75rem</code>
+        <code>
+          `0 2px 4px rgba(95, 24, 119, 0.1), 0 1px 6px rgba(95, 24, 119, 0.05)`
+        </code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--button-hover-surface`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`#faecff`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--button-line-height`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`1.25rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--button-on-surface`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`#6a6a6a`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--button-selected-on-surface`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`#fff`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--button-selected-surface`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`purple`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--button-surface`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`#fff`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--buttons-gap`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`0.25rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--buttons-width`</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>`20.75rem`</code>
       </td>
     </tr>
   </tbody>
 </table>
 
-<Canvas of={Stories.Primary} />
+## Sensory
+
+<Canvas of={Stories.Sensory} />
+
+## Motor
+
+<Canvas of={Stories.Motor} />

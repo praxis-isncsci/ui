@@ -3,6 +3,10 @@ export class PraxisIsncsciInput extends HTMLElement {
     return 'praxis-isncsci-input';
   }
 
+  public static get observedAttributes() {
+    return ['sensory', 'selected-value'];
+  }
+
   private template() {
     return `
       <style>
@@ -25,8 +29,8 @@ export class PraxisIsncsciInput extends HTMLElement {
         button {
           align-items: center;
           background-color: var(--button-surface, #fff);
-          border-radius: var(--button-border-radius, 0.25rem);
           border: solid var(--button-border-width, 0.0625rem) var(--button-border-color, #ccc);
+          border-radius: var(--button-border-radius, 0.25rem);
           color: var(--button-on-surface, #6a6a6a);
           display: flex;
           font-family: var(--button-font-family, sans-serif);
@@ -36,6 +40,7 @@ export class PraxisIsncsciInput extends HTMLElement {
           justify-content: center;
           line-height: var(--button-line-height, 1.25rem);
           padding: 0;
+          transition: background-color ease 200ms, font-size ease 200ms;
         }
         
         button.left {
@@ -67,13 +72,40 @@ export class PraxisIsncsciInput extends HTMLElement {
           flex-grow: 1;
         }
 
+        button:disabled {
+          background-color: var(--button-disabled-surface, #f5f5f5);
+          color: var(--button-disabled-on-surface, #9e9e9e);
+          cursor: not-allowed;
+        }
+
+        button:hover:not(:disabled) {
+          background-color: var(--button-hover-surface, #faecff);
+          color: var(--button-on-surface, #6a6a6a);
+        }
+
+        button:active:not(:disabled) {
+          background-color: var(--button-active-surface, #f1c6ff);
+          font-size: var(--button-active-font-size, 0.75rem);
+        }
+
+        button[selected] {
+          background-color: var(--button-selected-surface, purple);
+          color: var(--button-selected-on-surface, #fff);
+        }
+
         .button-group {
+          border-radius: var(--button-border-radius, 0.25rem);
           display: flex;
           flex-direction: row;
+          transition: box-shadow ease 200ms;
         }
 
         .button-group > *:first-child {
           flex-grow: 1;
+        }
+
+        .button-group:has(button:hover:not(:disabled)) {
+          box-shadow: var(--button-hover-box-shadow, 0 2px 4px rgba(95, 24, 119, 0.1), 0 1px 6px rgba(95, 24, 119, 0.05));
         }
       </style>
       <div buttons>
@@ -87,17 +119,19 @@ export class PraxisIsncsciInput extends HTMLElement {
         </div>
         <div class="button-group">
           <button class="isncsci-input-button left" value="2">2</button>
-          <button class="isncsci-input-button right" value="2*"><span>*</span></button>
+          <button class="isncsci-input-button right" value="2*" motor-only><span>*</span></button>
         </div>
         <div class="button-group">
-          <button class="isncsci-input-button left" value="3">3</button>
-          <button class="isncsci-input-button right" value="3*"><span>*</span></button>
+          <button class="isncsci-input-button left" value="3" motor-only>3</button>
+          <button class="isncsci-input-button right" value="3*" motor-only><span>*</span></button>
         </div>
         <div class="button-group">
-          <button class="isncsci-input-button left" value="4">4</button>
-          <button class="isncsci-input-button right" value="4*"><span>*</span></button>
+          <button class="isncsci-input-button left" value="4" motor-only>4</button>
+          <button class="isncsci-input-button right" value="4*" motor-only><span>*</span></button>
         </div>
-        <button class="isncsci-input-button" value="5">5</button>
+        <div class="button-group">
+          <button class="isncsci-input-button" value="5" motor-only>5</button>
+        </div>
         <div class="button-group">
           <button class="isncsci-input-button left" value="NT">NT</button>
           <button class="isncsci-input-button right" value="NT*"><span>*</span></button>
@@ -129,6 +163,38 @@ export class PraxisIsncsciInput extends HTMLElement {
     }
 
     this.dispatchEvent(new CustomEvent('value_click', {detail: {value}}));
+  }
+
+  public attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string,
+  ) {
+    if (oldValue === newValue) {
+      return;
+    }
+
+    if (name === 'sensory') {
+      if (newValue === null) {
+        this.shadowRoot?.querySelectorAll('[motor-only]').forEach((b) => {
+          b.removeAttribute('disabled');
+        });
+      } else {
+        this.shadowRoot?.querySelectorAll('[motor-only]').forEach((b) => {
+          b.setAttribute('disabled', '');
+        });
+      }
+    }
+
+    if (name === 'selected-value') {
+      this.shadowRoot
+        ?.querySelectorAll('[selected]')
+        .forEach((b) => b.removeAttribute('selected'));
+
+      this.shadowRoot
+        ?.querySelectorAll(`button[value="${newValue}"]`)
+        .forEach((b) => b.setAttribute('selected', ''));
+    }
   }
 }
 
