@@ -60,7 +60,7 @@ const template = () => html`
   </style>
   <iframe
     isncsci
-    src="https://ashy-river-029cc4703.3.azurestaticapps.net/"
+    src="https://agreeable-dune-0ccb46f1e-139.westus2.4.azurestaticapps.net"
   ></iframe>
   <button test-button>Load random exam</button>
   <script>
