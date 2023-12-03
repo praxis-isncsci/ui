@@ -23,8 +23,20 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
       --input-layout-mobile-breakpoint: 600px;
     }
 
+    [right-dermatomes],
+    [left-dermatomes] {
+      display: flex;
+      flex-direction: column;
+    }
+
     [right-dermatomes] {
+      align-items: end;
       margin-right: var(--grid-gap);
+    }
+
+    [left-dermatomes] {
+      align-items: start;
+      margin-left: var(--grid-gap);
     }
 
     [diagram] {
@@ -59,10 +71,12 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
     <div grid-section>
       <div right-dermatomes>
         <praxis-isncsci-grid></praxis-isncsci-grid>
+        <slot name="vac"></slot>
       </div>
       <div diagram>Body diagram</div>
       <div left-dermatomes>
         <praxis-isncsci-grid left></praxis-isncsci-grid>
+        <slot name="dap"></slot>
       </div>
     </div>
     <praxis-isncsci-input disabled></praxis-isncsci-input>

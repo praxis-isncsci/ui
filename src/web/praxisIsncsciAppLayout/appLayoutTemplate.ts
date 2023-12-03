@@ -24,7 +24,26 @@ export const getAppLayoutTemplate = (
       </praxis-isncsci-app-bar>
       <praxis-isncsci-input-layout
         slot="input-layout"
-      ></praxis-isncsci-input-layout>
+      >
+        <div slot="vac" class="anal-function right">
+            <label for="vac"><span class="intermittent">(</span>VAC<span class="intermittent">) Voluntary anal contraction</span></label>
+            <select name="dap" id="dap">
+              <option value=""></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              <option value="nt">NT</option>
+            </select>
+        </div>
+        <div slot="dap" class="anal-function">
+          <select name="dap" id="dap">
+            <option value=""></option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="nt">NT</option>
+          </select>
+          <label for="dap"><span class="intermittent">(</span>DAP<span class="intermittent">) Deep anal pressure</span></label>
+        </div>
+      </praxis-isncsci-input-layout>
       <praxis-isncsci-classification slot="classification">
         <praxis-isncsci-dialog-header slot="header">
           <h2 slot="title">Classification</h2>
