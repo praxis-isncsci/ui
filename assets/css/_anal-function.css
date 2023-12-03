@@ -1,0 +1,37 @@
+.anal-function {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.anal-function select {
+  border-color: var(--light-dropdown-border, #ababab);
+  border-radius: var(--isncsci-anal-function-border-radius, 0.25rem);
+  height: var(--isncsci-anal-function-height, 2.25rem);
+  width: var(--isncsci-anal-function-width, 5rem);
+}
+
+.anal-function label {
+  display: inline-block;
+  width: auto;
+}
+
+.anal-function label .intermittent {
+  display: none;
+}
+
+.anal-function.right label {
+  text-align: right;
+}
+
+@media (min-width: 48rem) {
+  .anal-function label {
+    width: 14rem;
+  }
+
+  .anal-function label .intermittent {
+    display: inline;
+  }
+}
