@@ -1,8 +1,9 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals';
+import {beforeEach, describe, expect, it} from '@jest/globals';
 import {setActiveCellUseCase} from './setActiveCell.useCase';
 import {IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell} from '@core/domain';
 import {bindExamDataToGridModel} from '@core/helpers';
+import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
 
 const getEmptyCell = (name: string): Cell => {
   return {
@@ -21,15 +22,7 @@ describe('setActiveCell.useCase.ts', () => {
 
     beforeEach(() => {
       gridModel = bindExamDataToGridModel({});
-
-      appStoreProvider = {
-        setActiveCell: jest.fn(() => Promise.resolve()),
-        setCellsValue: jest.fn(() => Promise.resolve()),
-        setGridModel: jest.fn(() => Promise.resolve()),
-        setSelectedCells: jest.fn(() => Promise.resolve()),
-        setTotals: jest.fn(() => Promise.resolve()),
-        updateStatus: jest.fn(() => Promise.resolve()),
-      };
+      appStoreProvider = getAppStoreProviderMock();
     });
 
     it('should set the cell matching `cellName` as active cell and only selected cell when `cellName` is not null and selection mode is `single`', async () => {

@@ -3,6 +3,7 @@ import {IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell} from '@core/domain';
 import {bindExamDataToGridModel, findCell, motorCellRegex} from '@core/helpers';
 import {setCellsValueUseCase} from './setCellsValue.useCase';
+import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
 
 describe('setCellValue.useCase.spec', () => {
   describe('setCellValueUseCase', () => {
@@ -10,14 +11,7 @@ describe('setCellValue.useCase.spec', () => {
     let gridModel: Array<Cell | null>[] = [];
 
     beforeEach(() => {
-      appStoreProvider = {
-        setActiveCell: jest.fn(() => Promise.resolve()),
-        setCellsValue: jest.fn(() => Promise.resolve()),
-        setGridModel: jest.fn(() => Promise.resolve()),
-        setSelectedCells: jest.fn(() => Promise.resolve()),
-        setTotals: jest.fn(() => Promise.resolve()),
-        updateStatus: jest.fn(() => Promise.resolve()),
-      };
+      appStoreProvider = getAppStoreProviderMock();
       gridModel = bindExamDataToGridModel({});
       jest.resetModules();
     });
