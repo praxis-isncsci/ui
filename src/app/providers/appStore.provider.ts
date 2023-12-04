@@ -1,6 +1,6 @@
 import {Actions, IDataStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
-import {Cell, Totals} from '@core/domain';
+import {BinaryObservation, Cell, Totals} from '@core/domain';
 
 export class AppStoreProvider implements IIsncsciAppStoreProvider {
   public constructor(private appStore: IDataStore<IAppState>) {}
@@ -30,6 +30,14 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
 
   public setTotals(totals: Totals): Promise<void> {
     this.appStore.dispatch({type: Actions.SET_TOTALS, payload: totals});
+    return Promise.resolve();
+  }
+
+  public setVacDap(
+    vac: BinaryObservation | null,
+    dap: BinaryObservation | null,
+  ): Promise<void> {
+    this.appStore.dispatch({type: Actions.SET_VAC_DAP, payload: {vac, dap}});
     return Promise.resolve();
   }
 
