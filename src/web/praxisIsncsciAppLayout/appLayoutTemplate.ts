@@ -27,11 +27,11 @@ export const getAppLayoutTemplate = (
       >
         <div slot="vac" class="anal-function right">
             <label for="vac"><span class="intermittent">(</span>VAC<span class="intermittent">) Voluntary anal contraction</span></label>
-            <select name="dap" id="dap">
-              <option value=""></option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-              <option value="nt">NT</option>
+            <select name="vac" id="vac">
+              <option value="None"></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="NT">NT</option>
             </select>
         </div>
         <div slot="dap" class="anal-function">
