@@ -1,3 +1,4 @@
+export {BinaryObservation} from './binaryObservation';
 export {Cell} from './cell';
 export {ExamData} from './examData';
 export {

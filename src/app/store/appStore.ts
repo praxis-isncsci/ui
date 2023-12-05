@@ -6,6 +6,7 @@ class AppStore implements IDataStore<IAppState> {
   private handlers: Function[] = [];
   private state: IAppState = {
     activeCell: null,
+    dap: null,
     gridModel: [],
     selectedCells: [],
     selectedPoint: null,
@@ -40,6 +41,7 @@ class AppStore implements IDataStore<IAppState> {
       touchTotal: '',
       upperMotorTotal: '',
     },
+    vac: null,
   };
 
   public subscribe(handler: Function) {

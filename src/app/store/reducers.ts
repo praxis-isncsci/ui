@@ -1,5 +1,5 @@
 import {IAppState} from '@core/boundaries';
-import {Cell, Totals} from '@core/domain';
+import {BinaryObservation, Cell, Totals} from '@core/domain';
 
 import {IActionWithPayload} from './';
 
@@ -9,6 +9,7 @@ export class Actions {
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
   public static SET_SELECTED_CELLS = 'SET_SELECTED_CELLS';
   public static SET_TOTALS = 'SET_TOTALS';
+  public static SET_VAC_DAP = 'SET_VAC_DAP';
   public static UPDATE_STATUS = 'UPDATE_STATUS';
 }
 
@@ -72,6 +73,24 @@ const totals = (
   }
 };
 
+const vacDap = (
+  state: IAppState,
+  action: IActionWithPayload<{
+    vac: BinaryObservation | null;
+    dap: BinaryObservation | null;
+  }>,
+) => {
+  switch (action.type) {
+    case Actions.SET_VAC_DAP:
+      return Object.assign({}, state, {
+        vac: action.payload.vac,
+        dap: action.payload.dap,
+      });
+    default:
+      return state;
+  }
+};
+
 const values = (
   state: IAppState,
   action: IActionWithPayload<{cellsToUpdate: Cell[]; value: string}>,
@@ -86,6 +105,14 @@ const values = (
   }
 };
 
-export {activeCell, gridModel, selectedCells, status, totals, values};
+export {activeCell, gridModel, selectedCells, status, totals, vacDap, values};
 
-export default [activeCell, gridModel, selectedCells, status, totals, values];
+export default [
+  activeCell,
+  gridModel,
+  selectedCells,
+  status,
+  totals,
+  vacDap,
+  values,
+];

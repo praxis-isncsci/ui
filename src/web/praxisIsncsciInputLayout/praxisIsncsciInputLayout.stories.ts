@@ -3,7 +3,6 @@ import type {Meta, StoryObj} from '@storybook/web-components';
 import './praxisIsncsciInputLayout';
 import '/assets/css/design-system.css';
 
-// More on how to set up stories at: https://storybook.js.org/docs/web-components/writing-stories/introduction
 const meta = {
   title: 'WebComponents/PraxisIsncsciInputLayout',
   tags: ['autodocs'],
@@ -21,10 +20,10 @@ const meta = {
       </div>
       <div slot="dap" class="anal-function">
         <select name="dap" id="dap">
-          <option value=""></option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-          <option value="nt">NT</option>
+          <option value="None"></option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="NT">NT</option>
         </select>
         <label for="dap"><span class="intermittent">(</span>DAP<span class="intermittent">) Deep anal pressure</span></label>
       </div>
@@ -35,5 +34,4 @@ const meta = {
 export default meta;
 type Story = StoryObj;
 
-// More on writing stories with args: https://storybook.js.org/docs/web-components/writing-stories/args
 export const Primary: Story = {};
