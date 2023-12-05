@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 30 Nov 2023 01:25:07 GMT
+ * Generated on Tue, 05 Dec 2023 23:39:59 GMT
  */
 
 :root {
@@ -131,26 +131,27 @@
   --breakpoint-xl: 90rem;
   --light-grid-caption-2-foreground: #5e5e5e;
   --light-grid-caption-foreground: #000000;
-  --light-grid-border-cell: #d4d4d4;
   --light-grid-border-cell-total: #ababab;
-  --light-input-label-foreground: #5e5e5e;
-  --light-input-foreground: #000000;
-  --light-foreground-catption-2: #5e5e5e;
-  --light-foreground-primary: #000000;
-  --light-foreground-caption: #000000;
-  --light-foreground-subdued: #5e5e5e;
+  --light-grid-border-cell: #d4d4d4;
+  --light-input-label-on-surface: #5e5e5e;
+  --light-input-on-surface: #000000;
+  --light-input-border: #ababab;
   --light-shadow: #5f1877;
+  --light-foreground-catption-2: #5e5e5e;
+  --light-foreground-caption: #000000;
+  --light-foreground-primary: #000000;
+  --light-foreground-subdued: #5e5e5e;
   --light-body-diagram-bg: #ababab;
   --light-body-diagram-segment-bg: #f9f9f9;
   --light-body-diagram-key-sensory-point-bg: #848484;
   --light-body-diagram-foreground: #6a6a6a;
   --light-body-diagram-guide-bg: #848484;
   --light-acrylic: rgba(255, 255, 255, 0.4000);
+  --light-primary: #a82ad1;
   --light-button-surface: rgba(255, 255, 255, 0.0000);
   --light-button-surface-hover: rgba(51, 4, 73, 0.0800);
   --light-button-on-surface: #1b1b1b;
   --light-button-surface-active: rgba(51, 4, 73, 0.1200);
-  --light-primary: #a82ad1;
   --light-on-primary: #ffffff;
   --light-error: #b8451c;
   --light-secondary: #007491;
@@ -236,6 +237,8 @@
   --type-scale-display-font-size: 4.25rem;
   --type-scale-display-font-weight: 600;
   --type-scale-display-line-height: 4.25rem;
+  --input-border-radius: .25rem;
+  --input-height: 2.25rem;
   --spacing-isncsci-grid-gap: 0;
   --isncsci-input-button-border-radius: .25rem;
   --isncsci-input-button-border-radius-none: 0;
@@ -247,6 +250,9 @@
   --isncsci-input-input-layout-mobile-up-width: 22.5rem;
   --isncsci-input-buttons-gap: .25rem;
   --isncsci-input-width: 332;
+  --isncsci-anal-function-width: 5rem;
+  --isncsci-anal-function-height: 2.25rem;
+  --isncsci-anal-function-border-radius: .25rem;
   --button-border-radius: .25rem;
   --icon-button-border-radius: .25rem;
   --icon-button-width: 2.5rem;
@@ -268,10 +274,10 @@
   --classification-gap: 2.5rem;
   --classification-padding: 1rem;
   --classification-z-index: 100;
+  --classification-total-padding-right: .5rem;
   --classification-total-padding-left: .5rem;
   --classification-total-padding-top: .25rem;
   --classification-total-padding-bottom: .25rem;
-  --classification-total-padding-right: .5rem;
   --acrylic-background-blur: 1.5rem;
   --acrylic-backdrop-filter: blur(var(--acrylic-background-blur));
   --acrylic-inner-shadow: inset 0 0 0.125rem rgba(255, 255, 255, 0.4);
