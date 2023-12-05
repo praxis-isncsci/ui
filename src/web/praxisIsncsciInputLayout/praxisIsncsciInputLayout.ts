@@ -1,3 +1,4 @@
+import '@web/praxisIsncsciExtraInputs';
 import '@web/praxisIsncsciGrid';
 import '@web/praxisIsncsciInput';
 
@@ -12,13 +13,15 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
   private template: string = `
     <style>
     :host {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
       padding-bottom: 120px;
       position: relative;
     }
 
     [grid-section] {
-      --grid-gap: 4px;
+      --grid-gap: var(--space-1);
       display: flex;
       --input-layout-mobile-breakpoint: 600px;
     }
@@ -79,6 +82,24 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
         <slot name="dap"></slot>
       </div>
     </div>
+    <praxis-isncsci-extra-inputs>
+      <div slot="non-key-muscles-header">
+        Lowest non-key muscle with motor function
+      </div>
+      <label for="right-lowest" slot="right-lowest-label">Right:</label>
+      <select name="right-lowest" id="right-lowest" slot="right-lowest">
+        <option value="None"></option>
+        <option value="C5">C5</option>
+      </select>
+      <label for="left-lowest" slot="left-lowest-label">Left:</label>
+      <select name="left-lowest" id="left-lowest" slot="left-lowest">
+        <option value="None"></option>
+        <option value="C5">C5</option>
+      </select>
+      </div>
+      <label for="comments" slot="comments-label">Comments:</label>
+      <textarea name="comments" id="comments" slot="comments"></textarea>
+    </praxis-isncsci-extra-inputs>
     <praxis-isncsci-input disabled></praxis-isncsci-input>
   `;
 
