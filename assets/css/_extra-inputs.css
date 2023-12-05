@@ -1,0 +1,17 @@
+praxis-isncsci-extra-inputs {
+  --gap: var(--space-6);
+  --header-color: var(--light-input-label-on-surface);
+  --header-font-family: var(--text-font-family);
+  --header-font-size: var(--type-scale-caption-1-strong-font-size);
+  --header-font-weight: var(--type-scale-caption-1-strong-weight);
+  --header-line-height: var(--type-scale-caption-1-strong-line-height);
+  --input-border-color: var(--light-input-border);
+  --input-border-radius: var(--input-border-radius);
+  --input-gap: var(--space-2);
+  --input-height: var(--input-height);
+  --label-color: var(--light-input-label-on-surface);
+  --label-font-family: var(--text-font-family);
+  --label-font-size: var(--type-scale-caption-1-font-size);
+  --label-font-weight: var(--type-scale-caption-1-weight);
+  --label-line-height: var(--type-scale-caption-1-line-height);
+}
