@@ -43,6 +43,40 @@ export const getAppLayoutTemplate = (
           </select>
           <label for="dap"><span class="intermittent">(</span>DAP<span class="intermittent">) Deep anal pressure</span></label>
         </div>
+        <div slot="non-key-muscles-header">
+          Lowest non-key muscle with motor function
+        </div>
+        <label for="right-lowest" slot="right-lowest-label">Right:</label>
+        <select name="right-lowest" id="right-lowest" slot="right-lowest">
+          <option value="None"></option>
+          <option value="C5">C5 - Shoulder: Flexion, extension, abduction, adduction, internal and external rotation - Elbow: Supination</option>
+          <option value="C6">C6 - Elbow: Pronation - Wrist: Flexion</option>
+          <option value="C7">C7 - Finger: Flexion at proximal joint, extension. Thumb: Flexion, extension and abduction in plane of thumb</option>
+          <option value="C8">C8 - Finger: Flexion at MCP joint Thumb: Opposition, adduction and abduction perpendicular to palm</option>
+          <option value="T1">T1 - Finger: Abduction of the index finger</option>
+          <option value="L2">L2 - Hip: Adduction</option>
+          <option value="L3">L3 - Hip: External rotation</option>
+          <option value="L4">L4 - Hip: Extension, abduction, internal rotation - Knee: Flexion - Ankle: Inversion and eversion - Toe: MP and IP extension</option>
+          <option value="L5">L5 - Hallux and Toe: DIP and PIP flexion and abduction</option>
+          <option value="S1">S1 - Hallux: Adduction</option>
+        </select>
+        <label for="left-lowest" slot="left-lowest-label">Left:</label>
+        <select name="left-lowest" id="left-lowest" slot="left-lowest">
+          <option value="None"></option>
+          <option value="C5">C5 - Shoulder: Flexion, extension, abduction, adduction, internal and external rotation - Elbow: Supination</option>
+          <option value="C6">C6 - Elbow: Pronation - Wrist: Flexion</option>
+          <option value="C7">C7 - Finger: Flexion at proximal joint, extension. Thumb: Flexion, extension and abduction in plane of thumb</option>
+          <option value="C8">C8 - Finger: Flexion at MCP joint Thumb: Opposition, adduction and abduction perpendicular to palm</option>
+          <option value="T1">T1 - Finger: Abduction of the index finger</option>
+          <option value="L2">L2 - Hip: Adduction</option>
+          <option value="L3">L3 - Hip: External rotation</option>
+          <option value="L4">L4 - Hip: Extension, abduction, internal rotation - Knee: Flexion - Ankle: Inversion and eversion - Toe: MP and IP extension</option>
+          <option value="L5">L5 - Hallux and Toe: DIP and PIP flexion and abduction</option>
+          <option value="S1">S1 - Hallux: Adduction</option>
+        </select>
+        </div>
+        <label for="comments" slot="comments-label">Comments:</label>
+        <textarea name="comments" id="comments" slot="comments"></textarea>
       </praxis-isncsci-input-layout>
       <praxis-isncsci-classification slot="classification">
         <praxis-isncsci-dialog-header slot="header">
