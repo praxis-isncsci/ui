@@ -1,9 +1,10 @@
 import {Actions, IDataStore, appStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
-import {Cell, Totals} from '@core/domain';
+import {Cell, MotorLevel, Totals} from '@core/domain';
 import {sensoryCellRegex} from '@core/helpers';
 import {setCellsValueUseCase} from '@core/useCases';
 import {setActiveCellUseCase} from '@core/useCases/setActiveCell.useCase';
+import {setExtraInputsUseCase} from '@core/useCases/setExtraInputs.useCase';
 import {setVacDapUseCase} from '@core/useCases/setVacDap.useCase';
 import {BinaryObservation} from 'isncsci/cjs/interfaces';
 
@@ -14,6 +15,9 @@ export class InputLayoutController {
   private inputButtons: HTMLElement | null = null;
   private vac: HTMLSelectElement | null = null;
   private dap: HTMLSelectElement | null = null;
+  private rightLowest: HTMLSelectElement | null = null;
+  private leftLowest: HTMLSelectElement | null = null;
+  private comments: HTMLTextAreaElement | null = null;
 
   public constructor(
     appStore: IDataStore<IAppState>,
@@ -54,6 +58,7 @@ export class InputLayoutController {
     this.vac = inputLayout.querySelector('#vac');
     this.dap = inputLayout.querySelector('#dap');
 
+    // VAC & DAP
     if (!this.vac || !this.dap) {
       throw new Error(
         'The input buttons for VAC and DAP have not been initialized',
@@ -63,6 +68,26 @@ export class InputLayoutController {
     this.vac.addEventListener('change', () => this.vacDap_onChange());
     this.dap.addEventListener('change', () => this.vacDap_onChange());
 
+    // Extra inputs - Right and left lowest non-key muscle with motor function and comments
+    this.rightLowest = inputLayout.querySelector('#right-lowest');
+    this.leftLowest = inputLayout.querySelector('#left-lowest');
+    this.comments = inputLayout.querySelector('#comments');
+
+    if (!this.rightLowest || !this.leftLowest || !this.comments) {
+      throw new Error(
+        'The input buttons for right and left lowest non-key muscle with motor function and comments have not been initialized',
+      );
+    }
+
+    this.rightLowest.addEventListener('change', () =>
+      this.extraInputs_onChange(),
+    );
+    this.leftLowest.addEventListener('change', () =>
+      this.extraInputs_onChange(),
+    );
+    this.comments.addEventListener('change', () => this.extraInputs_onChange());
+
+    // Subscribe to the application's store
     appStore.subscribe((state: IAppState, actionType: string) =>
       this.stateChanged(state, actionType),
     );
@@ -179,6 +204,28 @@ export class InputLayoutController {
     this.dap.value = dap ?? 'None';
   }
 
+  private updateExtraInputs(
+    rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+    leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+    comments: string,
+  ) {
+    console.log(
+      'updateExtraInputs',
+      rightLowestNonKeyMuscleWithMotorFunction,
+      leftLowestNonKeyMuscleWithMotorFunction,
+      comments,
+    );
+    if (!this.rightLowest || !this.leftLowest || !this.comments) {
+      throw new Error(
+        'The input buttons for right and left lowest non-key muscle with motor function and comments have not been initialized',
+      );
+    }
+
+    this.rightLowest.value = rightLowestNonKeyMuscleWithMotorFunction ?? 'None';
+    this.leftLowest.value = leftLowestNonKeyMuscleWithMotorFunction ?? 'None';
+    this.comments.value = comments;
+  }
+
   private inputValue_onClick(e: CustomEvent) {
     const state = appStore.getState();
 
@@ -210,27 +257,49 @@ export class InputLayoutController {
     setVacDapUseCase(vac, dap, this.appStoreProvider);
   }
 
+  private extraInputs_onChange() {
+    if (!this.rightLowest || !this.leftLowest || !this.comments) {
+      throw new Error(
+        'The input buttons for right and left lowest non-key muscle with motor function and comments have not been initialized',
+      );
+    }
+
+    setExtraInputsUseCase(
+      this.rightLowest.value as MotorLevel,
+      this.leftLowest.value as MotorLevel,
+      this.comments.value,
+      this.appStoreProvider,
+    );
+  }
+
   private stateChanged(state: IAppState, actionType: string) {
-    if (actionType === Actions.SET_GRID_MODEL) {
-      this.updateView(state.gridModel.slice());
-    }
-
-    if (actionType === Actions.SET_TOTALS) {
-      this.updateTotals(state.totals);
-    }
-
-    if (actionType === Actions.SET_ACTIVE_CELL) {
-      this.updateGridSelection(state.activeCell ? state.activeCell.name : null);
-      this.updateInputButtons(state.activeCell);
-    }
-
-    if (actionType === Actions.SET_CELLS_VALUE) {
-      this.updateCellViews(state.updatedCells.slice());
-      this.updateInputButtons(state.activeCell);
-    }
-
-    if (actionType === Actions.SET_VAC_DAP) {
-      this.updateDropdowns(state.vac, state.dap);
+    switch (actionType) {
+      case Actions.SET_GRID_MODEL:
+        this.updateView(state.gridModel.slice());
+        break;
+      case Actions.SET_TOTALS:
+        this.updateTotals(state.totals);
+        break;
+      case Actions.SET_ACTIVE_CELL:
+        this.updateGridSelection(
+          state.activeCell ? state.activeCell.name : null,
+        );
+        this.updateInputButtons(state.activeCell);
+        break;
+      case Actions.SET_CELLS_VALUE:
+        this.updateCellViews(state.updatedCells.slice());
+        this.updateInputButtons(state.activeCell);
+        break;
+      case Actions.SET_VAC_DAP:
+        this.updateDropdowns(state.vac, state.dap);
+        break;
+      case Actions.SET_EXTRA_INPUTS:
+        this.updateExtraInputs(
+          state.rightLowestNonKeyMuscleWithMotorFunction,
+          state.leftLowestNonKeyMuscleWithMotorFunction,
+          state.comments,
+        );
+        break;
     }
   }
 

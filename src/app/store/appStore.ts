@@ -6,8 +6,11 @@ class AppStore implements IDataStore<IAppState> {
   private handlers: Function[] = [];
   private state: IAppState = {
     activeCell: null,
+    comments: '',
     dap: null,
     gridModel: [],
+    leftLowestNonKeyMuscleWithMotorFunction: null,
+    rightLowestNonKeyMuscleWithMotorFunction: null,
     selectedCells: [],
     selectedPoint: null,
     status: StatusCodes.NotInitialized,
