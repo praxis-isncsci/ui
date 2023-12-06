@@ -74,7 +74,6 @@ export const getAppLayoutTemplate = (
           <option value="L5">L5 - Hallux and Toe: DIP and PIP flexion and abduction</option>
           <option value="S1">S1 - Hallux: Adduction</option>
         </select>
-        </div>
         <label for="comments" slot="comments-label">Comments:</label>
         <textarea name="comments" id="comments" slot="comments"></textarea>
       </praxis-isncsci-input-layout>
