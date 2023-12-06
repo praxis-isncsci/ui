@@ -64,6 +64,7 @@ export class PraxisIsncsciExtraInputs extends HTMLElement {
 
         ::slotted(select) {
           height: var(--input-height, 2.26rem);
+          min-width: 0;
         }
 
         ::slotted(textarea) {
