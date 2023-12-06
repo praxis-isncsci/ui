@@ -1,9 +1,14 @@
-import {Cell, Totals} from '@core/domain';
+import {Cell, MotorLevel, Totals} from '@core/domain';
 import {BinaryObservation} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
   setActiveCell(cell: Cell | null): Promise<void>;
   setCellsValue(cells: Cell[], value: string): Promise<void>;
+  setExtraInputs(
+    rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+    leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+    comments: string,
+  ): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
   setSelectedCells(cells: Cell[]): Promise<void>;
   setTotals(totals: Totals): Promise<void>;
