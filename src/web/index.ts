@@ -7,6 +7,7 @@ import {
   PraxisIsncsciClassificationTotal,
 } from './praxisIsncsciClassification';
 import {PraxisIsncsciDialogHeader} from './praxisIsncsciDialogHeader';
+import {PraxisIsncsciExtraInputs} from './praxisIsncsciExtraInputs/praxisIsncsciExtraInputs';
 import {PraxisIsncsciGrid} from './praxisIsncsciGrid';
 import {PraxisIsncsciInput} from './praxisIsncsciInput';
 import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
@@ -19,6 +20,7 @@ import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
   PraxisIsncsciClassificationGrid,
   PraxisIsncsciClassificationTotal,
   PraxisIsncsciDialogHeader,
+  PraxisIsncsciExtraInputs,
   PraxisIsncsciGrid,
   PraxisIsncsciInput,
   PraxisIsncsciInputLayout,

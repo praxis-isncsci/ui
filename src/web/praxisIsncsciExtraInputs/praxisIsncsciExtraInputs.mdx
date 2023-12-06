@@ -1,0 +1,182 @@
+{/* PraxisIsncsciExtraInputs.mdx */}
+
+import {Canvas, Meta} from '@storybook/blocks';
+import * as Stories from './praxisIsncsciExtraInputs.stories';
+
+<Meta of={Stories} />
+
+# Praxis ISNCSCI extra inputs
+
+## Design Problem
+
+We need a component to display the extra inputs for the ISNCSCI form, which include the **comments** box and the inputs for **lowest non-key muscles with motor function**.
+
+## Approach
+
+I approached the component using composition.
+The component has all the **CSS** needed to provide the proper layout and spacing for mobile and larger breakpoints.
+Slots are used to allow the user to provide the proper **HTML** elements for the labels and inputs, giving flexibility to the developers using the component and making things easy when adding internationalization.
+
+### Slots
+
+- `comments` - Expects a `textarea` element
+- `comments-label` - Expects a `label` element
+- `left-lowest` - Expects a `select` element
+- `left-lowest-label` - Expects a `label` element
+- `non-key-muscles-header` - Expects a `div` or header element
+- `right-lowest-label` - Expects a `label` element
+- `right-lowest` - Expects a `select` element
+
+### CSS Variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>`--gap`</code>
+      </td>
+      <td>
+        Space between the lowest non-key muscle and the comments sections for
+        both vertical and horizontal layouts
+      </td>
+      <td>
+        <code>`1.5rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--header-color`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`#5e5e5e`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--header-font-family`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`sans-serif`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--header-font-size`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`0.75rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--header-font-weight`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`600`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--header-line-height`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`1rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--input-border-color`</code>
+      </td>
+      <td>Distance between labels and input controls</td>
+      <td>
+        <code>`#848484`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--input-border-radius`</code>
+      </td>
+      <td>Distance between labels and input controls</td>
+      <td>
+        <code>`0.125rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--input-gap`</code>
+      </td>
+      <td>Distance between labels and input controls</td>
+      <td>
+        <code>`0.5rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--input-height`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`2.26rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--label-color`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`#5e5e5e`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--label-font-family`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`sans-serif`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--label-font-size`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`0.75rem`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--label-font-weight`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`400`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--label-line-height`</code>
+      </td>
+      <td></td>
+      <td>
+        <code>`1rem`</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={Stories.Primary} />
