@@ -6,6 +6,7 @@ import {IActionWithPayload} from './';
 export class Actions {
   public static SET_ACTIVE_CELL = 'SET_ACTIVE_CELL';
   public static SET_CELLS_VALUE = 'SET_CELLS_VALUE';
+  public static SET_EXTRA_INPUTS = 'SET_EXTRA_INPUTS';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
   public static SET_SELECTED_CELLS = 'SET_SELECTED_CELLS';
   public static SET_TOTALS = 'SET_TOTALS';
@@ -32,6 +33,28 @@ const activeCell = (
   switch (action.type) {
     case Actions.SET_ACTIVE_CELL:
       return Object.assign({}, state, {activeCell: action.payload});
+    default:
+      return state;
+  }
+};
+
+const extraInputs = (
+  state: IAppState,
+  action: IActionWithPayload<{
+    rightLowestNonKeyMuscleWithMotorFunction: string | null;
+    leftLowestNonKeyMuscleWithMotorFunction: string | null;
+    comments: string;
+  }>,
+): IAppState => {
+  switch (action.type) {
+    case Actions.SET_EXTRA_INPUTS:
+      return Object.assign({}, state, {
+        rightLowestNonKeyMuscleWithMotorFunction:
+          action.payload.rightLowestNonKeyMuscleWithMotorFunction,
+        leftLowestNonKeyMuscleWithMotorFunction:
+          action.payload.leftLowestNonKeyMuscleWithMotorFunction,
+        comments: action.payload.comments,
+      });
     default:
       return state;
   }
@@ -105,10 +128,20 @@ const values = (
   }
 };
 
-export {activeCell, gridModel, selectedCells, status, totals, vacDap, values};
+export {
+  activeCell,
+  extraInputs,
+  gridModel,
+  selectedCells,
+  status,
+  totals,
+  vacDap,
+  values,
+};
 
 export default [
   activeCell,
+  extraInputs,
   gridModel,
   selectedCells,
   status,

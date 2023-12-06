@@ -1,6 +1,6 @@
 import {Actions, IDataStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
-import {BinaryObservation, Cell, Totals} from '@core/domain';
+import {BinaryObservation, Cell, MotorLevel, Totals} from '@core/domain';
 
 export class AppStoreProvider implements IIsncsciAppStoreProvider {
   public constructor(private appStore: IDataStore<IAppState>) {}
@@ -14,6 +14,22 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     this.appStore.dispatch({
       type: Actions.SET_CELLS_VALUE,
       payload: {cellsToUpdate, value},
+    });
+    return Promise.resolve();
+  }
+
+  public setExtraInputs(
+    rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+    leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+    comments: string,
+  ): Promise<void> {
+    this.appStore.dispatch({
+      type: Actions.SET_EXTRA_INPUTS,
+      payload: {
+        rightLowestNonKeyMuscleWithMotorFunction,
+        leftLowestNonKeyMuscleWithMotorFunction,
+        comments,
+      },
     });
     return Promise.resolve();
   }
