@@ -9,6 +9,7 @@ import {
 } from '@core/domain';
 import {ExamData} from '@core/domain/examData';
 import {motorCellRegex, validCellNameRegex} from './regularExpressions';
+import {BinaryObservation} from 'isncsci/cjs/interfaces';
 
 const validateValue = (
   dataKey: string,
@@ -40,8 +41,16 @@ const validateValue = (
   }
 };
 
-export const validateExamData = (examData: {[key: string]: string}) => {
+export const validateExamData = (examData: ExamData) => {
   const errors: string[] = [];
+
+  if (!examData.voluntaryAnalContraction) {
+    errors.push('Voluntary Anal Contraction is not set');
+  }
+
+  if (!examData.deepAnalPressure) {
+    errors.push('Deep Anal Pressure is not set');
+  }
 
   SensoryLevels.forEach((level) => {
     validateValue(
@@ -73,11 +82,7 @@ export const validateExamData = (examData: {[key: string]: string}) => {
   return errors;
 };
 
-const getCell = (
-  name: string,
-  dataKey: string,
-  examData: {[key: string]: string},
-): Cell => {
+const getCell = (name: string, dataKey: string, examData: ExamData): Cell => {
   const value: string = examData[dataKey] ?? '';
   const hasStar = /\*/.test(value);
 
@@ -96,7 +101,7 @@ const getCell = (
   return cell;
 };
 
-const getRow = (level: string, examData: {[key: string]: string}) => {
+const getRow = (level: string, examData: ExamData) => {
   const isMotor = MotorLevels.includes(level as MotorLevel);
   const levelToLower = level.toLowerCase();
 
@@ -126,7 +131,7 @@ const getRow = (level: string, examData: {[key: string]: string}) => {
   ];
 };
 
-export const bindExamDataToGridModel = (examData: {[key: string]: string}) => {
+export const bindExamDataToGridModel = (examData: ExamData) => {
   const gridModel: Array<Cell | null>[] = [];
 
   SensoryLevels.forEach((level) => {
@@ -136,9 +141,7 @@ export const bindExamDataToGridModel = (examData: {[key: string]: string}) => {
   return gridModel;
 };
 
-export const bindExamDataToTotals = (examData: {
-  [key: string]: string;
-}): Totals => {
+export const bindExamDataToTotals = (examData: ExamData): Totals => {
   return {
     asiaImpairmentScale: examData['asiaImpairmentScale'] ?? '',
     injuryComplete: examData['injuryComplete'] ?? '',
@@ -170,8 +173,21 @@ export const bindExamDataToTotals = (examData: {
   };
 };
 
-export const getExamDataFromGridModel = (gridModel: Array<Cell | null>[]) => {
-  const examData: {[key: string]: string} = {};
+export const getExamDataFromGridModel = (
+  gridModel: Array<Cell | null>[],
+  voluntaryAnalContraction: BinaryObservation | null = null,
+  deepAnalPressure: BinaryObservation | null = null,
+  rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null = null,
+  leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null = null,
+) => {
+  const examData = getEmptyExamData();
+  examData.voluntaryAnalContraction = voluntaryAnalContraction;
+  examData.deepAnalPressure = deepAnalPressure;
+  examData.rightLowestNonKeyMuscleWithMotorFunction =
+    rightLowestNonKeyMuscleWithMotorFunction;
+  examData.leftLowestNonKeyMuscleWithMotorFunction =
+    leftLowestNonKeyMuscleWithMotorFunction;
+
   let isMissingValues = false;
 
   gridModel.flat().forEach((cell) => {
@@ -188,7 +204,7 @@ export const getExamDataFromGridModel = (gridModel: Array<Cell | null>[]) => {
     }
   });
 
-  return {examData: examData as ExamData, isMissingValues};
+  return {examData, isMissingValues};
 };
 
 export const findCell = (cellName: string, gridModel: Array<Cell | null>[]) => {
@@ -312,4 +328,178 @@ export const getCellRange = (
   }
 
   return {motorRange, sensoryRange};
+};
+
+export const getEmptyExamData = (): ExamData => {
+  return {
+    deepAnalPressure: null,
+    voluntaryAnalContraction: null,
+    rightLowestNonKeyMuscleWithMotorFunction: null,
+    leftLowestNonKeyMuscleWithMotorFunction: null,
+    /* Right Sensory */
+    rightLightTouchC2: '',
+    rightLightTouchC3: '',
+    rightLightTouchC4: '',
+    rightLightTouchC5: '',
+    rightLightTouchC6: '',
+    rightLightTouchC7: '',
+    rightLightTouchC8: '',
+    rightLightTouchT1: '',
+    rightLightTouchT2: '',
+    rightLightTouchT3: '',
+    rightLightTouchT4: '',
+    rightLightTouchT5: '',
+    rightLightTouchT6: '',
+    rightLightTouchT7: '',
+    rightLightTouchT8: '',
+    rightLightTouchT9: '',
+    rightLightTouchT10: '',
+    rightLightTouchT11: '',
+    rightLightTouchT12: '',
+    rightLightTouchL1: '',
+    rightLightTouchL2: '',
+    rightLightTouchL3: '',
+    rightLightTouchL4: '',
+    rightLightTouchL5: '',
+    rightLightTouchS1: '',
+    rightLightTouchS2: '',
+    rightLightTouchS3: '',
+    rightLightTouchS4_5: '',
+    rightPinPrickC2: '',
+    rightPinPrickC3: '',
+    rightPinPrickC4: '',
+    rightPinPrickC5: '',
+    rightPinPrickC6: '',
+    rightPinPrickC7: '',
+    rightPinPrickC8: '',
+    rightPinPrickT1: '',
+    rightPinPrickT2: '',
+    rightPinPrickT3: '',
+    rightPinPrickT4: '',
+    rightPinPrickT5: '',
+    rightPinPrickT6: '',
+    rightPinPrickT7: '',
+    rightPinPrickT8: '',
+    rightPinPrickT9: '',
+    rightPinPrickT10: '',
+    rightPinPrickT11: '',
+    rightPinPrickT12: '',
+    rightPinPrickL1: '',
+    rightPinPrickL2: '',
+    rightPinPrickL3: '',
+    rightPinPrickL4: '',
+    rightPinPrickL5: '',
+    rightPinPrickS1: '',
+    rightPinPrickS2: '',
+    rightPinPrickS3: '',
+    rightPinPrickS4_5: '',
+
+    /* Left Sensory */
+    leftLightTouchC2: '',
+    leftLightTouchC3: '',
+    leftLightTouchC4: '',
+    leftLightTouchC5: '',
+    leftLightTouchC6: '',
+    leftLightTouchC7: '',
+    leftLightTouchC8: '',
+    leftLightTouchT1: '',
+    leftLightTouchT2: '',
+    leftLightTouchT3: '',
+    leftLightTouchT4: '',
+    leftLightTouchT5: '',
+    leftLightTouchT6: '',
+    leftLightTouchT7: '',
+    leftLightTouchT8: '',
+    leftLightTouchT9: '',
+    leftLightTouchT10: '',
+    leftLightTouchT11: '',
+    leftLightTouchT12: '',
+    leftLightTouchL1: '',
+    leftLightTouchL2: '',
+    leftLightTouchL3: '',
+    leftLightTouchL4: '',
+    leftLightTouchL5: '',
+    leftLightTouchS1: '',
+    leftLightTouchS2: '',
+    leftLightTouchS3: '',
+    leftLightTouchS4_5: '',
+    leftPinPrickC2: '',
+    leftPinPrickC3: '',
+    leftPinPrickC4: '',
+    leftPinPrickC5: '',
+    leftPinPrickC6: '',
+    leftPinPrickC7: '',
+    leftPinPrickC8: '',
+    leftPinPrickT1: '',
+    leftPinPrickT2: '',
+    leftPinPrickT3: '',
+    leftPinPrickT4: '',
+    leftPinPrickT5: '',
+    leftPinPrickT6: '',
+    leftPinPrickT7: '',
+    leftPinPrickT8: '',
+    leftPinPrickT9: '',
+    leftPinPrickT10: '',
+    leftPinPrickT11: '',
+    leftPinPrickT12: '',
+    leftPinPrickL1: '',
+    leftPinPrickL2: '',
+    leftPinPrickL3: '',
+    leftPinPrickL4: '',
+    leftPinPrickL5: '',
+    leftPinPrickS1: '',
+    leftPinPrickS2: '',
+    leftPinPrickS3: '',
+    leftPinPrickS4_5: '',
+    /* Right Motor */
+    rightMotorC5: '',
+    rightMotorC6: '',
+    rightMotorC7: '',
+    rightMotorC8: '',
+    rightMotorT1: '',
+    rightMotorL2: '',
+    rightMotorL3: '',
+    rightMotorL4: '',
+    rightMotorL5: '',
+    rightMotorS1: '',
+    /* Left Motor */
+    leftMotorC5: '',
+    leftMotorC6: '',
+    leftMotorC7: '',
+    leftMotorC8: '',
+    leftMotorT1: '',
+    leftMotorL2: '',
+    leftMotorL3: '',
+    leftMotorL4: '',
+    leftMotorL5: '',
+    leftMotorS1: '',
+    /* Classification and totals */
+    asiaImpairmentScale: '',
+    injuryComplete: '',
+    leftLightTouchTotal: '',
+    leftLowerMotorTotal: '',
+    leftMotor: '',
+    leftMotorTotal: '',
+    leftMotorZpp: '',
+    leftPinPrickTotal: '',
+    leftSensory: '',
+    leftSensoryZpp: '',
+    leftTouchTotal: '',
+    leftUpperMotorTotal: '',
+    lowerMotorTotal: '',
+    neurologicalLevelOfInjury: '',
+    pinPrickTotal: '',
+    rightLightTouchTotal: '',
+    rightLowerMotorTotal: '',
+    rightMotor: '',
+    rightMotorTotal: '',
+    rightMotorZpp: '',
+    rightPinPrickTotal: '',
+    rightSensory: '',
+    rightSensoryZpp: '',
+    rightTouchTotal: '',
+    rightUpperMotorTotal: '',
+    touchTotal: '',
+    upperMotorTotal: '',
+  };
 };

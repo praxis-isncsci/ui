@@ -4,6 +4,7 @@ import {Cell} from '@core/domain';
 import {bindExamDataToGridModel, findCell, motorCellRegex} from '@core/helpers';
 import {setCellsValueUseCase} from './setCellsValue.useCase';
 import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
+import {getEmptyExamData} from '@core/helpers/examData.helper';
 
 describe('setCellValue.useCase.spec', () => {
   describe('setCellValueUseCase', () => {
@@ -12,7 +13,7 @@ describe('setCellValue.useCase.spec', () => {
 
     beforeEach(() => {
       appStoreProvider = getAppStoreProviderMock();
-      gridModel = bindExamDataToGridModel({});
+      gridModel = bindExamDataToGridModel(getEmptyExamData());
       jest.resetModules();
     });
 

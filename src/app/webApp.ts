@@ -16,7 +16,8 @@ import {
   ExternalMessagePortProviderActions,
 } from '@app/providers';
 import {InputLayoutController} from '@app/controllers/inputLayout.controller';
-import {getRandomExamData} from '@testHelpers/examDataHelper';
+import {getEmptyExamData} from '@core/helpers/examData.helper';
+import {ExamData} from '@core/domain';
 
 export class PraxisIsncsciWebApp extends HTMLElement {
   public static get is(): string {
@@ -68,7 +69,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
     this.unsubscribeFromExternalChannelHandler =
       this.externalMessagePortProvider.subscribe(
-        (action: string, examData: {[key: string]: string} | null) =>
+        (action: string, examData: ExamData | null) =>
           this.externalMessagePortProvider_onAction(action, examData),
       );
 
@@ -131,10 +132,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     if (
       !this.appStoreProvider ||
       !this.isncsciExamProvider ||
-      !this.externalMessagePortProvider
+      !this.externalMessagePortProvider ||
+      !this.appStore
     ) {
       throw new Error(
-        'The application store provider, the exam provider, and the external message port provider have not been initialized',
+        'The application store provider, the exam provider, the external message port provider, or the app store have not been initialized',
       );
     }
 
@@ -146,14 +148,17 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       );
     }
 
-    const examData = getRandomExamData();
-    loadExternalExamDataUseCase(this.appStoreProvider, examData);
+    const state = this.appStore.getState();
 
     calculateUseCase(
+      state.gridModel ?? [],
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
       this.appStoreProvider,
       this.isncsciExamProvider,
       this.externalMessagePortProvider,
-      this.appStore?.getState().gridModel ?? [],
     );
 
     return false;
@@ -176,7 +181,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
   private externalMessagePortProvider_onAction(
     actionType: string,
-    examData: {[key: string]: string} | null,
+    examData: ExamData | null,
   ) {
     if (!this.appStoreProvider) {
       throw new Error(
@@ -189,7 +194,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
         console.log('An external message port has been registered');
         break;
       case ExternalMessagePortProviderActions.ON_EXAM_DATA:
-        loadExternalExamDataUseCase(this.appStoreProvider, examData ?? {});
+        loadExternalExamDataUseCase(
+          this.appStoreProvider,
+          examData ?? getEmptyExamData(),
+        );
         break;
     }
   }

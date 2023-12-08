@@ -9,42 +9,42 @@ import {
   getCellPosition,
   getCellRange,
   getCellRow,
+  getEmptyExamData,
   validateExamData,
 } from './examData.helper';
 
 const getExamDataForAsiaE = () => {
-  const examData = {
-    deepAnalPressure: 'Yes',
-    voluntaryAnalContraction: 'Yes',
+  const examData = getEmptyExamData();
+  examData.deepAnalPressure = 'Yes';
+  (examData.voluntaryAnalContraction = 'Yes'),
     // Totals
-    asiaImpairmentScale: '1',
-    injuryComplete: '2',
-    leftLightTouchTotal: '3',
-    leftLowerMotorTotal: '4',
-    leftMotor: '5',
-    leftMotorTotal: '6',
-    leftMotorZpp: '7',
-    leftPinPrickTotal: '8',
-    leftSensory: '9',
-    leftSensoryZpp: '10',
-    leftTouchTotal: '11',
-    leftUpperMotorTotal: '12',
-    lowerMotorTotal: '13',
-    neurologicalLevelOfInjury: '14',
-    pinPrickTotal: '15',
-    rightLightTouchTotal: '16',
-    rightLowerMotorTotal: '17',
-    rightMotor: '18',
-    rightMotorTotal: '19',
-    rightMotorZpp: '20',
-    rightPinPrickTotal: '21',
-    rightSensory: '22',
-    rightSensoryZpp: '23',
-    rightTouchTotal: '24',
-    rightUpperMotorTotal: '25',
-    touchTotal: '26',
-    upperMotorTotal: '27',
-  };
+    (examData.asiaImpairmentScale = '1');
+  examData.injuryComplete = '2';
+  examData.leftLightTouchTotal = '3';
+  examData.leftLowerMotorTotal = '4';
+  examData.leftMotor = '5';
+  examData.leftMotorTotal = '6';
+  examData.leftMotorZpp = '7';
+  examData.leftPinPrickTotal = '8';
+  examData.leftSensory = '9';
+  examData.leftSensoryZpp = '10';
+  examData.leftTouchTotal = '11';
+  examData.leftUpperMotorTotal = '12';
+  examData.lowerMotorTotal = '13';
+  examData.neurologicalLevelOfInjury = '14';
+  examData.pinPrickTotal = '15';
+  examData.rightLightTouchTotal = '16';
+  examData.rightLowerMotorTotal = '17';
+  examData.rightMotor = '18';
+  examData.rightMotorTotal = '19';
+  examData.rightMotorZpp = '20';
+  examData.rightPinPrickTotal = '21';
+  examData.rightSensory = '22';
+  examData.rightSensoryZpp = '23';
+  examData.rightTouchTotal = '24';
+  examData.rightUpperMotorTotal = '25';
+  examData.touchTotal = '26';
+  examData.upperMotorTotal = '27';
 
   SensoryLevels.forEach((level) => {
     examData[`rightLightTouch${level}`] = '2';
@@ -196,7 +196,7 @@ describe('ExamDataHelper', () => {
     });
 
     it('should set an empty string for totals not included in the exam data', () => {
-      const totals = bindExamDataToTotals({});
+      const totals = bindExamDataToTotals(getEmptyExamData());
 
       expect(totals).toEqual({
         asiaImpairmentScale: '',
@@ -341,7 +341,7 @@ describe('ExamDataHelper', () => {
   });
 
   describe('getCellRange', () => {
-    const gridModel = bindExamDataToGridModel({});
+    const gridModel = bindExamDataToGridModel(getEmptyExamData());
 
     [
       {

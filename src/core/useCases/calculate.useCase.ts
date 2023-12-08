@@ -3,26 +3,38 @@ import {
   IIsncsciAppStoreProvider,
   IIsncsciExamProvider,
 } from '@core/boundaries';
-import {Cell} from '@core/domain';
+import {BinaryObservation, Cell} from '@core/domain';
 import {getExamDataFromGridModel, validateExamData} from '@core/helpers';
+import {MotorLevel} from 'isncsci/cjs/interfaces';
 
+/*
+ * This use case is responsible for calculating the totals
+ * and updating the state of the application
+ *
+ * 1. Get exam data from grid model
+ * 2. Validate exam data
+ * 3. Calculate totals
+ * 4. Bind totals to exam data
+ * 5. Update state
+ */
 export const calculateUseCase = (
+  gridModel: Array<Cell | null>[],
+  vac: BinaryObservation | null,
+  dap: BinaryObservation | null,
+  rightLowestNonKeyMuscle: MotorLevel | null,
+  leftLowestNonKeyMuscle: MotorLevel | null,
   appStoreProvider: IIsncsciAppStoreProvider,
   examProvider: IIsncsciExamProvider,
   externalMessageProvider: IExternalMessageProvider,
-  gridModel: Array<Cell | null>[],
 ) => {
   // 1. Get exam data from grid model
-  const {examData, isMissingValues} = getExamDataFromGridModel(gridModel);
-
-  // [ToDo: Remove this]
-  // We are adding the following lines as that part is missing in the implementation
-  // As the input controls are not available yet
-  console.log(
-    'Do not forget to remove DAP and GAP setting in calculate.useCase.ts',
+  const {examData, isMissingValues} = getExamDataFromGridModel(
+    gridModel,
+    vac,
+    dap,
+    rightLowestNonKeyMuscle,
+    leftLowestNonKeyMuscle,
   );
-  examData.deepAnalPressure = 'Yes';
-  examData.voluntaryAnalContraction = 'Yes';
 
   // 2. Validate exam data
   if (isMissingValues) {

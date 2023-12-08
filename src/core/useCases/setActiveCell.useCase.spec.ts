@@ -4,6 +4,7 @@ import {IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell} from '@core/domain';
 import {bindExamDataToGridModel} from '@core/helpers';
 import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
+import {getEmptyExamData} from '@core/helpers/examData.helper';
 
 const getEmptyCell = (name: string): Cell => {
   return {
@@ -21,7 +22,7 @@ describe('setActiveCell.useCase.ts', () => {
     let gridModel: Array<Cell | null>[] = [];
 
     beforeEach(() => {
-      gridModel = bindExamDataToGridModel({});
+      gridModel = bindExamDataToGridModel(getEmptyExamData());
       appStoreProvider = getAppStoreProviderMock();
     });
 
