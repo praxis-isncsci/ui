@@ -1,6 +1,11 @@
+import {BinaryObservation} from 'isncsci/cjs/interfaces';
+import {MotorLevel} from './isncsciLevels';
+
 export type ExamData = {
-  deepAnalPressure: 'Yes' | 'No';
-  voluntaryAnalContraction: 'Yes' | 'No';
+  deepAnalPressure: BinaryObservation | null;
+  voluntaryAnalContraction: BinaryObservation | null;
+  rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
+  leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
 
   /* Right Sensory */
   rightLightTouchC2: string;

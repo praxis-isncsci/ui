@@ -10,7 +10,7 @@ export class ExternalMessagePortProviderActions {
 
 export class ExternalMessagePortProvider implements IExternalMessageProvider {
   private handlers: Array<
-    (actionType: string, examData: {[key: string]: string} | null) => void
+    (actionType: string, examData: ExamData | null) => void
   > = [];
   private port: MessagePort | null = null;
 
@@ -34,10 +34,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     }
   }
 
-  private onPortMessage(
-    action: string,
-    examData: {[key: string]: string} | null,
-  ) {
+  private onPortMessage(action: string, examData: ExamData | null) {
     if (action === ExternalMessagePortProviderActions.SET_EXAM_DATA) {
       this.dispatch({
         examData,
@@ -51,10 +48,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     this.port?.postMessage(examData);
   }
 
-  private dispatch(action: {
-    type: string;
-    examData: {[key: string]: string} | null;
-  }) {
+  private dispatch(action: {type: string; examData: ExamData | null}) {
     this.handlers.forEach((handler) => handler(action.type, action.examData));
   }
 
@@ -62,7 +56,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
    * returns the unsubscribe function
    */
   public subscribe(
-    handler: (action: string, examData: {[key: string]: string} | null) => void,
+    handler: (action: string, examData: ExamData | null) => void,
   ) {
     this.handlers.push(handler);
 
