@@ -22,7 +22,6 @@ const styles = html`
     #root-inner {
       display: flex;
       height: 100vh;
-      overflow: hidden;
     }
   </style>
 `;
@@ -86,4 +85,4 @@ export default meta;
 type Story = StoryObj;
 
 // More on writing stories with args: https://storybook.js.org/docs/web-components/writing-stories/args
-export const Primary: Story = {};
+export const Primary: Story = {parameters: {layout: 'fullscreen'}};

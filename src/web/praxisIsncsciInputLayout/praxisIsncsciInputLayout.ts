@@ -12,64 +12,45 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
 
   private template: string = `
     <style>
-    :host {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-      padding-bottom: 120px;
-      position: relative;
-    }
-
-    [grid-section] {
-      --grid-gap: var(--space-1);
-      display: flex;
-      --input-layout-mobile-breakpoint: 600px;
-    }
-
-    [right-dermatomes],
-    [left-dermatomes] {
-      display: flex;
-      flex-direction: column;
-    }
-
-    [right-dermatomes] {
-      align-items: end;
-      margin-right: var(--grid-gap);
-    }
-
-    [left-dermatomes] {
-      align-items: start;
-      margin-left: var(--grid-gap);
-    }
-
-    [diagram] {
-      background-color: #E2E2E2;
-      display: none;
-      flex-grow: 1;
-    }
-
-    praxis-isncsci-input {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-
-    @media (min-width: 22.5rem) {
       :host {
-        padding-bottom: 0;
-        padding-top: 120px;
-      }
-      
-      [diagram] {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
       }
 
-      praxis-isncsci-input {
-        bottom: auto;
-        top: 0;
+      [grid-section] {
+        --grid-gap: var(--space-1);
+        display: flex;
+        justify-content: center;
       }
-    }
+
+      [right-dermatomes],
+      [left-dermatomes] {
+        display: flex;
+        flex-direction: column;
+      }
+
+      [right-dermatomes] {
+        align-items: end;
+        margin-right: var(--grid-gap);
+      }
+
+      [left-dermatomes] {
+        align-items: start;
+        margin-left: var(--grid-gap);
+      }
+
+      [diagram] {
+        background-color: #E2E2E2;
+        display: none;
+        flex-grow: 1;
+      }
+
+      @media (min-width: 48rem) {
+        [diagram] {
+          display: block;
+        }
+      }
     </style>
     <div grid-section>
       <div right-dermatomes>
@@ -91,7 +72,6 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
       <slot name="comments-label" slot="comments-label"></slot>
       <slot name="comments" slot="comments"></slot>
     </praxis-isncsci-extra-inputs>
-    <praxis-isncsci-input disabled></praxis-isncsci-input>
   `;
 
   public constructor() {

@@ -10,12 +10,19 @@ import '@web/praxisIsncsciIcon';
 import '@web/praxisIsncsciInputLayout';
 import '@web/praxisIsncsciClassification';
 
+import 'assets/css/design-system.css';
+
 const styles = html`
   <style>
     #root-inner {
       display: flex;
       height: 100vh;
       overflow: hidden;
+    }
+
+    #root-inner:has(praxis-isncsci-app-layout[classification-style='static']) {
+      height: auto;
+      overflow: visible;
     }
 
     praxis-isncsci-app-layout {
