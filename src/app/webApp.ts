@@ -31,6 +31,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
           display: flex;
           flex-direction: column;
         }
+
+        ::slotted(praxis-isncsci-app-layout) {
+          height: 25rem;
+          flex-grow: 1;
+        }
       </style>
       <slot></slot>
     `;
@@ -100,7 +105,9 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       'praxis-isncsci-classification',
     );
 
-    if (!inputLayout || !this.classification) {
+    const inputButtons = document.querySelector('praxis-isncsci-input');
+
+    if (!inputLayout || !this.classification || !inputButtons) {
       throw new Error('The views have not been initialized');
     }
 
@@ -108,6 +115,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       this.appStore,
       this.appStoreProvider,
       inputLayout as HTMLElement,
+      inputButtons as HTMLElement,
       this.classification as HTMLElement,
     );
 

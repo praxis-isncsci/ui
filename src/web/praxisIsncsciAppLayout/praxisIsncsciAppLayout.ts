@@ -13,38 +13,40 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
           container-type: inline-size;
           display: flex;
           flex-direction: column;
-          flex: 1;
-          overflow: hidden;
+          position: relative;
         }
 
-        :host([classification-style="static"]) {
-          overflow: visible;
-          overflow-y: scroll;
-        }
-        
-        :host([classification-style="visible"]) :has(> [name="classification"]) {
+        :host([classification-style="visible"]) :has(> [name=classification]),
+        :host([classification-style="static"]) :has(> [name=classification]) {
           display: flex;
           flex-direction: column;
         }
 
-        :host([classification-style="static"]) :has(> [name="classification"]) {
-          display: block;
+        :host([classification-style="static"]) :has(> [name=classification]) {
           position: static;
         }
 
-        :host([classification-style="visible"]) :has(> [name="input-layout"]) {
-          padding-bottom: var(--calc-classification-height, 0);
+        :has(> [name=app-bar]) {
+          order: 1;
         }
 
-        :host([classification-style="static"]) :has(> [name="input-layout"]) {
-          overflow-y: visible;
+        .scrollable-content {
+          flex-grow: 1;
+          order: 2;
+          overflow-y: auto;
+          padding: 16px 0;
         }
 
-        :has(> [name="classification"]) {
-          display: none;
-          position: fixed;
+        :has(> [name=input-controls]) {
+          order: 3;
+        }
+
+        :has(> [name=classification]) {
           bottom: 0;
+          display: none;
           left: 0;
+          order: 4;
+          position: absolute;
           right: 0;
           top: 0;
           z-index: var(--classification-z-index, 1);
@@ -54,25 +56,30 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
           flex-grow: 1;
         }
 
-        :has(> [name="input-layout"]) {
-          overflow-y: auto;
-        }
-
         @container (min-width: 48rem) {
-          :has(> [name="classification"]) {
+          .scrollable-content {
+            order: 3;
+          }
+
+          :has(> [name=input-controls]) {
+            order: 2;
+          }
+
+          :host([classification-style="visible"]) .scrollable-content {
+            padding-bottom: var(--calc-classification-height, 400px);
+          }
+
+          :has(> [name=classification]) {
             top: auto;
           }
         }
       </style>
-      <div>
-        <slot name="app-bar"></slot>
-      </div>
-      <div content>
+      <div><slot name="app-bar"></slot></div>
+      <div class="scrollable-content">
         <slot name="input-layout"></slot>
       </div>
-      <div>
-        <slot name="classification"></slot>
-      </div>
+      <div><slot name="input-controls"></slot></div>
+      <div><slot name="classification"></slot></div>
     `;
   }
 

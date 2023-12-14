@@ -12,7 +12,6 @@ export class InputLayoutController {
   private classificationTotals: HTMLElement[] = [];
   private rightGrid: HTMLElement | null = null;
   private leftGrid: HTMLElement | null = null;
-  private inputButtons: HTMLElement | null = null;
   private vac: HTMLSelectElement | null = null;
   private dap: HTMLSelectElement | null = null;
   private rightLowest: HTMLSelectElement | null = null;
@@ -23,6 +22,7 @@ export class InputLayoutController {
     appStore: IDataStore<IAppState>,
     private appStoreProvider: IIsncsciAppStoreProvider,
     inputLayout: HTMLElement,
+    private inputButtons: HTMLElement,
     classificationView: HTMLElement,
   ) {
     if (!inputLayout.shadowRoot) {
@@ -37,23 +37,13 @@ export class InputLayoutController {
       classificationView.querySelectorAll('[data-total]'),
     );
 
-    this.inputButtons = inputLayout.shadowRoot.querySelector(
-      'praxis-isncsci-input',
-    );
-
-    if (!this.inputButtons) {
-      throw new Error('The input buttons have not been initialized');
-    }
-
     this.registerGrids(
       inputLayout.shadowRoot.querySelectorAll('praxis-isncsci-grid'),
     );
 
-    inputLayout.shadowRoot
-      .querySelector('praxis-isncsci-input')
-      ?.addEventListener('value_click', (e) =>
-        this.inputValue_onClick(e as CustomEvent),
-      );
+    this.inputButtons.addEventListener('value_click', (e) =>
+      this.inputValue_onClick(e as CustomEvent),
+    );
 
     this.vac = inputLayout.querySelector('#vac');
     this.dap = inputLayout.querySelector('#dap');
@@ -155,29 +145,28 @@ export class InputLayoutController {
     }
   }
 
-  private updateInputButtons(activeCell: Cell | null) {
-    if (!this.inputButtons) {
-      throw new Error('The input buttons have not been initialized');
-    }
-
+  private updateInputButtons(
+    activeCell: Cell | null,
+    inputButtons: HTMLElement,
+  ) {
     if (activeCell) {
-      this.inputButtons.removeAttribute('disabled');
+      inputButtons.removeAttribute('disabled');
 
       if (activeCell.value) {
-        this.inputButtons.setAttribute('selected-value', activeCell.value);
+        inputButtons.setAttribute('selected-value', activeCell.value);
       } else {
-        this.inputButtons.removeAttribute('selected-value');
+        inputButtons.removeAttribute('selected-value');
       }
 
       if (sensoryCellRegex.test(activeCell.name)) {
-        this.inputButtons.setAttribute('sensory', '');
+        inputButtons.setAttribute('sensory', '');
       } else {
-        this.inputButtons.removeAttribute('sensory');
+        inputButtons.removeAttribute('sensory');
       }
     } else {
-      this.inputButtons.removeAttribute('selected-value');
-      this.inputButtons.removeAttribute('sensory');
-      this.inputButtons.setAttribute('disabled', '');
+      inputButtons.removeAttribute('selected-value');
+      inputButtons.removeAttribute('sensory');
+      inputButtons.setAttribute('disabled', '');
     }
   }
 
@@ -284,11 +273,11 @@ export class InputLayoutController {
         this.updateGridSelection(
           state.activeCell ? state.activeCell.name : null,
         );
-        this.updateInputButtons(state.activeCell);
+        this.updateInputButtons(state.activeCell, this.inputButtons);
         break;
       case Actions.SET_CELLS_VALUE:
         this.updateCellViews(state.updatedCells.slice());
-        this.updateInputButtons(state.activeCell);
+        this.updateInputButtons(state.activeCell, this.inputButtons);
         break;
       case Actions.SET_VAC_DAP:
         this.updateDropdowns(state.vac, state.dap);
