@@ -14,6 +14,7 @@ export interface IAppState {
   gridModel: Array<Cell | null>[];
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
+  readonly: boolean;
   selectedPoint: string | null;
   selectedCells: Cell[];
   status: number;

@@ -8,6 +8,7 @@ export class Actions {
   public static SET_CELLS_VALUE = 'SET_CELLS_VALUE';
   public static SET_EXTRA_INPUTS = 'SET_EXTRA_INPUTS';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
+  public static SET_READONLY = 'SET_READONLY';
   public static SET_SELECTED_CELLS = 'SET_SELECTED_CELLS';
   public static SET_TOTALS = 'SET_TOTALS';
   public static SET_VAC_DAP = 'SET_VAC_DAP';
@@ -55,6 +56,18 @@ const extraInputs = (
           action.payload.leftLowestNonKeyMuscleWithMotorFunction,
         comments: action.payload.comments,
       });
+    default:
+      return state;
+  }
+};
+
+const readonly = (
+  state: IAppState,
+  action: IActionWithPayload<boolean>,
+): IAppState => {
+  switch (action.type) {
+    case Actions.SET_READONLY:
+      return Object.assign({}, state, {readonly: action.payload});
     default:
       return state;
   }
@@ -132,6 +145,7 @@ export {
   activeCell,
   extraInputs,
   gridModel,
+  readonly,
   selectedCells,
   status,
   totals,
@@ -143,6 +157,7 @@ export default [
   activeCell,
   extraInputs,
   gridModel,
+  readonly,
   selectedCells,
   status,
   totals,
