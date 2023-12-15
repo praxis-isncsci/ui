@@ -6,6 +6,10 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
     return 'praxis-isncsci-app-layout';
   }
 
+  public static get observedAttributes() {
+    return ['classification-style', 'readonly'];
+  }
+
   private template() {
     return `
       <style>
@@ -24,6 +28,14 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
 
         :host([classification-style="static"]) :has(> [name=classification]) {
           position: static;
+        }
+
+        :host([classification-style="static"]) :has(> [name=input-layout]) {
+          height: auto;
+        }
+
+        :host([readonly]) :has(> [name=input-controls]) {
+          display: none;
         }
 
         :has(> [name=app-bar]) {
@@ -88,6 +100,34 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
 
     const shadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.innerHTML = this.template();
+  }
+
+  private updateReadonly(readonly: boolean) {
+    const inputLayout = this.querySelector('[slot="input-layout"]');
+
+    if (!inputLayout) {
+      return;
+    }
+
+    if (readonly) {
+      inputLayout.setAttributeNode(document.createAttribute('readonly'));
+    } else {
+      inputLayout.removeAttribute('readonly');
+    }
+  }
+
+  public attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    newValue: string | null,
+  ) {
+    if (oldValue === newValue) {
+      return;
+    }
+
+    if (name === 'readonly') {
+      this.updateReadonly(newValue !== null);
+    }
   }
 }
 

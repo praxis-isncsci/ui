@@ -32,6 +32,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
           flex-direction: column;
         }
 
+        :host([static-height]) ::slotted(praxis-isncsci-app-layout) {
+          height: auto;
+        }
+
         ::slotted(praxis-isncsci-app-layout) {
           height: 25rem;
           flex-grow: 1;

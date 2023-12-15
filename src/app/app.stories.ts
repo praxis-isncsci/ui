@@ -68,13 +68,25 @@ window.customElements.define('web-app-story', webAppStory);
 
 const meta = {
   title: 'App/App',
+  args: {
+    readonly: false,
+    staticHeight: false,
+  },
+  argTypes: {
+    readonly: {control: 'boolean'},
+    staticHeight: {control: 'boolean'},
+  },
   render: (args) =>
     html`
       ${styles}
       <web-app-story>
-        <praxis-isncsci-web-app>
+        <praxis-isncsci-web-app ?static-height="${args.staticHeight}">
           ${unsafeHTML(
-            getAppLayoutTemplate(args.classificationStyle, 'assets/icons'),
+            getAppLayoutTemplate(
+              args.classificationStyle,
+              'assets/icons',
+              args.readonly,
+            ),
           )}
         </praxis-isncsci-web-app>
       </web-app-story>
@@ -84,5 +96,4 @@ const meta = {
 export default meta;
 type Story = StoryObj;
 
-// More on writing stories with args: https://storybook.js.org/docs/web-components/writing-stories/args
 export const Primary: Story = {parameters: {layout: 'fullscreen'}};
