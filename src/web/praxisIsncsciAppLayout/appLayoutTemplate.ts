@@ -220,9 +220,12 @@ const getClassificationTemplate = (iconsPath: string) => {
 export const getAppLayoutTemplate = (
   classificationStyle: '' | 'visible' | 'static',
   iconsPath: string,
+  readonly: boolean = false,
 ): string => {
   return `
-    <praxis-isncsci-app-layout classification-style="${classificationStyle}">
+    <praxis-isncsci-app-layout classification-style="${classificationStyle}" ${
+    readonly ? 'readonly' : ''
+  }>
       ${getAppBarTemplate(iconsPath)}
       ${getInputLayoutTemplate()}
       <praxis-isncsci-input slot="input-controls" disabled></praxis-isncsci-input>

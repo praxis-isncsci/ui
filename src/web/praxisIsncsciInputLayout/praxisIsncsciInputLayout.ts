@@ -10,6 +10,10 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
     return 'praxis-isncsci-input-layout';
   }
 
+  public static get observedAttributes(): string[] {
+    return ['readonly'];
+  }
+
   private template: string = `
     <style>
       :host {
@@ -79,6 +83,33 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
 
     const shadowRoot: ShadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.innerHTML = this.template;
+  }
+
+  private updateReadonly(readonly: boolean) {
+    this.querySelectorAll('select, input, textarea').forEach((input) => {
+      const attributeName =
+        input instanceof HTMLSelectElement ? 'disabled' : 'readonly';
+
+      if (readonly) {
+        input.setAttributeNode(document.createAttribute(attributeName));
+      } else {
+        input.removeAttribute(attributeName);
+      }
+    });
+  }
+
+  public attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string,
+  ): void {
+    if (oldValue === newValue) {
+      return;
+    }
+
+    if (name === 'readonly') {
+      this.updateReadonly(newValue !== null);
+    }
   }
 }
 

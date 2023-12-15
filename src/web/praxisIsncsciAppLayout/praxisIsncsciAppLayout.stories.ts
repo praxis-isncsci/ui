@@ -35,17 +35,23 @@ const meta = {
   title: 'WebComponents/PraxisIsncsciAppLayout',
   args: {
     classificationStyle: '',
+    readonly: false,
   },
   argTypes: {
     classificationStyle: {
       control: 'select',
       options: ['', 'visible', 'static'],
     },
+    readonly: {control: 'boolean'},
   },
   parameters: {layout: 'fullscreen'},
   render: (args) =>
     html`${styles}${unsafeHTML(
-      getAppLayoutTemplate(args.classificationStyle, 'assets/icons'),
+      getAppLayoutTemplate(
+        args.classificationStyle,
+        'assets/icons',
+        args.readonly,
+      ),
     )}`,
 } satisfies Meta;
 
