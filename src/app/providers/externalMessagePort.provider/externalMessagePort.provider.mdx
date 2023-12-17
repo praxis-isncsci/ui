@@ -38,11 +38,14 @@ port1.onmessage = (e) => {
 const isncsciIframe = document.querySelector('iframe');
 
 isncsciIframe.addEventListener('load', () => {
-    isncsciIframe.contentWindow.postMessage({action: 'INITIALIZE_PORT'}, '*', [channel.port2]);
+  isncsciIframe.contentWindow.postMessage({action: 'INITIALIZE_PORT'}, '*', [
+    channel.port2,
+  ]);
 });
 ```
 
 You can pass exam data to the ISNCSCI form by sending a message with the `action` of `SET_EXAM_DATA` and the exam data.
+You can also pass the `readonly` flag to make the form readonly.
 
 ```typescript
 // Create exam data
@@ -58,13 +61,26 @@ let examData = {
   rightPinPrickC2: '1**',
   /* ... */
   rightPinPrickS4_5: '0',
-  leftMotorC5: { /* ... */ },
-  leftLightTouchC2: { /* ... */ },
-  leftPinPrickC2: { /* ... */ },
-}
+  leftMotorC5: {
+    /* ... */
+  },
+  leftLightTouchC2: {
+    /* ... */
+  },
+  leftPinPrickC2: {
+    /* ... */
+  },
+};
 
 // Send the exam data through the port
-port1.postMessage({action: 'SET_EXAM_DATA', examData});
+port1.postMessage({action: 'SET_EXAM_DATA', examData, readonly: false});
+```
+
+Making the component readonly is also possible without having to pass exam data.
+You can send a message with the `action` of `SET_READONLY` and the `readonly` flag.
+
+```typescript
+port1.postMessage({action: 'SET_READONLY', readonly: true, examData: null});
 ```
 
 > Reference: [MDN: Using window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)

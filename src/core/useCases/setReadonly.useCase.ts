@@ -1,6 +1,6 @@
 import {IIsncsciAppStoreProvider} from '@core/boundaries';
 
-export const setVacDapUseCase = (
+export const setReadonlyUseCase = (
   readonly: boolean,
   appStoreProvider: IIsncsciAppStoreProvider,
 ) => {
