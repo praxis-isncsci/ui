@@ -39,6 +39,11 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     return Promise.resolve();
   }
 
+  public setReadonly(readonly: boolean): Promise<void> {
+    this.appStore.dispatch({type: Actions.SET_READONLY, payload: readonly});
+    return Promise.resolve();
+  }
+
   public setSelectedCells(cells: Cell[]): Promise<void> {
     this.appStore.dispatch({type: Actions.SET_SELECTED_CELLS, payload: cells});
     return Promise.resolve();

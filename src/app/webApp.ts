@@ -8,9 +8,10 @@ import {
   calculateUseCase,
   initializeAppUseCase,
   loadExternalExamDataUseCase,
+  setReadonlyUseCase,
 } from '@core/useCases';
 
-import {IDataStore} from '@app/store';
+import {Actions, IDataStore} from '@app/store';
 import {
   ExternalMessagePortProvider,
   ExternalMessagePortProviderActions,
@@ -78,8 +79,8 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
     this.unsubscribeFromExternalChannelHandler =
       this.externalMessagePortProvider.subscribe(
-        (action: string, examData: ExamData | null) =>
-          this.externalMessagePortProvider_onAction(action, examData),
+        (action: string, examData: ExamData | null, readonly: boolean) =>
+          this.externalMessagePortProvider_onAction(action, examData, readonly),
       );
 
     this.appLayout = document.querySelector('praxis-isncsci-app-layout');
@@ -194,6 +195,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   private externalMessagePortProvider_onAction(
     actionType: string,
     examData: ExamData | null,
+    readonly: boolean,
   ) {
     if (!this.appStoreProvider) {
       throw new Error(
@@ -209,7 +211,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
         loadExternalExamDataUseCase(
           this.appStoreProvider,
           examData ?? getEmptyExamData(),
+          readonly,
         );
+        break;
+      case ExternalMessagePortProviderActions.ON_READONLY:
+        setReadonlyUseCase(readonly, this.appStoreProvider);
         break;
     }
   }
@@ -218,6 +224,16 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     if (!this.ready && state.status === StatusCodes.Ready) {
       console.log(`The application has been initialized and is ready`);
       this.ready = true;
+    }
+
+    if (actionType === Actions.SET_READONLY) {
+      if (state.readonly) {
+        this.setAttributeNode(document.createAttribute('static-height'));
+        this.appLayout?.setAttributeNode(document.createAttribute('readonly'));
+      } else {
+        this.removeAttribute('static-height');
+        this.appLayout?.removeAttribute('readonly');
+      }
     }
   }
 }

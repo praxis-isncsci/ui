@@ -10,11 +10,11 @@ class AppStore implements IDataStore<IAppState> {
     dap: null,
     gridModel: [],
     leftLowestNonKeyMuscleWithMotorFunction: null,
+    readonly: false,
     rightLowestNonKeyMuscleWithMotorFunction: null,
     selectedCells: [],
     selectedPoint: null,
     status: StatusCodes.NotInitialized,
-    updatedCells: [],
     totals: {
       asiaImpairmentScale: '',
       injuryComplete: '',
@@ -44,6 +44,7 @@ class AppStore implements IDataStore<IAppState> {
       touchTotal: '',
       upperMotorTotal: '',
     },
+    updatedCells: [],
     vac: null,
   };
 

@@ -12,7 +12,7 @@ const MotorLevels = ML.slice(0);
  * It needs to be written as plain JavaScript, not TypeScript.
  * I was not able to do this using a Storybook decorator, as it would try to execute the decorator before the template was loaded.
  */
-const storyInitializer = () => {
+const storyInitializer = (getRandomExamData) => {
   let iframe = document.querySelector('iframe[isncsci]');
 
   if (!iframe) {
@@ -21,9 +21,12 @@ const storyInitializer = () => {
 
   iframe.addEventListener('load', () => {
     const isncsciIframe = document.querySelector('iframe');
-    const button = document.querySelector('[test-button]');
+    const randomExamButton = document.querySelector('button[random-exam]');
+    const readonlyButton = document.querySelector('button[readonly]');
+    const flipFlagButton = document.querySelector('button[flip-flag]');
     const channel = new MessageChannel();
     const port1 = channel.port1;
+    let readonly = false;
 
     // Listen for messages on port1
     port1.onmessage = (e) => {
@@ -39,11 +42,31 @@ const storyInitializer = () => {
       );
     }
 
-    button?.addEventListener('click', () => {
-      console.log('Message sent to iframe');
+    randomExamButton?.addEventListener('click', () => {
+      readonly = false;
       port1.postMessage({
         action: 'SET_EXAM_DATA',
         examData: getRandomExamData(),
+        readonly,
+      });
+    });
+
+    readonlyButton?.addEventListener('click', () => {
+      readonly = true;
+      port1.postMessage({
+        action: 'SET_EXAM_DATA',
+        examData: getRandomExamData(),
+        readonly,
+      });
+    });
+
+    flipFlagButton?.addEventListener('click', () => {
+      readonly = !readonly;
+
+      port1.postMessage({
+        action: 'SET_READONLY',
+        examData: null,
+        readonly,
       });
     });
   });
@@ -57,12 +80,25 @@ const template = () => html`
       min-height: 600px;
       width: 100%;
     }
+
+    [controls] {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
   </style>
   <iframe
     isncsci
-    src="https://agreeable-dune-0ccb46f1e-139.westus2.4.azurestaticapps.net"
+    src="https://agreeable-dune-0ccb46f1e-139.westus2.4.azurestaticapps.net/"
   ></iframe>
-  <button test-button>Load random exam</button>
+  <ul controls>
+    <li><button random-exam>Load random exam</button></li>
+    <li><button readonly>Load random exam as readonly</button></li>
+    <li><button flip-flag>Flip readonly flag</button></li>
+  </ul>
   <script>
     // We register this way to avoid getting exceptions of functions being already declared when navigating between stories.
     (() => {
@@ -70,19 +106,17 @@ const template = () => html`
       const MotorLevels = ${JSON.stringify(MotorLevels)};
       const getRandomExamData = ${getRandomExamData.toString()};
       const storyInitializer = ${storyInitializer.toString()};
-      storyInitializer();
+      storyInitializer(getRandomExamData);
     })();
   </script>
 `;
 
 const meta = {
   title: 'App/ExternalMessagePortProvider',
-  // tags: ['autodocs'],
   render: () => template(),
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj;
 
-// More on writing stories with args: https://storybook.js.org/docs/web-components/writing-stories/args
 export const Primary: Story = {};

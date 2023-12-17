@@ -10,6 +10,7 @@ export interface IIsncsciAppStoreProvider {
     comments: string,
   ): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
+  setReadonly(readonly: boolean): Promise<void>;
   setSelectedCells(cells: Cell[]): Promise<void>;
   setTotals(totals: Totals): Promise<void>;
   setVacDap(
