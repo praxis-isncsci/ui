@@ -93,7 +93,7 @@ export const Primary: Story = {
     theme: {control: 'select', options: themes},
   },
   render: (args) =>
-    html` <praxis-isncsci-icon
+    html`<praxis-isncsci-icon
       href="${iconsPath}/${args.theme}.svg#icon-${args.iconName}-${args.size}"
       size="${args.size}"
     ></praxis-isncsci-icon>`,

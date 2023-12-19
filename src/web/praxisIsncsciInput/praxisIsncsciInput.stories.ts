@@ -1,9 +1,11 @@
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {html} from 'lit-html';
 import type {Meta, StoryObj} from '@storybook/web-components';
 
 import './praxisIsncsciInput';
 
 import 'assets/css/_buttons.css';
+import {getIsncsciInputTemplate} from '@web/praxisIsncsciAppLayout/appLayoutTemplate';
 
 const meta = {
   title: 'WebComponents/ISNCSCI Input',
@@ -11,6 +13,14 @@ const meta = {
 
 export default meta;
 type Story = StoryObj;
+
+const styles = html`
+  <style>
+    #root-inner {
+      container-type: inline-size;
+    }
+  </style>
+`;
 
 const motorValues = [
   '0',
@@ -33,31 +43,42 @@ export const Sensory: Story = {
   args: {
     disabled: false,
     selectedValue: '',
+    showStarInput: false,
   },
   argTypes: {
     disabled: {control: 'boolean'},
     selectedValue: {control: 'select', options: sensoryValues},
+    showStarInput: {control: 'boolean'},
   },
   render: (args) =>
-    html`<praxis-isncsci-input
-      sensory
-      selected-value="${args.selectedValue}"
-      ?disabled="${args.disabled}"
-    ></praxis-isncsci-input>`,
+    html`${styles}${unsafeHTML(
+      getIsncsciInputTemplate(
+        args.disabled,
+        args.selectedValue,
+        args.showStarInput,
+        true,
+      ),
+    )}`,
 };
 
 export const Motor: Story = {
   args: {
     disabled: false,
     selectedValue: '',
+    showStarInput: false,
   },
   argTypes: {
     disabled: {control: 'boolean'},
     selectedValue: {control: 'select', options: motorValues},
+    showStarInput: {control: 'boolean'},
   },
   render: (args) =>
-    html`<praxis-isncsci-input
-      selected-value="${args.selectedValue}"
-      ?disabled="${args.disabled}"
-    ></praxis-isncsci-input>`,
+    html`${styles}${unsafeHTML(
+      getIsncsciInputTemplate(
+        args.disabled,
+        args.selectedValue,
+        args.showStarInput,
+        false,
+      ),
+    )}`,
 };
