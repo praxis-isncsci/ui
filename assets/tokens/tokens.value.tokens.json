@@ -59,7 +59,7 @@
       "value": "{color.lilac.700}"
     },
     "foreground": {
-      "catption-2": {
+      "caption-2": {
         "type": "color",
         "value": "{color.gray.500}"
       },
