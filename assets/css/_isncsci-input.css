@@ -23,4 +23,14 @@ praxis-isncsci-input {
   --button-selected-surface: var(--light-isncsci-input-button-selected-surface);
   --button-surface: var(--light-isncsci-input-button-surface);
   --buttons-gap: var(--isncsci-input-buttons-gap);
+  --divider-color: var(--light-surface-container-highest);
+  --divider-height: 0.0625rem;
+  --label-color: var(--light-input-label-on-surface);
+  --label-font-family: var(--text-font-family);
+  --label-font-size: var(--type-scale-caption-1-font-size);
+  --label-font-weight: var(--type-scale-caption-1-weight);
+  --label-line-height: var(--type-scale-caption-1-line-height);
+  --gap: var(--space-4);
+  --select-width: var(11.25rem);
+  --textarea-height: 3.5rem;
 }

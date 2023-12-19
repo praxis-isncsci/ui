@@ -11,9 +11,14 @@ export class PraxisIsncsciInput extends HTMLElement {
     return `
       <style>
         :host {
+          container-type: inline-size;
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
+          gap: var(--gap, 1rem);
+          align-items: center;
         }
+
+        /* Button styles */
 
         [buttons] {
           display: grid;
@@ -107,6 +112,105 @@ export class PraxisIsncsciInput extends HTMLElement {
         .button-group:has(button:hover:not(:disabled)) {
           box-shadow: var(--button-hover-box-shadow, 0 2px 4px rgba(95, 24, 119, 0.1), 0 1px 6px rgba(95, 24, 119, 0.05));
         }
+
+        /* Star input styles */
+
+        :host([show-star-input]) [star-input] {
+          max-height: 13.75rem;
+        }
+
+        [star-input] {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          gap: var(--gap, 1rem);
+          max-height: 0px;
+          max-width: 63.75rem;
+          overflow: hidden;
+          transition: max-height ease 250ms;
+        }
+
+        [star-entries] {
+          display: flex;
+          flex-direction: column;
+          gap: var(--gap, 1rem);
+          padding: 0 0.25rem;
+        }
+
+        .star-input-entry {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          gap: .5rem;
+        }
+
+        .star-textarea-entry {
+          align-items: stretch;
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .divider {
+          background-color: var(--divider-color, #d9d9d9);
+          height: var(--divider-height, 0.0625rem);
+        }
+
+        .label-container {
+          color: var(--label-color, #5e5e5e);
+          flex-grow: 1;
+          font-family: var(--label-font-family, sans-serif);
+          font-size: var(--label-font-size, 0.75rem);
+          font-weight: var(--label-font-weight, 400);
+          line-height: var(--label-line-height, 0.875rem);
+        }
+
+        .input-container {
+          display: flex;
+        }
+
+        ::slotted(select) {
+          height: var(--input-height, 2.25rem);
+          width: var(--select-width, 11.25rem);
+        }
+
+        ::slotted(textarea) {
+          height: var(--textarea-height, 3.5rem);
+          width: 100%;
+        }
+
+        @container (min-width: 48rem) {
+          :host {
+            flex-direction: row;
+          }
+
+          [star-input] {
+            transition: none;
+          }
+
+          [star-entries] {
+            flex-direction: row;
+            padding: 0;
+          }
+
+          .star-input-entry {
+            align-items: stretch;
+            flex-direction: column;
+            max-width: 180px;
+          }
+
+          .star-textarea-entry {
+            flex-grow: 1;
+          }
+
+          .divider {
+            display: none;
+          }
+
+          ::slotted(select) {
+            flex-grow: 1;
+          }
+        }
       </style>
       <div buttons>
         <div class="button-group">
@@ -135,6 +239,35 @@ export class PraxisIsncsciInput extends HTMLElement {
         <div class="button-group">
           <button class="isncsci-input-button left" value="NT">NT</button>
           <button class="isncsci-input-button right" value="NT*"><span>*</span></button>
+        </div>
+      </div>
+      <div star-input>
+        <div class="divider">&nbsp;</div>
+        <div star-entries>
+          <div class="star-input-entry">
+            <div class="label-container">
+              <slot name="consider-normal-label"></slot>
+            </div>
+            <div class="input-container">
+              <slot name="consider-normal"></slot>
+            </div>
+          </div>
+          <div class="star-input-entry">
+            <div class="label-container">
+              <slot name="reason-for-impairment-not-due-to-sci-label"></slot>
+            </div>
+            <div class="input-container">
+              <slot name="reason-for-impairment-not-due-to-sci"></slot>
+            </div>
+          </div>
+          <div class="star-textarea-entry">
+            <div class="label-container">
+              <slot name="reason-for-impairment-not-due-to-sci-specify-label"></slot>
+            </div>
+            <div class="input-container">
+              <slot name="reason-for-impairment-not-due-to-sci-specify"></slot>
+            </div>
+          </div>
         </div>
       </div>
     `;
