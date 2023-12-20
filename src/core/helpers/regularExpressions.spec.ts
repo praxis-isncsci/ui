@@ -26,14 +26,19 @@ describe('regularExpressions', () => {
     [
       '0',
       '0*',
+      '0**',
       '1',
       '1*',
+      '1**',
       '2',
       '2*',
+      '2**',
       '3',
       '3*',
+      '3**',
       '4',
       '4*',
+      '4**',
       '5',
       'NT',
       'NT*',
@@ -44,7 +49,7 @@ describe('regularExpressions', () => {
       });
     });
 
-    ['0**', '6', '5*', 'a', 'b', '00', 'NT***'].forEach((v) => {
+    ['0***', '6', '5*', 'a', 'b', '00', 'NT***'].forEach((v) => {
       it(`should not match ${v}`, () => {
         expect(motorValueRegex.test(v)).toBeFalsy();
       });
@@ -52,16 +57,20 @@ describe('regularExpressions', () => {
   });
 
   describe('sensoryValue', () => {
-    ['0', '0*', '1', '1*', '2', 'NT', 'NT*', 'NT**'].forEach((v) => {
-      it(`should match ${v}`, () => {
-        expect(sensoryValueRegex.test(v)).toBeTruthy();
-      });
-    });
+    ['0', '0*', '0*', '1', '1*', '1*', '2', 'NT', 'NT*', 'NT**'].forEach(
+      (v) => {
+        it(`should match ${v}`, () => {
+          expect(sensoryValueRegex.test(v)).toBeTruthy();
+        });
+      },
+    );
 
-    ['3', '3*', '4', '4*', '5', 'a', 'b', '00', 'NT***'].forEach((v) => {
-      it(`should not match ${v}`, () => {
-        expect(sensoryValueRegex.test(v)).toBeFalsy();
-      });
-    });
+    ['1***', '3', '3*', '4', '4*', '5', 'a', 'b', '00', 'NT***'].forEach(
+      (v) => {
+        it(`should not match ${v}`, () => {
+          expect(sensoryValueRegex.test(v)).toBeFalsy();
+        });
+      },
+    );
   });
 });

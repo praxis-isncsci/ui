@@ -96,6 +96,7 @@ const getCell = (name: string, dataKey: string, examData: ExamData): Cell => {
       ? examData[`${dataKey}ReasonImpairmentNotDueToSciSpecify`]
       : undefined,
     name,
+    error: undefined,
   };
 
   return cell;

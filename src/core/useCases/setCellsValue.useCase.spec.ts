@@ -61,6 +61,9 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedCells,
         value,
+        undefined,
+        undefined,
+        undefined,
       );
     });
 
@@ -105,6 +108,9 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedCells,
         value,
+        undefined,
+        undefined,
+        undefined,
       );
     });
 
@@ -161,6 +167,9 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedCells,
         value,
+        undefined,
+        undefined,
+        undefined,
       );
     });
 
@@ -174,6 +183,8 @@ describe('setCellValue.useCase.spec', () => {
         findCell('right-motor-s1', gridModel),
       ];
       const propagateDown = false;
+      const expectedErrorMessage =
+        'Please indicate if the value should be considered normal or not normal.';
 
       // Act
       setCellsValueUseCase(
@@ -188,6 +199,63 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
         value,
+        expectedErrorMessage,
+        undefined,
+        undefined,
+      );
+    });
+
+    it('cells should not have any error message when the `value` does not have a star (*) flag', async () => {
+      // Arrange
+      const value = '1';
+      const selectedCells = [findCell('left-light-touch-c2', gridModel)];
+      const propagateDown = false;
+      let updatedCells: Cell[] = [];
+
+      // Act
+      await setCellsValueUseCase(
+        value,
+        selectedCells,
+        gridModel,
+        propagateDown,
+        appStoreProvider,
+      );
+
+      // Assert
+      expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
+        selectedCells,
+        value,
+        undefined,
+        undefined,
+        undefined,
+      );
+    });
+
+    it('should add an error message when `value` has a star (*) flag', async () => {
+      // Arrange
+      const value = '1*';
+      const selectedCells = [findCell('left-light-touch-c2', gridModel)];
+      const propagateDown = false;
+      let updatedCells: Cell[] = [];
+      const expectedErrorMessage =
+        'Please indicate if the value should be considered normal or not normal.';
+
+      // Act
+      await setCellsValueUseCase(
+        value,
+        selectedCells,
+        gridModel,
+        propagateDown,
+        appStoreProvider,
+      );
+
+      // Assert
+      expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
+        selectedCells,
+        value,
+        expectedErrorMessage,
+        undefined,
+        undefined,
       );
     });
   });
