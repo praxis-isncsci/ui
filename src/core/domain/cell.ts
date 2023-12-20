@@ -4,4 +4,5 @@ export interface Cell {
   reasonImpairmentNotDueToSci: string | undefined;
   reasonImpairmentNotDueToSciSpecify: string | undefined;
   name: string;
-};
+  error: string | undefined;
+}

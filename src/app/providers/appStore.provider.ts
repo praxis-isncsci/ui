@@ -10,10 +10,22 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     return Promise.resolve();
   }
 
-  public setCellsValue(cellsToUpdate: Cell[], value: string): Promise<void> {
+  public setCellsValue(
+    cellsToUpdate: Cell[],
+    value: string,
+    error: string | undefined,
+    reasonImpairmentNotDueToSci: string | undefined,
+    reasonImpairmentNotDueToSciSpecify: string | undefined,
+  ): Promise<void> {
     this.appStore.dispatch({
       type: Actions.SET_CELLS_VALUE,
-      payload: {cellsToUpdate, value},
+      payload: {
+        cellsToUpdate,
+        value,
+        error,
+        reasonImpairmentNotDueToSci,
+        reasonImpairmentNotDueToSciSpecify,
+      },
     });
     return Promise.resolve();
   }

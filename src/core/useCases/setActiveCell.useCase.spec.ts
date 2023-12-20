@@ -13,6 +13,7 @@ const getEmptyCell = (name: string): Cell => {
     reasonImpairmentNotDueToSci: undefined,
     reasonImpairmentNotDueToSciSpecify: undefined,
     name,
+    error: undefined,
   };
 };
 

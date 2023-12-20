@@ -129,12 +129,25 @@ const vacDap = (
 
 const values = (
   state: IAppState,
-  action: IActionWithPayload<{cellsToUpdate: Cell[]; value: string}>,
+  action: IActionWithPayload<{
+    cellsToUpdate: Cell[];
+    value: string;
+    error: string | undefined;
+    reasonImpairmentNotDueToSci: string | undefined;
+    reasonImpairmentNotDueToSciSpecify: string | undefined;
+  }>,
 ) => {
   switch (action.type) {
     case Actions.SET_CELLS_VALUE:
       const cellsToUpdate = action.payload.cellsToUpdate.slice();
-      cellsToUpdate.forEach((cell) => (cell.value = action.payload.value));
+      cellsToUpdate.forEach((cell) => {
+        cell.value = action.payload.value;
+        cell.error = action.payload.error;
+        cell.reasonImpairmentNotDueToSci =
+          action.payload.reasonImpairmentNotDueToSci;
+        cell.reasonImpairmentNotDueToSciSpecify =
+          action.payload.reasonImpairmentNotDueToSciSpecify;
+      });
       return Object.assign({}, state, {updatedCells: cellsToUpdate.slice()});
     default:
       return state;

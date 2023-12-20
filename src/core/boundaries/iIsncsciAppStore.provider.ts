@@ -3,7 +3,13 @@ import {BinaryObservation} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
   setActiveCell(cell: Cell | null): Promise<void>;
-  setCellsValue(cells: Cell[], value: string): Promise<void>;
+  setCellsValue(
+    cells: Cell[],
+    value: string,
+    error: string | undefined,
+    reasonImpairmentNotDueToSci: string | undefined,
+    reasonImpairmentNotDueToSciSpecify: string | undefined,
+  ): Promise<void>;
   setExtraInputs(
     rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
