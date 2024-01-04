@@ -54,20 +54,16 @@
         "value": "{color.gray.100}"
       }
     },
-    "shadow": {
-      "type": "color",
-      "value": "{color.lilac.700}"
-    },
     "foreground": {
+      "primary": {
+        "type": "color",
+        "value": "{color.gray.1000}"
+      },
       "caption-2": {
         "type": "color",
         "value": "{color.gray.500}"
       },
       "caption": {
-        "type": "color",
-        "value": "{color.gray.1000}"
-      },
-      "primary": {
         "type": "color",
         "value": "{color.gray.1000}"
       },
@@ -97,6 +93,10 @@
         "type": "color",
         "value": "{color.gray.200}"
       }
+    },
+    "shadow": {
+      "type": "color",
+      "value": "{color.lilac.700}"
     },
     "acrylic": {
       "type": "color",
@@ -196,6 +196,12 @@
       "type": "color",
       "value": "#f2dcd4"
     },
+    "drop-down": {
+      "border": {
+        "type": "color",
+        "value": "{light.input.border}"
+      }
+    },
     "text-area": {
       "border": {
         "type": "color",
@@ -208,12 +214,6 @@
           "type": "color",
           "value": "{light.foreground.subdued}"
         }
-      }
-    },
-    "drop-down": {
-      "border": {
-        "type": "color",
-        "value": "{light.input.border}"
       }
     },
     "acrylic-medium": {
@@ -267,6 +267,14 @@
           "value": "{color.lilac.050}"
         }
       }
+    },
+    "soft-error": {
+      "type": "color",
+      "value": "{color.orange.015}"
+    },
+    "on-soft-errorr": {
+      "type": "color",
+      "value": "{color.orange.700}"
     }
   },
   "totals": {
@@ -698,17 +706,17 @@
       "type": "number",
       "value": "{space.2}"
     },
-    "padding-left": {
+    "padding-bottom": {
       "type": "number",
-      "value": "{space.2}"
+      "value": "{space.1}"
     },
     "padding-top": {
       "type": "number",
       "value": "{space.1}"
     },
-    "padding-bottom": {
+    "padding-left": {
       "type": "number",
-      "value": "{space.1}"
+      "value": "{space.2}"
     }
   },
   "acrylic": {

@@ -22,6 +22,7 @@ This will make it easy for the component or controller adding them to control th
 
 ### Attributes
 
+- `error` - boolean - if true, the error style is applied to the cell
 - `highlighted` - boolean - if true, the cell will be highlighted
 
 ### CSS Variables
@@ -37,11 +38,29 @@ This will make it easy for the component or controller adding them to control th
   <tbody>
     <tr>
       <td>
-        <code>--highlighted-cell-border-color</code>
+        <code>`--error`</code>
+      </td>
+      <td>Surface background color for a cell containing an error</td>
+      <td>
+        <code>`rgba(184, 69, 28, 0.1)`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--highlighted-cell-border-color`</code>
       </td>
       <td>&nbsp;</td>
       <td>
-        <code>orange</code>
+        <code>`orange`</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>`--on-error`</code>
+      </td>
+      <td>Foreground color to be used on a cell containing an error</td>
+      <td>
+        <code>`#682710`</code>
       </td>
     </tr>
   </tbody>
@@ -56,3 +75,7 @@ This will make it easy for the component or controller adding them to control th
 ### Highlighted
 
 <Canvas of={Stories.Highlighted} />
+
+### Error
+
+<Canvas of={Stories.Error} />

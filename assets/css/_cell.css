@@ -1,3 +1,5 @@
 praxis-isncsci-input-layout {
+  --error: var(--light-soft-error);
   --highlighted-cell-border-color: var(--light-primary);
+  --on-error: var(--light-on-soft-error);
 }
