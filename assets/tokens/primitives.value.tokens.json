@@ -317,68 +317,6 @@
       }
     }
   },
-  "border": {
-    "radius": {
-      "1": {
-        "type": "number",
-        "value": ".25rem"
-      },
-      "2": {
-        "type": "number",
-        "value": ".5rem"
-      },
-      "3": {
-        "type": "number",
-        "value": ".75rem"
-      },
-      "4": {
-        "type": "number",
-        "value": "1rem"
-      },
-      "5": {
-        "type": "number",
-        "value": "1.25rem"
-      },
-      "6": {
-        "type": "number",
-        "value": "1.875rem"
-      },
-      "00": {
-        "type": "number",
-        "value": "0rem"
-      },
-      "05": {
-        "type": "number",
-        "value": ".125rem"
-      },
-      "full": {
-        "type": "number",
-        "value": "624.9375rem"
-      }
-    },
-    "width": {
-      "1": {
-        "type": "number",
-        "value": ".0625rem"
-      },
-      "2": {
-        "type": "number",
-        "value": ".125rem"
-      },
-      "3": {
-        "type": "number",
-        "value": ".1875rem"
-      },
-      "4": {
-        "type": "number",
-        "value": ".25rem"
-      },
-      "5": {
-        "type": "number",
-        "value": ".3125rem"
-      }
-    }
-  },
   "space": {
     "0": {
       "type": "number",
@@ -447,6 +385,68 @@
     "05": {
       "type": "number",
       "value": ".125rem"
+    }
+  },
+  "border": {
+    "radius": {
+      "1": {
+        "type": "number",
+        "value": ".25rem"
+      },
+      "2": {
+        "type": "number",
+        "value": ".5rem"
+      },
+      "3": {
+        "type": "number",
+        "value": ".75rem"
+      },
+      "4": {
+        "type": "number",
+        "value": "1rem"
+      },
+      "5": {
+        "type": "number",
+        "value": "1.25rem"
+      },
+      "6": {
+        "type": "number",
+        "value": "1.875rem"
+      },
+      "00": {
+        "type": "number",
+        "value": "0rem"
+      },
+      "05": {
+        "type": "number",
+        "value": ".125rem"
+      },
+      "full": {
+        "type": "number",
+        "value": "624.9375rem"
+      }
+    },
+    "width": {
+      "1": {
+        "type": "number",
+        "value": ".0625rem"
+      },
+      "2": {
+        "type": "number",
+        "value": ".125rem"
+      },
+      "3": {
+        "type": "number",
+        "value": ".1875rem"
+      },
+      "4": {
+        "type": "number",
+        "value": ".25rem"
+      },
+      "5": {
+        "type": "number",
+        "value": ".3125rem"
+      }
     }
   },
   "z-index": {
