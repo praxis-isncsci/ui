@@ -1,12 +1,21 @@
 import {Actions, IDataStore, appStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell, MotorLevel, Totals} from '@core/domain';
-import {sensoryCellRegex} from '@core/helpers';
-import {setCellsValueUseCase} from '@core/useCases';
+import {cellsMatch, sensoryCellRegex} from '@core/helpers';
+import {setCellsValueUseCase, setStarDetailsUseCase} from '@core/useCases';
 import {setActiveCellUseCase} from '@core/useCases/setActiveCell.useCase';
 import {setExtraInputsUseCase} from '@core/useCases/setExtraInputs.useCase';
 import {setVacDapUseCase} from '@core/useCases/setVacDap.useCase';
-import {BinaryObservation} from 'isncsci/cjs/interfaces';
+import {BinaryObservation} from '@core/domain';
+
+const allCellsHaveSameValues = (selectedCells: Cell[]) => {
+  if (selectedCells.length === 0) {
+    return false;
+  }
+
+  const firstCell = selectedCells[0];
+  return selectedCells.every((cell) => cellsMatch(cell, firstCell));
+};
 
 export class InputLayoutController {
   private classificationTotals: HTMLElement[] = [];
@@ -14,6 +23,9 @@ export class InputLayoutController {
   private leftGrid: HTMLElement | null = null;
   private vac: HTMLSelectElement | null = null;
   private dap: HTMLSelectElement | null = null;
+  private considerNormal: HTMLSelectElement | null = null;
+  private reasonImpairmentNotDueToSci: HTMLSelectElement | null = null;
+  private reasonImpairmentNotDueToSciSpecify: HTMLTextAreaElement | null = null;
   private rightLowest: HTMLSelectElement | null = null;
   private leftLowest: HTMLSelectElement | null = null;
   private comments: HTMLTextAreaElement | null = null;
@@ -41,9 +53,44 @@ export class InputLayoutController {
       inputLayout.shadowRoot.querySelectorAll('praxis-isncsci-grid'),
     );
 
+    // - Input Buttons --------------
+    // [ToDo: Extract this section into its own controller]
     this.inputButtons.addEventListener('value_click', (e) =>
       this.inputValue_onClick(e as CustomEvent),
     );
+
+    this.considerNormal = this.inputButtons.querySelector('#consider-normal');
+    this.reasonImpairmentNotDueToSci = this.inputButtons.querySelector(
+      '#reason-for-impairment-not-due-to-sci',
+    );
+    this.reasonImpairmentNotDueToSciSpecify = this.inputButtons.querySelector(
+      '#reason-for-impairment-not-due-to-sci-specify',
+    );
+
+    if (
+      !this.considerNormal ||
+      !this.reasonImpairmentNotDueToSci ||
+      !this.reasonImpairmentNotDueToSciSpecify
+    ) {
+      throw new Error(
+        'The input buttons for consider normal, reason for impairment not due to sci and reason for impairment not due to sci specify have not been initialized',
+      );
+    }
+
+    this.considerNormal.addEventListener('change', (e: Event) =>
+      this.starInput_change(e),
+    );
+
+    this.reasonImpairmentNotDueToSci.addEventListener('change', (e: Event) =>
+      this.starInput_change(e),
+    );
+
+    this.reasonImpairmentNotDueToSciSpecify.addEventListener(
+      'change',
+      (e: Event) => this.starInput_change(e),
+    );
+
+    // - VAC & DAP ------------------
 
     this.vac = inputLayout.querySelector('#vac');
     this.dap = inputLayout.querySelector('#dap');
@@ -110,7 +157,10 @@ export class InputLayoutController {
     );
 
     if (cellElement) {
-      cellElement.innerHTML = cell.value;
+      cellElement.innerHTML = cell.label;
+      cell.error
+        ? cellElement.setAttribute('error', cell.error)
+        : cellElement.removeAttribute('error');
     }
   }
 
@@ -147,15 +197,41 @@ export class InputLayoutController {
 
   private updateInputButtons(
     activeCell: Cell | null,
+    selectedCells: Cell[] = [],
     inputButtons: HTMLElement,
+    considerNormal: HTMLSelectElement,
+    reasonImpairmentNotDueToSci: HTMLSelectElement,
+    reasonImpairmentNotDueToSciSpecify: HTMLTextAreaElement,
   ) {
+    considerNormal.value =
+      !activeCell || activeCell.error || !/\*$/.test(activeCell.value)
+        ? ''
+        : /\*\*$/.test(activeCell.value)
+        ? '1'
+        : '2';
+
+    reasonImpairmentNotDueToSci.value =
+      activeCell?.reasonImpairmentNotDueToSci ?? '';
+    reasonImpairmentNotDueToSciSpecify.value =
+      activeCell?.reasonImpairmentNotDueToSciSpecify ?? '';
+
     if (activeCell) {
       inputButtons.removeAttribute('disabled');
 
       if (activeCell.value) {
         inputButtons.setAttribute('selected-value', activeCell.value);
+
+        if (
+          /\*$/.test(activeCell.value) &&
+          allCellsHaveSameValues(selectedCells)
+        ) {
+          inputButtons.setAttribute('show-star-input', '');
+        } else {
+          inputButtons.removeAttribute('show-star-input');
+        }
       } else {
         inputButtons.removeAttribute('selected-value');
+        inputButtons.removeAttribute('show-star-input');
       }
 
       if (sensoryCellRegex.test(activeCell.name)) {
@@ -167,6 +243,7 @@ export class InputLayoutController {
       inputButtons.removeAttribute('selected-value');
       inputButtons.removeAttribute('sensory');
       inputButtons.setAttribute('disabled', '');
+      inputButtons.removeAttribute('show-star-input');
     }
   }
 
@@ -198,12 +275,6 @@ export class InputLayoutController {
     leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     comments: string,
   ) {
-    console.log(
-      'updateExtraInputs',
-      rightLowestNonKeyMuscleWithMotorFunction,
-      leftLowestNonKeyMuscleWithMotorFunction,
-      comments,
-    );
     if (!this.rightLowest || !this.leftLowest || !this.comments) {
       throw new Error(
         'The input buttons for right and left lowest non-key muscle with motor function and comments have not been initialized',
@@ -262,6 +333,16 @@ export class InputLayoutController {
   }
 
   private stateChanged(state: IAppState, actionType: string) {
+    if (
+      !this.considerNormal ||
+      !this.reasonImpairmentNotDueToSci ||
+      !this.reasonImpairmentNotDueToSciSpecify
+    ) {
+      throw new Error(
+        'The input buttons for consider normal, reason for impairment not due to sci and reason for impairment not due to sci specify have not been initialized',
+      );
+    }
+
     switch (actionType) {
       case Actions.SET_GRID_MODEL:
         this.updateView(state.gridModel.slice());
@@ -273,11 +354,25 @@ export class InputLayoutController {
         this.updateGridSelection(
           state.activeCell ? state.activeCell.name : null,
         );
-        this.updateInputButtons(state.activeCell, this.inputButtons);
+        this.updateInputButtons(
+          state.activeCell,
+          state.selectedCells,
+          this.inputButtons,
+          this.considerNormal,
+          this.reasonImpairmentNotDueToSci,
+          this.reasonImpairmentNotDueToSciSpecify,
+        );
         break;
       case Actions.SET_CELLS_VALUE:
         this.updateCellViews(state.updatedCells.slice());
-        this.updateInputButtons(state.activeCell, this.inputButtons);
+        this.updateInputButtons(
+          state.activeCell,
+          state.selectedCells,
+          this.inputButtons,
+          this.considerNormal,
+          this.reasonImpairmentNotDueToSci,
+          this.reasonImpairmentNotDueToSciSpecify,
+        );
         break;
       case Actions.SET_VAC_DAP:
         this.updateDropdowns(state.vac, state.dap);
@@ -313,6 +408,36 @@ export class InputLayoutController {
       selectionMode,
       state.selectedCells,
       state.gridModel.slice(),
+      this.appStoreProvider,
+    );
+  }
+
+  private starInput_change(e: Event) {
+    if (
+      !this.considerNormal ||
+      !this.reasonImpairmentNotDueToSci ||
+      !this.reasonImpairmentNotDueToSciSpecify
+    ) {
+      throw new Error(
+        'The input buttons for consider normal, reason for impairment not due to sci and reason for impairment not due to sci specify have not been initialized',
+      );
+    }
+
+    const state = appStore.getState();
+    const considerNormal =
+      this.considerNormal.value === '1'
+        ? true
+        : this.considerNormal.value === '2'
+        ? false
+        : null;
+
+    setStarDetailsUseCase(
+      considerNormal,
+      this.reasonImpairmentNotDueToSci.value,
+      this.reasonImpairmentNotDueToSciSpecify.value,
+      state.selectedCells,
+      state.gridModel,
+      true,
       this.appStoreProvider,
     );
   }
