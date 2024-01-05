@@ -61,6 +61,7 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedCells,
         value,
+        value,
         undefined,
         undefined,
         undefined,
@@ -107,6 +108,7 @@ describe('setCellValue.useCase.spec', () => {
       // Assert
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedCells,
+        value,
         value,
         undefined,
         undefined,
@@ -167,6 +169,7 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedCells,
         value,
+        value,
         undefined,
         undefined,
         undefined,
@@ -199,6 +202,7 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
         value,
+        value,
         expectedErrorMessage,
         undefined,
         undefined,
@@ -224,6 +228,7 @@ describe('setCellValue.useCase.spec', () => {
       // Assert
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
+        value,
         value,
         undefined,
         undefined,
@@ -252,6 +257,7 @@ describe('setCellValue.useCase.spec', () => {
       // Assert
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
+        value,
         value,
         expectedErrorMessage,
         undefined,

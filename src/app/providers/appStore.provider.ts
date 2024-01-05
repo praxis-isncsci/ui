@@ -13,6 +13,7 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
   public setCellsValue(
     cellsToUpdate: Cell[],
     value: string,
+    label: string,
     error: string | undefined,
     reasonImpairmentNotDueToSci: string | undefined,
     reasonImpairmentNotDueToSciSpecify: string | undefined,
@@ -22,6 +23,7 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
       payload: {
         cellsToUpdate,
         value,
+        label,
         error,
         reasonImpairmentNotDueToSci,
         reasonImpairmentNotDueToSciSpecify,
