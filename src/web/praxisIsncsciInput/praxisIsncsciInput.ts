@@ -324,8 +324,10 @@ export class PraxisIsncsciInput extends HTMLElement {
         ?.querySelectorAll('[selected]')
         .forEach((b) => b.removeAttribute('selected'));
 
+      const simplifiedValue = newValue?.replace(/\*\*$/, '*');
+
       this.shadowRoot
-        ?.querySelectorAll(`button[value="${newValue}"]`)
+        ?.querySelectorAll(`button[value="${simplifiedValue}"]`)
         .forEach((b) => b.setAttribute('selected', ''));
     }
 

@@ -1,20 +1,78 @@
-import {MotorLevel, MotorLevels as ML, SensoryLevels as SL} from '@core/domain';
+import {
+  MotorLevel,
+  MotorLevels as ML,
+  SensoryLevels as SL,
+  ExamData,
+} from '@core/domain';
 
 const SensoryLevels = SL.slice(0);
 const MotorLevels = ML.slice(0);
 
 export const getRandomExamData = () => {
-  const motorValues = ['0', '1', '2', '3', '4', '5'];
-  const sensoryValues = ['0', '1', '2'];
+  const comments = ['random comment', null];
+  const reasonsForImpairmentNotDueToSci = ['1', '2', '3', null];
+  const motorValues = [
+    '0',
+    '0*',
+    '0**',
+    '1*',
+    '1**',
+    '1',
+    '2',
+    '2*',
+    '2**',
+    '3',
+    '3*',
+    '3**',
+    '4',
+    '4*',
+    '4**',
+    '5',
+  ];
+  const sensoryValues = ['0', '0*', '0**', '1', '1*', '1**', '2'];
   const binaryObservation = ['Yes', 'No'];
+  const lowersNonKeyMuscle = [
+    'C5',
+    'C6',
+    'C7',
+    'C8',
+    'T1',
+    'L2',
+    'L3',
+    'L4',
+    'L5',
+    'S1',
+    null,
+  ];
 
   const randomElement = <T>(array: T[]): T => {
     return array[Math.floor(Math.random() * array.length)];
   };
 
+  const setValue = (
+    examData: ExamData,
+    prefix: string,
+    level: string,
+    validValues: string[],
+    validReasons: (string | null)[],
+    validComments: (string | null)[],
+  ) => {
+    const value = randomElement(validValues);
+
+    examData[`${prefix}${level}`] = value;
+    examData[`${prefix}${level}ReasonImpairmentNotDueToSci`] = /\*$/.test(value)
+      ? randomElement(validReasons)
+      : null;
+    examData[`${prefix}${level}ReasonImpairmentNotDueToSciSpecify`] =
+      /\*$/.test(value) ? randomElement(validComments) : null;
+  };
+
   const examData = {
+    comments: randomElement(comments),
     deepAnalPressure: randomElement(binaryObservation),
     voluntaryAnalContraction: randomElement(binaryObservation),
+    rightLowestNonKeyMuscleWithMotorFunction: randomElement(lowersNonKeyMuscle),
+    leftLowestNonKeyMuscleWithMotorFunction: randomElement(lowersNonKeyMuscle),
     asiaImpairmentScale: Math.floor(Math.random() * 56).toString(),
     injuryComplete: Math.floor(Math.random() * 56).toString(),
     leftLightTouchTotal: Math.floor(Math.random() * 56).toString(),
@@ -45,14 +103,56 @@ export const getRandomExamData = () => {
   };
 
   SensoryLevels.forEach((level) => {
-    examData[`rightLightTouch${level}`] = randomElement(sensoryValues);
-    examData[`rightPinPrick${level}`] = randomElement(sensoryValues);
-    examData[`leftLightTouch${level}`] = randomElement(sensoryValues);
-    examData[`leftPinPrick${level}`] = randomElement(sensoryValues);
+    setValue(
+      examData as ExamData,
+      'rightLightTouch',
+      level,
+      sensoryValues,
+      reasonsForImpairmentNotDueToSci,
+      comments,
+    );
+    setValue(
+      examData as ExamData,
+      'rightPinPrick',
+      level,
+      sensoryValues,
+      reasonsForImpairmentNotDueToSci,
+      comments,
+    );
+    setValue(
+      examData as ExamData,
+      'leftLightTouch',
+      level,
+      sensoryValues,
+      reasonsForImpairmentNotDueToSci,
+      comments,
+    );
+    setValue(
+      examData as ExamData,
+      'leftPinPrick',
+      level,
+      sensoryValues,
+      reasonsForImpairmentNotDueToSci,
+      comments,
+    );
 
     if (MotorLevels.includes(level as MotorLevel)) {
-      examData[`rightMotor${level}`] = randomElement(motorValues);
-      examData[`leftMotor${level}`] = randomElement(motorValues);
+      setValue(
+        examData as ExamData,
+        'rightMotor',
+        level,
+        motorValues,
+        reasonsForImpairmentNotDueToSci,
+        comments,
+      );
+      setValue(
+        examData as ExamData,
+        'leftMotor',
+        level,
+        motorValues,
+        reasonsForImpairmentNotDueToSci,
+        comments,
+      );
     }
   });
 
