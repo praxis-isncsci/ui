@@ -28,4 +28,13 @@ export const loadExternalExamDataUseCase = async (
   await appStoreProvider.setGridModel(gridModel);
   await appStoreProvider.setReadonly(readonly);
   await appStoreProvider.setTotals(totals);
+  await appStoreProvider.setVacDap(
+    examData.voluntaryAnalContraction,
+    examData.deepAnalPressure,
+  );
+  await appStoreProvider.setExtraInputs(
+    examData.rightLowestNonKeyMuscleWithMotorFunction,
+    examData.leftLowestNonKeyMuscleWithMotorFunction,
+    examData.comments || '',
+  );
 };

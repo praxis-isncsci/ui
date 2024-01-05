@@ -35,10 +35,10 @@ export const getInputLayoutTemplate = (): string => {
       </div>
       <div slot="dap" class="anal-function">
         <select name="dap" id="dap">
-          <option value=""></option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-          <option value="nt">NT</option>
+          <option value="None"></option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="NT">NT</option>
         </select>
         <label for="dap"><span class="intermittent">(</span>DAP<span class="intermittent">) Deep anal pressure</span></label>
       </div>
