@@ -132,6 +132,7 @@ const values = (
   action: IActionWithPayload<{
     cellsToUpdate: Cell[];
     value: string;
+    label: string;
     error: string | undefined;
     reasonImpairmentNotDueToSci: string | undefined;
     reasonImpairmentNotDueToSciSpecify: string | undefined;
@@ -142,6 +143,7 @@ const values = (
       const cellsToUpdate = action.payload.cellsToUpdate.slice();
       cellsToUpdate.forEach((cell) => {
         cell.value = action.payload.value;
+        cell.label = action.payload.label;
         cell.error = action.payload.error;
         cell.reasonImpairmentNotDueToSci =
           action.payload.reasonImpairmentNotDueToSci;

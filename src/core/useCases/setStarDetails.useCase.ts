@@ -1,16 +1,7 @@
 import {IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell} from '@core/domain';
 import {getCellColumn, getCellRow} from '@core/helpers';
-
-const cellsMatch = (a: Cell, b: Cell) => {
-  return (
-    a.value === b.value &&
-    a.error === b.error &&
-    a.reasonImpairmentNotDueToSci === b.reasonImpairmentNotDueToSci &&
-    a.reasonImpairmentNotDueToSciSpecify ===
-      b.reasonImpairmentNotDueToSciSpecify
-  );
-};
+import {cellsMatch} from '@core/helpers/cellHelper';
 
 const getDownPropagationCellRange = (
   cell: Cell,
@@ -42,7 +33,7 @@ const getDownPropagationCellRange = (
 
 /*
  * 1. Check that at least a cell was selected.
- * 2. Check that for star flag.
+ * 2. Check that the value was flagged with a star.
  * 3. Check if there is a single cell selected and `propagateDown` is set to `true` - we only propagate down if there is a single cell selected.
  *  3.1. Get the range of cells to update.
  *  3.2. Call `appStoreProvider.setCellsValue` with the range of cells and the values.
@@ -65,7 +56,7 @@ export const setStarDetailsUseCase = (
     throw new Error('`selectedCells` must contain at least one cell');
   }
 
-  // 2. Check that for star flag.
+  // 2. Check that the value was flagged with a star.
   const referenceCell = selectedCells[0];
 
   if (!/\*$/.test(referenceCell.value)) {
@@ -75,7 +66,8 @@ export const setStarDetailsUseCase = (
   }
 
   const value =
-    referenceCell.value.replace(/\*$/, '') + (considerNormal ? '**' : '*');
+    referenceCell.value.replace(/\*/g, '') + (considerNormal ? '**' : '*');
+  const label = value.replace('**', '*');
   const error =
     considerNormal === null
       ? 'Please indicate if the value should be considered normal or not normal.'
@@ -86,10 +78,8 @@ export const setStarDetailsUseCase = (
     // 3.1. Get the range of cells to update.
     const range = getDownPropagationCellRange(referenceCell, gridModel);
 
-    console.log(range);
-
     // 3.2. Call `appStoreProvider.setCellsValue` with the range of cells and the values.
-    appStoreProvider.setCellsValue(range, value, error, reason, details);
+    appStoreProvider.setCellsValue(range, value, label, error, reason, details);
 
     // 3.3. We stop.
     return;
@@ -111,6 +101,7 @@ export const setStarDetailsUseCase = (
   appStoreProvider.setCellsValue(
     selectedCells.slice(),
     value,
+    label,
     error,
     reason,
     details,

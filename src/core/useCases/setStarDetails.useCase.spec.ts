@@ -1,12 +1,11 @@
 import {beforeEach, describe, expect, it, jest} from '@jest/globals';
 
-import {} from '@jest/globals';
 import {IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell} from '@core/domain';
 import {bindExamDataToGridModel, findCell} from '@core/helpers';
 import {setStarDetailsUseCase} from './setStarDetails.useCase';
 import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
-import {getCellRange, getEmptyExamData} from '@core/helpers/examData.helper';
+import {getEmptyExamData} from '@core/helpers/examData.helper';
 
 describe('setStarDetails.useCase.spec', () => {
   describe('setStarDetailsUseCase', () => {
@@ -106,6 +105,7 @@ describe('setStarDetails.useCase.spec', () => {
       // Assert
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedRange,
+        '1*',
         '1*',
         undefined,
         'a',
@@ -242,6 +242,7 @@ describe('setStarDetails.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
         '1*',
+        '1*',
         undefined,
         'a',
         'b',
@@ -270,13 +271,14 @@ describe('setStarDetails.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
         '1**',
+        '1*',
         undefined,
         'a',
         'b',
       );
     });
 
-    it('sets sets an error message on the cells when consider normal is null', async () => {
+    it('sets an error message on the cells when consider normal is null', async () => {
       // Arrange
       const c2 = findCell('right-light-touch-c2', gridModel);
       c2.value = '1*';
@@ -297,6 +299,7 @@ describe('setStarDetails.useCase.spec', () => {
       // Assert
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
+        '1*',
         '1*',
         'Please indicate if the value should be considered normal or not normal.',
         'a',

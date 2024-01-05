@@ -1,3 +1,5 @@
+export {cellsMatch} from './cellHelper';
+
 export {
   bindExamDataToGridModel,
   bindExamDataToTotals,

@@ -61,6 +61,7 @@ export const setCellsValueUseCase = async (
     appStoreProvider.setCellsValue(
       motorRange.concat(sensoryRange),
       value,
+      value.replace('**', '*'),
       starErrorMessage,
       undefined,
       undefined,
@@ -89,6 +90,7 @@ export const setCellsValueUseCase = async (
   appStoreProvider.setCellsValue(
     cellsToUpdate,
     value,
+    value.replace('**', '*'),
     starErrorMessage,
     undefined,
     undefined,
