@@ -92,7 +92,7 @@ const template = () => html`
   </style>
   <iframe
     isncsci
-    src="https://agreeable-dune-0ccb46f1e-139.westus2.4.azurestaticapps.net/"
+    src="https://brave-meadow-05543dc10.4.azurestaticapps.net/"
   ></iframe>
   <ul controls>
     <li><button random-exam>Load random exam</button></li>
