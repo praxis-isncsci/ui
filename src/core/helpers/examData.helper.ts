@@ -202,6 +202,10 @@ export const getExamDataFromGridModel = (
       }
 
       examData[key] = cell.value;
+      examData[`${key}ReasonImpairmentNotDueToSci`] =
+        cell.reasonImpairmentNotDueToSci;
+      examData[`${key}ReasonImpairmentNotDueToSciSpecify`] =
+        cell.reasonImpairmentNotDueToSciSpecify;
     }
   });
 
