@@ -9,7 +9,6 @@ export class Actions {
   public static SET_EXTRA_INPUTS = 'SET_EXTRA_INPUTS';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
   public static SET_READONLY = 'SET_READONLY';
-  public static SET_SELECTED_CELLS = 'SET_SELECTED_CELLS';
   public static SET_TOTALS = 'SET_TOTALS';
   public static SET_VAC_DAP = 'SET_VAC_DAP';
   public static UPDATE_STATUS = 'UPDATE_STATUS';
@@ -29,11 +28,14 @@ const gridModel = (
 
 const activeCell = (
   state: IAppState,
-  action: IActionWithPayload<Cell | null>,
+  action: IActionWithPayload<{cell: Cell | null; selectedCells: Cell[]}>,
 ): IAppState => {
   switch (action.type) {
     case Actions.SET_ACTIVE_CELL:
-      return Object.assign({}, state, {activeCell: action.payload});
+      return Object.assign({}, state, {
+        activeCell: action.payload.cell,
+        selectedCells: action.payload.selectedCells,
+      });
     default:
       return state;
   }
@@ -68,18 +70,6 @@ const readonly = (
   switch (action.type) {
     case Actions.SET_READONLY:
       return Object.assign({}, state, {readonly: action.payload});
-    default:
-      return state;
-  }
-};
-
-const selectedCells = (
-  state: IAppState,
-  action: IActionWithPayload<Cell[]>,
-): IAppState => {
-  switch (action.type) {
-    case Actions.SET_SELECTED_CELLS:
-      return Object.assign({}, state, {selectedCells: action.payload});
     default:
       return state;
   }
@@ -161,7 +151,6 @@ export {
   extraInputs,
   gridModel,
   readonly,
-  selectedCells,
   status,
   totals,
   vacDap,
@@ -173,7 +162,6 @@ export default [
   extraInputs,
   gridModel,
   readonly,
-  selectedCells,
   status,
   totals,
   vacDap,

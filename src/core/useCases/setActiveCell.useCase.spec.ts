@@ -48,8 +48,7 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell);
-      expect(appStoreProvider.setSelectedCells).toHaveBeenCalledWith([cell]);
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell, [cell]);
     });
 
     it('should set `null` as active cell and empty array as selected cells when `cellName` is `null` and selection mode is `single`', async () => {
@@ -72,8 +71,7 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(null);
-      expect(appStoreProvider.setSelectedCells).toHaveBeenCalledWith([]);
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(null, []);
     });
 
     it('should throw an exception when `cellName` is not valid', async () => {
@@ -153,8 +151,10 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).not.toHaveBeenCalled();
-      expect(appStoreProvider.setSelectedCells).not.toHaveBeenCalled();
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(
+        null,
+        currentCellsSelected,
+      );
     });
 
     it('should leave things as they are when `cellName` is null and selection mode is `range`', async () => {
@@ -178,8 +178,10 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).not.toHaveBeenCalled();
-      expect(appStoreProvider.setSelectedCells).not.toHaveBeenCalled();
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(
+        null,
+        currentCellsSelected,
+      );
     });
 
     it('should set the cell matching `cellName` as active cell and remove `cell` from the cell selection when `cellName` is not null, selection mode is multiple, and `cell` is already included in the cell selection', async () => {
@@ -205,8 +207,8 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell);
-      expect(appStoreProvider.setSelectedCells).toHaveBeenCalledWith(
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(
+        cell,
         currentCellsSelected.slice(1, 1),
       );
     });
@@ -233,18 +235,11 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell);
-      expect(appStoreProvider.setSelectedCells).toHaveBeenCalledWith([
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell, [
         ...currentCellsSelected,
         cell,
       ]);
     });
-
-    /*
-     *  5.1. If there is no current active cell, stop, we cannot produce a range to add to the existing selection.
-     *  5.2. Produce a new aggregated selection without duplicates between the range and the existing selection.
-     *  5.3. Set the new selection.
-     */
 
     it('should set the cell matching `cellName` as active cell but leave the current cell selection as is when `cellName` is not `null` but the current active cell is `null` and selection mode is `range`', async () => {
       // Arrange
@@ -268,8 +263,10 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell);
-      expect(appStoreProvider.setSelectedCells).not.toHaveBeenCalled();
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(
+        cell,
+        currentCellsSelected,
+      );
     });
 
     it('should set the cell matching `cellName` as active cell and add the range between `cell` and `currentCellSelected`, without any duplicates, when `cellName` and `currentSelectedCell` are not `null` and `selectionMode` is `range`', async () => {
@@ -302,8 +299,8 @@ describe('setActiveCell.useCase.ts', () => {
       );
 
       // Assert
-      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell);
-      expect(appStoreProvider.setSelectedCells).toHaveBeenCalledWith(
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(
+        cell,
         expectedSelection,
       );
     });

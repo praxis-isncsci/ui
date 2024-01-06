@@ -8,7 +8,6 @@ export const getAppStoreProviderMock = (): IIsncsciAppStoreProvider => {
     setExtraInputs: jest.fn(() => Promise.resolve()),
     setGridModel: jest.fn(() => Promise.resolve()),
     setReadonly: jest.fn(() => Promise.resolve()),
-    setSelectedCells: jest.fn(() => Promise.resolve()),
     setTotals: jest.fn(() => Promise.resolve()),
     setVacDap: jest.fn(() => Promise.resolve()),
     updateStatus: jest.fn(() => Promise.resolve()),
