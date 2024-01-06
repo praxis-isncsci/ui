@@ -2,7 +2,7 @@ import {Cell, MotorLevel, Totals} from '@core/domain';
 import {BinaryObservation} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
-  setActiveCell(cell: Cell | null): Promise<void>;
+  setActiveCell(cell: Cell | null, selectedCells: Cell[]): Promise<void>;
   setCellsValue(
     cells: Cell[],
     value: string,
@@ -18,7 +18,6 @@ export interface IIsncsciAppStoreProvider {
   ): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
   setReadonly(readonly: boolean): Promise<void>;
-  setSelectedCells(cells: Cell[]): Promise<void>;
   setTotals(totals: Totals): Promise<void>;
   setVacDap(
     vac: BinaryObservation | null,
