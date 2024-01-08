@@ -5,7 +5,7 @@ import {
 } from '@core/boundaries';
 import {BinaryObservation, Cell} from '@core/domain';
 import {getExamDataFromGridModel, validateExamData} from '@core/helpers';
-import {MotorLevel} from 'isncsci/cjs/interfaces';
+import {MotorLevel} from '@core/domain';
 
 /*
  * This use case is responsible for calculating the totals
