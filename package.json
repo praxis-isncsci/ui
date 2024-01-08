@@ -45,6 +45,8 @@
     "core/boundaries/esm/index.js",
     "core/domain/cjs/index.js",
     "core/domain/esm/index.js",
+    "core/helpers/cjs/index.js",
+    "core/helpers/esm/index.js",
     "core/useCases/cjs/index.js",
     "core/useCases/esm/index.js",
     "web/cjs/index.js",
@@ -87,7 +89,7 @@
     "create-custom-elements-manifest:dist": "cem analyze --config custom-elements-manifest-dist.config.mjs"
   },
   "types": "./index.d.ts",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "readme": "README.md",
-  "_id": "isncsci-ui@0.0.18"
+  "_id": "isncsci-ui@0.0.19"
 }
