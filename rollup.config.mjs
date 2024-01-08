@@ -49,6 +49,15 @@ const demoSiteConfig = {
               );
             }
           });
+          copyfiles(['assets/icons/**/*.svg', 'icons'], {up: 2}, (err) => {
+            if (err) {
+              console.error(err);
+            } else {
+              console.log(
+                '\x1b[32m' + `icons were copied to icons/` + '\x1b[0m',
+              );
+            }
+          });
         }
       },
     },

@@ -40,7 +40,6 @@
   },
   "files": [
     "app/*/**/index.js",
-    "css/*.css",
     "core/boundaries/cjs/index.js",
     "core/boundaries/esm/index.js",
     "core/domain/cjs/index.js",
@@ -49,6 +48,8 @@
     "core/helpers/esm/index.js",
     "core/useCases/cjs/index.js",
     "core/useCases/esm/index.js",
+    "css/*.css",
+    "icons/*.svg",
     "web/cjs/index.js",
     "web/esm/index.js"
   ],
@@ -89,7 +90,7 @@
     "create-custom-elements-manifest:dist": "cem analyze --config custom-elements-manifest-dist.config.mjs"
   },
   "types": "./index.d.ts",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "readme": "README.md",
-  "_id": "isncsci-ui@0.0.19"
+  "_id": "isncsci-ui@0.0.20"
 }
