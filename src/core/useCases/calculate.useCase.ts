@@ -3,9 +3,8 @@ import {
   IIsncsciAppStoreProvider,
   IIsncsciExamProvider,
 } from '@core/boundaries';
-import {BinaryObservation, Cell} from '@core/domain';
+import {BinaryObservation, Cell, MotorLevel} from '@core/domain';
 import {getExamDataFromGridModel, validateExamData} from '@core/helpers';
-import {MotorLevel} from 'isncsci/cjs/interfaces';
 
 /*
  * This use case is responsible for calculating the totals

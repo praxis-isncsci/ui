@@ -8,6 +8,7 @@ export {
   getCellPosition,
   getCellRange,
   getCellRow,
+  getEmptyExamData,
   getExamDataFromGridModel,
   validateExamData,
 } from './examData.helper';
