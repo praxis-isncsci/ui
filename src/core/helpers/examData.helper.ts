@@ -1,5 +1,6 @@
 import {
   Cell,
+  ExamData,
   MotorLevel,
   MotorLevels,
   SensoryLevels,
@@ -7,7 +8,6 @@ import {
   ValidMotorValues,
   ValidSensoryValues,
 } from '@core/domain';
-import {ExamData} from '@core/domain/examData';
 import {motorCellRegex, validCellNameRegex} from './regularExpressions';
 import {BinaryObservation} from 'isncsci/cjs/interfaces';
 

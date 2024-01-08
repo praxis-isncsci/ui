@@ -76,6 +76,7 @@ const getConfig = ({output = {}, plugins = [], dir = './'}) => {
       'app/store/index': 'src/app/store/index.ts',
       'core/boundaries/index': 'src/core/boundaries/index.ts',
       'core/domain/index': 'src/core/domain/index.ts',
+      'core/helpers/index': 'src/core/helpers/index.ts',
       'core/useCases/index': 'src/core/useCases/index.ts',
       'web/index': 'src/web/index.ts',
     },

@@ -2,10 +2,13 @@ import {Actions, IDataStore, appStore} from '@app/store';
 import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
 import {Cell, MotorLevel, Totals} from '@core/domain';
 import {cellsMatch, sensoryCellRegex} from '@core/helpers';
-import {setCellsValueUseCase, setStarDetailsUseCase} from '@core/useCases';
-import {setActiveCellUseCase} from '@core/useCases/setActiveCell.useCase';
-import {setExtraInputsUseCase} from '@core/useCases/setExtraInputs.useCase';
-import {setVacDapUseCase} from '@core/useCases/setVacDap.useCase';
+import {
+  setActiveCellUseCase,
+  setCellsValueUseCase,
+  setExtraInputsUseCase,
+  setStarDetailsUseCase,
+  setVacDapUseCase,
+} from '@core/useCases';
 import {BinaryObservation} from '@core/domain';
 
 const allCellsHaveSameValues = (selectedCells: Cell[]) => {
