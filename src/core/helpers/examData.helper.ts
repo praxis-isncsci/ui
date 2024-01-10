@@ -9,7 +9,7 @@ import {
   ValidSensoryValues,
 } from '@core/domain';
 import {motorCellRegex, validCellNameRegex} from './regularExpressions';
-import {BinaryObservation} from 'isncsci/cjs/interfaces';
+import {BinaryObservation} from '@core/domain';
 
 const validateValue = (
   dataKey: string,

@@ -31,6 +31,7 @@
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.1",
     "rollup": "^3.26.0",
+    "rollup-plugin-dts": "^6.1.0",
     "storybook": "^7.5.1",
     "style-dictionary": "^3.8.0",
     "ts-node": "^10.9.1",
@@ -39,19 +40,7 @@
     "typescript": "^5.1.6"
   },
   "files": [
-    "app/*/**/index.js",
-    "core/boundaries/cjs/index.js",
-    "core/boundaries/esm/index.js",
-    "core/domain/cjs/index.js",
-    "core/domain/esm/index.js",
-    "core/helpers/cjs/index.js",
-    "core/helpers/esm/index.js",
-    "core/useCases/cjs/index.js",
-    "core/useCases/esm/index.js",
-    "css/*.css",
-    "icons/*.svg",
-    "web/cjs/index.js",
-    "web/esm/index.js"
+    "dist/"
   ],
   "homepage": "https://github.com/rhi-isncsci/ui",
   "keywords": [
@@ -65,8 +54,8 @@
     "algorithm"
   ],
   "license": "Apache-2.0",
-  "main": "./web/cjs/index.js",
-  "module": "./web/esm/index.js",
+  "main": "./dist/cjs/web/index.js",
+  "module": "./dist/esm/web/index.js",
   "name": "isncsci-ui",
   "private": false,
   "repository": {
@@ -75,8 +64,8 @@
   },
   "scripts": {
     "postbuild": "node ./scripts/update-template-markup.ts",
-    "prebuild": "rimraf ./build ./app ./core ./web ./css",
-    "build": "rollup -c",
+    "prebuild": "rimraf ./build ./dist",
+    "build": "rollup -c && rollup -c --environment MAPPINGS",
     "build-styles": "style-dictionary build --config style-dictionary.config.json",
     "start": "http-server build/ -s -c-1 -p 44333",
     "tslint": "tslint -p .",
@@ -90,7 +79,7 @@
     "create-custom-elements-manifest:dist": "cem analyze --config custom-elements-manifest-dist.config.mjs"
   },
   "types": "./index.d.ts",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "readme": "README.md",
-  "_id": "isncsci-ui@0.0.20"
+  "_id": "isncsci-ui@0.0.21"
 }

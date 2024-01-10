@@ -1,5 +1,4 @@
-import {Cell, MotorLevel, Totals} from '@core/domain';
-import {BinaryObservation} from 'isncsci/cjs/interfaces';
+import {BinaryObservation, Cell, MotorLevel, Totals} from '@core/domain';
 
 export class StatusCodes {
   public static Initializing: number = 2;

@@ -1,4 +1,4 @@
-import {BinaryObservation} from 'isncsci/cjs/interfaces';
+import {BinaryObservation} from './binaryObservation';
 import {MotorLevel} from './isncsciLevels';
 
 export type ExamData = {
