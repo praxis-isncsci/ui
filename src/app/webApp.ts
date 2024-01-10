@@ -16,8 +16,8 @@ import {
   ExternalMessagePortProvider,
   ExternalMessagePortProviderActions,
 } from '@app/providers';
-import {InputLayoutController} from '@app/controllers/inputLayout.controller';
-import {getEmptyExamData} from '@core/helpers/examData.helper';
+import {InputLayoutController} from '@app/controllers';
+import {getEmptyExamData} from '@core/helpers';
 import {ExamData} from '@core/domain';
 
 export class PraxisIsncsciWebApp extends HTMLElement {

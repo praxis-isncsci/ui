@@ -14,6 +14,7 @@ const tsconfig = {
 };
 const libraryInputs = {
   'app/index': 'src/app/index.ts',
+  'app/controllers/index': 'src/app/controllers/index.ts',
   'app/providers/index': 'src/app/providers/index.ts',
   'app/providers/externalMessagePort.provider/index':
     'src/app/providers/externalMessagePort.provider/index.ts',
