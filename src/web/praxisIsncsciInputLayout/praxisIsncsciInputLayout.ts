@@ -1,6 +1,7 @@
 import '@web/praxisIsncsciExtraInputs';
 import '@web/praxisIsncsciGrid';
 import '@web/praxisIsncsciInput';
+import '@web/praxisIsncsciKeyPointsDiagram';
 
 /**
  * @tagname praxis-isncsci-input-layout
@@ -45,9 +46,16 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
       }
 
       [diagram] {
-        background-color: #E2E2E2;
         display: none;
         flex-grow: 1;
+        padding-top: 1rem;
+        position: relative;
+      }
+
+      [diagram] > * {
+        left: 50%;
+        position: fixed;
+        transform: translateX(-50%);
       }
 
       @media (min-width: 48rem) {
@@ -61,7 +69,9 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
         <praxis-isncsci-grid></praxis-isncsci-grid>
         <slot name="vac"></slot>
       </div>
-      <div diagram>Body diagram</div>
+      <div diagram>
+        <praxis-isncsci-key-points-diagram></praxis-isncsci-key-points-diagram>
+      </div>
       <div left-dermatomes>
         <praxis-isncsci-grid left></praxis-isncsci-grid>
         <slot name="dap"></slot>
