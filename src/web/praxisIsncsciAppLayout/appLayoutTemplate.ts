@@ -75,6 +75,7 @@ export const getInputLayoutTemplate = (): string => {
       </select>
       <label for="comments" slot="comments-label">Comments:</label>
       <textarea name="comments" id="comments" slot="comments"></textarea>
+      <praxis-isncsci-key-points-diagram slot="key-points-diagram"></praxis-isncsci-key-points-diagram>
     </praxis-isncsci-input-layout>
   `;
 };

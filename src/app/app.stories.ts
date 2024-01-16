@@ -14,6 +14,7 @@ import '@web/praxisIsncsciAppLayout';
 import '@web/praxisIsncsciIcon';
 import '@web/praxisIsncsciInputLayout';
 import '@web/praxisIsncsciClassification';
+import '@web/praxisIsncsciKeyPointsDiagram';
 
 import 'assets/css/design-system.css';
 

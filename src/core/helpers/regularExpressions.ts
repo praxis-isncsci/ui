@@ -10,3 +10,4 @@ export const motorCellRegex = /^(right|left)-motor-(c|t|l|s)\d$/;
 export const cellLevelRegex = /((?!-)(c|t|l|s)(4_5|\d{1,2}))$/;
 export const motorValueRegex = /^([0-4]\*{0,2}|5|NT\*{0,2})$/;
 export const sensoryValueRegex = /^(0\*?|1\*{0,2}|2|NT\*{0,2})$/;
+export const levelNameRegex = /((?!-)(c|t|l|s)1?[0-9]$)|((?!-)s4_5)/;

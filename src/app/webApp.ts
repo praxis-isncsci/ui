@@ -16,7 +16,10 @@ import {
   ExternalMessagePortProvider,
   ExternalMessagePortProviderActions,
 } from '@app/providers';
-import {InputLayoutController} from '@app/controllers';
+import {
+  InputLayoutController,
+  KeyPointDiagramController,
+} from '@app/controllers';
 import {getEmptyExamData} from '@core/helpers';
 import {ExamData} from '@core/domain';
 
@@ -111,6 +114,9 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     );
 
     const inputButtons = document.querySelector('praxis-isncsci-input');
+    const keyPointsDiagram = document.querySelector(
+      'praxis-isncsci-key-points-diagram',
+    );
 
     if (!inputLayout || !this.classification || !inputButtons) {
       throw new Error('The views have not been initialized');
@@ -122,6 +128,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       inputLayout as HTMLElement,
       inputButtons as HTMLElement,
       this.classification as HTMLElement,
+    );
+
+    new KeyPointDiagramController(
+      this.appStore,
+      keyPointsDiagram as HTMLElement,
     );
 
     initializeAppUseCase(this.appStoreProvider);

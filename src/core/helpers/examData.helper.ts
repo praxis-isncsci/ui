@@ -8,7 +8,11 @@ import {
   ValidMotorValues,
   ValidSensoryValues,
 } from '@core/domain';
-import {motorCellRegex, validCellNameRegex} from './regularExpressions';
+import {
+  levelNameRegex,
+  motorCellRegex,
+  validCellNameRegex,
+} from './regularExpressions';
 import {BinaryObservation} from '@core/domain';
 
 const validateValue = (
@@ -258,7 +262,7 @@ export const getCellColumn = (cellName: string) => {
  * Throws and error if the cell name is invalid.
  */
 export const getCellRow = (cellName: string) => {
-  const level = /((?!-)(c|t|l|s)1?[0-9]$)|((?!-)s4_5)/.exec(cellName)?.[0];
+  const level = levelNameRegex.exec(cellName)?.[0];
 
   if (!level) {
     throw new Error(`Invalid cell name ${cellName}`);
