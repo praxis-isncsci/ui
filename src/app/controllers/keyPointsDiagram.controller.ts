@@ -29,11 +29,9 @@ export class KeyPointDiagramController {
   }
 
   private getKeyPointColor(lightTouch: Cell | null, pinPrick: Cell | null) {
-    const colorValues = [this.getColor(lightTouch), this.getColor(pinPrick)]
+    return [this.getColor(lightTouch), this.getColor(pinPrick)]
       .sort()
       .join('-');
-
-    return `--surface-${colorValues}`;
   }
 
   private updateRowKeyPoints(
@@ -45,13 +43,8 @@ export class KeyPointDiagramController {
     const rightColor: string = this.getKeyPointColor(row[1], row[2]);
     const leftColor: string = this.getKeyPointColor(row[3], row[4]);
 
-    keyPointsDiagram.shadowRoot
-      ?.querySelectorAll(`[data-level="right-${levelName}"]`)
-      .forEach((cn) => cn.setAttribute('fill', `var(${rightColor})`));
-
-    keyPointsDiagram.shadowRoot
-      ?.querySelectorAll(`[data-level="left-${levelName}"]`)
-      .forEach((cn) => cn.setAttribute('fill', `var(${leftColor})`));
+    keyPointsDiagram.setAttribute(`right-${levelName}`, rightColor);
+    keyPointsDiagram.setAttribute(`left-${levelName}`, leftColor);
   }
 
   private updateKeyPointsDiagram(
