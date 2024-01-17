@@ -33,7 +33,7 @@ export class PraxisIsncsciIcon extends HTMLElement {
     name: string,
     oldValue: string,
     newValue: string,
-  ): void {
+  ) {
     if (oldValue === newValue) {
       return;
     }

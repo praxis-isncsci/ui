@@ -1,6 +1,7 @@
 import {html} from 'lit';
 import type {Meta, StoryObj} from '@storybook/web-components';
 import './praxisIsncsciInputLayout';
+import '@web/praxisIsncsciKeyPointsDiagram';
 import '/assets/css/design-system.css';
 
 const meta = {
@@ -65,6 +66,7 @@ const meta = {
       </select>
       <label for="comments" slot="comments-label">Comments:</label>
       <textarea name="comments" id="comments" slot="comments"></textarea>
+      <praxis-isncsci-key-points-diagram slot="key-points-diagram"></praxis-isncsci-key-points-diagram>
     </praxis-isncsci-grid-input-layout>
     `,
 } satisfies Meta;

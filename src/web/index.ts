@@ -11,6 +11,7 @@ import {PraxisIsncsciExtraInputs} from './praxisIsncsciExtraInputs/praxisIsncsci
 import {PraxisIsncsciGrid} from './praxisIsncsciGrid';
 import {PraxisIsncsciInput} from './praxisIsncsciInput';
 import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
+import {PraxisIsncsciKeyPointsDiagram} from './praxisIsncsciKeyPointsDiagram';
 
 [
   PraxisIsncsciAppBar,
@@ -24,6 +25,7 @@ import {PraxisIsncsciInputLayout} from './praxisIsncsciInputLayout';
   PraxisIsncsciGrid,
   PraxisIsncsciInput,
   PraxisIsncsciInputLayout,
+  PraxisIsncsciKeyPointsDiagram,
 ].forEach((component) => {
   if (!window.customElements.get(component.is)) {
     window.customElements.define(component.is, component);
