@@ -8,6 +8,7 @@ import '@web/praxisIsncsciAppLayout';
 import '@web/praxisIsncsciClassification';
 import '@web/praxisIsncsciDialogHeader';
 import '@web/praxisIsncsciInputLayout';
+import '@web/praxisIsncsciKeyPointsDiagram';
 
 const window_onLoad = () => {
   const webApp = document.querySelector(
