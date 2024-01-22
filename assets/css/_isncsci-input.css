@@ -1,4 +1,7 @@
 praxis-isncsci-input {
+  --background: var(--light-isncsci-input-surface);
+  --border-radius: var(--isncsci-input-border-radius);
+  --box-shadow: var(--shadow-extra-small);
   --button-active-font-size: var(--isncsci-input-button-active-font-size);
   --button-active-surface: var(--light-isncsci-input-button-active-surface);
   --button-border-width: var(--isncsci-input-button-border-width);
@@ -31,6 +34,6 @@ praxis-isncsci-input {
   --label-font-weight: var(--type-scale-caption-1-weight);
   --label-line-height: var(--type-scale-caption-1-line-height);
   --gap: var(--space-4);
-  --select-width: var(11.25rem);
+  --select-width: 11.25rem;
   --textarea-height: 3.5rem;
 }

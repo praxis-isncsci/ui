@@ -11,11 +11,15 @@ export class PraxisIsncsciInput extends HTMLElement {
     return `
       <style>
         :host {
+          align-items: center;
+          background: var(--background, rgba(255, 255, 255, 0.4));
+          border-radius: var(--border-radius, 0.5rem) var(--border-radius, 0.5rem) 0 0;
+          box-shadow: var(--box-shadow, 0 0 0.125rem rgba(95, 24, 119, 0.24));
           container-type: inline-size;
           display: flex;
           flex-direction: column;
-          gap: var(--gap, 1rem);
-          align-items: center;
+          gap: 0;
+          padding: var(--padding, 1rem);
         }
 
         /* Button styles */
@@ -115,6 +119,10 @@ export class PraxisIsncsciInput extends HTMLElement {
 
         /* Star input styles */
 
+        :host([show-star-input]) {
+          gap: var(--gap, 1rem);
+        }
+
         :host([show-star-input]) [star-input] {
           max-height: 13.75rem;
         }
@@ -134,7 +142,6 @@ export class PraxisIsncsciInput extends HTMLElement {
           display: flex;
           flex-direction: column;
           gap: var(--gap, 1rem);
-          padding: 0 0.25rem;
         }
 
         .star-input-entry {
@@ -181,6 +188,7 @@ export class PraxisIsncsciInput extends HTMLElement {
 
         @container (min-width: 48rem) {
           :host {
+            border-radius: 0 0 var(--border-radius, 0.5rem) var(--border-radius, 0.5rem);
             flex-direction: row;
           }
 
