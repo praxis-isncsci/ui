@@ -52,5 +52,13 @@
       "type": "box-shadow",
       "value": "inset 0 0 0.125rem rgba(255, 255, 255, 0.4)"
     }
+  },
+  "light": {
+    "app": {
+      "surface": {
+        "type": "background",
+        "value": "radial-gradient(141.57% 87% at 0% 0%, rgba(0, 117, 255, 0.06) 0%, rgba(0, 117, 255, 0.01) 100%), radial-gradient(113.77% 70.76% at 100% 100%, rgba(143, 0, 255, 0.06) 0%, rgba(143, 0, 255, 0.01) 100%)"
+      }
+    }
   }
 }
