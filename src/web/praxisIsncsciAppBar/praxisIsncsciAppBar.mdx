@@ -39,6 +39,33 @@ This will make it easy for the component or controller adding them to control th
   <tbody>
     <tr>
       <td>
+        <code>--background</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>rgba(255, 255, 255, 0.1)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--box-shadow</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>0 0 0.125rem rgba(95, 24, 119, 0.24)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--gap</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>1.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <code>--height</code>
       </td>
       <td>&nbsp;</td>
@@ -57,11 +84,16 @@ This will make it easy for the component or controller adding them to control th
     </tr>
     <tr>
       <td>
-        <code>--gap</code>
+        <code>--position</code>
       </td>
-      <td>&nbsp;</td>
       <td>
-        <code>1.25rem</code>
+        The app bar is meant to be fixed at the top of the interface and have a
+        `z-index` higher than all interface elements. In order to manipulate the
+        `z-indexed` property, the component's position must be other than
+        `static`, so we default to `relative`.
+      </td>
+      <td>
+        <code>relative</code>
       </td>
     </tr>
     <tr>
@@ -98,6 +130,15 @@ This will make it easy for the component or controller adding them to control th
       <td>&nbsp;</td>
       <td>
         <code>1.375rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--z-index</code>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <code>10</code>
       </td>
     </tr>
   </tbody>

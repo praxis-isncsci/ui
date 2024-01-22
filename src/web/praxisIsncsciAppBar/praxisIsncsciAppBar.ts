@@ -13,11 +13,15 @@ export class PraxisIsncsciAppBar extends HTMLElement {
       <style>
         :host {
           align-items: center;
+          background: var(--background, rgba(255, 255, 255, 0.1));
+          box-shadow: var(--box-shadow, 0 0 0.125rem rgba(95, 24, 119, 0.24));
           display: flex;
           flex-direction: row;
+          gap: var(--gap, 1.25rem);
           height: var(--height, 3.5rem);
           padding: var(--padding, 0.75rem);
-          gap: var(--gap, 1.25rem);
+          position: var(--position, relative);
+          z-index: var(--z-index, 10);
         }
 
         ::slotted([slot="title"]) {
