@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Mon, 22 Jan 2024 22:09:30 GMT
+ * Generated on Tue, 23 Jan 2024 00:53:53 GMT
  */
 
 :root {
@@ -268,7 +268,6 @@
   --app-bar-height: 3.5rem;
   --app-bar-padding: .75rem;
   --app-bar-gap: 1.25rem;
-  --app-bar-z-index: 510;
   --exam-padding-top: 1rem;
   --exam-padding-bottom: 7.5rem;
   --exam-large-padding-bottom: 1.75rem;

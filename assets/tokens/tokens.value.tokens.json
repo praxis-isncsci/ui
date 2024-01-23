@@ -657,10 +657,6 @@
     "gap": {
       "type": "number",
       "value": "{space.5}"
-    },
-    "z-index": {
-      "type": "number",
-      "value": "{z-index.3}"
     }
   },
   "exam": {

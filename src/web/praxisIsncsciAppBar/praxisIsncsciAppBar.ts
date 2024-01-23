@@ -20,8 +20,6 @@ export class PraxisIsncsciAppBar extends HTMLElement {
           gap: var(--gap, 1.25rem);
           height: var(--height, 3.5rem);
           padding: var(--padding, 0.75rem);
-          position: var(--position, relative);
-          z-index: var(--z-index, 10);
         }
 
         ::slotted([slot="title"]) {

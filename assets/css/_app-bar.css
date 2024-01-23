@@ -8,5 +8,4 @@ praxis-isncsci-app-bar {
   --title-font-size: var(--type-scale-subtitle-2-font-size);
   --title-font-weight: var(--type-scale-subtitle-2-weight);
   --title-line-height: var(--type-scale-subtitle-2-line-height);
-  --z-index: var(--app-bar-z-index);
 }
