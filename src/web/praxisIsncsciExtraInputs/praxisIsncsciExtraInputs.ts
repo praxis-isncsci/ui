@@ -9,8 +9,9 @@ export class PraxisIsncsciExtraInputs extends HTMLElement {
         :host {
           display: flex;
           flex-direction: column;
-          justify-content: center;
           gap: var(--gap, 1.5rem);
+          justify-content: center;
+          padding: var(--padding, 0 1rem);
         }
 
         .non-key-muscles {

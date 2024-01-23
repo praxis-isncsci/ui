@@ -32,6 +32,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     return `
       <style>
         :host {
+          background: var(--light-app-surface);
           display: flex;
           flex-direction: column;
         }

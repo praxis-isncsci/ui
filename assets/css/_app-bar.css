@@ -1,4 +1,6 @@
 praxis-isncsci-app-bar {
+  --background: var(--light-app-bar-surface);
+  --box-shadow: var(--shadow-extra-small);
   --gap: var(--app-bar-gap);
   --height: var(--app-bar-height);
   --padding: 0 var(--app-bar-padding);
