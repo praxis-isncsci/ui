@@ -80,7 +80,7 @@ Making the component readonly is also possible without having to pass exam data.
 You can send a message with the `action` of `SET_READONLY` and the `readonly` flag.
 
 ```typescript
-port1.postMessage({action: 'SET_READONLY', readonly: true, examData: null});
+port1.postMessage({action: 'SET_READONLY', readonly: true});
 ```
 
 > Reference: [MDN: Using window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)

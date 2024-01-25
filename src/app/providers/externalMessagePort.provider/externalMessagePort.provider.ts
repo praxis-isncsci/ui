@@ -43,6 +43,10 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     examData: ExamData | null = null,
   ) {
     if (action === ExternalMessagePortProviderActions.SET_EXAM_DATA) {
+      if (!examData) {
+        throw new Error('Exam data is required for SET_EXAM_DATA action.');
+      }
+
       this.dispatch({
         examData,
         type: ExternalMessagePortProviderActions.ON_EXAM_DATA,

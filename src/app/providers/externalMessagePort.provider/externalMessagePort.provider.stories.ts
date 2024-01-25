@@ -46,8 +46,8 @@ const storyInitializer = (getRandomExamData) => {
       readonly = false;
       port1.postMessage({
         action: 'SET_EXAM_DATA',
-        examData: getRandomExamData(),
         readonly,
+        examData: getRandomExamData(),
       });
     });
 
@@ -55,8 +55,8 @@ const storyInitializer = (getRandomExamData) => {
       readonly = true;
       port1.postMessage({
         action: 'SET_EXAM_DATA',
-        examData: getRandomExamData(),
         readonly,
+        examData: getRandomExamData(),
       });
     });
 
@@ -65,7 +65,6 @@ const storyInitializer = (getRandomExamData) => {
 
       port1.postMessage({
         action: 'SET_READONLY',
-        examData: null,
         readonly,
       });
     });
