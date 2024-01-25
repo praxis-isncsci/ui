@@ -322,12 +322,21 @@ export class InputLayoutController {
       );
     }
 
+    const state = appStore.getState();
     const vac =
       this.vac.value === 'None' ? null : (this.vac.value as BinaryObservation);
     const dap =
       this.dap.value === 'None' ? null : (this.dap.value as BinaryObservation);
 
-    setVacDapUseCase(vac, dap, this.appStoreProvider);
+    setVacDapUseCase(
+      state.gridModel,
+      vac,
+      dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      this.appStoreProvider,
+      this.externalMessageProvider,
+    );
   }
 
   private extraInputs_onChange() {
@@ -337,11 +346,17 @@ export class InputLayoutController {
       );
     }
 
+    const state = appStore.getState();
+
     setExtraInputsUseCase(
+      state.gridModel.slice(),
+      state.vac,
+      state.dap,
       this.rightLowest.value as MotorLevel,
       this.leftLowest.value as MotorLevel,
       this.comments.value,
       this.appStoreProvider,
+      this.externalMessageProvider,
     );
   }
 
