@@ -150,6 +150,19 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     }
   }
 
+  private closeClassification() {
+    if (!this.appLayout) {
+      return;
+    }
+
+    if (
+      this.appLayout.hasAttribute('classification-style') &&
+      this.appLayout.getAttribute('classification-style') !== 'fixed'
+    ) {
+      this.appLayout.removeAttribute('classification-style');
+    }
+  }
+
   private calculate_onClick() {
     if (!this.appLayout || !this.classification) {
       return;
@@ -191,17 +204,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   }
 
   private closeClassification_onClick() {
-    if (!this.appLayout) {
-      return;
-    }
-
-    if (
-      this.appLayout.hasAttribute('classification-style') &&
-      this.appLayout.getAttribute('classification-style') !== 'fixed'
-    ) {
-      this.appLayout.removeAttribute('classification-style');
-    }
-
+    this.closeClassification();
     return false;
   }
 
@@ -246,6 +249,12 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       } else {
         this.removeAttribute('static-height');
         this.appLayout?.removeAttribute('readonly');
+      }
+    }
+
+    if (actionType === Actions.SET_TOTALS) {
+      if (!state.totals.asiaImpairmentScale) {
+        this.closeClassification();
       }
     }
   }
