@@ -7,7 +7,7 @@ import {Cell} from '@core/domain';
 import {bindExamDataToGridModel, findCell, motorCellRegex} from '@core/helpers';
 import {setCellsValueUseCase} from './setCellsValue.useCase';
 import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
-import {getEmptyExamData} from '@core/helpers/examData.helper';
+import {getEmptyExamData, getEmptyTotals} from '@core/helpers/examData.helper';
 
 describe('setCellValue.useCase.spec', () => {
   describe('setCellValueUseCase', () => {
@@ -51,6 +51,8 @@ describe('setCellValue.useCase.spec', () => {
 
       // Assert
       expect(errorMessage).toBe(`Invalid value: ${value}`);
+      expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
+      expect(externalMessageProvider.sendOutExamData).not.toHaveBeenCalled();
     });
 
     it('should set the value `1` to only `left-pin-prick-c2` when only `left-pin-prick-c2` is selected, `value` is `1`, and `propagateDown` is `false`', async () => {
@@ -83,6 +85,8 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
         undefined,
       );
+      expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
+      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
     });
 
     it('should not call `setCellsValue` when only `left-pin-prick-c2` is selected (sensory cell), `value` is `4` (motor value), and `propagateDown` is `true`', async () => {
@@ -107,6 +111,8 @@ describe('setCellValue.useCase.spec', () => {
 
       // Assert
       expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
+      expect(externalMessageProvider.sendOutExamData).not.toHaveBeenCalled();
+      expect(appStoreProvider.setTotals).not.toHaveBeenCalled();
     });
 
     it('should set the value `1` to the entire `left-pin-prick` row when only `left-pin-prick-c2` is selected, `value` is `1`, and `propagateDown` is `true`', async () => {
@@ -141,6 +147,8 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
         undefined,
       );
+      expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
+      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
     });
 
     it('should not call `setCellsValue` `value` is `4` (motor value) and only sensory cells are selected', async () => {
@@ -168,9 +176,11 @@ describe('setCellValue.useCase.spec', () => {
 
       // Assert
       expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
+      expect(externalMessageProvider.sendOutExamData).not.toHaveBeenCalled();
+      expect(appStoreProvider.setTotals).not.toHaveBeenCalled();
     });
 
-    it('should set the value `5` (motor value) to only the motor cells selected when `value` is `5` and multiple cells are selected', () => {
+    it('should set the value `5` (motor value) to only the motor cells selected when `value` is `5` and multiple cells are selected', async () => {
       // Arrange
       const value = '5';
       const selectedCells = [
@@ -189,7 +199,7 @@ describe('setCellValue.useCase.spec', () => {
       });
 
       // Act
-      setCellsValueUseCase(
+      await setCellsValueUseCase(
         value,
         selectedCells,
         gridModel,
@@ -211,9 +221,11 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
         undefined,
       );
+      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
+      expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
     });
 
-    it('should set the value `NT*` to all selected cells when `value` is `NT*` and multiple cells are selected, and `propagateDown` is `false`', () => {
+    it('should set the value `NT*` to all selected cells when `value` is `NT*` and multiple cells are selected, and `propagateDown` is `false`', async () => {
       // Arrange
       const value = 'NT*';
       const selectedCells = [
@@ -227,7 +239,7 @@ describe('setCellValue.useCase.spec', () => {
         'Please indicate if the value should be considered normal or not normal.';
 
       // Act
-      setCellsValueUseCase(
+      await setCellsValueUseCase(
         value,
         selectedCells,
         gridModel,
@@ -249,6 +261,8 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
         undefined,
       );
+      expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
+      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
     });
 
     it('cells should not have any error message when the `value` does not have a star (*) flag', async () => {
@@ -281,6 +295,8 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
         undefined,
       );
+      expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
+      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
     });
 
     it('should add an error message when `value` has a star (*) flag', async () => {
@@ -315,6 +331,8 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
         undefined,
       );
+      expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
+      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
     });
   });
 });

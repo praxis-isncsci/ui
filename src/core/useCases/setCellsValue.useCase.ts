@@ -39,7 +39,6 @@ export const setCellsValueUseCase = async (
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
 ) => {
-  console.log('set cells value');
   // 1. Test value to make sure it is valid
   // Motor values are the superset of valid values
   if (!motorValueRegex.test(value)) {
@@ -96,7 +95,7 @@ export const setCellsValueUseCase = async (
   );
 
   // 7. Clear the totals
-  appStoreProvider.setTotals(getEmptyTotals());
+  await appStoreProvider.setTotals(getEmptyTotals());
 
   // 8. Update external listeners
   const {examData} = getExamDataFromGridModel(
@@ -107,5 +106,5 @@ export const setCellsValueUseCase = async (
     leftLowestNonKeyMuscle,
   );
 
-  externalMessageProvider.sendOutExamData(examData);
+  await externalMessageProvider.sendOutExamData(examData);
 };
