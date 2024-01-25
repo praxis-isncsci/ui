@@ -39,8 +39,8 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
 
   private onPortMessage(
     action: string,
-    examData: ExamData | null,
     readonly: boolean,
+    examData: ExamData | null = null,
   ) {
     if (action === ExternalMessagePortProviderActions.SET_EXAM_DATA) {
       this.dispatch({
@@ -52,7 +52,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
 
     if (action === ExternalMessagePortProviderActions.SET_READONLY) {
       this.dispatch({
-        examData,
+        examData: null,
         type: ExternalMessagePortProviderActions.ON_READONLY,
         readonly,
       });

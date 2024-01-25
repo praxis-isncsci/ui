@@ -1,5 +1,9 @@
 import {Actions, IDataStore, appStore} from '@app/store';
-import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
+import {
+  IAppState,
+  IExternalMessageProvider,
+  IIsncsciAppStoreProvider,
+} from '@core/boundaries';
 import {Cell, MotorLevel, Totals} from '@core/domain';
 import {cellsMatch, sensoryCellRegex} from '@core/helpers';
 import {
@@ -36,6 +40,7 @@ export class InputLayoutController {
   public constructor(
     appStore: IDataStore<IAppState>,
     private appStoreProvider: IIsncsciAppStoreProvider,
+    private externalMessageProvider: IExternalMessageProvider,
     inputLayout: HTMLElement,
     private inputButtons: HTMLElement,
     classificationView: HTMLElement,
@@ -300,8 +305,13 @@ export class InputLayoutController {
       e.detail.value,
       state.selectedCells.slice(),
       state.gridModel.slice(),
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
       true,
       this.appStoreProvider,
+      this.externalMessageProvider,
     );
   }
 

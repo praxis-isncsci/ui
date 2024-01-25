@@ -15,6 +15,7 @@ import {getExamDataFromGridModel, validateExamData} from '@core/helpers';
  * 3. Calculate totals
  * 4. Bind totals to exam data
  * 5. Update state
+ * 6. Update external listeners
  */
 export const calculateUseCase = (
   gridModel: Array<Cell | null>[],
@@ -53,10 +54,10 @@ export const calculateUseCase = (
       examData[key] = totals[key];
     });
 
-    // Update external listeners
-    externalMessageProvider.sendOutExamData(examData);
-
     // 5. Update state
     appStoreProvider.setTotals(totals);
+
+    // 6. Update external listeners
+    externalMessageProvider.sendOutExamData(examData);
   });
 };

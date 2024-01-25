@@ -339,6 +339,38 @@ export const getCellRange = (
   return {motorRange, sensoryRange};
 };
 
+export const getEmptyTotals = (): Totals => {
+  return {
+    asiaImpairmentScale: '',
+    injuryComplete: '',
+    leftLightTouchTotal: '',
+    leftLowerMotorTotal: '',
+    leftMotor: '',
+    leftMotorTotal: '',
+    leftMotorZpp: '',
+    leftPinPrickTotal: '',
+    leftSensory: '',
+    leftSensoryZpp: '',
+    leftTouchTotal: '',
+    leftUpperMotorTotal: '',
+    lowerMotorTotal: '',
+    neurologicalLevelOfInjury: '',
+    pinPrickTotal: '',
+    rightLightTouchTotal: '',
+    rightLowerMotorTotal: '',
+    rightMotor: '',
+    rightMotorTotal: '',
+    rightMotorZpp: '',
+    rightPinPrickTotal: '',
+    rightSensory: '',
+    rightSensoryZpp: '',
+    rightTouchTotal: '',
+    rightUpperMotorTotal: '',
+    touchTotal: '',
+    upperMotorTotal: '',
+  };
+};
+
 export const getEmptyExamData = (): ExamData => {
   return {
     comments: null,

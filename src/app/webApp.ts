@@ -126,6 +126,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     new InputLayoutController(
       this.appStore,
       this.appStoreProvider,
+      this.externalMessagePortProvider,
       inputLayout as HTMLElement,
       inputButtons as HTMLElement,
       this.classification as HTMLElement,
