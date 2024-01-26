@@ -23,6 +23,7 @@ export const calculateUseCase = (
   dap: BinaryObservation | null,
   rightLowestNonKeyMuscle: MotorLevel | null,
   leftLowestNonKeyMuscle: MotorLevel | null,
+  comments: string,
   appStoreProvider: IIsncsciAppStoreProvider,
   examProvider: IIsncsciExamProvider,
   externalMessageProvider: IExternalMessageProvider,
@@ -34,6 +35,7 @@ export const calculateUseCase = (
     dap,
     rightLowestNonKeyMuscle,
     leftLowestNonKeyMuscle,
+    comments,
   );
 
   // 2. Validate exam data

@@ -1,6 +1,9 @@
 import {beforeEach, describe, expect, it, jest} from '@jest/globals';
 
-import {IIsncsciAppStoreProvider} from '@core/boundaries';
+import {
+  IExternalMessageProvider,
+  IIsncsciAppStoreProvider,
+} from '@core/boundaries';
 import {Cell} from '@core/domain';
 import {bindExamDataToGridModel, findCell} from '@core/helpers';
 import {setStarDetailsUseCase} from './setStarDetails.useCase';
@@ -10,10 +13,14 @@ import {getEmptyExamData} from '@core/helpers/examData.helper';
 describe('setStarDetails.useCase.spec', () => {
   describe('setStarDetailsUseCase', () => {
     let appStoreProvider: IIsncsciAppStoreProvider;
+    let externalMessageProvider: IExternalMessageProvider;
     let gridModel: Array<Cell | null>[] = [];
 
     beforeEach(() => {
       appStoreProvider = getAppStoreProviderMock();
+      externalMessageProvider = {
+        sendOutExamData: jest.fn(),
+      };
       gridModel = bindExamDataToGridModel(getEmptyExamData());
       jest.resetModules();
     });
@@ -32,8 +39,14 @@ describe('setStarDetails.useCase.spec', () => {
           undefined,
           selectedCells,
           gridModel,
+          null,
+          null,
+          null,
+          null,
+          '',
           false,
           appStoreProvider,
+          externalMessageProvider,
         );
       } catch (error) {
         errorMessage = (error as Error).message;
@@ -62,8 +75,14 @@ describe('setStarDetails.useCase.spec', () => {
           undefined,
           selectedCells,
           gridModel,
+          null,
+          null,
+          null,
+          null,
+          '',
           false,
           appStoreProvider,
+          externalMessageProvider,
         );
       } catch (error) {
         errorMessage = (error as Error).message;
@@ -98,8 +117,14 @@ describe('setStarDetails.useCase.spec', () => {
         'b',
         selectedCells,
         gridModel,
+        null,
+        null,
+        null,
+        null,
+        '',
         true,
         appStoreProvider,
+        externalMessageProvider,
       );
 
       // Assert
@@ -198,8 +223,14 @@ describe('setStarDetails.useCase.spec', () => {
             undefined,
             selectedCells,
             gridModel,
+            null,
+            null,
+            null,
+            null,
+            '',
             false,
             appStoreProvider,
+            externalMessageProvider,
           );
         } catch (error) {
           errorMessage = (error as Error).message;
@@ -234,8 +265,14 @@ describe('setStarDetails.useCase.spec', () => {
         'b',
         selectedCells,
         gridModel,
+        null,
+        null,
+        null,
+        null,
+        '',
         true,
         appStoreProvider,
+        externalMessageProvider,
       );
 
       // Assert
@@ -263,8 +300,14 @@ describe('setStarDetails.useCase.spec', () => {
         'b',
         selectedCells,
         gridModel,
+        null,
+        null,
+        null,
+        null,
+        '',
         true,
         appStoreProvider,
+        externalMessageProvider,
       );
 
       // Assert
@@ -292,8 +335,14 @@ describe('setStarDetails.useCase.spec', () => {
         'b',
         selectedCells,
         gridModel,
+        null,
+        null,
+        null,
+        null,
+        '',
         true,
         appStoreProvider,
+        externalMessageProvider,
       );
 
       // Assert

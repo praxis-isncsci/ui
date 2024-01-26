@@ -309,6 +309,7 @@ export class InputLayoutController {
       state.dap,
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
       true,
       this.appStoreProvider,
       this.externalMessageProvider,
@@ -334,6 +335,7 @@ export class InputLayoutController {
       dap,
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
       this.appStoreProvider,
       this.externalMessageProvider,
     );
@@ -465,8 +467,14 @@ export class InputLayoutController {
       this.reasonImpairmentNotDueToSciSpecify.value,
       state.selectedCells,
       state.gridModel,
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
       true,
       this.appStoreProvider,
+      this.externalMessageProvider,
     );
   }
 }

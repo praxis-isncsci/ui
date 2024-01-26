@@ -35,6 +35,7 @@ export const setCellsValueUseCase = async (
   dap: BinaryObservation | null,
   rightLowestNonKeyMuscle: MotorLevel | null,
   leftLowestNonKeyMuscle: MotorLevel | null,
+  comments: string,
   propagateDown: boolean,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
@@ -104,6 +105,7 @@ export const setCellsValueUseCase = async (
     dap,
     rightLowestNonKeyMuscle,
     leftLowestNonKeyMuscle,
+    comments,
   );
 
   await externalMessageProvider.sendOutExamData(examData);

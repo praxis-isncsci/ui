@@ -35,6 +35,7 @@ export const setExtraInputsUseCase = async (
     dap,
     rightLowestNonKeyMuscleWithMotorFunction,
     leftLowestNonKeyMuscleWithMotorFunction,
+    comments,
   );
 
   await externalMessageProvider.sendOutExamData(examData);

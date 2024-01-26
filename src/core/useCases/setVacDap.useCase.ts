@@ -14,6 +14,7 @@ export const setVacDapUseCase = async (
   dap: BinaryObservation | null,
   rightLowestNonKeyMuscle: MotorLevel | null,
   leftLowestNonKeyMuscle: MotorLevel | null,
+  comments: string,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
 ) => {
@@ -30,6 +31,7 @@ export const setVacDapUseCase = async (
     dap,
     rightLowestNonKeyMuscle,
     leftLowestNonKeyMuscle,
+    comments,
   );
 
   await externalMessageProvider.sendOutExamData(examData);

@@ -35,6 +35,7 @@ describe('setVacDap.useCase.ts', () => {
         'No',
         null,
         null,
+        '',
         appStoreProvider,
         externalMessageProvider,
       );
