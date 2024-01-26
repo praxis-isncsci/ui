@@ -180,10 +180,11 @@ export const bindExamDataToTotals = (examData: ExamData): Totals => {
 
 export const getExamDataFromGridModel = (
   gridModel: Array<Cell | null>[],
-  voluntaryAnalContraction: BinaryObservation | null = null,
-  deepAnalPressure: BinaryObservation | null = null,
-  rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null = null,
-  leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null = null,
+  voluntaryAnalContraction: BinaryObservation | null,
+  deepAnalPressure: BinaryObservation | null,
+  rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+  leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
+  comments: string | null,
 ) => {
   const examData = getEmptyExamData();
   examData.voluntaryAnalContraction = voluntaryAnalContraction;
@@ -192,6 +193,7 @@ export const getExamDataFromGridModel = (
     rightLowestNonKeyMuscleWithMotorFunction;
   examData.leftLowestNonKeyMuscleWithMotorFunction =
     leftLowestNonKeyMuscleWithMotorFunction;
+  examData.comments = comments;
 
   let isMissingValues = false;
 
@@ -337,6 +339,38 @@ export const getCellRange = (
   }
 
   return {motorRange, sensoryRange};
+};
+
+export const getEmptyTotals = (): Totals => {
+  return {
+    asiaImpairmentScale: '',
+    injuryComplete: '',
+    leftLightTouchTotal: '',
+    leftLowerMotorTotal: '',
+    leftMotor: '',
+    leftMotorTotal: '',
+    leftMotorZpp: '',
+    leftPinPrickTotal: '',
+    leftSensory: '',
+    leftSensoryZpp: '',
+    leftTouchTotal: '',
+    leftUpperMotorTotal: '',
+    lowerMotorTotal: '',
+    neurologicalLevelOfInjury: '',
+    pinPrickTotal: '',
+    rightLightTouchTotal: '',
+    rightLowerMotorTotal: '',
+    rightMotor: '',
+    rightMotorTotal: '',
+    rightMotorZpp: '',
+    rightPinPrickTotal: '',
+    rightSensory: '',
+    rightSensoryZpp: '',
+    rightTouchTotal: '',
+    rightUpperMotorTotal: '',
+    touchTotal: '',
+    upperMotorTotal: '',
+  };
 };
 
 export const getEmptyExamData = (): ExamData => {

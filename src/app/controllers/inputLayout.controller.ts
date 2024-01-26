@@ -1,5 +1,9 @@
 import {Actions, IDataStore, appStore} from '@app/store';
-import {IAppState, IIsncsciAppStoreProvider} from '@core/boundaries';
+import {
+  IAppState,
+  IExternalMessageProvider,
+  IIsncsciAppStoreProvider,
+} from '@core/boundaries';
 import {Cell, MotorLevel, Totals} from '@core/domain';
 import {cellsMatch, sensoryCellRegex} from '@core/helpers';
 import {
@@ -36,6 +40,7 @@ export class InputLayoutController {
   public constructor(
     appStore: IDataStore<IAppState>,
     private appStoreProvider: IIsncsciAppStoreProvider,
+    private externalMessageProvider: IExternalMessageProvider,
     inputLayout: HTMLElement,
     private inputButtons: HTMLElement,
     classificationView: HTMLElement,
@@ -300,8 +305,14 @@ export class InputLayoutController {
       e.detail.value,
       state.selectedCells.slice(),
       state.gridModel.slice(),
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
       true,
       this.appStoreProvider,
+      this.externalMessageProvider,
     );
   }
 
@@ -312,12 +323,22 @@ export class InputLayoutController {
       );
     }
 
+    const state = appStore.getState();
     const vac =
       this.vac.value === 'None' ? null : (this.vac.value as BinaryObservation);
     const dap =
       this.dap.value === 'None' ? null : (this.dap.value as BinaryObservation);
 
-    setVacDapUseCase(vac, dap, this.appStoreProvider);
+    setVacDapUseCase(
+      state.gridModel,
+      vac,
+      dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
+      this.appStoreProvider,
+      this.externalMessageProvider,
+    );
   }
 
   private extraInputs_onChange() {
@@ -327,11 +348,17 @@ export class InputLayoutController {
       );
     }
 
+    const state = appStore.getState();
+
     setExtraInputsUseCase(
+      state.gridModel.slice(),
+      state.vac,
+      state.dap,
       this.rightLowest.value as MotorLevel,
       this.leftLowest.value as MotorLevel,
       this.comments.value,
       this.appStoreProvider,
+      this.externalMessageProvider,
     );
   }
 
@@ -440,8 +467,14 @@ export class InputLayoutController {
       this.reasonImpairmentNotDueToSciSpecify.value,
       state.selectedCells,
       state.gridModel,
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
       true,
       this.appStoreProvider,
+      this.externalMessageProvider,
     );
   }
 }

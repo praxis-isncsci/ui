@@ -126,6 +126,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     new InputLayoutController(
       this.appStore,
       this.appStoreProvider,
+      this.externalMessagePortProvider,
       inputLayout as HTMLElement,
       inputButtons as HTMLElement,
       this.classification as HTMLElement,
@@ -146,6 +147,19 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
     if (this.unsubscribeFromExternalChannelHandler) {
       this.unsubscribeFromExternalChannelHandler();
+    }
+  }
+
+  private closeClassification() {
+    if (!this.appLayout) {
+      return;
+    }
+
+    if (
+      this.appLayout.hasAttribute('classification-style') &&
+      this.appLayout.getAttribute('classification-style') !== 'fixed'
+    ) {
+      this.appLayout.removeAttribute('classification-style');
     }
   }
 
@@ -181,6 +195,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       state.dap,
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
       this.appStoreProvider,
       this.isncsciExamProvider,
       this.externalMessagePortProvider,
@@ -190,17 +205,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   }
 
   private closeClassification_onClick() {
-    if (!this.appLayout) {
-      return;
-    }
-
-    if (
-      this.appLayout.hasAttribute('classification-style') &&
-      this.appLayout.getAttribute('classification-style') !== 'fixed'
-    ) {
-      this.appLayout.removeAttribute('classification-style');
-    }
-
+    this.closeClassification();
     return false;
   }
 
@@ -245,6 +250,12 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       } else {
         this.removeAttribute('static-height');
         this.appLayout?.removeAttribute('readonly');
+      }
+    }
+
+    if (actionType === Actions.SET_TOTALS) {
+      if (!state.totals.asiaImpairmentScale) {
+        this.closeClassification();
       }
     }
   }
