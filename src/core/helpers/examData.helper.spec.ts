@@ -28,8 +28,8 @@ const getExamDataForAsiaE = () => {
   examData.leftPinPrickTotal = '8';
   examData.leftSensory = '9';
   examData.leftSensoryZpp = '10';
-  examData.leftTouchTotal = '11';
   examData.leftUpperMotorTotal = '12';
+  examData.lightTouchTotal = '26';
   examData.lowerMotorTotal = '13';
   examData.neurologicalLevelOfInjury = '14';
   examData.pinPrickTotal = '15';
@@ -41,9 +41,7 @@ const getExamDataForAsiaE = () => {
   examData.rightPinPrickTotal = '21';
   examData.rightSensory = '22';
   examData.rightSensoryZpp = '23';
-  examData.rightTouchTotal = '24';
   examData.rightUpperMotorTotal = '25';
-  examData.touchTotal = '26';
   examData.upperMotorTotal = '27';
 
   SensoryLevels.forEach((level) => {
@@ -175,8 +173,8 @@ describe('ExamDataHelper', () => {
         leftPinPrickTotal: '8',
         leftSensory: '9',
         leftSensoryZpp: '10',
-        leftTouchTotal: '11',
         leftUpperMotorTotal: '12',
+        lightTouchTotal: '26',
         lowerMotorTotal: '13',
         neurologicalLevelOfInjury: '14',
         pinPrickTotal: '15',
@@ -188,9 +186,7 @@ describe('ExamDataHelper', () => {
         rightPinPrickTotal: '21',
         rightSensory: '22',
         rightSensoryZpp: '23',
-        rightTouchTotal: '24',
         rightUpperMotorTotal: '25',
-        touchTotal: '26',
         upperMotorTotal: '27',
       });
     });
@@ -209,8 +205,8 @@ describe('ExamDataHelper', () => {
         leftPinPrickTotal: '',
         leftSensory: '',
         leftSensoryZpp: '',
-        leftTouchTotal: '',
         leftUpperMotorTotal: '',
+        lightTouchTotal: '',
         lowerMotorTotal: '',
         neurologicalLevelOfInjury: '',
         pinPrickTotal: '',
@@ -222,9 +218,7 @@ describe('ExamDataHelper', () => {
         rightPinPrickTotal: '',
         rightSensory: '',
         rightSensoryZpp: '',
-        rightTouchTotal: '',
         rightUpperMotorTotal: '',
-        touchTotal: '',
         upperMotorTotal: '',
       });
     });

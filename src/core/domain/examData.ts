@@ -423,8 +423,8 @@ export type ExamData = {
   leftPinPrickTotal: string;
   leftSensory: string;
   leftSensoryZpp: string;
-  leftTouchTotal: string;
   leftUpperMotorTotal: string;
+  lightTouchTotal: string;
   lowerMotorTotal: string;
   neurologicalLevelOfInjury: string;
   pinPrickTotal: string;
@@ -436,8 +436,6 @@ export type ExamData = {
   rightPinPrickTotal: string;
   rightSensory: string;
   rightSensoryZpp: string;
-  rightTouchTotal: string;
   rightUpperMotorTotal: string;
-  touchTotal: string;
   upperMotorTotal: string;
 };
