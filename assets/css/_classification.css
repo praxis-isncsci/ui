@@ -3,7 +3,8 @@ praxis-isncsci-classification {
   --background-color: var(--light-acrylic);
   --box-shadow: var(--acrylic-inner-shadow), var(--shadow-medium);
   --gap: var(--classification-gap);
-  --padding: var(--classification-padding);
+  --padding: var(--classification-padding) var(--classification-padding)
+    var(--classification-padding-bottom);
 }
 
 praxis-isncsci-classification-grid[slot='nli'],
