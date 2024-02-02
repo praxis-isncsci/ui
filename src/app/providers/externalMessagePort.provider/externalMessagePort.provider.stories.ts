@@ -32,7 +32,7 @@ const storyInitializer = (getRandomExamData) => {
     let readonly = false;
 
     const getRandomEmptyValue = () => {
-      const emptyValues = [null, undefined, ''];
+      const emptyValues = [null, undefined, 'unknown', ''];
       return emptyValues[Math.floor(Math.random() * emptyValues.length)];
     };
 
@@ -63,17 +63,10 @@ const storyInitializer = (getRandomExamData) => {
       const examData = getRandomExamData();
       ['T12', 'L1', 'L2', 'L3', 'L4', 'L5', 'S1', 'S2', 'S3', 'S4_5'].forEach(
         (level) => {
-          [
-            'leftLightTouch',
-            'rightLightTouch',
-            'leftPinPrick',
-            'rightPinPrick',
-          ].forEach((side) => {
-            examData[`${side}${level}`] = getRandomEmptyValue();
-            examData[`${side}${level}ReasonImpairmentNotDueToSci`] = null;
-            examData[`${side}${level}ReasonImpairmentNotDueToSciSpecify`] =
-              null;
-          });
+          examData[`rightLightTouch${level}`] = getRandomEmptyValue();
+          examData[`leftLightTouch${level}`] = getRandomEmptyValue();
+          examData[`rightPinPrick${level}`] = getRandomEmptyValue();
+          examData[`leftPinPrick${level}`] = getRandomEmptyValue();
         },
       );
 
