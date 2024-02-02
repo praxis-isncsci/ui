@@ -28,13 +28,13 @@
         }
       },
       "border": {
-        "cell-total": {
-          "type": "color",
-          "value": "{color.gray.100}"
-        },
         "cell": {
           "type": "color",
           "value": "{color.gray.050}"
+        },
+        "cell-total": {
+          "type": "color",
+          "value": "{color.gray.100}"
         }
       }
     },
@@ -55,7 +55,7 @@
       }
     },
     "foreground": {
-      "primary": {
+      "caption": {
         "type": "color",
         "value": "{color.gray.1000}"
       },
@@ -63,7 +63,7 @@
         "type": "color",
         "value": "{color.gray.500}"
       },
-      "caption": {
+      "primary": {
         "type": "color",
         "value": "{color.gray.1000}"
       },
@@ -102,6 +102,10 @@
       "type": "color",
       "value": "rgba(255, 255, 255, 0.4000)"
     },
+    "primary": {
+      "type": "color",
+      "value": "{color.lilac.400}"
+    },
     "button": {
       "surface": {
         "type": "color",
@@ -119,10 +123,6 @@
         "type": "color",
         "value": "rgba(51, 4, 73, 0.1200)"
       }
-    },
-    "primary": {
-      "type": "color",
-      "value": "{color.lilac.400}"
     },
     "on-primary": {
       "type": "color",
@@ -196,16 +196,16 @@
       "type": "color",
       "value": "#f2dcd4"
     },
-    "text-area": {
-      "border": {
-        "type": "color",
-        "value": "{color.gray.200}"
-      }
-    },
     "drop-down": {
       "border": {
         "type": "color",
         "value": "{light.input.border}"
+      }
+    },
+    "text-area": {
+      "border": {
+        "type": "color",
+        "value": "{color.gray.200}"
       }
     },
     "totals": {
@@ -713,14 +713,18 @@
     "z-index": {
       "type": "number",
       "value": "{z-index.1}"
+    },
+    "padding-bottom": {
+      "type": "number",
+      "value": "{space.8}"
     }
   },
   "classification-total": {
-    "padding-right": {
+    "padding-left": {
       "type": "number",
       "value": "{space.2}"
     },
-    "padding-left": {
+    "padding-right": {
       "type": "number",
       "value": "{space.2}"
     },
