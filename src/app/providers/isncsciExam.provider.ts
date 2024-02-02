@@ -53,8 +53,8 @@ export class IsncsciExamProvider implements IIsncsciExamProvider {
       leftPinPrickTotal: totals.left.pinPrick,
       leftSensory: classification.neurologicalLevels.sensoryLeft,
       leftSensoryZpp: classification.zoneOfPartialPreservations.sensoryLeft,
-      leftTouchTotal: totals.left.lightTouch,
       leftUpperMotorTotal: totals.left.upperExtremity,
+      lightTouchTotal: totals.lightTouch,
       lowerMotorTotal: totals.lowerExtremity,
       neurologicalLevelOfInjury: classification.neurologicalLevelOfInjury,
       pinPrickTotal: totals.pinPrick,
@@ -66,9 +66,7 @@ export class IsncsciExamProvider implements IIsncsciExamProvider {
       rightPinPrickTotal: totals.right.pinPrick,
       rightSensory: classification.neurologicalLevels.sensoryRight,
       rightSensoryZpp: classification.zoneOfPartialPreservations.sensoryRight,
-      rightTouchTotal: totals.right.lightTouch,
       rightUpperMotorTotal: totals.right.upperExtremity,
-      touchTotal: totals.lightTouch,
       upperMotorTotal: totals.upperExtremity,
     });
   }

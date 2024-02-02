@@ -158,8 +158,8 @@ export const bindExamDataToTotals = (examData: ExamData): Totals => {
     leftPinPrickTotal: examData['leftPinPrickTotal'] ?? '',
     leftSensory: examData['leftSensory'] ?? '',
     leftSensoryZpp: examData['leftSensoryZpp'] ?? '',
-    leftTouchTotal: examData['leftTouchTotal'] ?? '',
     leftUpperMotorTotal: examData['leftUpperMotorTotal'] ?? '',
+    lightTouchTotal: examData['lightTouchTotal'] ?? '',
     lowerMotorTotal: examData['lowerMotorTotal'] ?? '',
     neurologicalLevelOfInjury: examData['neurologicalLevelOfInjury'] ?? '',
     pinPrickTotal: examData['pinPrickTotal'] ?? '',
@@ -171,9 +171,7 @@ export const bindExamDataToTotals = (examData: ExamData): Totals => {
     rightPinPrickTotal: examData['rightPinPrickTotal'] ?? '',
     rightSensory: examData['rightSensory'] ?? '',
     rightSensoryZpp: examData['rightSensoryZpp'] ?? '',
-    rightTouchTotal: examData['rightTouchTotal'] ?? '',
     rightUpperMotorTotal: examData['rightUpperMotorTotal'] ?? '',
-    touchTotal: examData['touchTotal'] ?? '',
     upperMotorTotal: examData['upperMotorTotal'] ?? '',
   };
 };
@@ -353,8 +351,8 @@ export const getEmptyTotals = (): Totals => {
     leftPinPrickTotal: '',
     leftSensory: '',
     leftSensoryZpp: '',
-    leftTouchTotal: '',
     leftUpperMotorTotal: '',
+    lightTouchTotal: '',
     lowerMotorTotal: '',
     neurologicalLevelOfInjury: '',
     pinPrickTotal: '',
@@ -366,9 +364,7 @@ export const getEmptyTotals = (): Totals => {
     rightPinPrickTotal: '',
     rightSensory: '',
     rightSensoryZpp: '',
-    rightTouchTotal: '',
     rightUpperMotorTotal: '',
-    touchTotal: '',
     upperMotorTotal: '',
   };
 };
@@ -792,8 +788,8 @@ export const getEmptyExamData = (): ExamData => {
     leftPinPrickTotal: '',
     leftSensory: '',
     leftSensoryZpp: '',
-    leftTouchTotal: '',
     leftUpperMotorTotal: '',
+    lightTouchTotal: '',
     lowerMotorTotal: '',
     neurologicalLevelOfInjury: '',
     pinPrickTotal: '',
@@ -805,9 +801,7 @@ export const getEmptyExamData = (): ExamData => {
     rightPinPrickTotal: '',
     rightSensory: '',
     rightSensoryZpp: '',
-    rightTouchTotal: '',
     rightUpperMotorTotal: '',
-    touchTotal: '',
     upperMotorTotal: '',
   };
 };

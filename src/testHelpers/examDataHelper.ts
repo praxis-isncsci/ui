@@ -83,8 +83,8 @@ export const getRandomExamData = () => {
     leftPinPrickTotal: Math.floor(Math.random() * 56).toString(),
     leftSensory: Math.floor(Math.random() * 56).toString(),
     leftSensoryZpp: Math.floor(Math.random() * 56).toString(),
-    leftTouchTotal: Math.floor(Math.random() * 56).toString(),
     leftUpperMotorTotal: Math.floor(Math.random() * 56).toString(),
+    lightTouchTotal: Math.floor(Math.random() * 56).toString(),
     lowerMotorTotal: Math.floor(Math.random() * 56).toString(),
     neurologicalLevelOfInjury: Math.floor(Math.random() * 56).toString(),
     pinPrickTotal: Math.floor(Math.random() * 56).toString(),
@@ -96,9 +96,7 @@ export const getRandomExamData = () => {
     rightPinPrickTotal: Math.floor(Math.random() * 56).toString(),
     rightSensory: Math.floor(Math.random() * 56).toString(),
     rightSensoryZpp: Math.floor(Math.random() * 56).toString(),
-    rightTouchTotal: Math.floor(Math.random() * 56).toString(),
     rightUpperMotorTotal: Math.floor(Math.random() * 56).toString(),
-    touchTotal: Math.floor(Math.random() * 56).toString(),
     upperMotorTotal: Math.floor(Math.random() * 56).toString(),
   };
 
