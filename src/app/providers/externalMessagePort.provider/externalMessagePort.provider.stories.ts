@@ -22,11 +22,19 @@ const storyInitializer = (getRandomExamData) => {
   iframe.addEventListener('load', () => {
     const isncsciIframe = document.querySelector('iframe');
     const randomExamButton = document.querySelector('button[random-exam]');
+    const incompleteExamButton = document.querySelector(
+      'button[random-incomplete-exam]',
+    );
     const readonlyButton = document.querySelector('button[readonly]');
     const flipFlagButton = document.querySelector('button[flip-flag]');
     const channel = new MessageChannel();
     const port1 = channel.port1;
     let readonly = false;
+
+    const getRandomEmptyValue = () => {
+      const emptyValues = [null, undefined, ''];
+      return emptyValues[Math.floor(Math.random() * emptyValues.length)];
+    };
 
     // Listen for messages on port1
     port1.onmessage = (e) => {
@@ -48,6 +56,31 @@ const storyInitializer = (getRandomExamData) => {
         action: 'SET_EXAM_DATA',
         readonly,
         examData: getRandomExamData(),
+      });
+    });
+
+    incompleteExamButton?.addEventListener('click', () => {
+      const examData = getRandomExamData();
+      ['T12', 'L1', 'L2', 'L3', 'L4', 'L5', 'S1', 'S2', 'S3', 'S4_5'].forEach(
+        (level) => {
+          [
+            'leftLightTouch',
+            'rightLightTouch',
+            'leftPinPrick',
+            'rightPinPrick',
+          ].forEach((side) => {
+            examData[`${side}${level}`] = getRandomEmptyValue();
+            examData[`${side}${level}ReasonImpairmentNotDueToSci`] = null;
+            examData[`${side}${level}ReasonImpairmentNotDueToSciSpecify`] =
+              null;
+          });
+        },
+      );
+
+      port1.postMessage({
+        action: 'SET_EXAM_DATA',
+        readonly: false,
+        examData,
       });
     });
 
@@ -95,6 +128,7 @@ const template = () => html`
   ></iframe>
   <ul controls>
     <li><button random-exam>Load random exam</button></li>
+    <li><button random-incomplete-exam>Load random incomplete exam</button></li>
     <li><button readonly>Load random exam as readonly</button></li>
     <li><button flip-flag>Flip readonly flag</button></li>
   </ul>

@@ -28,7 +28,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     ) {
       this.port = e.ports[0] ?? null;
       this.port.onmessage = (e: MessageEvent) =>
-        this.onPortMessage(e.data.action, e.data.examData, e.data.readonly);
+        this.onPortMessage(e.data.action, e.data.readonly, e.data.examData);
       this.dispatch({
         examData: null,
         readonly: false,
