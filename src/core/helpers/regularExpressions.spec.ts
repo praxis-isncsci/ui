@@ -40,6 +40,7 @@ describe('regularExpressions', () => {
       '4*',
       '4**',
       '5',
+      'UNK',
       'NT',
       'NT*',
       'NT**',
@@ -57,7 +58,7 @@ describe('regularExpressions', () => {
   });
 
   describe('sensoryValue', () => {
-    ['0', '0*', '0*', '1', '1*', '1*', '2', 'NT', 'NT*', 'NT**'].forEach(
+    ['0', '0*', '0*', '1', '1*', '1*', '2', 'UNK', 'NT', 'NT*', 'NT**'].forEach(
       (v) => {
         it(`should match ${v}`, () => {
           expect(sensoryValueRegex.test(v)).toBeTruthy();
