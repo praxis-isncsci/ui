@@ -255,6 +255,7 @@ export const getAppLayoutTemplate = (
   classificationStyle: '' | 'visible' | 'static',
   iconsPath: string,
   readonly: boolean = false,
+  showUnknown: boolean = false,
 ): string => {
   return `
     <praxis-isncsci-app-layout classification-style="${classificationStyle}" ${
@@ -262,7 +263,7 @@ export const getAppLayoutTemplate = (
   }>
       ${getAppBarTemplate(iconsPath)}
       ${getInputLayoutTemplate()}
-      ${getIsncsciInputTemplate(true, null, false, false)}
+      ${getIsncsciInputTemplate(true, null, false, showUnknown)}
       ${getClassificationTemplate(iconsPath)}
     </praxis-isncsci-app-layout>
   `;
