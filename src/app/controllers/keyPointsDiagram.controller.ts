@@ -25,7 +25,7 @@ export class KeyPointDiagramController {
 
     return /\*\*$/.test(cell.value)
       ? '2'
-      : cell.value.replace(/((NT)?\**)$/, '');
+      : cell.value.replace(/((UNK|NT)?\**)$/, '');
   }
 
   private getKeyPointColor(lightTouch: Cell | null, pinPrick: Cell | null) {
