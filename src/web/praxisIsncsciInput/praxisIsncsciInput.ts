@@ -22,6 +22,14 @@ export class PraxisIsncsciInput extends HTMLElement {
           padding: var(--padding, 1rem);
         }
 
+        :host([show-unknown]) [unk] {
+          display: flex;
+        }
+
+        :host([show-unknown]) [buttons] > *:last-child {
+          grid-column: auto;
+        }
+
         /* Button styles */
 
         [buttons] {
@@ -186,6 +194,10 @@ export class PraxisIsncsciInput extends HTMLElement {
           width: 100%;
         }
 
+        [unk] {
+          display: none;
+        }
+
         @container (min-width: 48rem) {
           :host {
             border-radius: 0 0 var(--border-radius, 0.5rem) var(--border-radius, 0.5rem);
@@ -244,6 +256,9 @@ export class PraxisIsncsciInput extends HTMLElement {
         <div class="button-group">
           <button class="isncsci-input-button" value="5" motor-only>5</button>
         </div>
+        <div class="button-group" unk>
+          <button class="isncsci-input-button" value="UNK">UNK</button>
+        </div>
         <div class="button-group">
           <button class="isncsci-input-button left" value="NT">NT</button>
           <button class="isncsci-input-button right" value="NT*"><span>*</span></button>
@@ -299,7 +314,7 @@ export class PraxisIsncsciInput extends HTMLElement {
   private buttons_onClick(button: HTMLButtonElement) {
     const value = button.value;
 
-    if (!value || !/^([0-4]\*?|5|NT\*{0,2})$/.test(value)) {
+    if (!value || !/^([0-4]\*?|5|UNK|NT\*{0,2})$/.test(value)) {
       return;
     }
 
