@@ -44,11 +44,13 @@ export const Sensory: Story = {
     disabled: false,
     selectedValue: '',
     showStarInput: false,
+    showUnknown: false,
   },
   argTypes: {
     disabled: {control: 'boolean'},
     selectedValue: {control: 'select', options: sensoryValues},
     showStarInput: {control: 'boolean'},
+    showUnknown: {control: 'boolean'},
   },
   render: (args) =>
     html`${styles}${unsafeHTML(
@@ -56,6 +58,7 @@ export const Sensory: Story = {
         args.disabled,
         args.selectedValue,
         args.showStarInput,
+        args.showUnknown,
         true,
       ),
     )}`,
@@ -66,11 +69,13 @@ export const Motor: Story = {
     disabled: false,
     selectedValue: '',
     showStarInput: false,
+    showUnknown: false,
   },
   argTypes: {
     disabled: {control: 'boolean'},
     selectedValue: {control: 'select', options: motorValues},
     showStarInput: {control: 'boolean'},
+    showUnknown: {control: 'boolean'},
   },
   render: (args) =>
     html`${styles}${unsafeHTML(
@@ -78,6 +83,7 @@ export const Motor: Story = {
         args.disabled,
         args.selectedValue,
         args.showStarInput,
+        args.showUnknown,
         false,
       ),
     )}`,

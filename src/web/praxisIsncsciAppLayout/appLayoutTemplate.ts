@@ -84,12 +84,15 @@ export const getIsncsciInputTemplate = (
   disabled: boolean,
   selectedValue: string | null,
   showStarInput: boolean,
+  showUnknown: boolean,
   sensory: boolean = false,
 ): string => {
   return `
     <praxis-isncsci-input slot="input-controls" ${disabled ? 'disabled' : ''} ${
     selectedValue ? `selected-value="${selectedValue}"` : ''
-  } ${showStarInput ? 'show-star-input' : ''} ${sensory ? 'sensory' : ''}>
+  } ${showStarInput ? 'show-star-input' : ''} ${
+    showUnknown ? 'show-unknown' : ''
+  } ${sensory ? 'sensory' : ''}>
       <label for="consider-normal" slot="consider-normal-label">Consider normal or not normal for classification:</label>
       <select name="consider-normal" id="consider-normal" slot="consider-normal">
         <option></option>
@@ -259,7 +262,7 @@ export const getAppLayoutTemplate = (
   }>
       ${getAppBarTemplate(iconsPath)}
       ${getInputLayoutTemplate()}
-      ${getIsncsciInputTemplate(true, null, false)}
+      ${getIsncsciInputTemplate(true, null, false, false)}
       ${getClassificationTemplate(iconsPath)}
     </praxis-isncsci-app-layout>
   `;
