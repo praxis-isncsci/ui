@@ -19,8 +19,9 @@ import {cloneExamData} from '@core/helpers/examData.helper';
  * 3. Convert any `UNK` values to `NT` before performing the calculation
  * 4. Calculate totals
  * 5. Bind totals to exam data
- * 6. Update state
- * 7. Update external listeners
+ * 6. Mark exam data as complete
+ * 7. Update state
+ * 8. Update external listeners
  */
 export const calculateUseCase = (
   gridModel: Array<Cell | null>[],
@@ -64,10 +65,13 @@ export const calculateUseCase = (
       examData[key] = totals[key];
     });
 
-    // 6. Update state
+    // 6. Mark exam data as complete
+    examData.isComplete = true;
+
+    // 7. Update state
     appStoreProvider.setTotals(totals);
 
-    // 7. Update external listeners
+    // 8. Update external listeners
     externalMessageProvider.sendOutExamData(examData);
   });
 };
