@@ -23,7 +23,7 @@ describe('regularExpressions', () => {
   });
 
   describe('motorValue', () => {
-    [
+    it.each([
       '0',
       '0*',
       '0**',
@@ -40,37 +40,40 @@ describe('regularExpressions', () => {
       '4*',
       '4**',
       '5',
+      'UNK',
       'NT',
       'NT*',
       'NT**',
-    ].forEach((v) => {
-      it(`should match ${v}`, () => {
-        expect(motorValueRegex.test(v)).toBeTruthy();
-      });
-    });
+    ])('`motorValueRegex` should match %i', (v) =>
+      expect(motorValueRegex.test(v)).toBeTruthy(),
+    );
 
-    ['0***', '6', '5*', 'a', 'b', '00', 'NT***'].forEach((v) => {
-      it(`should not match ${v}`, () => {
-        expect(motorValueRegex.test(v)).toBeFalsy();
-      });
-    });
+    it.each(['0***', '6', '5*', 'a', 'b', '00', 'NT***'])(
+      '`motorValueRegex` should not match %i',
+      (v) => expect(motorValueRegex.test(v)).toBeFalsy(),
+    );
   });
 
   describe('sensoryValue', () => {
-    ['0', '0*', '0*', '1', '1*', '1*', '2', 'NT', 'NT*', 'NT**'].forEach(
-      (v) => {
-        it(`should match ${v}`, () => {
-          expect(sensoryValueRegex.test(v)).toBeTruthy();
-        });
-      },
+    it.each([
+      '0',
+      '0*',
+      '0*',
+      '1',
+      '1*',
+      '1*',
+      '2',
+      'UNK',
+      'NT',
+      'NT*',
+      'NT**',
+    ])('`sensoryValueRegex` should match %i', (v) =>
+      expect(sensoryValueRegex.test(v)).toBeTruthy(),
     );
 
-    ['1***', '3', '3*', '4', '4*', '5', 'a', 'b', '00', 'NT***'].forEach(
-      (v) => {
-        it(`should not match ${v}`, () => {
-          expect(sensoryValueRegex.test(v)).toBeFalsy();
-        });
-      },
+    it.each(['1***', '3', '3*', '4', '4*', '5', 'a', 'b', '00', 'NT***'])(
+      '`sensoryValueRegex` should not match %i',
+      (v) => expect(sensoryValueRegex.test(v)).toBeFalsy(),
     );
   });
 });

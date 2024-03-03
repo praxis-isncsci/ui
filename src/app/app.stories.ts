@@ -72,10 +72,12 @@ const meta = {
   args: {
     readonly: false,
     staticHeight: false,
+    showUnknown: false,
   },
   argTypes: {
     readonly: {control: 'boolean'},
     staticHeight: {control: 'boolean'},
+    showUnknown: {control: 'boolean'},
   },
   render: (args) =>
     html`
@@ -87,6 +89,7 @@ const meta = {
               args.classificationStyle,
               'assets/icons',
               args.readonly,
+              args.showUnknown,
             ),
           )}
         </praxis-isncsci-web-app>

@@ -67,6 +67,7 @@ export type SensoryPointValue =
   | '1*'
   | '0**'
   | '1**'
+  | 'UNK'
   | 'NT'
   | 'NT*'
   | 'NT**';
@@ -113,6 +114,7 @@ export type MotorMuscleValue =
   | '2**'
   | '3**'
   | '4**'
+  | 'UNK'
   | 'NT'
   | 'NT*'
   | 'NT**';
@@ -125,6 +127,7 @@ export const ValidSensoryValues: SensoryPointValue[] = [
   '1*',
   '0**',
   '1**',
+  'UNK',
   'NT',
   'NT*',
   'NT**',
@@ -147,6 +150,7 @@ export const ValidMotorValues: MotorMuscleValue[] = [
   '2**',
   '3**',
   '4**',
+  'UNK',
   'NT',
   'NT*',
   'NT**',

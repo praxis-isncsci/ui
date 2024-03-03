@@ -5,17 +5,22 @@ import {
 } from '@core/boundaries';
 import {BinaryObservation, Cell, MotorLevel} from '@core/domain';
 import {getExamDataFromGridModel, validateExamData} from '@core/helpers';
+import {cloneExamData} from '@core/helpers/examData.helper';
 
 /*
  * This use case is responsible for calculating the totals
  * and updating the state of the application
  *
+ * `UNK` values are allowed in the exam data, but they are not valid values in the ISNCSCI library.
+ * They are converted to `NT` before performing the calculation but not persisted as part of the state.
+ *
  * 1. Get exam data from grid model
  * 2. Validate exam data
- * 3. Calculate totals
- * 4. Bind totals to exam data
- * 5. Update state
- * 6. Update external listeners
+ * 3. Convert any `UNK` values to `NT` before performing the calculation
+ * 4. Calculate totals
+ * 5. Bind totals to exam data
+ * 6. Update state
+ * 7. Update external listeners
  */
 export const calculateUseCase = (
   gridModel: Array<Cell | null>[],
@@ -49,17 +54,20 @@ export const calculateUseCase = (
     throw new Error(`The exam is not complete`);
   }
 
-  // 3. Calculate totals
-  examProvider.calculate(examData).then((totals) => {
-    // 4. Bind totals to exam data
+  // 3. Convert any `UNK` values to `NT` before performing the calculation
+  const clonedExamData = cloneExamData(examData, true);
+
+  // 4. Calculate totals
+  examProvider.calculate(clonedExamData).then((totals) => {
+    // 5. Bind totals to exam data
     Object.keys(totals).forEach((key) => {
       examData[key] = totals[key];
     });
 
-    // 5. Update state
+    // 6. Update state
     appStoreProvider.setTotals(totals);
 
-    // 6. Update external listeners
+    // 7. Update external listeners
     externalMessageProvider.sendOutExamData(examData);
   });
 };

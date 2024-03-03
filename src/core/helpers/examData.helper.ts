@@ -805,3 +805,18 @@ export const getEmptyExamData = (): ExamData => {
     upperMotorTotal: '',
   };
 };
+
+export const cloneExamData = (
+  examData: ExamData,
+  convertUnkToNt: boolean = false,
+): ExamData => {
+  const clonedExamData = {...examData};
+
+  Object.keys(clonedExamData).forEach((key) => {
+    if (convertUnkToNt && /UNK/i.test(clonedExamData[key])) {
+      clonedExamData[key] = 'NT';
+    }
+  });
+
+  return clonedExamData;
+};
