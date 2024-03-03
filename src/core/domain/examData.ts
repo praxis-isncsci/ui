@@ -7,6 +7,7 @@ export type ExamData = {
   voluntaryAnalContraction: BinaryObservation | null;
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
+  isComplete: boolean;
 
   /* Right Sensory */
   rightLightTouchC2: string;

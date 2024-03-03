@@ -376,6 +376,7 @@ export const getEmptyExamData = (): ExamData => {
     voluntaryAnalContraction: null,
     rightLowestNonKeyMuscleWithMotorFunction: null,
     leftLowestNonKeyMuscleWithMotorFunction: null,
+    isComplete: false,
     /* Right Sensory */
     rightLightTouchC2: '',
     rightLightTouchC2ReasonImpairmentNotDueToSci: null,
