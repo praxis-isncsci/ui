@@ -61,6 +61,7 @@ const storyInitializer = (getRandomExamData) => {
 
     incompleteExamButton?.addEventListener('click', () => {
       const examData = getRandomExamData();
+      examData.voluntaryAnalContraction = getRandomEmptyValue();
       ['T12', 'L1', 'L2', 'L3', 'L4', 'L5', 'S1', 'S2', 'S3', 'S4_5'].forEach(
         (level) => {
           [
