@@ -14,6 +14,7 @@ import {
   validCellNameRegex,
 } from './regularExpressions';
 import {BinaryObservation} from '@core/domain';
+import {ValidBinaryObservationValues} from '@core/domain/binaryObservation';
 
 const validateValue = (
   dataKey: string,
@@ -48,11 +49,17 @@ const validateValue = (
 export const validateExamData = (examData: ExamData) => {
   const errors: string[] = [];
 
-  if (!examData.voluntaryAnalContraction) {
+  if (
+    examData.voluntaryAnalContraction &&
+    !ValidBinaryObservationValues.includes(examData.voluntaryAnalContraction)
+  ) {
     errors.push('Voluntary Anal Contraction is not set');
   }
 
-  if (!examData.deepAnalPressure) {
+  if (
+    examData.deepAnalPressure &&
+    !ValidBinaryObservationValues.includes(examData.deepAnalPressure)
+  ) {
     errors.push('Deep Anal Pressure is not set');
   }
 
