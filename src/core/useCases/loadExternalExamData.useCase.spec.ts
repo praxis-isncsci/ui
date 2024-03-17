@@ -22,7 +22,6 @@ describe('loadExternalExamData.useCase.ts', () => {
 
     it('sets the VAC and DAP values using the App Store Provider', async () => {
       // Arrange
-      const readonly = false;
       const vac = 'Yes';
       const dap = 'No';
       const examData = getEmptyExamData();
@@ -30,12 +29,11 @@ describe('loadExternalExamData.useCase.ts', () => {
       examData.deepAnalPressure = dap;
 
       // Act
-      await loadExternalExamDataUseCase(appStoreProvider, examData, readonly);
+      await loadExternalExamDataUseCase(appStoreProvider, examData);
 
       // Assert
       expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(null, []);
       expect(appStoreProvider.setGridModel).toHaveBeenCalled();
-      expect(appStoreProvider.setReadonly).toHaveBeenCalledWith(readonly);
       expect(appStoreProvider.setTotals).toHaveBeenCalled();
       expect(appStoreProvider.setVacDap).toHaveBeenCalledWith(vac, dap);
       expect(appStoreProvider.setExtraInputs).toHaveBeenCalled();

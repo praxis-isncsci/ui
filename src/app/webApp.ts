@@ -57,7 +57,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   private externalMessagePortProvider = new ExternalMessagePortProvider();
   private isncsciExamProvider: IIsncsciExamProvider | null = null;
   private unsubscribeFromStoreHandler: Function | null = null;
-  private unsubscribeFromExternalChannelHandler: Function | null = null;
+  private unsubscribeFromExternalPortHandler: Function | null = null;
+  private unsubscribeFromReadonlyHandler: Function | null = null;
+  private unsubscribeFromExamDataHandler: Function | null = null;
+  private unsubscribeFromClassificationStyleHandler: Function | null = null;
   private ready = false;
 
   constructor() {
@@ -81,10 +84,29 @@ export class PraxisIsncsciWebApp extends HTMLElement {
         this.stateChanged(state, actionType),
     );
 
-    this.unsubscribeFromExternalChannelHandler =
-      this.externalMessagePortProvider.subscribe(
-        (action: string, examData: ExamData | null, readonly: boolean) =>
-          this.externalMessagePortProvider_onAction(action, examData, readonly),
+    this.unsubscribeFromExternalPortHandler =
+      this.externalMessagePortProvider.subscribeToOnExternalPort(() =>
+        this.externalMessagePortProvider_onExternalPort(),
+      );
+
+    this.unsubscribeFromReadonlyHandler =
+      this.externalMessagePortProvider.subscribeToOnReadonly(
+        (readonly: boolean) =>
+          this.externalMessagePortProvider_onReadonly(readonly),
+      );
+
+    this.unsubscribeFromExamDataHandler =
+      this.externalMessagePortProvider.subscribeToOnExamData(
+        (examData: ExamData | null) =>
+          this.externalMessagePortProvider_onExamData(examData),
+      );
+
+    this.unsubscribeFromClassificationStyleHandler =
+      this.externalMessagePortProvider.subscribeToOnClassificationStyle(
+        (classificationStyle: string) =>
+          this.externalMessagePortProvider_onClassificationStyle(
+            classificationStyle,
+          ),
       );
 
     this.appLayout = document.querySelector('praxis-isncsci-app-layout');
@@ -145,8 +167,20 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       this.unsubscribeFromStoreHandler();
     }
 
-    if (this.unsubscribeFromExternalChannelHandler) {
-      this.unsubscribeFromExternalChannelHandler();
+    if (this.unsubscribeFromClassificationStyleHandler) {
+      this.unsubscribeFromClassificationStyleHandler();
+    }
+
+    if (this.unsubscribeFromExamDataHandler) {
+      this.unsubscribeFromExamDataHandler();
+    }
+
+    if (this.unsubscribeFromExternalPortHandler) {
+      this.unsubscribeFromExternalPortHandler();
+    }
+
+    if (this.unsubscribeFromReadonlyHandler) {
+      this.unsubscribeFromReadonlyHandler();
     }
   }
 
@@ -209,32 +243,40 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     return false;
   }
 
-  private externalMessagePortProvider_onAction(
-    actionType: string,
-    examData: ExamData | null,
-    readonly: boolean,
-  ) {
+  private externalMessagePortProvider_onExternalPort() {
+    console.log('An external message port has been registered');
+  }
+
+  private externalMessagePortProvider_onExamData(examData: ExamData | null) {
     if (!this.appStoreProvider) {
       throw new Error(
         'The application store provider has not been initialized',
       );
     }
 
-    switch (actionType) {
-      case ExternalMessagePortProviderActions.ON_EXTERNAL_PORT:
-        console.log('An external message port has been registered');
-        break;
-      case ExternalMessagePortProviderActions.ON_EXAM_DATA:
-        loadExternalExamDataUseCase(
-          this.appStoreProvider,
-          examData ?? getEmptyExamData(),
-          readonly,
-        );
-        break;
-      case ExternalMessagePortProviderActions.ON_READONLY:
-        setReadonlyUseCase(readonly, this.appStoreProvider);
-        break;
+    loadExternalExamDataUseCase(
+      this.appStoreProvider,
+      examData ?? getEmptyExamData(),
+    );
+  }
+
+  private externalMessagePortProvider_onReadonly(readonly: boolean) {
+    if (!this.appStoreProvider) {
+      throw new Error(
+        'The application store provider has not been initialized',
+      );
     }
+
+    setReadonlyUseCase(readonly, this.appStoreProvider);
+  }
+
+  private externalMessagePortProvider_onClassificationStyle(
+    classificationStyle: string,
+  ) {
+    this.querySelector('praxis-isncsci-app-layout')?.setAttribute(
+      'classification-style',
+      classificationStyle,
+    );
   }
 
   private stateChanged(state: IAppState, actionType: string): void {
