@@ -27,6 +27,9 @@ const storyInitializer = (getRandomExamData) => {
     );
     const readonlyButton = document.querySelector('button[readonly]');
     const flipFlagButton = document.querySelector('button[flip-flag]');
+    const classificationStyleSelect = document.querySelector(
+      'select[classification-style]',
+    );
     const channel = new MessageChannel();
     const port1 = channel.port1;
     let readonly = false;
@@ -96,10 +99,17 @@ const storyInitializer = (getRandomExamData) => {
 
     flipFlagButton?.addEventListener('click', () => {
       readonly = !readonly;
-
       port1.postMessage({
         action: 'SET_READONLY',
         readonly,
+      });
+    });
+
+    classificationStyleSelect?.addEventListener('change', (e) => {
+      const select = e.target as HTMLSelectElement;
+      port1.postMessage({
+        action: 'SET_CLASSIFICATION_STYLE',
+        classificationStyle: select.options[select.selectedIndex].value,
       });
     });
   });
@@ -132,6 +142,14 @@ const template = () => html`
     <li><button random-incomplete-exam>Load random incomplete exam</button></li>
     <li><button readonly>Load random exam as readonly</button></li>
     <li><button flip-flag>Flip readonly flag</button></li>
+    <li>
+      <label>Classification style:</label>
+      <select classification-style>
+        <option value=""></option>
+        <option value="visible">visible</option>
+        <option value="static">static</option>
+      </select>
+    </li>
   </ul>
   <script>
     // We register this way to avoid getting exceptions of functions being already declared when navigating between stories.

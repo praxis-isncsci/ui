@@ -9,7 +9,6 @@ import {
 export const loadExternalExamDataUseCase = async (
   appStoreProvider: IIsncsciAppStoreProvider,
   examData: ExamData,
-  readonly: boolean = false,
 ) => {
   // 1. Validate exam data
   const errors = validateExamData(examData);
@@ -27,7 +26,6 @@ export const loadExternalExamDataUseCase = async (
   // 4. Update state
   await appStoreProvider.setActiveCell(null, []);
   await appStoreProvider.setGridModel(gridModel);
-  await appStoreProvider.setReadonly(readonly);
   await appStoreProvider.setTotals(totals);
   await appStoreProvider.setVacDap(
     examData.voluntaryAnalContraction,
