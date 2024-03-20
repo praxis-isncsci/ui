@@ -21,6 +21,7 @@ const getDownPropagationCellRange = (
 
   while (continueDown && rowIndex < gridModel.length) {
     const nextCell = gridModel[rowIndex][column];
+    rowIndex++;
 
     if (!nextCell) {
       continue;
@@ -31,8 +32,6 @@ const getDownPropagationCellRange = (
     } else {
       continueDown = false;
     }
-
-    rowIndex++;
   }
 
   return range;
