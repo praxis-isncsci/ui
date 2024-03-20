@@ -44,8 +44,11 @@ isncsciIframe.addEventListener('load', () => {
 });
 ```
 
-You can pass exam data to the ISNCSCI form by sending a message with the `action` of `SET_EXAM_DATA` and the exam data.
-You can also pass the `readonly` flag to make the form readonly.
+### Sending messages to the ISNCSCI form
+
+You can call the following actions to update a form:
+
+`SET_EXAM_DATA`: Pass exam data to the form.
 
 ```typescript
 // Create exam data
@@ -73,14 +76,29 @@ let examData = {
 };
 
 // Send the exam data through the port
-port1.postMessage({action: 'SET_EXAM_DATA', examData, readonly: false});
+port1.postMessage({action: 'SET_EXAM_DATA', examData});
 ```
 
-Making the component readonly is also possible without having to pass exam data.
-You can send a message with the `action` of `SET_READONLY` and the `readonly` flag.
+`SET_READONLY`: Make the form readonly.
 
 ```typescript
 port1.postMessage({action: 'SET_READONLY', readonly: true});
+```
+
+`SET_CLASSIFICATION_STYLE`: Sets how the classification panel is to be displayed:
+
+- `visible` makes the panel visible
+- `static` fixes the classification panel at the bottom of the form
+- `''` hides the classification panel
+
+```typescript
+port1.postMessage({action: 'SET_CLASSIFICATION_STYLE', style: 'visible'});
+```
+
+`CLASSIFY`: Triggers the classification logic
+
+```typescript
+port1.postMessage({action: 'CLASSIFY'});
 ```
 
 > Reference: [MDN: Using window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
