@@ -6,6 +6,7 @@ export class ExternalMessagePortProviderActions {
   public static SET_EXAM_DATA = 'SET_EXAM_DATA';
   public static SET_READONLY = 'SET_READONLY';
   public static SET_CLASSIFICATION_STYLE = 'SET_CLASSIFICATION_STYLE';
+  public static CLASSIFY = 'CLASSIFY';
 }
 
 export class ExternalMessagePortProvider implements IExternalMessageProvider {
@@ -14,6 +15,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
   private onClassificationStyleHandlers: Array<
     (classificationStyle: string) => void
   > = [];
+  private onClassifyHandlers: Array<() => void> = [];
   private onExternalPortHandlers: Array<() => void> = [];
 
   private port: MessagePort | null = null;
@@ -65,6 +67,10 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     ) {
       this.dispatchOnClassificationStyle(classificationStyle);
     }
+
+    if (action === ExternalMessagePortProviderActions.CLASSIFY) {
+      this.dispatchOnClassify();
+    }
   }
 
   public sendOutExamData(examData: ExamData) {
@@ -83,6 +89,10 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     this.onClassificationStyleHandlers.forEach((handler) =>
       handler(classificationStyle),
     );
+  }
+
+  private dispatchOnClassify() {
+    this.onClassifyHandlers.forEach((handler) => handler());
   }
 
   private dispatchOnExternalPort() {
@@ -123,6 +133,13 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     handler: (classificationStyle: string) => void,
   ) {
     return this.subscribe(handler, this.onClassificationStyleHandlers);
+  }
+
+  /*
+   * returns the unsubscribe function
+   */
+  public subscribeToOnClassify(handler: () => void) {
+    return this.subscribe(handler, this.onClassifyHandlers);
   }
 
   /*

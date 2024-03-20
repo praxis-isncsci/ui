@@ -109,6 +109,43 @@ describe('ExternalMessagePortProvider', () => {
     expect(handler).toHaveBeenCalledWith(examData);
   });
 
+  it('triggers the classification when `CLASSIFY` is passed as action', () => {
+    const handler = jest.fn();
+    const port = {
+      postMessage: jest.fn(),
+      onmessage: jest.fn(),
+    };
+    let windowEventHandler: (event) => void = () => {};
+
+    const window = {
+      addEventListener: (_, handler) => (windowEventHandler = handler),
+    };
+
+    const externalMessagePortProvider = new ExternalMessagePortProvider(
+      window as Window,
+    );
+
+    externalMessagePortProvider.subscribeToOnClassify(handler);
+
+    windowEventHandler.call(
+      ExternalMessagePortProviderActions.INITIALIZE_PORT,
+      {
+        data: {
+          action: ExternalMessagePortProviderActions.INITIALIZE_PORT,
+        },
+        ports: [port],
+      },
+    );
+
+    port.onmessage({
+      data: {
+        action: ExternalMessagePortProviderActions.CLASSIFY,
+      },
+    });
+
+    expect(handler).toHaveBeenCalled();
+  });
+
   it('Throws an exception when `SET_EXAM_DATA` event is received but the event has no exam data', () => {
     const handler = jest.fn();
     const port = {
