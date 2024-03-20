@@ -61,6 +61,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   private unsubscribeFromReadonlyHandler: Function | null = null;
   private unsubscribeFromExamDataHandler: Function | null = null;
   private unsubscribeFromClassificationStyleHandler: Function | null = null;
+  private unsubscribeFromClassifyHandler: Function | null = null;
   private ready = false;
 
   constructor() {
@@ -107,6 +108,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
           this.externalMessagePortProvider_onClassificationStyle(
             classificationStyle,
           ),
+      );
+
+    this.unsubscribeFromClassifyHandler =
+      this.externalMessagePortProvider.subscribeToOnClassify(() =>
+        this.classify(),
       );
 
     this.appLayout = document.querySelector('praxis-isncsci-app-layout');
@@ -182,6 +188,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     if (this.unsubscribeFromReadonlyHandler) {
       this.unsubscribeFromReadonlyHandler();
     }
+
+    if (this.unsubscribeFromClassifyHandler) {
+      this.unsubscribeFromClassifyHandler();
+    }
   }
 
   private closeClassification() {
@@ -198,6 +208,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   }
 
   private calculate_onClick() {
+    this.classify();
+  }
+
+  private classify() {
     if (!this.appLayout || !this.classification) {
       return;
     }

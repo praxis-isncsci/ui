@@ -25,8 +25,8 @@ const storyInitializer = (getRandomExamData) => {
     const incompleteExamButton = document.querySelector(
       'button[random-incomplete-exam]',
     );
-    const readonlyButton = document.querySelector('button[readonly]');
     const flipFlagButton = document.querySelector('button[flip-flag]');
+    const classifyButton = document.querySelector('button[classify]');
     const classificationStyleSelect = document.querySelector(
       'select[classification-style]',
     );
@@ -54,10 +54,8 @@ const storyInitializer = (getRandomExamData) => {
     }
 
     randomExamButton?.addEventListener('click', () => {
-      readonly = false;
       port1.postMessage({
         action: 'SET_EXAM_DATA',
-        readonly,
         examData: getRandomExamData(),
       });
     });
@@ -83,17 +81,7 @@ const storyInitializer = (getRandomExamData) => {
 
       port1.postMessage({
         action: 'SET_EXAM_DATA',
-        readonly: false,
         examData,
-      });
-    });
-
-    readonlyButton?.addEventListener('click', () => {
-      readonly = true;
-      port1.postMessage({
-        action: 'SET_EXAM_DATA',
-        readonly,
-        examData: getRandomExamData(),
       });
     });
 
@@ -102,6 +90,12 @@ const storyInitializer = (getRandomExamData) => {
       port1.postMessage({
         action: 'SET_READONLY',
         readonly,
+      });
+    });
+
+    classifyButton?.addEventListener('click', () => {
+      port1.postMessage({
+        action: 'CLASSIFY',
       });
     });
 
@@ -140,8 +134,8 @@ const template = () => html`
   <ul controls>
     <li><button random-exam>Load random exam</button></li>
     <li><button random-incomplete-exam>Load random incomplete exam</button></li>
-    <li><button readonly>Load random exam as readonly</button></li>
     <li><button flip-flag>Flip readonly flag</button></li>
+    <li><button classify>Classify</button></li>
     <li>
       <label>Classification style:</label>
       <select classification-style>
