@@ -355,5 +355,54 @@ describe('setStarDetails.useCase.spec', () => {
         'b',
       );
     });
+
+    /*
+     * I am adding this test because we were getting an infinite loop when
+     *   1. We select `C5 motor`
+     *   2. We press the `1*` input button, setting all right motor values to `1*`
+     *   3. We select `consider normal` from the star details inputs
+     *   4. The `propagateDown` flag is set to true
+     */
+    it('calls `appStoreProvider.setCellsValue` with all the right motor cells and sets the value to `1**` when only C5 Motor is selected and all right motor values are set to `1*` and we are setting `considerNormal = true`', async () => {
+      // Arrange
+      const value = '1*';
+      const selectedCells: Cell[] = [];
+
+      gridModel.forEach((row) => {
+        const cell = row[0];
+
+        if (cell) {
+          cell.value = value;
+          cell.label = value;
+          selectedCells.push(cell);
+        }
+      });
+
+      // Act
+      setStarDetailsUseCase(
+        true,
+        undefined,
+        undefined,
+        selectedCells,
+        gridModel,
+        null,
+        null,
+        null,
+        null,
+        '',
+        true,
+        appStoreProvider,
+        externalMessageProvider,
+      );
+
+      expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
+        selectedCells,
+        '1**',
+        '1*',
+        undefined,
+        undefined,
+        undefined,
+      );
+    });
   });
 });
