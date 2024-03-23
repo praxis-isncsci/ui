@@ -10,6 +10,7 @@ export {
   getCellRow,
   getEmptyExamData,
   getExamDataFromGridModel,
+  getExamDataWithAllNormalValues,
   validateExamData,
 } from './examData.helper';
 

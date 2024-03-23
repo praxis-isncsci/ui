@@ -814,6 +814,22 @@ export const getEmptyExamData = (): ExamData => {
   };
 };
 
+export const getExamDataWithAllNormalValues = (): ExamData => {
+  const examData = getEmptyExamData();
+  examData.voluntaryAnalContraction = 'Yes';
+  examData.deepAnalPressure = 'Yes';
+
+  Object.keys(examData).forEach((key) => {
+    if (/^(right|left)(LightTouch|PinPrick)(?!.*NotDueToSci$)/.test(key)) {
+      examData[key] = '2';
+    } else if (/^(right|left)Motor(?!.*NotDueToSci$)/.test(key)) {
+      examData[key] = '5';
+    }
+  });
+
+  return examData;
+};
+
 export const cloneExamData = (
   examData: ExamData,
   convertUnkToNt: boolean = false,
