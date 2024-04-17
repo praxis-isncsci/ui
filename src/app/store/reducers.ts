@@ -2,8 +2,10 @@ import {IAppState} from '@core/boundaries';
 import {BinaryObservation, Cell, Totals} from '@core/domain';
 
 import {IActionWithPayload} from './';
+import {getEmptyTotals} from '@core/helpers/examData.helper';
 
 export class Actions {
+  public static CLEAR_TOTALS_AND_ERRORS = 'CLEAR_TOTALS_AND_ERRORS';
   public static SET_ACTIVE_CELL = 'SET_ACTIVE_CELL';
   public static SET_CALCULATION_ERROR = 'SET_CALCULATION_ERROR';
   public static SET_CELLS_VALUE = 'SET_CELLS_VALUE';
@@ -49,6 +51,11 @@ const calculationError = (
   switch (action.type) {
     case Actions.SET_CALCULATION_ERROR:
       return Object.assign({}, state, {calculationError: action.payload});
+    case Actions.CLEAR_TOTALS_AND_ERRORS:
+      return Object.assign({}, state, {
+        calculationError: '',
+        totals: getEmptyTotals(),
+      });
     default:
       return state;
   }

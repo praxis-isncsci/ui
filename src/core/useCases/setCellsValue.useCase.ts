@@ -24,7 +24,7 @@ import {getEmptyTotals} from '@core/helpers/examData.helper';
  *  4.1. Filter out the sensory cells if the value is a motor only value, add all cells to be updated otherwise.
  * 5. If there are no cells to update, we stop. Nothing gets updated.
  * 6. Call `appStoreProvider.setCellsValue` with the cells to update and the value.
- * 7. Clear the totals
+ * 7. Clear the totals and errors
  * 8. Update external listeners
  */
 export const setCellsValueUseCase = async (
@@ -85,28 +85,32 @@ export const setCellsValueUseCase = async (
     return;
   }
 
-  // 6. Call `appStoreProvider.setCellsValue` with the cells to update and the value.
-  await appStoreProvider.setCellsValue(
-    cellsToUpdate,
-    value,
-    value.replace('**', '*'),
-    starErrorMessage,
-    undefined,
-    undefined,
-  );
+  try {
+    // 6. Call `appStoreProvider.setCellsValue` with the cells to update and the value.
+    await appStoreProvider.setCellsValue(
+      cellsToUpdate,
+      value,
+      value.replace('**', '*'),
+      starErrorMessage,
+      undefined,
+      undefined,
+    );
 
-  // 7. Clear the totals
-  await appStoreProvider.setTotals(getEmptyTotals());
+    // 7. Clear the totals and errors
+    await appStoreProvider.clearTotalsAndErrors();
 
-  // 8. Update external listeners
-  const {examData} = getExamDataFromGridModel(
-    gridModel,
-    vac,
-    dap,
-    rightLowestNonKeyMuscle,
-    leftLowestNonKeyMuscle,
-    comments,
-  );
+    // 8. Update external listeners
+    const {examData} = getExamDataFromGridModel(
+      gridModel,
+      vac,
+      dap,
+      rightLowestNonKeyMuscle,
+      leftLowestNonKeyMuscle,
+      comments,
+    );
 
-  await externalMessageProvider.sendOutExamData(examData);
+    await externalMessageProvider.sendOutExamData(examData);
+  } catch (error) {
+    console.error('Error setting cells value', error);
+  }
 };

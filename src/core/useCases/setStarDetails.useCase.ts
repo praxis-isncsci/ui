@@ -45,7 +45,7 @@ const getDownPropagationCellRange = (
  * 4. Check if there is a single cell selected and `propagateDown` is set to `true` - we only propagate down if there is a single cell selected.
  *    We use the selected cells if a multiple are selected or `propagateDown` is set to `false`.
  * 5. Call `appStoreProvider.setCellsValue` with the selected cells and the values.
- * 6. Clear the totals
+ * 6. Clear the totals and errors
  * 7. Update external listeners
  */
 export const setStarDetailsUseCase = async (
@@ -114,18 +114,22 @@ export const setStarDetailsUseCase = async (
     details,
   );
 
-  // 6. Clear the totals
-  await appStoreProvider.setTotals(getEmptyTotals());
+  try {
+    // 6. Clear the totals and errors
+    await appStoreProvider.clearTotalsAndErrors();
 
-  // 7. Update external listeners
-  const {examData} = getExamDataFromGridModel(
-    gridModel,
-    vac,
-    dap,
-    rightLowestNonKeyMuscleWithMotorFunction,
-    leftLowestNonKeyMuscleWithMotorFunction,
-    comments,
-  );
+    // 7. Update external listeners
+    const {examData} = getExamDataFromGridModel(
+      gridModel,
+      vac,
+      dap,
+      rightLowestNonKeyMuscleWithMotorFunction,
+      leftLowestNonKeyMuscleWithMotorFunction,
+      comments,
+    );
 
-  await externalMessageProvider.sendOutExamData(examData);
+    await externalMessageProvider.sendOutExamData(examData);
+  } catch (error) {
+    console.error(error);
+  }
 };

@@ -2,6 +2,7 @@ import {Cell, MotorLevel, Totals} from '@core/domain';
 import {BinaryObservation} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
+  clearTotalsAndErrors(): Promise<void>;
   setActiveCell(cell: Cell | null, selectedCells: Cell[]): Promise<void>;
   setCalculationError(error: string): Promise<void>;
   setCellsValue(

@@ -25,8 +25,8 @@ export const setExtraInputsUseCase = async (
     comments,
   );
 
-  // 2. Clear the totals
-  await appStoreProvider.setTotals(getEmptyTotals());
+  // 2. Clear the totals and errors
+  await appStoreProvider.clearTotalsAndErrors();
 
   // 3. Update external listeners
   const {examData} = getExamDataFromGridModel(
@@ -38,5 +38,9 @@ export const setExtraInputsUseCase = async (
     comments,
   );
 
-  await externalMessageProvider.sendOutExamData(examData);
+  try {
+    await externalMessageProvider.sendOutExamData(examData);
+  } catch (error) {
+    console.error('Error sending out exam data', error);
+  }
 };

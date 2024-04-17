@@ -63,7 +63,7 @@ export const calculateUseCase = async (
       );
 
       // 2.1.2 Update the external listeners so they are informed of the errors
-      examData.errors = missingValues;
+      examData.missingValues = missingValues;
       await externalMessageProvider.sendOutExamData(examData);
     } catch (error) {
       console.log(error);

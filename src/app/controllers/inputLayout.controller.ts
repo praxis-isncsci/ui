@@ -378,6 +378,7 @@ export class InputLayoutController {
         this.updateView(state.gridModel.slice());
         break;
       case Actions.SET_TOTALS:
+      case Actions.CLEAR_TOTALS_AND_ERRORS:
         this.updateTotals(state.totals);
         break;
       case Actions.SET_ACTIVE_CELL:

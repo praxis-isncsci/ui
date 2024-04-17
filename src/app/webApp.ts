@@ -309,10 +309,20 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       }
     }
 
-    if (actionType === Actions.SET_TOTALS) {
+    if (
+      actionType === Actions.SET_TOTALS ||
+      actionType === Actions.CLEAR_TOTALS_AND_ERRORS
+    ) {
       if (!state.totals.asiaImpairmentScale) {
         this.closeClassification();
       }
+    }
+
+    if (
+      actionType === Actions.SET_CALCULATION_ERROR &&
+      state.calculationError
+    ) {
+      alert(state.calculationError);
     }
   }
 }

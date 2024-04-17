@@ -53,6 +53,7 @@ describe('setCellValue.useCase.spec', () => {
       // Assert
       expect(errorMessage).toBe(`Invalid value: ${value}`);
       expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
+      expect(appStoreProvider.setCalculationError).not.toHaveBeenCalled();
       expect(externalMessageProvider.sendOutExamData).not.toHaveBeenCalled();
     });
 
@@ -88,7 +89,7 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
-      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
     it('should not call `setCellsValue` when only `left-pin-prick-c2` is selected (sensory cell), `value` is `4` (motor value), and `propagateDown` is `true`', async () => {
@@ -116,6 +117,7 @@ describe('setCellValue.useCase.spec', () => {
       expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
       expect(externalMessageProvider.sendOutExamData).not.toHaveBeenCalled();
       expect(appStoreProvider.setTotals).not.toHaveBeenCalled();
+      expect(appStoreProvider.setCalculationError).not.toHaveBeenCalled();
     });
 
     it('should set the value `1` to the entire `left-pin-prick` row when only `left-pin-prick-c2` is selected, `value` is `1`, and `propagateDown` is `true`', async () => {
@@ -152,10 +154,10 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
-      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
-    it('should not call `setCellsValue` `value` is `4` (motor value) and only sensory cells are selected', async () => {
+    it('should not call `setCellsValue` when `value` is `4` (motor value) and only sensory cells are selected', async () => {
       // Arrange
       const value = '4';
       const selectedCells = [
@@ -182,7 +184,7 @@ describe('setCellValue.useCase.spec', () => {
       // Assert
       expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
       expect(externalMessageProvider.sendOutExamData).not.toHaveBeenCalled();
-      expect(appStoreProvider.setTotals).not.toHaveBeenCalled();
+      expect(appStoreProvider.clearTotalsAndErrors).not.toHaveBeenCalled();
     });
 
     it('should set the value `5` (motor value) to only the motor cells selected when `value` is `5` and multiple cells are selected', async () => {
@@ -227,8 +229,8 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
         undefined,
       );
-      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
     it('should set the value `NT*` to all selected cells when `value` is `NT*` and multiple cells are selected, and `propagateDown` is `false`', async () => {
@@ -269,7 +271,7 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
-      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
     it('cells should not have any error message when the `value` does not have a star (*) flag', async () => {
@@ -304,7 +306,7 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
-      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
     it('should add an error message when `value` has a star (*) flag', async () => {
@@ -341,7 +343,7 @@ describe('setCellValue.useCase.spec', () => {
         undefined,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
-      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
   });
 });

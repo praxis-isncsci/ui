@@ -52,7 +52,7 @@ describe('setExtraInputs.useCase.ts', () => {
         comments,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
-      expect(appStoreProvider.setTotals).toHaveBeenCalledWith(getEmptyTotals());
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
   });
 });
