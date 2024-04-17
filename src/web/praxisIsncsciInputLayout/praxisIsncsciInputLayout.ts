@@ -53,13 +53,29 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
 
       [diagram] ::slotted([slot="key-points-diagram"]) {
         left: 50%;
-        position: fixed;
+        position: relative;
         transform: translateX(-50%);
       }
 
-      @container (min-width: 48rem) {
+      @media (min-height: 76.5rem) {
+        [diagram] ::slotted([slot="key-points-diagram"]) {
+          position: fixed;
+        }
+      }
+
+      @container (min-width: 53.125rem) {
         [diagram] {
           display: block;
+        }
+
+        [diagram] ::slotted([slot="key-points-diagram"]) {
+          transform: translateX(-50%) scale(0.8);
+        }
+      }
+
+      @container (min-width: 58.125rem) {
+        [diagram] ::slotted([slot="key-points-diagram"]) {
+          transform: translateX(-50%) scale(1);
         }
       }
     </style>
