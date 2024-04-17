@@ -17,6 +17,15 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     return Promise.resolve();
   }
 
+  public setCalculationError(error: string): Promise<void> {
+    this.appStore.dispatch({
+      type: Actions.SET_CALCULATION_ERROR,
+      payload: error,
+    });
+
+    return Promise.resolve();
+  }
+
   public setCellsValue(
     cellsToUpdate: Cell[],
     value: string,

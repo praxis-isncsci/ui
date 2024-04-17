@@ -6,6 +6,7 @@ class AppStore implements IDataStore<IAppState> {
   private handlers: Function[] = [];
   private state: IAppState = {
     activeCell: null,
+    calculationError: '',
     comments: '',
     dap: null,
     gridModel: [],

@@ -8,6 +8,7 @@ export class StatusCodes {
 
 export interface IAppState {
   activeCell: Cell | null;
+  calculationError: string;
   comments: string;
   dap: BinaryObservation | null;
   gridModel: Array<Cell | null>[];

@@ -3,6 +3,7 @@ import {BinaryObservation} from '@core/domain';
 
 export interface IIsncsciAppStoreProvider {
   setActiveCell(cell: Cell | null, selectedCells: Cell[]): Promise<void>;
+  setCalculationError(error: string): Promise<void>;
   setCellsValue(
     cells: Cell[],
     value: string,

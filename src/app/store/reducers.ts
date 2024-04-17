@@ -5,6 +5,7 @@ import {IActionWithPayload} from './';
 
 export class Actions {
   public static SET_ACTIVE_CELL = 'SET_ACTIVE_CELL';
+  public static SET_CALCULATION_ERROR = 'SET_CALCULATION_ERROR';
   public static SET_CELLS_VALUE = 'SET_CELLS_VALUE';
   public static SET_EXTRA_INPUTS = 'SET_EXTRA_INPUTS';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
@@ -36,6 +37,18 @@ const activeCell = (
         activeCell: action.payload.cell,
         selectedCells: action.payload.selectedCells,
       });
+    default:
+      return state;
+  }
+};
+
+const calculationError = (
+  state: IAppState,
+  action: IActionWithPayload<string>,
+): IAppState => {
+  switch (action.type) {
+    case Actions.SET_CALCULATION_ERROR:
+      return Object.assign({}, state, {calculationError: action.payload});
     default:
       return state;
   }
@@ -148,6 +161,7 @@ const values = (
 
 export {
   activeCell,
+  calculationError,
   extraInputs,
   gridModel,
   readonly,
@@ -159,6 +173,7 @@ export {
 
 export default [
   activeCell,
+  calculationError,
   extraInputs,
   gridModel,
   readonly,

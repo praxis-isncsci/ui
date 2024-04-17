@@ -4,6 +4,7 @@ import {IIsncsciAppStoreProvider} from '@core/boundaries';
 export const getAppStoreProviderMock = (): IIsncsciAppStoreProvider => {
   return {
     setActiveCell: jest.fn(() => Promise.resolve()),
+    setCalculationError: jest.fn(() => Promise.resolve()),
     setCellsValue: jest.fn(() => Promise.resolve()),
     setExtraInputs: jest.fn(() => Promise.resolve()),
     setGridModel: jest.fn(() => Promise.resolve()),

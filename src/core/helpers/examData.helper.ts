@@ -200,7 +200,15 @@ export const getExamDataFromGridModel = (
     leftLowestNonKeyMuscleWithMotorFunction;
   examData.comments = comments;
 
-  let isMissingValues = false;
+  const missingValues: string[] = [];
+
+  if (voluntaryAnalContraction === null) {
+    missingValues.push('voluntaryAnalContraction');
+  }
+
+  if (deepAnalPressure === null) {
+    missingValues.push('deepAnalPressure');
+  }
 
   gridModel.flat().forEach((cell) => {
     if (cell) {
@@ -209,7 +217,7 @@ export const getExamDataFromGridModel = (
       );
 
       if (!cell.value) {
-        isMissingValues = true;
+        missingValues.push(cell.name);
       }
 
       examData[key] = cell.value;
@@ -220,7 +228,7 @@ export const getExamDataFromGridModel = (
     }
   });
 
-  return {examData, isMissingValues};
+  return {examData, missingValues};
 };
 
 export const findCell = (cellName: string, gridModel: Array<Cell | null>[]) => {
@@ -378,6 +386,8 @@ export const getEmptyTotals = (): Totals => {
 
 export const getEmptyExamData = (): ExamData => {
   return {
+    errors: [],
+    missingValues: [],
     comments: null,
     deepAnalPressure: null,
     voluntaryAnalContraction: null,
