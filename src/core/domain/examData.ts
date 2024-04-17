@@ -8,6 +8,8 @@ export type ExamData = {
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;
   isComplete: boolean;
+  errors: string[];
+  missingValues: string[];
 
   /* Right Sensory */
   rightLightTouchC2: string;

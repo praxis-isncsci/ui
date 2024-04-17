@@ -68,6 +68,8 @@ export const getRandomExamData = () => {
   };
 
   const examData = {
+    errors: [] as string[],
+    missingValues: [] as string[],
     comments: randomElement(comments),
     deepAnalPressure: randomElement(binaryObservation),
     voluntaryAnalContraction: randomElement(binaryObservation),

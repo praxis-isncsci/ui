@@ -5,6 +5,15 @@ import {BinaryObservation, Cell, MotorLevel, Totals} from '@core/domain';
 export class AppStoreProvider implements IIsncsciAppStoreProvider {
   public constructor(private appStore: IDataStore<IAppState>) {}
 
+  public clearTotalsAndErrors(): Promise<void> {
+    this.appStore.dispatch({
+      type: Actions.CLEAR_TOTALS_AND_ERRORS,
+      payload: undefined,
+    });
+
+    return Promise.resolve();
+  }
+
   public setActiveCell(
     cell: Cell | null,
     selectedCells: Cell[],
@@ -12,6 +21,15 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     this.appStore.dispatch({
       type: Actions.SET_ACTIVE_CELL,
       payload: {cell, selectedCells},
+    });
+
+    return Promise.resolve();
+  }
+
+  public setCalculationError(error: string): Promise<void> {
+    this.appStore.dispatch({
+      type: Actions.SET_CALCULATION_ERROR,
+      payload: error,
     });
 
     return Promise.resolve();

@@ -18,21 +18,26 @@ export const setVacDapUseCase = async (
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
 ) => {
-  // 1. Set VAC and DAP
-  await appStoreProvider.setVacDap(vac, dap);
+  try {
+    // 1. Set VAC and DAP
+    await appStoreProvider.setVacDap(vac, dap);
 
-  // 2. Clear the totals
-  await appStoreProvider.setTotals(getEmptyTotals());
+    // 2. Clear the totals and errors
+    await appStoreProvider.clearTotalsAndErrors();
 
-  // 3. Update external listeners
-  const {examData} = getExamDataFromGridModel(
-    gridModel,
-    vac,
-    dap,
-    rightLowestNonKeyMuscle,
-    leftLowestNonKeyMuscle,
-    comments,
-  );
+    // 3. Update external listeners
+    const {examData} = getExamDataFromGridModel(
+      gridModel,
+      vac,
+      dap,
+      rightLowestNonKeyMuscle,
+      leftLowestNonKeyMuscle,
+      comments,
+    );
 
-  await externalMessageProvider.sendOutExamData(examData);
+    // 4. Update external listeners
+    await externalMessageProvider.sendOutExamData(examData);
+  } catch (error) {
+    console.error('Error setting VAC and DAP', error);
+  }
 };

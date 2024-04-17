@@ -90,6 +90,7 @@ describe('setStarDetails.useCase.spec', () => {
 
       // Assert
       expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
+      expect(appStoreProvider.setCalculationError).not.toHaveBeenCalled();
       expect(errorMessage).toBe(expectedError);
     });
 
@@ -111,7 +112,7 @@ describe('setStarDetails.useCase.spec', () => {
       const expectedRange = [c2, c3, c4, c5];
 
       // Act
-      setStarDetailsUseCase(
+      await setStarDetailsUseCase(
         false,
         'a',
         'b',
@@ -136,6 +137,7 @@ describe('setStarDetails.useCase.spec', () => {
         'a',
         'b',
       );
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
     [
@@ -238,6 +240,7 @@ describe('setStarDetails.useCase.spec', () => {
 
         // Assert
         expect(appStoreProvider.setCellsValue).not.toHaveBeenCalled();
+        expect(appStoreProvider.setCalculationError).not.toHaveBeenCalled();
         expect(errorMessage).toBe(expectedError);
       });
     });
@@ -259,7 +262,7 @@ describe('setStarDetails.useCase.spec', () => {
       const selectedCells = [c2, t3, c4, c8];
 
       // Act
-      setStarDetailsUseCase(
+      await setStarDetailsUseCase(
         false,
         'a',
         'b',
@@ -284,6 +287,7 @@ describe('setStarDetails.useCase.spec', () => {
         'a',
         'b',
       );
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
     it('flags the value with double star when consider normal is set to true', async () => {
@@ -294,7 +298,7 @@ describe('setStarDetails.useCase.spec', () => {
       const selectedCells = [c2];
 
       // Act
-      setStarDetailsUseCase(
+      await setStarDetailsUseCase(
         true,
         'a',
         'b',
@@ -319,6 +323,7 @@ describe('setStarDetails.useCase.spec', () => {
         'a',
         'b',
       );
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalledWith();
     });
 
     it('sets an error message on the cells when consider normal is null', async () => {
@@ -329,7 +334,7 @@ describe('setStarDetails.useCase.spec', () => {
       const selectedCells = [c2];
 
       // Act
-      setStarDetailsUseCase(
+      await setStarDetailsUseCase(
         null,
         'a',
         'b',
@@ -354,6 +359,7 @@ describe('setStarDetails.useCase.spec', () => {
         'a',
         'b',
       );
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
 
     /*
@@ -379,7 +385,7 @@ describe('setStarDetails.useCase.spec', () => {
       });
 
       // Act
-      setStarDetailsUseCase(
+      await setStarDetailsUseCase(
         true,
         undefined,
         undefined,
@@ -395,6 +401,7 @@ describe('setStarDetails.useCase.spec', () => {
         externalMessageProvider,
       );
 
+      // Assert
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         selectedCells,
         '1**',
@@ -403,6 +410,8 @@ describe('setStarDetails.useCase.spec', () => {
         undefined,
         undefined,
       );
+
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
   });
 });
