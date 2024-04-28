@@ -13,9 +13,9 @@ export const loadExternalExamDataUseCase = async (
   // 1. Validate exam data
   const errors = validateExamData(examData);
 
-  if (errors.length > 0) {
-    throw new Error(`Invalid exam data: ${errors.join(', ')}`);
-  }
+  await appStoreProvider.setCalculationError(
+    errors.length > 0 ? `Invalid exam data: ${errors.join(', ')}` : '',
+  );
 
   // 2. Bind exam data to a new grid model
   const gridModel = bindExamDataToGridModel(examData);

@@ -10,6 +10,7 @@ describe('cellHelper', () => {
         name: 'C2',
         value: 'NT',
         error: undefined,
+        considerNormal: undefined,
         reasonImpairmentNotDueToSci: undefined,
         reasonImpairmentNotDueToSciSpecify: undefined,
       };
@@ -19,6 +20,7 @@ describe('cellHelper', () => {
         name: 'C2',
         value: 'NT',
         error: undefined,
+        considerNormal: undefined,
         reasonImpairmentNotDueToSci: undefined,
         reasonImpairmentNotDueToSciSpecify: undefined,
       };
@@ -32,6 +34,7 @@ describe('cellHelper', () => {
         name: 'C2',
         value: 'NT',
         error: undefined,
+        considerNormal: undefined,
         reasonImpairmentNotDueToSci: undefined,
         reasonImpairmentNotDueToSciSpecify: undefined,
       };
@@ -41,6 +44,7 @@ describe('cellHelper', () => {
         name: 'C2',
         value: 'NT*',
         error: undefined,
+        considerNormal: undefined,
         reasonImpairmentNotDueToSci: undefined,
         reasonImpairmentNotDueToSciSpecify: undefined,
       };
@@ -54,6 +58,7 @@ describe('cellHelper', () => {
         name: 'C2',
         value: 'NT',
         error: undefined,
+        considerNormal: undefined,
         reasonImpairmentNotDueToSci: undefined,
         reasonImpairmentNotDueToSciSpecify: undefined,
       };
@@ -62,6 +67,7 @@ describe('cellHelper', () => {
         name: 'C2',
         value: 'NT',
         error: '',
+        considerNormal: undefined,
         reasonImpairmentNotDueToSci: undefined,
         reasonImpairmentNotDueToSciSpecify: undefined,
       };

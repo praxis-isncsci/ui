@@ -72,6 +72,7 @@ describe('ExamDataHelper', () => {
     it('should return an empty array when a sensory level has a reason for impairment not due to SCI and the level was marked with a star', () => {
       const examData = getExamDataForAsiaE();
       examData['rightLightTouchC5'] = '1*';
+      examData['rightLightTouchC5ConsiderNormal'] = false;
       examData['rightLightTouchC5ReasonImpairmentNotDueToSci'] = 'Other';
       examData['rightLightTouchC5ReasonImpairmentNotDueToSciSpecify'] =
         'Something else';
