@@ -84,9 +84,10 @@ describe('setCellValue.useCase.spec', () => {
         expectedCells,
         value,
         value,
-        undefined,
-        undefined,
-        undefined,
+        null,
+        null,
+        null,
+        null,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
@@ -149,9 +150,10 @@ describe('setCellValue.useCase.spec', () => {
         expectedCells,
         value,
         value,
-        undefined,
-        undefined,
-        undefined,
+        null,
+        null,
+        null,
+        null,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
@@ -225,9 +227,10 @@ describe('setCellValue.useCase.spec', () => {
         expectedCells,
         value,
         value,
-        undefined,
-        undefined,
-        undefined,
+        null,
+        null,
+        null,
+        null,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
@@ -267,8 +270,9 @@ describe('setCellValue.useCase.spec', () => {
         value,
         value,
         expectedErrorMessage,
-        undefined,
-        undefined,
+        null,
+        null,
+        null,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
@@ -301,9 +305,10 @@ describe('setCellValue.useCase.spec', () => {
         selectedCells,
         value,
         value,
-        undefined,
-        undefined,
-        undefined,
+        null,
+        null,
+        null,
+        null,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
@@ -339,8 +344,9 @@ describe('setCellValue.useCase.spec', () => {
         value,
         value,
         expectedErrorMessage,
-        undefined,
-        undefined,
+        null,
+        null,
+        null,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();

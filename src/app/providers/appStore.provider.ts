@@ -39,9 +39,10 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     cellsToUpdate: Cell[],
     value: string,
     label: string,
-    error: string | undefined,
-    reasonImpairmentNotDueToSci: string | undefined,
-    reasonImpairmentNotDueToSciSpecify: string | undefined,
+    error: string | null,
+    considerNormal: boolean | null,
+    reasonImpairmentNotDueToSci: string | null,
+    reasonImpairmentNotDueToSciSpecify: string | null,
   ): Promise<void> {
     this.appStore.dispatch({
       type: Actions.SET_CELLS_VALUE,
@@ -50,6 +51,7 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
         value,
         label,
         error,
+        considerNormal,
         reasonImpairmentNotDueToSci,
         reasonImpairmentNotDueToSciSpecify,
       },

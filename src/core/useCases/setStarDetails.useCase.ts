@@ -50,8 +50,8 @@ const getDownPropagationCellRange = (
  */
 export const setStarDetailsUseCase = async (
   considerNormal: boolean | null,
-  reason: string | undefined,
-  details: string | undefined,
+  reason: string | null,
+  details: string | null,
   selectedCells: Cell[],
   gridModel: Array<Cell | null>[],
   vac: BinaryObservation | null,
@@ -83,7 +83,7 @@ export const setStarDetailsUseCase = async (
   const error =
     considerNormal === null
       ? 'Please indicate if the value should be considered normal or not normal.'
-      : undefined;
+      : null;
 
   // 3. We check if all selected cells have the same value.
   const mismatch = selectedCells.find(
@@ -110,6 +110,7 @@ export const setStarDetailsUseCase = async (
     value,
     label,
     error,
+    considerNormal,
     reason,
     details,
   );

@@ -35,8 +35,8 @@ describe('setStarDetails.useCase.spec', () => {
       try {
         await setStarDetailsUseCase(
           null,
-          undefined,
-          undefined,
+          null,
+          null,
           selectedCells,
           gridModel,
           null,
@@ -71,8 +71,8 @@ describe('setStarDetails.useCase.spec', () => {
       try {
         await setStarDetailsUseCase(
           null,
-          undefined,
-          undefined,
+          null,
+          null,
           selectedCells,
           gridModel,
           null,
@@ -133,7 +133,8 @@ describe('setStarDetails.useCase.spec', () => {
         expectedRange,
         '1*',
         '1*',
-        undefined,
+        null,
+        false,
         'a',
         'b',
       );
@@ -144,56 +145,56 @@ describe('setStarDetails.useCase.spec', () => {
       {
         a: {
           value: '1*',
-          error: undefined,
-          reasonImpairmentNotDueToSci: undefined,
-          reasonImpairmentNotDueToSciSpecify: undefined,
+          error: null,
+          reasonImpairmentNotDueToSci: null,
+          reasonImpairmentNotDueToSciSpecify: null,
         },
         b: {
           value: '2*',
-          error: undefined,
-          reasonImpairmentNotDueToSci: undefined,
-          reasonImpairmentNotDueToSciSpecify: undefined,
+          error: null,
+          reasonImpairmentNotDueToSci: null,
+          reasonImpairmentNotDueToSciSpecify: null,
         },
       },
       {
         a: {
           value: '1*',
-          error: undefined,
-          reasonImpairmentNotDueToSci: undefined,
-          reasonImpairmentNotDueToSciSpecify: undefined,
+          error: null,
+          reasonImpairmentNotDueToSci: null,
+          reasonImpairmentNotDueToSciSpecify: null,
         },
         b: {
           value: '1*',
           error: 'error',
-          reasonImpairmentNotDueToSci: undefined,
-          reasonImpairmentNotDueToSciSpecify: undefined,
+          reasonImpairmentNotDueToSci: null,
+          reasonImpairmentNotDueToSciSpecify: null,
         },
       },
       {
         a: {
           value: '1*',
-          error: undefined,
-          reasonImpairmentNotDueToSci: undefined,
-          reasonImpairmentNotDueToSciSpecify: undefined,
+          error: null,
+          reasonImpairmentNotDueToSci: null,
+          reasonImpairmentNotDueToSciSpecify: null,
         },
         b: {
           value: '1*',
-          error: undefined,
+          error: null,
           reasonImpairmentNotDueToSci: 'reason',
-          reasonImpairmentNotDueToSciSpecify: undefined,
+          reasonImpairmentNotDueToSciSpecify: null,
         },
       },
       {
         a: {
           value: '1*',
-          error: undefined,
-          reasonImpairmentNotDueToSci: undefined,
-          reasonImpairmentNotDueToSciSpecify: undefined,
+          error: null,
+          reasonImpairmentNotDueToSci: null,
+          reasonImpairmentNotDueToSciSpecify: null,
         },
         b: {
           value: '1*',
-          error: undefined,
-          reasonImpairmentNotDueToSci: undefined,
+          error: null,
+          reasonImpairmentNotDueToSci: null,
           reasonImpairmentNotDueToSciSpecify: 'sepecify',
         },
       },
@@ -221,8 +222,8 @@ describe('setStarDetails.useCase.spec', () => {
         try {
           await setStarDetailsUseCase(
             null,
-            undefined,
-            undefined,
+            null,
+            null,
             selectedCells,
             gridModel,
             null,
@@ -283,7 +284,8 @@ describe('setStarDetails.useCase.spec', () => {
         selectedCells,
         '1*',
         '1*',
-        undefined,
+        null,
+        false,
         'a',
         'b',
       );
@@ -319,7 +321,8 @@ describe('setStarDetails.useCase.spec', () => {
         selectedCells,
         '1**',
         '1*',
-        undefined,
+        null,
+        true,
         'a',
         'b',
       );
@@ -356,6 +359,7 @@ describe('setStarDetails.useCase.spec', () => {
         '1*',
         '1*',
         'Please indicate if the value should be considered normal or not normal.',
+        null,
         'a',
         'b',
       );
@@ -387,8 +391,8 @@ describe('setStarDetails.useCase.spec', () => {
       // Act
       await setStarDetailsUseCase(
         true,
-        undefined,
-        undefined,
+        null,
+        null,
         selectedCells,
         gridModel,
         null,
@@ -406,9 +410,10 @@ describe('setStarDetails.useCase.spec', () => {
         selectedCells,
         '1**',
         '1*',
-        undefined,
-        undefined,
-        undefined,
+        null,
+        true,
+        null,
+        null,
       );
 
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();

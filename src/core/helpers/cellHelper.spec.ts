@@ -9,20 +9,20 @@ describe('cellHelper', () => {
         label: 'NT',
         name: 'C2',
         value: 'NT',
-        error: undefined,
-        considerNormal: undefined,
-        reasonImpairmentNotDueToSci: undefined,
-        reasonImpairmentNotDueToSciSpecify: undefined,
+        error: null,
+        considerNormal: null,
+        reasonImpairmentNotDueToSci: null,
+        reasonImpairmentNotDueToSciSpecify: null,
       };
 
       const b: Cell = {
         label: 'NT',
         name: 'C2',
         value: 'NT',
-        error: undefined,
-        considerNormal: undefined,
-        reasonImpairmentNotDueToSci: undefined,
-        reasonImpairmentNotDueToSciSpecify: undefined,
+        error: null,
+        considerNormal: null,
+        reasonImpairmentNotDueToSci: null,
+        reasonImpairmentNotDueToSciSpecify: null,
       };
 
       expect(cellsMatch(a, b)).toBe(true);
@@ -33,20 +33,20 @@ describe('cellHelper', () => {
         label: 'NT',
         name: 'C2',
         value: 'NT',
-        error: undefined,
-        considerNormal: undefined,
-        reasonImpairmentNotDueToSci: undefined,
-        reasonImpairmentNotDueToSciSpecify: undefined,
+        error: null,
+        considerNormal: null,
+        reasonImpairmentNotDueToSci: null,
+        reasonImpairmentNotDueToSciSpecify: null,
       };
 
       const b: Cell = {
         label: 'NT*',
         name: 'C2',
         value: 'NT*',
-        error: undefined,
-        considerNormal: undefined,
-        reasonImpairmentNotDueToSci: undefined,
-        reasonImpairmentNotDueToSciSpecify: undefined,
+        error: null,
+        considerNormal: null,
+        reasonImpairmentNotDueToSci: null,
+        reasonImpairmentNotDueToSciSpecify: null,
       };
 
       expect(cellsMatch(a, b)).toBe(false);
@@ -57,19 +57,19 @@ describe('cellHelper', () => {
         label: 'NT',
         name: 'C2',
         value: 'NT',
-        error: undefined,
-        considerNormal: undefined,
-        reasonImpairmentNotDueToSci: undefined,
-        reasonImpairmentNotDueToSciSpecify: undefined,
+        error: null,
+        considerNormal: null,
+        reasonImpairmentNotDueToSci: null,
+        reasonImpairmentNotDueToSciSpecify: null,
       };
       const b: Cell = {
         label: 'NT',
         name: 'C2',
         value: 'NT',
         error: '',
-        considerNormal: undefined,
-        reasonImpairmentNotDueToSci: undefined,
-        reasonImpairmentNotDueToSciSpecify: undefined,
+        considerNormal: null,
+        reasonImpairmentNotDueToSci: null,
+        reasonImpairmentNotDueToSciSpecify: null,
       };
 
       expect(cellsMatch(a, b)).toBe(false);

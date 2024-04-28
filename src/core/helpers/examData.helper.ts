@@ -127,15 +127,15 @@ const getCell = (name: string, dataKey: string, examData: ExamData): Cell => {
   const cell: Cell = {
     value,
     label: value.replace('**', '*'),
-    considerNormal: hasStar ? examData[`${dataKey}ConsiderNormal`] : undefined,
+    considerNormal: hasStar ? examData[`${dataKey}ConsiderNormal`] : null,
     reasonImpairmentNotDueToSci: hasStar
       ? examData[`${dataKey}ReasonImpairmentNotDueToSci`]
-      : undefined,
+      : null,
     reasonImpairmentNotDueToSciSpecify: hasStar
       ? examData[`${dataKey}ReasonImpairmentNotDueToSciSpecify`]
-      : undefined,
+      : null,
     name,
-    error: undefined,
+    error: null,
   };
 
   return cell;
@@ -249,8 +249,7 @@ export const getExamDataFromGridModel = (
       }
 
       examData[key] = cell.value;
-      examData[`${key}ConsiderNormal`] =
-        cell.considerNormal === undefined ? null : cell.considerNormal;
+      examData[`${key}ConsiderNormal`] = cell.considerNormal;
       examData[`${key}ReasonImpairmentNotDueToSci`] =
         cell.reasonImpairmentNotDueToSci;
       examData[`${key}ReasonImpairmentNotDueToSciSpecify`] =

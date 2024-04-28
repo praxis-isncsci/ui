@@ -143,9 +143,10 @@ const values = (
     cellsToUpdate: Cell[];
     value: string;
     label: string;
-    error: string | undefined;
-    reasonImpairmentNotDueToSci: string | undefined;
-    reasonImpairmentNotDueToSciSpecify: string | undefined;
+    error: string | null;
+    considerNormal: boolean | null;
+    reasonImpairmentNotDueToSci: string | null;
+    reasonImpairmentNotDueToSciSpecify: string | null;
   }>,
 ) => {
   switch (action.type) {
@@ -155,6 +156,7 @@ const values = (
         cell.value = action.payload.value;
         cell.label = action.payload.label;
         cell.error = action.payload.error;
+        cell.considerNormal = action.payload.considerNormal;
         cell.reasonImpairmentNotDueToSci =
           action.payload.reasonImpairmentNotDueToSci;
         cell.reasonImpairmentNotDueToSciSpecify =
