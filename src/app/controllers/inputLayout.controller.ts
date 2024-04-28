@@ -166,8 +166,8 @@ export class InputLayoutController {
 
     if (cellElement) {
       cellElement.innerHTML = cell.label;
-      cell.error
-        ? cellElement.setAttribute('error', cell.error)
+      /\*/.test(cell.value) && cell.considerNormal === null
+        ? cellElement.setAttribute('error', '')
         : cellElement.removeAttribute('error');
     }
   }
