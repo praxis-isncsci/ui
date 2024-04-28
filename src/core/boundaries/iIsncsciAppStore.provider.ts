@@ -9,9 +9,10 @@ export interface IIsncsciAppStoreProvider {
     cells: Cell[],
     value: string,
     label: string,
-    error: string | undefined,
-    reasonImpairmentNotDueToSci: string | undefined,
-    reasonImpairmentNotDueToSciSpecify: string | undefined,
+    error: string | null,
+    considerNormal: boolean | null,
+    reasonImpairmentNotDueToSci: string | null,
+    reasonImpairmentNotDueToSciSpecify: string | null,
   ): Promise<void>;
   setExtraInputs(
     rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,

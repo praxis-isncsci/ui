@@ -52,7 +52,7 @@ export const setCellsValueUseCase = async (
   // 2. Determine if an error message needs to be added for values flagged with a star.
   const starErrorMessage = /\*/.test(value)
     ? 'Please indicate if the value should be considered normal or not normal.'
-    : undefined;
+    : null;
 
   // 3. Check if there is a single cell selected and `propagateDown` is set to `true` - we only propagate down if there is a single cell selected.
   if (selectedCells.length === 1 && propagateDown) {
@@ -92,8 +92,9 @@ export const setCellsValueUseCase = async (
       value,
       value.replace('**', '*'),
       starErrorMessage,
-      undefined,
-      undefined,
+      null,
+      null,
+      null,
     );
 
     // 7. Clear the totals and errors

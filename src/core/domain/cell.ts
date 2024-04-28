@@ -1,8 +1,9 @@
 export interface Cell {
   value: string;
   label: string;
-  reasonImpairmentNotDueToSci: string | undefined;
-  reasonImpairmentNotDueToSciSpecify: string | undefined;
+  considerNormal: boolean | null;
+  reasonImpairmentNotDueToSci: string | null;
+  reasonImpairmentNotDueToSciSpecify: string | null;
   name: string;
-  error: string | undefined;
+  error: string | null;
 }

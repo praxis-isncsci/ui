@@ -10,10 +10,11 @@ const getEmptyCell = (name: string): Cell => {
   return {
     value: '',
     label: '',
-    reasonImpairmentNotDueToSci: undefined,
-    reasonImpairmentNotDueToSciSpecify: undefined,
+    considerNormal: null,
+    reasonImpairmentNotDueToSci: null,
+    reasonImpairmentNotDueToSciSpecify: null,
     name,
-    error: undefined,
+    error: null,
   };
 };
 
