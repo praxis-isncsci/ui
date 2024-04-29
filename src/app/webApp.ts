@@ -63,6 +63,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   private unsubscribeFromExamDataHandler: Function | null = null;
   private unsubscribeFromClassificationStyleHandler: Function | null = null;
   private unsubscribeFromClassifyHandler: Function | null = null;
+  private unsubscribeFromClearExamHandler: Function | null = null;
   private ready = false;
 
   constructor() {
@@ -114,6 +115,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     this.unsubscribeFromClassifyHandler =
       this.externalMessagePortProvider.subscribeToOnClassify(() =>
         this.classify(),
+      );
+
+    this.unsubscribeFromClearExamHandler =
+      this.externalMessagePortProvider.subscribeToOnClearExam(() =>
+        this.clearExam(),
       );
 
     this.appLayout = document.querySelector('praxis-isncsci-app-layout');
@@ -199,6 +205,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
     if (this.unsubscribeFromClassifyHandler) {
       this.unsubscribeFromClassifyHandler();
+    }
+
+    if (this.unsubscribeFromClearExamHandler) {
+      this.unsubscribeFromClearExamHandler();
     }
   }
 
