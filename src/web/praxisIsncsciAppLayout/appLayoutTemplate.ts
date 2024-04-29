@@ -9,6 +9,14 @@ const getAppBarTemplate = (iconsPath: string) => {
       </button>
       <span slot="title">&nbsp;</span>
       <div slot="actions">
+        <button class="button" action-clear-exam>
+          <praxis-isncsci-icon
+            style="visibility: hidden"
+            href="${iconsPath}/regular.svg#icon-calculator-20"
+            size="20"
+          ></praxis-isncsci-icon>
+          Clear exam
+        </button>
         <button class="button" action-calculate>
           <praxis-isncsci-icon
             href="${iconsPath}/regular.svg#icon-calculator-20"
