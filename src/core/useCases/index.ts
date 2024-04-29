@@ -1,4 +1,5 @@
 export {calculateUseCase} from './calculate.useCase';
+export {clearExamUseCase} from './clearExam.useCase';
 export {initializeAppUseCase} from './initializeApp.useCase';
 export {loadExternalExamDataUseCase} from './loadExternalExamData.useCase';
 export {setActiveCellUseCase} from './setActiveCell.useCase';
