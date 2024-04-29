@@ -6,6 +6,7 @@ import {
 } from '@core/boundaries';
 import {
   calculateUseCase,
+  clearExamUseCase,
   initializeAppUseCase,
   loadExternalExamDataUseCase,
   setReadonlyUseCase,
@@ -117,6 +118,13 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
     this.appLayout = document.querySelector('praxis-isncsci-app-layout');
 
+    // Clear exam button
+    const clearExam = document.querySelector('[action-clear-exam]');
+
+    if (clearExam) {
+      clearExam.addEventListener('click', () => this.clearExam_onClick());
+    }
+
     // Calculate button
     const calculate = document.querySelector('[action-calculate]');
 
@@ -207,8 +215,28 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     }
   }
 
+  private clearExam_onClick() {
+    this.clearExam();
+    return false;
+  }
+
   private calculate_onClick() {
     this.classify();
+    return false;
+  }
+
+  private clearExam() {
+    if (!this.appLayout || !this.classification) {
+      return;
+    }
+
+    if (!this.appStoreProvider || !this.externalMessagePortProvider) {
+      throw new Error(
+        'The application store provider, or the external message port provider have not been initialized',
+      );
+    }
+
+    clearExamUseCase(this.appStoreProvider, this.externalMessagePortProvider);
   }
 
   private classify() {

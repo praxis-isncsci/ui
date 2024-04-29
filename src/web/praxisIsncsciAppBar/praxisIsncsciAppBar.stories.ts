@@ -35,6 +35,13 @@ export const Primary: Story = {
               href="${iconsPath}/regular.svg#icon-calculator-24"
               size="24"
             ></praxis-isncsci-icon>
+            Clear exam
+          </button>
+          <button class="button">
+            <praxis-isncsci-icon
+              href="${iconsPath}/regular.svg#icon-calculator-24"
+              size="24"
+            ></praxis-isncsci-icon>
             Calculate
           </button>
         </div>
