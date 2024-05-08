@@ -6,6 +6,7 @@ import {
 } from '@core/boundaries';
 import {
   calculateUseCase,
+  clearExamUseCase,
   initializeAppUseCase,
   loadExternalExamDataUseCase,
   setReadonlyUseCase,
@@ -62,6 +63,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   private unsubscribeFromExamDataHandler: Function | null = null;
   private unsubscribeFromClassificationStyleHandler: Function | null = null;
   private unsubscribeFromClassifyHandler: Function | null = null;
+  private unsubscribeFromClearExamHandler: Function | null = null;
   private ready = false;
 
   constructor() {
@@ -115,7 +117,19 @@ export class PraxisIsncsciWebApp extends HTMLElement {
         this.classify(),
       );
 
+    this.unsubscribeFromClearExamHandler =
+      this.externalMessagePortProvider.subscribeToOnClearExam(() =>
+        this.clearExam(),
+      );
+
     this.appLayout = document.querySelector('praxis-isncsci-app-layout');
+
+    // Clear exam button
+    const clearExam = document.querySelector('[action-clear-exam]');
+
+    if (clearExam) {
+      clearExam.addEventListener('click', () => this.clearExam_onClick());
+    }
 
     // Calculate button
     const calculate = document.querySelector('[action-calculate]');
@@ -192,6 +206,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     if (this.unsubscribeFromClassifyHandler) {
       this.unsubscribeFromClassifyHandler();
     }
+
+    if (this.unsubscribeFromClearExamHandler) {
+      this.unsubscribeFromClearExamHandler();
+    }
   }
 
   private closeClassification() {
@@ -207,8 +225,28 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     }
   }
 
+  private clearExam_onClick() {
+    this.clearExam();
+    return false;
+  }
+
   private calculate_onClick() {
     this.classify();
+    return false;
+  }
+
+  private clearExam() {
+    if (!this.appLayout || !this.classification) {
+      return;
+    }
+
+    if (!this.appStoreProvider || !this.externalMessagePortProvider) {
+      throw new Error(
+        'The application store provider, or the external message port provider have not been initialized',
+      );
+    }
+
+    clearExamUseCase(this.appStoreProvider, this.externalMessagePortProvider);
   }
 
   private classify() {

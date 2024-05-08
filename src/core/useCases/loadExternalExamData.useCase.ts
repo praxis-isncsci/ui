@@ -10,12 +10,13 @@ export const loadExternalExamDataUseCase = async (
   appStoreProvider: IIsncsciAppStoreProvider,
   examData: ExamData,
 ) => {
-  // 1. Validate exam data
-  const errors = validateExamData(examData);
+  //Sun: Dont validate the input, error will only be shown after calculation
+  // // 1. Validate exam data
+  // const errors = validateExamData(examData);
 
-  await appStoreProvider.setCalculationError(
-    errors.length > 0 ? `Invalid exam data: ${errors.join(', ')}` : '',
-  );
+  // await appStoreProvider.setCalculationError(
+  //   errors.length > 0 ? `Invalid exam data: ${errors.join(', ')}` : '',
+  // );
 
   // 2. Bind exam data to a new grid model
   const gridModel = bindExamDataToGridModel(examData);
@@ -37,3 +38,4 @@ export const loadExternalExamDataUseCase = async (
     examData.comments || '',
   );
 };
+

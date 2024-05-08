@@ -212,11 +212,14 @@ export class InputLayoutController {
     reasonImpairmentNotDueToSciSpecify: HTMLTextAreaElement,
   ) {
     considerNormal.value =
-      !activeCell || activeCell.error || !/\*$/.test(activeCell.value)
+      !activeCell || activeCell.error || activeCell.considerNormal === null
         ? ''
-        : /\*\*$/.test(activeCell.value)
-        ? '1'
-        : '2';
+        : activeCell.considerNormal === true ? '1' : '2';
+      // !activeCell || activeCell.error || !/\*$/.test(activeCell.value)
+      //   ? ''
+      //   : /\*\*$/.test(activeCell.value)
+      //   ? '1'
+      //   : '2';
 
     reasonImpairmentNotDueToSci.value =
       activeCell?.reasonImpairmentNotDueToSci ?? '';

@@ -27,6 +27,7 @@ const storyInitializer = (getRandomExamData) => {
     );
     const flipFlagButton = document.querySelector('button[flip-flag]');
     const classifyButton = document.querySelector('button[classify]');
+    const clearExamButton = document.querySelector('button[clear-exam]');
     const classificationStyleSelect = document.querySelector(
       'select[classification-style]',
     );
@@ -99,6 +100,12 @@ const storyInitializer = (getRandomExamData) => {
       });
     });
 
+    clearExamButton?.addEventListener('click', () => {
+      port1.postMessage({
+        action: 'CLEAR_EXAM',
+      });
+    });
+
     classificationStyleSelect?.addEventListener('change', (e) => {
       const select = e.target as HTMLSelectElement;
       port1.postMessage({
@@ -136,6 +143,7 @@ const template = () => html`
     <li><button random-incomplete-exam>Load random incomplete exam</button></li>
     <li><button flip-flag>Flip readonly flag</button></li>
     <li><button classify>Classify</button></li>
+    <li><button clear-exam>Clear exam</button></li>
     <li>
       <label>Classification style:</label>
       <select classification-style>

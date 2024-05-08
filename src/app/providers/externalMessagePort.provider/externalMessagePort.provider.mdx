@@ -101,6 +101,12 @@ port1.postMessage({action: 'SET_CLASSIFICATION_STYLE', style: 'visible'});
 port1.postMessage({action: 'CLASSIFY'});
 ```
 
+`CLEAR_EXAM`: Clears all content for the exam and totals
+
+```typescript
+port1.postMessage({action: 'CLEAR_EXAM'});
+```
+
 > Reference: [MDN: Using window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
 
 ### Primary
