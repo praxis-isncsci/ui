@@ -214,12 +214,9 @@ export class InputLayoutController {
     considerNormal.value =
       !activeCell || activeCell.error || activeCell.considerNormal === null
         ? ''
-        : activeCell.considerNormal === true ? '1' : '2';
-      // !activeCell || activeCell.error || !/\*$/.test(activeCell.value)
-      //   ? ''
-      //   : /\*\*$/.test(activeCell.value)
-      //   ? '1'
-      //   : '2';
+        : activeCell.considerNormal === true
+        ? '1'
+        : '2';
 
     reasonImpairmentNotDueToSci.value =
       activeCell?.reasonImpairmentNotDueToSci ?? '';

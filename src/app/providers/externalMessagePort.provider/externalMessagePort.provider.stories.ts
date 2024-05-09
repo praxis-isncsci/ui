@@ -73,6 +73,7 @@ const storyInitializer = (getRandomExamData) => {
             'rightPinPrick',
           ].forEach((side) => {
             examData[`${side}${level}`] = getRandomEmptyValue();
+            examData[`${side}${level}ConsiderNormal`] = null;
             examData[`${side}${level}ReasonImpairmentNotDueToSci`] = null;
             examData[`${side}${level}ReasonImpairmentNotDueToSciSpecify`] =
               null;
