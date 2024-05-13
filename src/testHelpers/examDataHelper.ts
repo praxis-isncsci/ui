@@ -10,6 +10,7 @@ const MotorLevels = ML.slice(0);
 
 export const getRandomExamData = () => {
   const comments = ['random comment', null];
+  const considerNormal = [true, false, null];
   const reasonsForImpairmentNotDueToSci = ['1', '2', '3', null];
   const motorValues = [
     '0',
@@ -60,6 +61,9 @@ export const getRandomExamData = () => {
     const value = randomElement(validValues);
 
     examData[`${prefix}${level}`] = value;
+    examData[`${prefix}${level}ConsiderNormal`] = /\*$/.test(value)
+      ? randomElement(considerNormal)
+      : null;
     examData[`${prefix}${level}ReasonImpairmentNotDueToSci`] = /\*$/.test(value)
       ? randomElement(validReasons)
       : null;

@@ -11,12 +11,12 @@ export const loadExternalExamDataUseCase = async (
   examData: ExamData,
 ) => {
   //Sun: Dont validate the input, error will only be shown after calculation
+  // EE: We do not validate anymore as we do not want to trigger the alert box when loading an external exam
+  // We, however, still need to clear the error in case a previous exam with error was loaded.
   // // 1. Validate exam data
   // const errors = validateExamData(examData);
 
-  // await appStoreProvider.setCalculationError(
-  //   errors.length > 0 ? `Invalid exam data: ${errors.join(', ')}` : '',
-  // );
+  await appStoreProvider.setCalculationError('');
 
   // 2. Bind exam data to a new grid model
   const gridModel = bindExamDataToGridModel(examData);
@@ -38,4 +38,3 @@ export const loadExternalExamDataUseCase = async (
     examData.comments || '',
   );
 };
-
