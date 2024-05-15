@@ -265,16 +265,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       );
     }
 
-    if (this.appLayout.getAttribute('classification-style') !== 'fixed') {
-      this.appLayout.setAttribute('classification-style', 'visible');
-      document.documentElement.style.setProperty(
-        '--calc-classification-height',
-        `${this.classification.clientHeight / 16}rem`,
-      );
-    }
-
     const state = this.appStore.getState();
-
     calculateUseCase(
       state.gridModel ?? [],
       state.vac,
@@ -286,6 +277,18 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       this.isncsciExamProvider,
       this.externalMessagePortProvider,
     );
+
+    const {calculationError} = this.appStore.getState();
+    if (!calculationError){
+      //Show result panel
+      if (this.appLayout.getAttribute('classification-style') !== 'fixed') {
+        this.appLayout.setAttribute('classification-style', 'visible');
+        document.documentElement.style.setProperty(
+          '--calc-classification-height',
+          `${this.classification.clientHeight / 16}rem`,
+        );
+      }
+    }
 
     return false;
   }
