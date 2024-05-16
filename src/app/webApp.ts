@@ -309,6 +309,8 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       );
     }
 
+    this.closeClassification();
+
     loadExternalExamDataUseCase(
       this.appStoreProvider,
       examData ?? getEmptyExamData(),
