@@ -9,6 +9,7 @@ import {
   clearExamUseCase,
   initializeAppUseCase,
   loadExternalExamDataUseCase,
+  setCellsValueUseCase,
   setReadonlyUseCase,
 } from '@core/useCases';
 
@@ -23,6 +24,10 @@ import {
 } from '@app/controllers';
 import {getEmptyExamData} from '@core/helpers';
 import {ExamData} from '@core/domain';
+
+interface CellValueChangedDetail {
+  value: string;
+}
 
 export class PraxisIsncsciWebApp extends HTMLElement {
   public static get is(): string {
@@ -180,6 +185,33 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     );
 
     initializeAppUseCase(this.appStoreProvider);
+
+    //Event listener for cell-value-changed
+    document.addEventListener('cell-value-changed', ((event: CustomEvent<CellValueChangedDetail>) => {
+      const value = event.detail.value;
+      this.updateStateWithCellValue(value);
+    }) as EventListener);
+  }
+
+  private updateStateWithCellValue(value:string) {
+    const state = this.appStore!.getState();
+    const activeCell = state.activeCell;
+
+    if (activeCell && this.appStoreProvider) {
+      setCellsValueUseCase(
+        value,
+        state.selectedCells.slice(),
+        state.gridModel.slice(),
+        state.vac,
+        state.dap,
+        state.rightLowestNonKeyMuscleWithMotorFunction,
+        state.leftLowestNonKeyMuscleWithMotorFunction,
+        state.comments,
+        true,
+        this.appStoreProvider,
+        this.externalMessagePortProvider,
+      )
+    }
   }
 
   public disconnectedCallback() {

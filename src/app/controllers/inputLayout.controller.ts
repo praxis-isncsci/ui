@@ -441,6 +441,10 @@ export class InputLayoutController {
       state.gridModel.slice(),
       this.appStoreProvider,
     );
+
+    //Update selected input
+    const value = (e.target as HTMLElement).textContent || '';
+    this.inputButtons.setAttribute('selected-value', value);
   }
 
   private starInput_change(e: Event) {

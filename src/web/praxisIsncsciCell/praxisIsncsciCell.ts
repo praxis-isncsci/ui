@@ -26,6 +26,8 @@ export class PraxisIsncsciCell extends HTMLElement {
         min-width: 32px;
         transition: transform .3s ease-in-out, border-color .3s ease-in-out;
         user-select: none;
+        cursor: pointer;
+        outline: none;
       }
 
       :host([highlighted]) {
@@ -61,6 +63,33 @@ export class PraxisIsncsciCell extends HTMLElement {
 
     const shadowRoot: ShadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.innerHTML = this.template;
+  }
+
+  connectedCallback() {
+    this.tabIndex = 0; //make cell focusable
+    this.addEventListener('keydown', this.handleKeydown);
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('keydown', this.handleKeydown);
+  }
+
+  private handleKeydown(event: KeyboardEvent) {
+    if (!isNaN(Number(event.key))) {
+      this.textContent = event.key;
+      this.dispatchEvent(new CustomEvent('cell-value-changed', {
+        detail: { value: event.key },
+        bubbles: true,
+        composed: true
+      }))
+    } else if (event.key === 'Backspace' || event.key === 'Delete') {
+      this.textContent = '';
+      this.dispatchEvent(new CustomEvent('cell-value-changed', {
+        detail: { value: '' },
+        bubbles: true,
+        composed: true
+      }))
+    }
   }
 
   public attributeChangedCallback(

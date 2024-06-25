@@ -1,3 +1,4 @@
+import { appStore } from '@app/store';
 import {
   MotorLevel,
   MotorLevels,
@@ -102,7 +103,43 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
   public connectedCallback() {
     this.updateView(this.hasAttribute('left'));
+    this.addEventListener('keydown', this.handleKeydown.bind(this));
+    this.addEventListener('click', this.handleCellClick.bind(this));
   }
+
+  // disconnectedCallback() {
+  //   this.removeEventListener('cell-value-changed', this.handleCellValueChanged as EventListener);
+  // }
+
+  // private handleCellValueChanged = (event: CustomEvent<{ value : string }>) => {
+  //   const currentCell = event.target as HTMLElement;
+  //   const value = event.detail.value;
+  //   const shadowRoot = this.shadowRoot!;
+  //   const cells = Array.from(shadowRoot.querySelectorAll('praxis-isncsci-cell')) as HTMLElement[];
+  //   const currentIndex = cells.indexOf(currentCell);
+
+    //Update cell's value
+    // currentCell.textContent = value; 
+
+    //Dispatch an action to update the store
+    // appStore.dispatch({
+    //   type: Actions.SET_CELLS_VALUE,
+    //   payload: {
+    //     cellsToUpdate: [currentCell.dataset.observation],
+    //     value: value,
+    //     label: value,
+    //     error: null,
+    //     considerNormal: null,
+    //     reasonImpairmentNotDueToSci: null,
+    //     reasonImpairmentNotDueToSciSpecify: null,
+    //   }
+    // })
+    
+    //Move focus to next cell
+  //   if(currentIndex >= 0 && currentIndex < cells.length - 1) {
+  //     cells[currentIndex + 1].focus();
+  //   }
+  // }
 
   public attributeChangedCallback(
     name: string,
@@ -114,6 +151,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
     }
 
     if (name === 'left') {
+      this.updateView(this.hasAttribute('left'));
       console.log('ToDo: Dynamically change side');
       return;
     }
@@ -138,7 +176,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
     const slug = `${side}-${observationType}-${level.toLowerCase()}`;
     const value = this.getAttribute(slug);
-    return `<praxis-isncsci-cell data-observation="${slug}" ${observationType}>${
+    return `<praxis-isncsci-cell data-observation="${slug}" ${observationType} tabindex="0">${
       value ?? ''
     }</praxis-isncsci-cell>`;
   }
@@ -215,6 +253,39 @@ export class PraxisIsncsciGrid extends HTMLElement {
     this.shadowRoot
       .querySelectorAll(attribute)
       .forEach((cell) => cell.setAttribute('highlighted', ''));
+  }
+
+  private handleKeydown(event: KeyboardEvent) {
+    const target = event.target as HTMLElement;
+    const value = event.key;
+    if (/^([0-4]\*?|5|UNK|NT\*{0,2})$/.test(value)) {
+      event.preventDefault();
+      this.updateCellValue(target,value);
+      this.moveFocusToNextCell(target);
+    }
+  }
+
+  private handleCellClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target.matches('praxis-isncsci-cell')) {
+      target.focus();
+    }
+  }
+
+  private updateCellValue(cell: HTMLElement, value: string) {
+    cell.textContent = value;
+    //Dispatch custom event to update the state
+    this.dispatchEvent(new CustomEvent('cell-value-changed', {detail: { value }}))
+  }
+
+  private moveFocusToNextCell(currentCell: HTMLElement) {
+    const cells = Array.from(
+      this.shadowRoot!.querySelectorAll<HTMLElement>('praxis-isncsci-cell')
+    );
+    const currentIndex = cells.indexOf(currentCell);
+    if(currentIndex >= 0 && currentIndex < cells.length - 1) {
+      cells[currentIndex + 1].focus();
+    }
   }
 }
 
