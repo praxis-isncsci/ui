@@ -25,10 +25,6 @@ import {
 import {getEmptyExamData} from '@core/helpers';
 import {ExamData} from '@core/domain';
 
-interface CellValueChangedDetail {
-  value: string;
-}
-
 export class PraxisIsncsciWebApp extends HTMLElement {
   public static get is(): string {
     return 'praxis-isncsci-web-app';
@@ -187,7 +183,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     initializeAppUseCase(this.appStoreProvider);
 
     //Event listener for cell-value-changed
-    document.addEventListener('cell-value-changed', ((event: CustomEvent<CellValueChangedDetail>) => {
+    document.addEventListener('cell-value-changed', ((event: CustomEvent<{value: string}>) => {
       const value = event.detail.value;
       this.updateStateWithCellValue(value);
     }) as EventListener);

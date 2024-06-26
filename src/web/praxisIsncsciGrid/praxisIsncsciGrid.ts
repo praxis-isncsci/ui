@@ -4,6 +4,8 @@ import {
   MotorLevels,
   SensoryLevel,
   SensoryLevels,
+  ValidMotorValues,
+  ValidSensoryValues,
 } from '@core/domain';
 
 import '@web/praxisIsncsciCell';
@@ -106,40 +108,6 @@ export class PraxisIsncsciGrid extends HTMLElement {
     this.addEventListener('keydown', this.handleKeydown.bind(this));
     this.addEventListener('click', this.handleCellClick.bind(this));
   }
-
-  // disconnectedCallback() {
-  //   this.removeEventListener('cell-value-changed', this.handleCellValueChanged as EventListener);
-  // }
-
-  // private handleCellValueChanged = (event: CustomEvent<{ value : string }>) => {
-  //   const currentCell = event.target as HTMLElement;
-  //   const value = event.detail.value;
-  //   const shadowRoot = this.shadowRoot!;
-  //   const cells = Array.from(shadowRoot.querySelectorAll('praxis-isncsci-cell')) as HTMLElement[];
-  //   const currentIndex = cells.indexOf(currentCell);
-
-    //Update cell's value
-    // currentCell.textContent = value; 
-
-    //Dispatch an action to update the store
-    // appStore.dispatch({
-    //   type: Actions.SET_CELLS_VALUE,
-    //   payload: {
-    //     cellsToUpdate: [currentCell.dataset.observation],
-    //     value: value,
-    //     label: value,
-    //     error: null,
-    //     considerNormal: null,
-    //     reasonImpairmentNotDueToSci: null,
-    //     reasonImpairmentNotDueToSciSpecify: null,
-    //   }
-    // })
-    
-    //Move focus to next cell
-  //   if(currentIndex >= 0 && currentIndex < cells.length - 1) {
-  //     cells[currentIndex + 1].focus();
-  //   }
-  // }
 
   public attributeChangedCallback(
     name: string,
@@ -258,11 +226,20 @@ export class PraxisIsncsciGrid extends HTMLElement {
   private handleKeydown(event: KeyboardEvent) {
     const target = event.target as HTMLElement;
     const value = event.key;
-    if (/^([0-4]\*?|5|UNK|NT\*{0,2})$/.test(value)) {
+
+    //validate input based on cell type
+    if (!this.isValidInput(target, value)) {
       event.preventDefault();
-      this.updateCellValue(target,value);
-      this.moveFocusToNextCell(target);
     }
+    event.preventDefault();
+    this.updateCellValue(target,value);
+    this.moveFocusToNextCell(target);
+  }
+
+  private isValidInput(cell: HTMLElement, value: string): boolean {
+    const isMotorCell = cell.hasAttribute('motor');
+    const validValues = isMotorCell ? ValidMotorValues : ValidSensoryValues;
+    return validValues.includes(value as any);
   }
 
   private handleCellClick(event: MouseEvent) {
@@ -275,7 +252,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
   private updateCellValue(cell: HTMLElement, value: string) {
     cell.textContent = value;
     //Dispatch custom event to update the state
-    this.dispatchEvent(new CustomEvent('cell-value-changed', {detail: { value }}))
+    this.dispatchEvent(new CustomEvent('cell-value-changed', {detail: { value }, bubbles: true, composed: true}))
   }
 
   private moveFocusToNextCell(currentCell: HTMLElement) {
