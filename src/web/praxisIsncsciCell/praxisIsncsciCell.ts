@@ -1,3 +1,5 @@
+import {ValidMotorValues, ValidSensoryValues} from '@core/domain';
+
 /**
  * @tagname praxis-isncsci-cell
  */
@@ -75,20 +77,34 @@ export class PraxisIsncsciCell extends HTMLElement {
   }
 
   private handleKeydown(event: KeyboardEvent) {
-    if (!isNaN(Number(event.key))) {
+    const target = event.target as HTMLElement;
+    const isMotorCell = target.hasAttribute('motor');
+    const validValues = isMotorCell ? ValidMotorValues : ValidSensoryValues;
+    const value = event.key;
+
+    if (!validValues.includes(value as any)) {
+      event.preventDefault();
+      return;
+    }
+
+    if (event.key.length === 1 && /^[0-9a-zA-Z]$/.test(event.key)) {
       this.textContent = event.key;
-      this.dispatchEvent(new CustomEvent('cell-value-changed', {
-        detail: { value: event.key },
-        bubbles: true,
-        composed: true
-      }))
+      this.dispatchEvent(
+        new CustomEvent('cell-value-changed', {
+          detail: {value: event.key},
+          bubbles: true,
+          composed: true,
+        }),
+      );
     } else if (event.key === 'Backspace' || event.key === 'Delete') {
       this.textContent = '';
-      this.dispatchEvent(new CustomEvent('cell-value-changed', {
-        detail: { value: '' },
-        bubbles: true,
-        composed: true
-      }))
+      this.dispatchEvent(
+        new CustomEvent('cell-value-changed', {
+          detail: {value: ''},
+          bubbles: true,
+          composed: true,
+        }),
+      );
     }
   }
 

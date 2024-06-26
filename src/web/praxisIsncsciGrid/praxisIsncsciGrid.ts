@@ -1,4 +1,4 @@
-import { appStore } from '@app/store';
+import {appStore} from '@app/store';
 import {
   MotorLevel,
   MotorLevels,
@@ -230,10 +230,14 @@ export class PraxisIsncsciGrid extends HTMLElement {
     //validate input based on cell type
     if (!this.isValidInput(target, value)) {
       event.preventDefault();
+      return;
     }
-    event.preventDefault();
-    this.updateCellValue(target,value);
-    this.moveFocusToNextCell(target);
+
+    if (value.length === 1 && /^[0-9a-zA-Z]$/.test(value)) {
+      event.preventDefault();
+      this.updateCellValue(target, value);
+      this.moveFocusToNextCell(target);
+    }
   }
 
   private isValidInput(cell: HTMLElement, value: string): boolean {
@@ -252,15 +256,21 @@ export class PraxisIsncsciGrid extends HTMLElement {
   private updateCellValue(cell: HTMLElement, value: string) {
     cell.textContent = value;
     //Dispatch custom event to update the state
-    this.dispatchEvent(new CustomEvent('cell-value-changed', {detail: { value }, bubbles: true, composed: true}))
+    this.dispatchEvent(
+      new CustomEvent('cell-value-changed', {
+        detail: {value},
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   private moveFocusToNextCell(currentCell: HTMLElement) {
     const cells = Array.from(
-      this.shadowRoot!.querySelectorAll<HTMLElement>('praxis-isncsci-cell')
+      this.shadowRoot!.querySelectorAll<HTMLElement>('praxis-isncsci-cell'),
     );
     const currentIndex = cells.indexOf(currentCell);
-    if(currentIndex >= 0 && currentIndex < cells.length - 1) {
+    if (currentIndex >= 0 && currentIndex < cells.length - 1) {
       cells[currentIndex + 1].focus();
     }
   }
