@@ -13,6 +13,8 @@ import {
   getExamDataFromGridModel,
 } from '@core/helpers';
 import {getEmptyTotals} from '@core/helpers/examData.helper';
+import {setActiveCellUseCase} from './setActiveCell.useCase';
+import {appStore} from '@app/store';
 
 /*
  * 1. Test value to make sure it is valid.
@@ -84,6 +86,43 @@ export const setCellsValueUseCase = async (
   if (cellsToUpdate.length === 0) {
     return;
   }
+
+  const state = appStore.getState();
+
+  // Logic to get the next active cell
+  const getNextActiveCell = (
+    currentCellName: string,
+    gridModel: Array<Cell | null>[],
+  ): string | null => {
+    const cells = gridModel
+      .flat()
+      .filter((cell): cell is Cell => cell !== null);
+    const currentIndex = cells.findIndex(
+      (cell) => cell.name === currentCellName,
+    );
+
+    if (currentIndex === -1) {
+      return null;
+    }
+
+    const nextIndex = currentIndex + 1;
+
+    return nextIndex < cells.length ? cells[nextIndex].name : null;
+  };
+  //5.1 determine the next active cell
+  const nextActiveCell = getNextActiveCell(
+    state.activeCell?.name ?? '',
+    gridModel,
+  );
+
+  await setActiveCellUseCase(
+    nextActiveCell,
+    state.activeCell,
+    'single',
+    state.selectedCells,
+    state.gridModel.slice(),
+    appStoreProvider,
+  );
 
   try {
     // 6. Call `appStoreProvider.setCellsValue` with the cells to update and the value.
