@@ -17,14 +17,6 @@ const getAppBarTemplate = (iconsPath: string) => {
           ></praxis-isncsci-icon>
           Clear exam
         </button>
-        <button class="button" action-print-pdf>
-          <praxis-isncsci-icon
-            style="visibility: hidden"
-            href="${iconsPath}/regular.svg#icon-calculator-20"
-            size="20"
-          ></praxis-isncsci-icon>
-          Print PDF
-        </button>
         <button class="button" action-calculate>
           <praxis-isncsci-icon
             href="${iconsPath}/regular.svg#icon-calculator-20"

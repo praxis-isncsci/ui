@@ -1,4 +1,5 @@
 import {ValidMotorValues, ValidSensoryValues} from '@core/domain';
+import {PraxisIsncsciGrid} from '@web/praxisIsncsciGrid';
 
 /**
  * @tagname praxis-isncsci-cell

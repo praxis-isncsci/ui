@@ -273,6 +273,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
     if (currentIndex >= 0 && currentIndex < cells.length - 1) {
       cells[currentIndex + 1].focus();
     }
+    console.log('current index', currentIndex);
   }
 }
 
