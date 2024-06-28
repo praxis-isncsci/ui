@@ -136,6 +136,137 @@ export class InputLayoutController {
     appStore.subscribe((state: IAppState, actionType: string) =>
       this.stateChanged(state, actionType),
     );
+
+    // Enable keyboard entry
+    document.addEventListener('keyup', (e) => {
+      this.inputValue_onKeyup(e as KeyboardEvent);
+    });
+  }
+
+  private inputValue_onKeyup(e: KeyboardEvent) {
+    const state = appStore.getState();
+    if (!state.activeCell) {
+      return;
+    }
+    const inputs =
+      this.inputButtons.shadowRoot?.querySelectorAll(
+        'button:not([disabled])',
+      ) ?? [];
+    if (!inputs || inputs.length === 0) {
+      return;
+    }
+    const validValues = Array.from(inputs).map(
+      (i) => (i as HTMLButtonElement).value,
+    );
+
+    switch (e.key) {
+      case '1':
+        if (validValues.includes('1')) {
+          setCellsValueUseCase(
+            '1',
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+        }
+        break;
+      case '2':
+        if (validValues.includes('2')) {
+          setCellsValueUseCase(
+            '2',
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+        }
+        break;
+      case '3':
+        if (validValues.includes('3')) {
+          setCellsValueUseCase(
+            '3',
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+        }
+        break;
+      case '4':
+        if (validValues.includes('4')) {
+          setCellsValueUseCase(
+            '4',
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+        }
+        break;
+      case '5':
+        if (validValues.includes('5')) {
+          setCellsValueUseCase(
+            '5',
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+        }
+        break;
+      case '*':
+        const lastValue = state.activeCell?.value;
+        if (lastValue && validValues.includes(lastValue + '*')) {
+          setCellsValueUseCase(
+            lastValue + '*',
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+        }
+        break;
+      default:
+        // handle other keys if needed
+        break;
+    }
   }
 
   private registerGrids(grids: NodeListOf<HTMLElement>) {
