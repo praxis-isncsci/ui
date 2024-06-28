@@ -12,7 +12,11 @@ import {
   sensoryValueRegex,
   getExamDataFromGridModel,
 } from '@core/helpers';
-import {getEmptyTotals} from '@core/helpers/examData.helper';
+import {
+  getCellColumn,
+  getCellRow,
+  getEmptyTotals,
+} from '@core/helpers/examData.helper';
 import {setActiveCellUseCase} from './setActiveCell.useCase';
 import {appStore} from '@app/store';
 
@@ -105,10 +109,21 @@ export const setCellsValueUseCase = async (
       return null;
     }
 
-    const nextIndex = currentIndex + 1;
+    const currentColumn = getCellColumn(currentCellName);
+    const currentRow = getCellRow(currentCellName);
+    let nextRow = currentRow + 1;
+    let nextColumn = currentColumn;
 
-    return nextIndex < cells.length ? cells[nextIndex].name : null;
+    if (nextRow >= gridModel.length) {
+      nextRow = 0; // Move to the top
+      nextColumn += 1; // Move to the next column
+    }
+
+    const nextCell = gridModel[nextRow][nextColumn];
+
+    return nextCell ? nextCell.name : null;
   };
+
   //5.1 determine the next active cell
   const nextActiveCell = getNextActiveCell(
     state.activeCell?.name ?? '',

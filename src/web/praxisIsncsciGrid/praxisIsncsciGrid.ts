@@ -1,5 +1,6 @@
 import {appStore} from '@app/store';
 import {
+  Cell,
   MotorLevel,
   MotorLevels,
   SensoryLevel,
@@ -7,6 +8,8 @@ import {
   ValidMotorValues,
   ValidSensoryValues,
 } from '@core/domain';
+import {getCellColumn, getCellRow} from '@core/helpers';
+import {setActiveCellUseCase} from '@core/useCases';
 
 import '@web/praxisIsncsciCell';
 
@@ -263,18 +266,87 @@ export class PraxisIsncsciGrid extends HTMLElement {
         composed: true,
       }),
     );
+    this.moveFocusToNextCell(cell);
   }
 
   private moveFocusToNextCell(currentCell: HTMLElement) {
-    const cells = Array.from(
-      this.shadowRoot!.querySelectorAll<HTMLElement>('praxis-isncsci-cell'),
+    const nextActiveCellName = this.getNextActiveCell(
+      currentCell.getAttribute('data-observation')!,
+      appStore.getState().gridModel,
     );
-    const currentIndex = cells.indexOf(currentCell);
-    if (currentIndex >= 0 && currentIndex < cells.length - 1) {
-      cells[currentIndex + 1].focus();
+    if (nextActiveCellName) {
+      const nextActiveCell = this.shadowRoot!.querySelector<HTMLElement>(
+        `[data-observation="${nextActiveCellName}"]`,
+      );
+      if (nextActiveCell) {
+        nextActiveCell.focus();
+      }
     }
-    console.log('current index', currentIndex);
   }
+
+  private getNextActiveCell(
+    currentCellName: string,
+    gridModel: Array<Cell | null>[],
+  ): string | null {
+    const cells = gridModel
+      .flat()
+      .filter((cell): cell is Cell => cell !== null);
+    const currentIndex = cells.findIndex(
+      (cell) => cell.name === currentCellName,
+    );
+
+    if (currentIndex === -1) {
+      console.log('currentIndex', currentIndex);
+      return null;
+    }
+
+    const currentColumn = getCellColumn(currentCellName);
+    const currentRow = getCellRow(currentCellName);
+    let nextRow = currentRow + 1;
+    let nextColumn = currentColumn;
+
+    if (nextRow >= gridModel.length) {
+      nextRow = 0; // Move to the top
+      nextColumn += 1; // Move to the next column
+    }
+
+    const nextCell = gridModel[nextRow][nextColumn];
+
+    return nextCell ? nextCell.name : null;
+  }
+  // private moveFocusToNextCell(currentCell: HTMLElement) {
+  //   const cells = Array.from(
+  //     this.shadowRoot!.querySelectorAll<HTMLElement>('praxis-isncsci-cell'),
+  //   );
+  //   const currentIndex = cells.indexOf(currentCell);
+  //   if (currentIndex === -1) {
+  //     console.error('currentCell not found');
+  //     return;
+  //   }
+
+  //   const nextIndex = this.getNextCellIndex(currentIndex, cells);
+
+  //   if (nextIndex !== -1) {
+  //     cells[nextIndex].focus();
+  //   }
+  // }
+  // private getNextCellIndex(currentIndex: number, cells: HTMLElement[]): number {
+  //   const columns = 4;
+  //   const rows = cells.length / columns;
+  //   const currentColumn = currentIndex % columns;
+  //   const currentRow = Math.floor(currentIndex / columns);
+  //   let nextRow = currentRow + 1;
+  //   let nextColumn = currentColumn;
+
+  //   if (nextRow >= rows) {
+  //     nextRow = 0; // Move to the top
+  //     nextColumn += 1; // Move to the next column
+  //   }
+
+  //   const nextIndex = nextRow * columns + nextColumn;
+
+  //   return nextIndex < cells.length ? nextIndex : -1; // return -1 if there are no more cells in the column
+  // }
 }
 
 window.customElements.define(PraxisIsncsciGrid.is, PraxisIsncsciGrid);
