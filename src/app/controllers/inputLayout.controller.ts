@@ -159,79 +159,27 @@ export class InputLayoutController {
       (i) => (i as HTMLButtonElement).value,
     );
 
-    switch (e.key) {
+    let value = e.key;
+    if (e.ctrlKey && /^[1-5]$/.test(e.key)) {
+      console.log('ctrl pressed');
+      value += '*';
+    }
+
+    switch (value) {
       case '1':
-        if (validValues.includes('1')) {
-          setCellsValueUseCase(
-            '1',
-            state.selectedCells.slice(),
-            state.gridModel.slice(),
-            state.vac,
-            state.dap,
-            state.rightLowestNonKeyMuscleWithMotorFunction,
-            state.leftLowestNonKeyMuscleWithMotorFunction,
-            state.comments,
-            true,
-            this.appStoreProvider,
-            this.externalMessageProvider,
-          );
-        }
-        break;
       case '2':
-        if (validValues.includes('2')) {
-          setCellsValueUseCase(
-            '2',
-            state.selectedCells.slice(),
-            state.gridModel.slice(),
-            state.vac,
-            state.dap,
-            state.rightLowestNonKeyMuscleWithMotorFunction,
-            state.leftLowestNonKeyMuscleWithMotorFunction,
-            state.comments,
-            true,
-            this.appStoreProvider,
-            this.externalMessageProvider,
-          );
-        }
-        break;
       case '3':
-        if (validValues.includes('3')) {
-          setCellsValueUseCase(
-            '3',
-            state.selectedCells.slice(),
-            state.gridModel.slice(),
-            state.vac,
-            state.dap,
-            state.rightLowestNonKeyMuscleWithMotorFunction,
-            state.leftLowestNonKeyMuscleWithMotorFunction,
-            state.comments,
-            true,
-            this.appStoreProvider,
-            this.externalMessageProvider,
-          );
-        }
-        break;
       case '4':
-        if (validValues.includes('4')) {
-          setCellsValueUseCase(
-            '4',
-            state.selectedCells.slice(),
-            state.gridModel.slice(),
-            state.vac,
-            state.dap,
-            state.rightLowestNonKeyMuscleWithMotorFunction,
-            state.leftLowestNonKeyMuscleWithMotorFunction,
-            state.comments,
-            true,
-            this.appStoreProvider,
-            this.externalMessageProvider,
-          );
-        }
-        break;
       case '5':
-        if (validValues.includes('5')) {
+      case '1*':
+      case '2*':
+      case '3*':
+      case '4*':
+      case '5*':
+        if (validValues.includes(value)) {
+          console.log('pressed', value);
           setCellsValueUseCase(
-            '5',
+            value,
             state.selectedCells.slice(),
             state.gridModel.slice(),
             state.vac,
@@ -262,9 +210,6 @@ export class InputLayoutController {
             this.externalMessageProvider,
           );
         }
-        break;
-      default:
-        // handle other keys if needed
         break;
     }
   }
