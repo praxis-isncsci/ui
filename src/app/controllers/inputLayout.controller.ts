@@ -161,7 +161,6 @@ export class InputLayoutController {
 
     let value = e.key;
     if (e.ctrlKey && /^[1-5]$/.test(e.key)) {
-      console.log('ctrl pressed');
       value += '*';
     }
 
@@ -177,7 +176,6 @@ export class InputLayoutController {
       case '4*':
       case '5*':
         if (validValues.includes(value)) {
-          console.log('pressed', value);
           setCellsValueUseCase(
             value,
             state.selectedCells.slice(),
@@ -190,6 +188,19 @@ export class InputLayoutController {
             true,
             this.appStoreProvider,
             this.externalMessageProvider,
+          );
+          console.log(state.activeCell.name);
+          const nextActiveCell = this.getNextActiveCell(
+            state.activeCell.name,
+            state.gridModel,
+          );
+          setActiveCellUseCase(
+            nextActiveCell,
+            state.activeCell,
+            'single',
+            state.selectedCells,
+            state.gridModel.slice(),
+            this.appStoreProvider,
           );
         }
         break;
@@ -213,6 +224,176 @@ export class InputLayoutController {
         break;
     }
   }
+
+  private getNextActiveCell(
+    currentCellName: string,
+    gridModel: Array<Cell | null>[],
+  ): string {
+    const order = [
+      'right-motor-c5',
+      'right-motor-c6',
+      'right-motor-c7',
+      'right-motor-c8',
+      'right-motor-t1',
+      'right-motor-l2',
+      'right-motor-l3',
+      'right-motor-l4',
+      'right-motor-l5',
+      'right-motor-s1',
+      'right-light-touch-c2',
+      'right-light-touch-c3',
+      'right-light-touch-c4',
+      'right-light-touch-c5',
+      'right-light-touch-c6',
+      'right-light-touch-c7',
+      'right-light-touch-c8',
+      'right-light-touch-t1',
+      'right-light-touch-t2',
+      'right-light-touch-t3',
+      'right-light-touch-t4',
+      'right-light-touch-t5',
+      'right-light-touch-t6',
+      'right-light-touch-t7',
+      'right-light-touch-t8',
+      'right-light-touch-t9',
+      'right-light-touch-t10',
+      'right-light-touch-t11',
+      'right-light-touch-t12',
+      'right-light-touch-l1',
+      'right-light-touch-l2',
+      'right-light-touch-l3',
+      'right-light-touch-l4',
+      'right-light-touch-l5',
+      'right-light-touch-s1',
+      'right-light-touch-s2',
+      'right-light-touch-s3',
+      'right-light-touch-s4_5',
+      'right-pin-prick-c2',
+      'right-pin-prick-c3',
+      'right-pin-prick-c4',
+      'right-pin-prick-c5',
+      'right-pin-prick-c6',
+      'right-pin-prick-c7',
+      'right-pin-prick-c8',
+      'right-pin-prick-t1',
+      'right-pin-prick-t2',
+      'right-pin-prick-t3',
+      'right-pin-prick-t4',
+      'right-pin-prick-t5',
+      'right-pin-prick-t6',
+      'right-pin-prick-t7',
+      'right-pin-prick-t8',
+      'right-pin-prick-t9',
+      'right-pin-prick-t10',
+      'right-pin-prick-t11',
+      'right-pin-prick-t12',
+      'right-pin-prick-l1',
+      'right-pin-prick-l2',
+      'right-pin-prick-l3',
+      'right-pin-prick-l4',
+      'right-pin-prick-l5',
+      'right-pin-prick-s1',
+      'right-pin-prick-s2',
+      'right-pin-prick-s3',
+      'right-pin-prick-s4_5',
+      'left-light-touch-c2',
+      'left-light-touch-c3',
+      'left-light-touch-c4',
+      'left-light-touch-c5',
+      'left-light-touch-c6',
+      'left-light-touch-c7',
+      'left-light-touch-c8',
+      'left-light-touch-t1',
+      'left-light-touch-t2',
+      'left-light-touch-t3',
+      'left-light-touch-t4',
+      'left-light-touch-t5',
+      'left-light-touch-t6',
+      'left-light-touch-t7',
+      'left-light-touch-t8',
+      'left-light-touch-t9',
+      'left-light-touch-t10',
+      'left-light-touch-t11',
+      'left-light-touch-t12',
+      'left-light-touch-l1',
+      'left-light-touch-l2',
+      'left-light-touch-l3',
+      'left-light-touch-l4',
+      'left-light-touch-l5',
+      'left-light-touch-s1',
+      'left-light-touch-s2',
+      'left-light-touch-s3',
+      'left-light-touch-s4_5',
+      'left-pin-prick-c2',
+      'left-pin-prick-c3',
+      'left-pin-prick-c4',
+      'left-pin-prick-c5',
+      'left-pin-prick-c6',
+      'left-pin-prick-c7',
+      'left-pin-prick-c8',
+      'left-pin-prick-t1',
+      'left-pin-prick-t2',
+      'left-pin-prick-t3',
+      'left-pin-prick-t4',
+      'left-pin-prick-t5',
+      'left-pin-prick-t6',
+      'left-pin-prick-t7',
+      'left-pin-prick-t8',
+      'left-pin-prick-t9',
+      'left-pin-prick-t10',
+      'left-pin-prick-t11',
+      'left-pin-prick-t12',
+      'left-pin-prick-l1',
+      'left-pin-prick-l2',
+      'left-pin-prick-l3',
+      'left-pin-prick-l4',
+      'left-pin-prick-l5',
+      'left-pin-prick-s1',
+      'left-pin-prick-s2',
+      'left-pin-prick-s3',
+      'left-pin-prick-s4_5',
+      'left-motor-c5',
+      'left-motor-c6',
+      'left-motor-c7',
+      'left-motor-c8',
+      'left-motor-t1',
+      'left-motor-l2',
+      'left-motor-l3',
+      'left-motor-l4',
+      'left-motor-l5',
+      'left-motor-s1',
+    ];
+
+    const currentIndex = order.indexOf(currentCellName);
+    if (currentIndex === -1) {
+      throw new Error('Current cell name is not in the defined order');
+    }
+
+    const nextIndex = (currentIndex + 1) % order.length;
+    return order[nextIndex];
+  }
+
+  // private getNextActiveCell(
+  //   currentCellName: string,
+  //   gridModel: Array<Cell | null>[],
+  // ): string {
+  //   const cellInfo = currentCellName.split('-');
+  //   let activeNumber = parseInt(cellInfo[2]);
+  //   const activeLetter = cellInfo[1];
+  //   const nextActiveNumber = activeNumber + 1;
+
+  //   // Find the total number of rows
+  //   const totalRows = gridModel.length;
+
+  //   if (nextActiveNumber > totalRows) {
+  //     const nextActiveLetter = String.fromCharCode(
+  //       activeLetter.charCodeAt(0) + 1,
+  //     );
+  //     return `${cellInfo[0]}-${nextActiveLetter}-1`;
+  //   } else {
+  //     return `${cellInfo[0]}-${activeLetter}-${nextActiveNumber}`;
+  //   }
+  // }
 
   private registerGrids(grids: NodeListOf<HTMLElement>) {
     grids.forEach((grid) => {
