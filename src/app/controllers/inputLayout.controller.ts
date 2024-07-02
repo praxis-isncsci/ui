@@ -138,12 +138,12 @@ export class InputLayoutController {
     );
 
     // Enable keyboard entry
-    document.addEventListener('keyup', (e) => {
-      this.inputValue_onKeyup(e as KeyboardEvent);
+    document.addEventListener('keydown', (e) => {
+      this.inputValue_onKeydown(e as KeyboardEvent);
     });
   }
 
-  private inputValue_onKeyup(e: KeyboardEvent) {
+  private inputValue_onKeydown(e: KeyboardEvent) {
     const state = appStore.getState();
     if (!state.activeCell) {
       return;
@@ -160,7 +160,8 @@ export class InputLayoutController {
     );
 
     let value = e.key;
-    if (e.ctrlKey && /^[1-5]$/.test(e.key)) {
+    if ((e.ctrlKey || e.metaKey) && /^[1-5]$/.test(e.key)) {
+      e.preventDefault();
       value += '*';
     }
 
@@ -189,7 +190,6 @@ export class InputLayoutController {
             this.appStoreProvider,
             this.externalMessageProvider,
           );
-          console.log(state.activeCell.name);
           const nextActiveCell = this.getNextActiveCell(
             state.activeCell.name,
             state.gridModel,
