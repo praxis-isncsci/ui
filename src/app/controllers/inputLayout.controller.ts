@@ -373,28 +373,6 @@ export class InputLayoutController {
     return order[nextIndex];
   }
 
-  // private getNextActiveCell(
-  //   currentCellName: string,
-  //   gridModel: Array<Cell | null>[],
-  // ): string {
-  //   const cellInfo = currentCellName.split('-');
-  //   let activeNumber = parseInt(cellInfo[2]);
-  //   const activeLetter = cellInfo[1];
-  //   const nextActiveNumber = activeNumber + 1;
-
-  //   // Find the total number of rows
-  //   const totalRows = gridModel.length;
-
-  //   if (nextActiveNumber > totalRows) {
-  //     const nextActiveLetter = String.fromCharCode(
-  //       activeLetter.charCodeAt(0) + 1,
-  //     );
-  //     return `${cellInfo[0]}-${nextActiveLetter}-1`;
-  //   } else {
-  //     return `${cellInfo[0]}-${activeLetter}-${nextActiveNumber}`;
-  //   }
-  // }
-
   private registerGrids(grids: NodeListOf<HTMLElement>) {
     grids.forEach((grid) => {
       if (!grid.shadowRoot) {
@@ -443,20 +421,33 @@ export class InputLayoutController {
     });
   }
 
-  private updateGridSelection(selectedPoint: string | null) {
+  private updateGridSelection(selectedPoints: string[] | null) {
     if (!this.leftGrid || !this.rightGrid) {
       throw new Error('The grids have not been initialized');
     }
 
-    if (!selectedPoint) {
+    if (!selectedPoints) {
       this.rightGrid.removeAttribute('highlighted-cells');
       this.leftGrid.removeAttribute('highlighted-cells');
-    } else if (selectedPoint.startsWith('left')) {
-      this.rightGrid.removeAttribute('highlighted-cells');
-      this.leftGrid.setAttribute('highlighted-cells', selectedPoint);
+      return;
+    }
+    const leftSelectedPoints = selectedPoints
+      .filter((p) => p.startsWith('left'))
+      .join('|');
+    const rightSelectedPoints = selectedPoints
+      .filter((p) => p.startsWith('right'))
+      .join('|');
+
+    if (leftSelectedPoints) {
+      this.leftGrid.setAttribute('highlighted-cells', leftSelectedPoints);
     } else {
       this.leftGrid.removeAttribute('highlighted-cells');
-      this.rightGrid.setAttribute('highlighted-cells', selectedPoint);
+    }
+
+    if (rightSelectedPoints) {
+      this.rightGrid.setAttribute('highlighted-cells', rightSelectedPoints);
+    } else {
+      this.rightGrid.removeAttribute('highlighted-cells');
     }
   }
 
@@ -639,8 +630,11 @@ export class InputLayoutController {
         this.updateTotals(state.totals);
         break;
       case Actions.SET_ACTIVE_CELL:
+        // this.updateGridSelection(
+        //   state.activeCell ? state.activeCell.name : null,
+        // );
         this.updateGridSelection(
-          state.activeCell ? state.activeCell.name : null,
+          state.selectedCells ? state.selectedCells.map((c) => c.name) : null,
         );
         this.updateInputButtons(
           state.activeCell,
