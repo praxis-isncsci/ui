@@ -630,9 +630,6 @@ export class InputLayoutController {
         this.updateTotals(state.totals);
         break;
       case Actions.SET_ACTIVE_CELL:
-        // this.updateGridSelection(
-        //   state.activeCell ? state.activeCell.name : null,
-        // );
         this.updateGridSelection(
           state.selectedCells ? state.selectedCells.map((c) => c.name) : null,
         );
