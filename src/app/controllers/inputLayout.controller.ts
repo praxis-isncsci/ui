@@ -1,11 +1,11 @@
-import {Actions, IDataStore, appStore} from '@app/store';
+import { Actions, IDataStore, appStore } from '@app/store';
 import {
   IAppState,
   IExternalMessageProvider,
   IIsncsciAppStoreProvider,
 } from '@core/boundaries';
-import {Cell, MotorLevel, Totals} from '@core/domain';
-import {cellsMatch, sensoryCellRegex} from '@core/helpers';
+import { Cell, MotorLevel, Totals } from '@core/domain';
+import { cellsMatch, sensoryCellRegex } from '@core/helpers';
 import {
   setActiveCellUseCase,
   setCellsValueUseCase,
@@ -13,7 +13,7 @@ import {
   setStarDetailsUseCase,
   setVacDapUseCase,
 } from '@core/useCases';
-import {BinaryObservation} from '@core/domain';
+import { BinaryObservation } from '@core/domain';
 
 const allCellsHaveSameValues = (selectedCells: Cell[]) => {
   if (selectedCells.length === 0) {
@@ -66,6 +66,10 @@ export class InputLayoutController {
     this.inputButtons.addEventListener('value_click', (e) =>
       this.inputValue_onClick(e as CustomEvent),
     );
+
+    document.addEventListener('keyup', (e) => {
+      this.key_onUp(e as KeyboardEvent);
+    });
 
     this.considerNormal = this.inputButtons.querySelector('#consider-normal');
     this.reasonImpairmentNotDueToSci = this.inputButtons.querySelector(
@@ -186,20 +190,30 @@ export class InputLayoutController {
     });
   }
 
-  private updateGridSelection(selectedPoint: string | null) {
+  private updateGridSelection(selectedPoints: string[] | null) {
     if (!this.leftGrid || !this.rightGrid) {
       throw new Error('The grids have not been initialized');
     }
 
-    if (!selectedPoint) {
+    if (!selectedPoints) {
       this.rightGrid.removeAttribute('highlighted-cells');
       this.leftGrid.removeAttribute('highlighted-cells');
-    } else if (selectedPoint.startsWith('left')) {
-      this.rightGrid.removeAttribute('highlighted-cells');
-      this.leftGrid.setAttribute('highlighted-cells', selectedPoint);
+      return;
+    }
+
+    const leftSelectedPoints = selectedPoints.filter(p => p.startsWith('left')).join('|');
+    const rightSelectedPoints = selectedPoints.filter(p => p.startsWith('right')).join('|');
+
+    if (leftSelectedPoints) {
+      this.leftGrid.setAttribute('highlighted-cells', leftSelectedPoints);
     } else {
       this.leftGrid.removeAttribute('highlighted-cells');
-      this.rightGrid.setAttribute('highlighted-cells', selectedPoint);
+    }
+
+    if (rightSelectedPoints) {
+      this.rightGrid.setAttribute('highlighted-cells', rightSelectedPoints);
+    } else {
+      this.rightGrid.removeAttribute('highlighted-cells');
     }
   }
 
@@ -215,8 +229,8 @@ export class InputLayoutController {
       !activeCell || activeCell.error || activeCell.considerNormal === null
         ? ''
         : activeCell.considerNormal === true
-        ? '1'
-        : '2';
+          ? '1'
+          : '2';
 
     reasonImpairmentNotDueToSci.value =
       activeCell?.reasonImpairmentNotDueToSci ?? '';
@@ -316,6 +330,50 @@ export class InputLayoutController {
     );
   }
 
+  private key_onUp(e: KeyboardEvent) {
+    const state = appStore.getState();
+    if (!state.activeCell) { return; }
+
+    //check for valid values
+    //all of the enabled input
+    //Not the best to retrieve the value however to change that may require the changes on the coding structure!!
+    const inputs = this.inputButtons.shadowRoot?.querySelectorAll<HTMLButtonElement>('.button-group:not([unk]) > .isncsci-input-button:not(:disabled)');
+    if (!inputs || inputs.length == 0) { return; }
+    const validValues = Array.from(inputs).map(i => i.value);
+
+    switch (e.key) {
+      case '1':
+        //check for valid values
+        //set the value if valid
+        setCellsValueUseCase(
+          '1',
+          state.selectedCells.slice(),
+          state.gridModel.slice(),
+          state.vac,
+          state.dap,
+          state.rightLowestNonKeyMuscleWithMotorFunction,
+          state.leftLowestNonKeyMuscleWithMotorFunction,
+          state.comments,
+          true,
+          this.appStoreProvider,
+          this.externalMessageProvider,
+        )
+        break;
+      case '*':
+        break;
+    }
+
+    // setActiveCellUseCase(
+    //   nextActiveCell,
+    //   state.activeCell,
+    //   'single',
+    //   state.selectedCells,
+    //   state.gridModel.slice(),
+    //   this.appStoreProvider,
+    // );
+  }
+
+
   private vacDap_onChange() {
     if (!this.vac || !this.dap) {
       throw new Error(
@@ -382,9 +440,12 @@ export class InputLayoutController {
         this.updateTotals(state.totals);
         break;
       case Actions.SET_ACTIVE_CELL:
+        // this.updateGridSelection(
+        //   state.activeCell ? state.activeCell.name : null,
+        // );
         this.updateGridSelection(
-          state.activeCell ? state.activeCell.name : null,
-        );
+          state.selectedCells ? state.selectedCells.map(c => c.name) : null,
+        )
         this.updateInputButtons(
           state.activeCell,
           state.selectedCells,
@@ -459,8 +520,8 @@ export class InputLayoutController {
       this.considerNormal.value === '1'
         ? true
         : this.considerNormal.value === '2'
-        ? false
-        : null;
+          ? false
+          : null;
 
     setStarDetailsUseCase(
       considerNormal,
