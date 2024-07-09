@@ -85,14 +85,13 @@ port1.postMessage({action: 'SET_EXAM_DATA', examData});
 port1.postMessage({action: 'SET_READONLY', readonly: true});
 ```
 
-`SET_CLASSIFICATION_STYLE`: Sets how the classification panel is to be displayed:
+`SET_STYLE`: Sets how the control is to be displayed:
 
-- `visible` makes the panel visible
-- `static` fixes the classification panel at the bottom of the form
-- `''` hides the classification panel
+- `no-app-bar` hide the app bar (all action buttons)
+- 'hide-classification' hides the classification panel
 
 ```typescript
-port1.postMessage({action: 'SET_CLASSIFICATION_STYLE', style: 'visible'});
+port1.postMessage({action: 'SET_STYLE', style: 'hide-classification'});
 ```
 
 `CLASSIFY`: Triggers the classification logic

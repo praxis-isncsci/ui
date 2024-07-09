@@ -18,14 +18,17 @@ import { cloneExamData } from '@core/helpers/examData.helper';
  * 2. Check for missing values
  *    2.1 If missing values are found,
  *      2.1.1 add the missing values as calculation errors to the model
+ *      if not partial calculation
  *      2.1.2 Update the external listeners so they are informed of the errors
  *      2.1.3 Stop
- * 3. Validate exam data
- *    3.1 If errors are found,
- *      3.1.1 add the calculation errors to the model
- *      3.1.2 Update the external listeners so they are informed of the errors
- *      3.1.3 Stop
- * 4. Convert any `UNK` values to `NT` before performing the calculation
+ * 3. Data conversion
+ *    3.1 Convert any `UNK` values to `NT` before performing the calculation*
+ *    3.2 Convert any empty values to 'NT** (Consider normal)' if partial calculation
+ * 4. Validate exam data
+ *    4.1 If errors are found,
+ *      4.1.1 add the calculation errors to the model
+ *      4.1.2 Update the external listeners so they are informed of the errors
+ *      4.1.3 Stop
  * 5. Calculate totals
  * 6. Bind totals to exam data
  * 7. Mark exam data as complete
@@ -65,41 +68,39 @@ export const calculateUseCase = async (
 
       // 2.1.2 Update the external listeners so they are informed of the errors
       examData.missingValues = missingValues;
-
-      if (!partialCalc)
-        await externalMessageProvider.sendOutExamData(examData);
-
     } catch (error) {
       console.log(error);
+    } finally {
+      // 2.1.3 Stop if not partial
+      if (!partialCalc) {
+        await externalMessageProvider.sendOutExamData(examData);
+        return;
+      }
     }
-
-    // 2.1.3 Stop if not partial
-    if (!partialCalc)
-      return;
   }
 
-  // 2. Convert any empty values to 'NT' if partical calc before performing additional validate and calculation
-  // 3. Convert any `UNK` values to `NT` before performing the calculation
+  // 3.1 Convert any empty values to 'NT' if partical calc before performing additional validate and calculation
+  // 3.2 Convert any `UNK` values to `NT` before performing the calculation
   const clonedExamData = cloneExamData(examData, { convertEmptyToNt: partialCalc, convertUnkToNt: true });
 
-  // 3. Validate exam data
+  // 4. Validate exam data
   const errors = validateExamData(clonedExamData);
   if (errors.length > 0) {
     try {
-      // 3.1 If errors are found,
-      // 3.1.1 add the calculation errors
+      // 4.1 If errors are found,
+      // 4.1.1 add the calculation errors
       await appStoreProvider.setCalculationError(
         `The exam contains errors:\n${errors.join('\n')}`,
       );
 
-      // 3.1.2 Update the external listeners so they are informed of the errors
+      // 4.1.2 Update the external listeners so they are informed of the errors
       examData.errors = errors;
       await externalMessageProvider.sendOutExamData(examData);
     } catch (error) {
       console.log(error);
     }
 
-    // 3.1.3 Stop
+    // 4.1.3 Stop
     return;
   }
 

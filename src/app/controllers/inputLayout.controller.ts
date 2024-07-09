@@ -68,10 +68,6 @@ export class InputLayoutController {
       this.inputValue_onClick(e as CustomEvent),
     );
 
-    document.addEventListener('keyup', (e) => {
-      this.key_onUp(e as KeyboardEvent);
-    });
-
     this.considerNormal = this.inputButtons.querySelector('#consider-normal');
     this.reasonImpairmentNotDueToSci = this.inputButtons.querySelector(
       '#reason-for-impairment-not-due-to-sci',
@@ -279,7 +275,6 @@ export class InputLayoutController {
   }
 
   private updateGridSelection(selectedPoints: string[] | null) {
-  private updateGridSelection(selectedPoints: string[] | null) {
     if (!this.leftGrid || !this.rightGrid) {
       throw new Error('The grids have not been initialized');
     }
@@ -421,50 +416,6 @@ export class InputLayoutController {
       this.externalMessageProvider,
     );
   }
-
-  private key_onUp(e: KeyboardEvent) {
-    const state = appStore.getState();
-    if (!state.activeCell) { return; }
-
-    //check for valid values
-    //all of the enabled input
-    //Not the best to retrieve the value however to change that may require the changes on the coding structure!!
-    const inputs = this.inputButtons.shadowRoot?.querySelectorAll<HTMLButtonElement>('.button-group:not([unk]) > .isncsci-input-button:not(:disabled)');
-    if (!inputs || inputs.length == 0) { return; }
-    const validValues = Array.from(inputs).map(i => i.value);
-
-    switch (e.key) {
-      case '1':
-        //check for valid values
-        //set the value if valid
-        setCellsValueUseCase(
-          '1',
-          state.selectedCells.slice(),
-          state.gridModel.slice(),
-          state.vac,
-          state.dap,
-          state.rightLowestNonKeyMuscleWithMotorFunction,
-          state.leftLowestNonKeyMuscleWithMotorFunction,
-          state.comments,
-          true,
-          this.appStoreProvider,
-          this.externalMessageProvider,
-        )
-        break;
-      case '*':
-        break;
-    }
-
-    // setActiveCellUseCase(
-    //   nextActiveCell,
-    //   state.activeCell,
-    //   'single',
-    //   state.selectedCells,
-    //   state.gridModel.slice(),
-    //   this.appStoreProvider,
-    // );
-  }
-
 
   private vacDap_onChange() {
     if (!this.vac || !this.dap) {

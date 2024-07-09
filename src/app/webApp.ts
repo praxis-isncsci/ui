@@ -105,10 +105,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       );
 
     this.unsubscribeFromClassificationStyleHandler =
-      this.externalMessagePortProvider.subscribeToOnClassificationStyle(
-        (classificationStyle: string) =>
-          this.externalMessagePortProvider_onClassificationStyle(
-            classificationStyle,
+      this.externalMessagePortProvider.subscribeToOnStyleAttribute(
+        (styleAttribute: string) =>
+          this.externalMessagePortProvider_onStyleAttribute(
+            styleAttribute,
           ),
       );
 
@@ -280,7 +280,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     );
 
     const { calculationError } = this.appStore.getState();
-    if (!calculationError) {
+    if (!calculationError || partial) {
       //Show result panel
       if (this.appLayout.getAttribute('classification-style') !== 'fixed') {
         this.appLayout.setAttribute('classification-style', 'visible');
@@ -328,12 +328,12 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     setReadonlyUseCase(readonly, this.appStoreProvider);
   }
 
-  private externalMessagePortProvider_onClassificationStyle(
-    classificationStyle: string,
+  private externalMessagePortProvider_onStyleAttribute(
+    styleAttribute: string,
   ) {
     this.querySelector('praxis-isncsci-app-layout')?.setAttribute(
-      'classification-style',
-      classificationStyle,
+      styleAttribute,
+      '',
     );
   }
 

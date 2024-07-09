@@ -7,7 +7,7 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
   }
 
   public static get observedAttributes() {
-    return ['classification-style', 'readonly'];
+    return ['readonly'];
   }
 
   private template() {
@@ -20,18 +20,8 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
           position: relative;
         }
 
-        :host([classification-style="visible"]) :has(> [name=classification]),
-        :host([classification-style="static"]) :has(> [name=classification]) {
-          display: flex;
-          flex-direction: column;
-        }
-
-        :host([classification-style="static"]) :has(> [name=classification]) {
-          position: static;
-        }
-
-        :host([classification-style="static"]) :has(> [name=input-layout]) {
-          height: auto;
+        :host([no-app-bar]) :has(> [name=app-bar]){
+          display: none;
         }
 
         :host([readonly]) :has(> [name=input-controls]) {
@@ -98,7 +88,7 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
   public constructor() {
     super();
 
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.innerHTML = this.template();
   }
 
