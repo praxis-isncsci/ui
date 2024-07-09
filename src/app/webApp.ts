@@ -12,7 +12,7 @@ import {
   setReadonlyUseCase,
 } from '@core/useCases';
 
-import {Actions, IDataStore} from '@app/store';
+import { Actions, IDataStore } from '@app/store';
 import {
   ExternalMessagePortProvider,
   ExternalMessagePortProviderActions,
@@ -21,8 +21,8 @@ import {
   InputLayoutController,
   KeyPointDiagramController,
 } from '@app/controllers';
-import {getEmptyExamData} from '@core/helpers';
-import {ExamData} from '@core/domain';
+import { getEmptyExamData } from '@core/helpers';
+import { ExamData } from '@core/domain';
 
 export class PraxisIsncsciWebApp extends HTMLElement {
   public static get is(): string {
@@ -69,7 +69,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   constructor() {
     super();
 
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.innerHTML = this.template();
   }
 
@@ -114,7 +114,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
     this.unsubscribeFromClassifyHandler =
       this.externalMessagePortProvider.subscribeToOnClassify(() =>
-        this.classify(),
+        this.classify(true),
       );
 
     this.unsubscribeFromClearExamHandler =
@@ -249,7 +249,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     clearExamUseCase(this.appStoreProvider, this.externalMessagePortProvider);
   }
 
-  private classify() {
+  private classify(partial: boolean = false) {
     if (!this.appLayout || !this.classification) {
       return;
     }
@@ -276,10 +276,11 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       this.appStoreProvider,
       this.isncsciExamProvider,
       this.externalMessagePortProvider,
+      partial,
     );
 
-    const {calculationError} = this.appStore.getState();
-    if (!calculationError){
+    const { calculationError } = this.appStore.getState();
+    if (!calculationError) {
       //Show result panel
       if (this.appLayout.getAttribute('classification-style') !== 'fixed') {
         this.appLayout.setAttribute('classification-style', 'visible');

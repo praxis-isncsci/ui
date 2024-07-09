@@ -13,8 +13,8 @@ import {
   motorCellRegex,
   validCellNameRegex,
 } from './regularExpressions';
-import {BinaryObservation} from '@core/domain';
-import {ValidBinaryObservationValues} from '@core/domain/binaryObservation';
+import { BinaryObservation } from '@core/domain';
+import { ValidBinaryObservationValues } from '@core/domain/binaryObservation';
 
 const validateValue = (
   dataKey: string,
@@ -257,7 +257,7 @@ export const getExamDataFromGridModel = (
     }
   });
 
-  return {examData, missingValues};
+  return { examData, missingValues };
 };
 
 export const findCell = (cellName: string, gridModel: Array<Cell | null>[]) => {
@@ -336,7 +336,7 @@ export const getCellRow = (cellName: string) => {
  * Returns the column and row index of a cell in the grid model.
  */
 export const getCellPosition = (cellName: string) => {
-  return {column: getCellColumn(cellName), row: getCellRow(cellName)};
+  return { column: getCellColumn(cellName), row: getCellRow(cellName) };
 };
 
 /*
@@ -344,14 +344,14 @@ export const getCellPosition = (cellName: string) => {
  * The range is inclusive of the start and end cells.
  */
 export const getCellRange = (
-  start: {column: number; row: number},
-  end: {column: number; row: number} | null,
+  start: { column: number; row: number },
+  end: { column: number; row: number } | null,
   gridModel: Array<Cell | null>[],
   stopAtCellWithValue: boolean = false,
 ) => {
   const motorRange: Cell[] = [];
   const sensoryRange: Cell[] = [];
-  const endPosition = end ?? {column: start.column, row: 27};
+  const endPosition = end ?? { column: start.column, row: 27 };
 
   const rowStart = Math.min(start.row, endPosition.row);
   const rowEnd = Math.max(start.row, endPosition.row);
@@ -368,7 +368,7 @@ export const getCellRange = (
           cell.value &&
           (row !== rowStart || column !== columnStart)
         ) {
-          return {motorRange, sensoryRange};
+          return { motorRange, sensoryRange };
         }
 
         if (motorCellRegex.test(cell.name)) {
@@ -380,7 +380,7 @@ export const getCellRange = (
     }
   }
 
-  return {motorRange, sensoryRange};
+  return { motorRange, sensoryRange };
 };
 
 export const getEmptyTotals = (): Totals => {
@@ -1009,15 +1009,56 @@ export const getExamDataWithAllNormalValues = (): ExamData => {
 
 export const cloneExamData = (
   examData: ExamData,
-  convertUnkToNt: boolean = false,
+  options?: { convertUnkToNt?: boolean, convertEmptyToNt?: boolean },
 ): ExamData => {
-  const clonedExamData = {...examData};
+  const convertUnkToNt = (options && options.convertEmptyToNt) ? options.convertEmptyToNt : false;
+  const convertEmptyToNt = (options && options.convertEmptyToNt) ? options.convertEmptyToNt : false;
+  const clonedExamData = { ...examData };
 
-  Object.keys(clonedExamData).forEach((key) => {
-    if (convertUnkToNt && /UNK/i.test(clonedExamData[key])) {
-      clonedExamData[key] = 'NT';
-    }
-  });
+  if (convertUnkToNt) {
+    Object.keys(clonedExamData).forEach((key) => {
+      if (/UNK/i.test(clonedExamData[key])) {
+        clonedExamData[key] = 'NT';
+      }
+    });
+  }
+  if (convertEmptyToNt) {
+    clonedExamData.missingValues = [];
+    SensoryLevels.forEach((level) => {
+
+      if (!clonedExamData[`rightLightTouch${level}`]) {
+        clonedExamData[`rightLightTouch${level}`] = 'NT**';
+        clonedExamData[`rightLightTouch${level}ConsiderNormal`] = true;
+      }
+      if (!clonedExamData[`rightPinPrick${level}`]) {
+        clonedExamData[`rightPinPrick${level}`] = 'NT**';
+        clonedExamData[`rightPinPrick${level}ConsiderNormal`] = true;
+      }
+      if (!clonedExamData[`leftLightTouch${level}`]) {
+        clonedExamData[`leftLightTouch${level}`] = 'NT**';
+        clonedExamData[`leftLightTouch${level}ConsiderNormal`] = true;
+      }
+      if (!clonedExamData[`leftPinPrick${level}`]) {
+        clonedExamData[`leftPinPrick${level}`] = 'NT**';
+        clonedExamData[`leftPinPrick${level}ConsiderNormal`] = true;
+      }
+
+      if (MotorLevels.includes(level as MotorLevel)) {
+        if (!clonedExamData[`rightMotor${level}`]) {
+          clonedExamData[`rightMotor${level}`] = 'NT**';
+          clonedExamData[`rightMotor${level}ConsiderNormal`] = true;
+        }
+
+        if (!clonedExamData[`leftMotor${level}`]) {
+          clonedExamData[`leftMotor${level}`] = 'NT**';
+          clonedExamData[`leftMotor${level}ConsiderNormal`] = true;
+        }
+      }
+    });
+    clonedExamData['voluntaryAnalContraction'] ??= 'NT';
+    clonedExamData['deepAnalPressure'] ??= 'NT';
+
+  }
 
   return clonedExamData;
 };

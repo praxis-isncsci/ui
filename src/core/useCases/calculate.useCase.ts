@@ -3,9 +3,9 @@ import {
   IIsncsciAppStoreProvider,
   IIsncsciExamProvider,
 } from '@core/boundaries';
-import {BinaryObservation, Cell, MotorLevel, Totals} from '@core/domain';
-import {getExamDataFromGridModel, validateExamData} from '@core/helpers';
-import {cloneExamData} from '@core/helpers/examData.helper';
+import { BinaryObservation, Cell, MotorLevel } from '@core/domain';
+import { getExamDataFromGridModel, validateExamData } from '@core/helpers';
+import { cloneExamData } from '@core/helpers/examData.helper';
 
 /*
  * This use case is responsible for calculating the totals
@@ -42,9 +42,10 @@ export const calculateUseCase = async (
   appStoreProvider: IIsncsciAppStoreProvider,
   examProvider: IIsncsciExamProvider,
   externalMessageProvider: IExternalMessageProvider,
+  partialCalc: boolean = false
 ) => {
   // 1. Get exam data from grid model
-  const {examData, missingValues} = getExamDataFromGridModel(
+  const { examData, missingValues } = getExamDataFromGridModel(
     gridModel,
     vac,
     dap,
@@ -64,18 +65,25 @@ export const calculateUseCase = async (
 
       // 2.1.2 Update the external listeners so they are informed of the errors
       examData.missingValues = missingValues;
-      await externalMessageProvider.sendOutExamData(examData);
+
+      if (!partialCalc)
+        await externalMessageProvider.sendOutExamData(examData);
+
     } catch (error) {
       console.log(error);
     }
 
-    // 2.1.3 Stop
-    return;
+    // 2.1.3 Stop if not partial
+    if (!partialCalc)
+      return;
   }
 
-  // 3. Validate exam data
-  const errors = validateExamData(examData);
+  // 2. Convert any empty values to 'NT' if partical calc before performing additional validate and calculation
+  // 3. Convert any `UNK` values to `NT` before performing the calculation
+  const clonedExamData = cloneExamData(examData, { convertEmptyToNt: partialCalc, convertUnkToNt: true });
 
+  // 3. Validate exam data
+  const errors = validateExamData(clonedExamData);
   if (errors.length > 0) {
     try {
       // 3.1 If errors are found,
@@ -94,9 +102,6 @@ export const calculateUseCase = async (
     // 3.1.3 Stop
     return;
   }
-
-  // 3. Convert any `UNK` values to `NT` before performing the calculation
-  const clonedExamData = cloneExamData(examData, true);
 
   try {
     // 4. Calculate totals
