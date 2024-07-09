@@ -12,6 +12,7 @@ import {
   setExtraInputsUseCase,
   setStarDetailsUseCase,
   setVacDapUseCase,
+  getNextActiveCellUseCase,
 } from '@core/useCases';
 import {BinaryObservation} from '@core/domain';
 
@@ -136,6 +137,93 @@ export class InputLayoutController {
     appStore.subscribe((state: IAppState, actionType: string) =>
       this.stateChanged(state, actionType),
     );
+
+    // Enable keyboard entry
+    document.addEventListener('keydown', (e) => {
+      this.inputValue_onKeydown(e as KeyboardEvent);
+    });
+  }
+
+  private inputValue_onKeydown(e: KeyboardEvent) {
+    const state = appStore.getState();
+    if (!state.activeCell) {
+      return;
+    }
+    const inputs =
+      this.inputButtons.shadowRoot?.querySelectorAll(
+        'button:not([disabled])',
+      ) ?? [];
+    if (!inputs || inputs.length === 0) {
+      return;
+    }
+    const validValues = Array.from(inputs).map(
+      (i) => (i as HTMLButtonElement).value,
+    );
+
+    let value = e.key;
+    if ((e.ctrlKey || e.metaKey) && /^[1-5]$/.test(e.key)) {
+      e.preventDefault();
+      value += '*';
+    }
+
+    switch (value) {
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '1*':
+      case '2*':
+      case '3*':
+      case '4*':
+      case '5*':
+        if (validValues.includes(value)) {
+          setCellsValueUseCase(
+            value,
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+          const nextActiveCell = getNextActiveCellUseCase(
+            state.activeCell.name,
+            state.gridModel,
+          );
+          setActiveCellUseCase(
+            nextActiveCell,
+            state.activeCell,
+            'single',
+            state.selectedCells,
+            state.gridModel.slice(),
+            this.appStoreProvider,
+          );
+        }
+        break;
+      case '*':
+        const lastValue = state.activeCell?.value;
+        if (lastValue && validValues.includes(lastValue + '*')) {
+          setCellsValueUseCase(
+            lastValue + '*',
+            state.selectedCells.slice(),
+            state.gridModel.slice(),
+            state.vac,
+            state.dap,
+            state.rightLowestNonKeyMuscleWithMotorFunction,
+            state.leftLowestNonKeyMuscleWithMotorFunction,
+            state.comments,
+            true,
+            this.appStoreProvider,
+            this.externalMessageProvider,
+          );
+        }
+        break;
+    }
   }
 
   private registerGrids(grids: NodeListOf<HTMLElement>) {
@@ -186,20 +274,33 @@ export class InputLayoutController {
     });
   }
 
-  private updateGridSelection(selectedPoint: string | null) {
+  private updateGridSelection(selectedPoints: string[] | null) {
     if (!this.leftGrid || !this.rightGrid) {
       throw new Error('The grids have not been initialized');
     }
 
-    if (!selectedPoint) {
+    if (!selectedPoints) {
       this.rightGrid.removeAttribute('highlighted-cells');
       this.leftGrid.removeAttribute('highlighted-cells');
-    } else if (selectedPoint.startsWith('left')) {
-      this.rightGrid.removeAttribute('highlighted-cells');
-      this.leftGrid.setAttribute('highlighted-cells', selectedPoint);
+      return;
+    }
+    const leftSelectedPoints = selectedPoints
+      .filter((p) => p.startsWith('left'))
+      .join('|');
+    const rightSelectedPoints = selectedPoints
+      .filter((p) => p.startsWith('right'))
+      .join('|');
+
+    if (leftSelectedPoints) {
+      this.leftGrid.setAttribute('highlighted-cells', leftSelectedPoints);
     } else {
       this.leftGrid.removeAttribute('highlighted-cells');
-      this.rightGrid.setAttribute('highlighted-cells', selectedPoint);
+    }
+
+    if (rightSelectedPoints) {
+      this.rightGrid.setAttribute('highlighted-cells', rightSelectedPoints);
+    } else {
+      this.rightGrid.removeAttribute('highlighted-cells');
     }
   }
 
@@ -383,7 +484,7 @@ export class InputLayoutController {
         break;
       case Actions.SET_ACTIVE_CELL:
         this.updateGridSelection(
-          state.activeCell ? state.activeCell.name : null,
+          state.selectedCells ? state.selectedCells.map((c) => c.name) : null,
         );
         this.updateInputButtons(
           state.activeCell,
