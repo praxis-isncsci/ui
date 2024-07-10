@@ -1009,56 +1009,15 @@ export const getExamDataWithAllNormalValues = (): ExamData => {
 
 export const cloneExamData = (
   examData: ExamData,
-  options?: { convertUnkToNt?: boolean, convertEmptyToNt?: boolean },
+  convertUnkToNt: boolean = false,
 ): ExamData => {
-  const convertUnkToNt = (options && options.convertEmptyToNt) ? options.convertEmptyToNt : false;
-  const convertEmptyToNt = (options && options.convertEmptyToNt) ? options.convertEmptyToNt : false;
   const clonedExamData = { ...examData };
 
-  if (convertUnkToNt) {
-    Object.keys(clonedExamData).forEach((key) => {
-      if (/UNK/i.test(clonedExamData[key])) {
-        clonedExamData[key] = 'NT';
-      }
-    });
-  }
-  if (convertEmptyToNt) {
-    clonedExamData.missingValues = [];
-    SensoryLevels.forEach((level) => {
-
-      if (!clonedExamData[`rightLightTouch${level}`]) {
-        clonedExamData[`rightLightTouch${level}`] = 'NT**';
-        clonedExamData[`rightLightTouch${level}ConsiderNormal`] = true;
-      }
-      if (!clonedExamData[`rightPinPrick${level}`]) {
-        clonedExamData[`rightPinPrick${level}`] = 'NT**';
-        clonedExamData[`rightPinPrick${level}ConsiderNormal`] = true;
-      }
-      if (!clonedExamData[`leftLightTouch${level}`]) {
-        clonedExamData[`leftLightTouch${level}`] = 'NT**';
-        clonedExamData[`leftLightTouch${level}ConsiderNormal`] = true;
-      }
-      if (!clonedExamData[`leftPinPrick${level}`]) {
-        clonedExamData[`leftPinPrick${level}`] = 'NT**';
-        clonedExamData[`leftPinPrick${level}ConsiderNormal`] = true;
-      }
-
-      if (MotorLevels.includes(level as MotorLevel)) {
-        if (!clonedExamData[`rightMotor${level}`]) {
-          clonedExamData[`rightMotor${level}`] = 'NT**';
-          clonedExamData[`rightMotor${level}ConsiderNormal`] = true;
-        }
-
-        if (!clonedExamData[`leftMotor${level}`]) {
-          clonedExamData[`leftMotor${level}`] = 'NT**';
-          clonedExamData[`leftMotor${level}ConsiderNormal`] = true;
-        }
-      }
-    });
-    clonedExamData['voluntaryAnalContraction'] ??= 'NT';
-    clonedExamData['deepAnalPressure'] ??= 'NT';
-
-  }
+  Object.keys(clonedExamData).forEach((key) => {
+    if (convertUnkToNt && /UNK/i.test(clonedExamData[key])) {
+      clonedExamData[key] = 'NT';
+    }
+  });
 
   return clonedExamData;
 };

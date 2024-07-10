@@ -114,7 +114,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
 
     this.unsubscribeFromClassifyHandler =
       this.externalMessagePortProvider.subscribeToOnClassify(() =>
-        this.classify(true),
+        this.classify(),
       );
 
     this.unsubscribeFromClearExamHandler =
@@ -249,7 +249,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     clearExamUseCase(this.appStoreProvider, this.externalMessagePortProvider);
   }
 
-  private classify(partial: boolean = false) {
+  private classify() {
     if (!this.appLayout || !this.classification) {
       return;
     }
@@ -276,11 +276,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       this.appStoreProvider,
       this.isncsciExamProvider,
       this.externalMessagePortProvider,
-      partial,
     );
 
     const { calculationError } = this.appStore.getState();
-    if (!calculationError || partial) {
+    if (!calculationError) {
       //Show result panel
       if (this.appLayout.getAttribute('classification-style') !== 'fixed') {
         this.appLayout.setAttribute('classification-style', 'visible');
