@@ -24,6 +24,20 @@ export class PraxisIsncsciAppLayout extends HTMLElement {
           display: none;
         }
 
+        :host([classification-style="visible"]) :has(> [name=classification]),
+        :host([classification-style="static"]) :has(> [name=classification]) {
+          display: flex;
+          flex-direction: column;
+        }
+
+        :host([classification-style="static"]) :has(> [name=classification]) {
+          position: static;
+        }
+
+        :host([classification-style="static"]) :has(> [name=input-layout]) {
+          height: auto;
+        }
+
         :host([readonly]) :has(> [name=input-controls]) {
           display: none;
         }
