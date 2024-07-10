@@ -3,9 +3,9 @@ import {
   IIsncsciAppStoreProvider,
   IIsncsciExamProvider,
 } from '@core/boundaries';
-import {BinaryObservation, Cell, MotorLevel, Totals} from '@core/domain';
-import {getExamDataFromGridModel, validateExamData} from '@core/helpers';
-import {cloneExamData} from '@core/helpers/examData.helper';
+import { BinaryObservation, Cell, MotorLevel, Totals } from '@core/domain';
+import { getExamDataFromGridModel, validateExamData } from '@core/helpers';
+import { cloneExamData } from '@core/helpers/examData.helper';
 
 /*
  * This use case is responsible for calculating the totals
@@ -44,7 +44,7 @@ export const calculateUseCase = async (
   externalMessageProvider: IExternalMessageProvider,
 ) => {
   // 1. Get exam data from grid model
-  const {examData, missingValues} = getExamDataFromGridModel(
+  const { examData, missingValues } = getExamDataFromGridModel(
     gridModel,
     vac,
     dap,

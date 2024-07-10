@@ -1,11 +1,11 @@
-import {IExternalMessageProvider} from '@core/boundaries';
-import {ExamData} from '@core/domain';
+import { IExternalMessageProvider } from '@core/boundaries';
+import { ExamData } from '@core/domain';
 
 export class ExternalMessagePortProviderActions {
   public static INITIALIZE_PORT = 'INITIALIZE_PORT';
   public static SET_EXAM_DATA = 'SET_EXAM_DATA';
   public static SET_READONLY = 'SET_READONLY';
-  public static SET_CLASSIFICATION_STYLE = 'SET_CLASSIFICATION_STYLE';
+  public static SET_STYLE_ATTRIBUTE = 'SET_STYLE_ATTRIBUTE';
   public static CLASSIFY = 'CLASSIFY';
   public static CLEAR_EXAM = 'CLEAR_EXAM';
 }
@@ -13,8 +13,8 @@ export class ExternalMessagePortProviderActions {
 export class ExternalMessagePortProvider implements IExternalMessageProvider {
   private onExamDataHandlers: Array<(examData: ExamData) => void> = [];
   private onReadonlyHandlers: Array<(readonly: boolean) => void> = [];
-  private onClassificationStyleHandlers: Array<
-    (classificationStyle: string) => void
+  private onStyleAttributeHandlers: Array<
+    (styleAttribute: string) => void
   > = [];
   private onClassifyHandlers: Array<() => void> = [];
   private onClearExamHandlers: Array<() => void> = [];
@@ -39,7 +39,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
           e.data.action,
           e.data.readonly,
           e.data.examData,
-          e.data.classificationStyle,
+          e.data.styleAttribute,
         );
       };
       this.dispatchOnExternalPort();
@@ -50,7 +50,7 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     action: string,
     readonly: boolean,
     examData: ExamData | null = null,
-    classificationStyle: string = '',
+    styleAttribute: string = '',
   ) {
     if (action === ExternalMessagePortProviderActions.SET_EXAM_DATA) {
       if (!examData) {
@@ -65,9 +65,9 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     }
 
     if (
-      action === ExternalMessagePortProviderActions.SET_CLASSIFICATION_STYLE
+      action === ExternalMessagePortProviderActions.SET_STYLE_ATTRIBUTE
     ) {
-      this.dispatchOnClassificationStyle(classificationStyle);
+      this.dispatchOnStyleAttribute(styleAttribute);
     }
 
     if (action === ExternalMessagePortProviderActions.CLASSIFY) {
@@ -91,9 +91,9 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
     this.onReadonlyHandlers.forEach((handler) => handler(readonly));
   }
 
-  private dispatchOnClassificationStyle(classificationStyle: string) {
-    this.onClassificationStyleHandlers.forEach((handler) =>
-      handler(classificationStyle),
+  private dispatchOnStyleAttribute(styleAttribute: string) {
+    this.onStyleAttributeHandlers.forEach((handler) =>
+      handler(styleAttribute),
     );
   }
 
@@ -139,10 +139,10 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
   /*
    * returns the unsubscribe function
    */
-  public subscribeToOnClassificationStyle(
-    handler: (classificationStyle: string) => void,
+  public subscribeToOnStyleAttribute(
+    handler: (styleAttribute: string) => void,
   ) {
-    return this.subscribe(handler, this.onClassificationStyleHandlers);
+    return this.subscribe(handler, this.onStyleAttributeHandlers);
   }
 
   /*
@@ -189,9 +189,9 @@ export class ExternalMessagePortProvider implements IExternalMessageProvider {
 
     if (
       e.data.action ===
-      ExternalMessagePortProviderActions.SET_CLASSIFICATION_STYLE
+      ExternalMessagePortProviderActions.SET_STYLE_ATTRIBUTE
     ) {
-      if (typeof e.data.classificationStyle !== 'string') {
+      if (typeof e.data.styleAttribute !== 'string') {
         throw new Error('Classification style must be a string.');
       }
     }

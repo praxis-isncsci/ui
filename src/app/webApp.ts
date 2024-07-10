@@ -12,7 +12,7 @@ import {
   setReadonlyUseCase,
 } from '@core/useCases';
 
-import {Actions, IDataStore} from '@app/store';
+import { Actions, IDataStore } from '@app/store';
 import {
   ExternalMessagePortProvider,
   ExternalMessagePortProviderActions,
@@ -21,8 +21,8 @@ import {
   InputLayoutController,
   KeyPointDiagramController,
 } from '@app/controllers';
-import {getEmptyExamData} from '@core/helpers';
-import {ExamData} from '@core/domain';
+import { getEmptyExamData } from '@core/helpers';
+import { ExamData } from '@core/domain';
 
 export class PraxisIsncsciWebApp extends HTMLElement {
   public static get is(): string {
@@ -69,7 +69,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
   constructor() {
     super();
 
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.innerHTML = this.template();
   }
 
@@ -105,10 +105,10 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       );
 
     this.unsubscribeFromClassificationStyleHandler =
-      this.externalMessagePortProvider.subscribeToOnClassificationStyle(
-        (classificationStyle: string) =>
-          this.externalMessagePortProvider_onClassificationStyle(
-            classificationStyle,
+      this.externalMessagePortProvider.subscribeToOnStyleAttribute(
+        (styleAttribute: string) =>
+          this.externalMessagePortProvider_onStyleAttribute(
+            styleAttribute,
           ),
       );
 
@@ -278,8 +278,8 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       this.externalMessagePortProvider,
     );
 
-    const {calculationError} = this.appStore.getState();
-    if (!calculationError){
+    const { calculationError } = this.appStore.getState();
+    if (!calculationError) {
       //Show result panel
       if (this.appLayout.getAttribute('classification-style') !== 'fixed') {
         this.appLayout.setAttribute('classification-style', 'visible');
@@ -327,12 +327,12 @@ export class PraxisIsncsciWebApp extends HTMLElement {
     setReadonlyUseCase(readonly, this.appStoreProvider);
   }
 
-  private externalMessagePortProvider_onClassificationStyle(
-    classificationStyle: string,
+  private externalMessagePortProvider_onStyleAttribute(
+    styleAttribute: string,
   ) {
     this.querySelector('praxis-isncsci-app-layout')?.setAttribute(
-      'classification-style',
-      classificationStyle,
+      styleAttribute,
+      '',
     );
   }
 

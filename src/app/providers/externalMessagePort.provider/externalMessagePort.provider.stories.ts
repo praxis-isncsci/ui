@@ -1,7 +1,7 @@
-import {html} from 'lit';
-import type {Meta, StoryObj} from '@storybook/web-components';
-import {MotorLevels as ML, SensoryLevels as SL} from '@core/domain';
-import {getRandomExamData} from '@testHelpers/examDataHelper';
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { MotorLevels as ML, SensoryLevels as SL } from '@core/domain';
+import { getRandomExamData } from '@testHelpers/examDataHelper';
 
 const SensoryLevels = SL.slice(0);
 const MotorLevels = ML.slice(0);
@@ -28,7 +28,7 @@ const storyInitializer = (getRandomExamData) => {
     const flipFlagButton = document.querySelector('button[flip-flag]');
     const classifyButton = document.querySelector('button[classify]');
     const clearExamButton = document.querySelector('button[clear-exam]');
-    const classificationStyleSelect = document.querySelector(
+    const styleSelect = document.querySelector(
       'select[classification-style]',
     );
     const channel = new MessageChannel();
@@ -48,7 +48,7 @@ const storyInitializer = (getRandomExamData) => {
     // Transfer port2 to the iframe
     if (isncsciIframe && isncsciIframe.contentWindow) {
       isncsciIframe.contentWindow.postMessage(
-        {action: 'INITIALIZE_PORT'},
+        { action: 'INITIALIZE_PORT' },
         '*',
         [channel.port2],
       );
@@ -107,11 +107,11 @@ const storyInitializer = (getRandomExamData) => {
       });
     });
 
-    classificationStyleSelect?.addEventListener('change', (e) => {
+    styleSelect?.addEventListener('change', (e) => {
       const select = e.target as HTMLSelectElement;
       port1.postMessage({
-        action: 'SET_CLASSIFICATION_STYLE',
-        classificationStyle: select.options[select.selectedIndex].value,
+        action: 'SET_STYLE_ATTRIBUTE',
+        style: select.options[select.selectedIndex].value,
       });
     });
   });
@@ -149,8 +149,7 @@ const template = () => html`
       <label>Classification style:</label>
       <select classification-style>
         <option value=""></option>
-        <option value="visible">visible</option>
-        <option value="static">static</option>
+        <option value="visible"no-app-bar</option>
       </select>
     </li>
   </ul>

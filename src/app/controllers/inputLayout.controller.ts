@@ -1,11 +1,11 @@
-import {Actions, IDataStore, appStore} from '@app/store';
+import { Actions, IDataStore, appStore } from '@app/store';
 import {
   IAppState,
   IExternalMessageProvider,
   IIsncsciAppStoreProvider,
 } from '@core/boundaries';
-import {Cell, MotorLevel, Totals} from '@core/domain';
-import {cellsMatch, sensoryCellRegex} from '@core/helpers';
+import { Cell, MotorLevel, Totals } from '@core/domain';
+import { cellsMatch, sensoryCellRegex } from '@core/helpers';
 import {
   setActiveCellUseCase,
   setCellsValueUseCase,
@@ -14,7 +14,7 @@ import {
   setVacDapUseCase,
   getNextActiveCellUseCase,
 } from '@core/useCases';
-import {BinaryObservation} from '@core/domain';
+import { BinaryObservation } from '@core/domain';
 
 const allCellsHaveSameValues = (selectedCells: Cell[]) => {
   if (selectedCells.length === 0) {
@@ -316,8 +316,8 @@ export class InputLayoutController {
       !activeCell || activeCell.error || activeCell.considerNormal === null
         ? ''
         : activeCell.considerNormal === true
-        ? '1'
-        : '2';
+          ? '1'
+          : '2';
 
     reasonImpairmentNotDueToSci.value =
       activeCell?.reasonImpairmentNotDueToSci ?? '';
@@ -560,8 +560,8 @@ export class InputLayoutController {
       this.considerNormal.value === '1'
         ? true
         : this.considerNormal.value === '2'
-        ? false
-        : null;
+          ? false
+          : null;
 
     setStarDetailsUseCase(
       considerNormal,

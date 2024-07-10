@@ -1,9 +1,8 @@
-import {IIsncsciAppStoreProvider} from '@core/boundaries';
-import {ExamData} from '@core/domain';
+import { IIsncsciAppStoreProvider } from '@core/boundaries';
+import { ExamData } from '@core/domain';
 import {
   bindExamDataToGridModel,
   bindExamDataToTotals,
-  validateExamData,
 } from '@core/helpers';
 
 export const loadExternalExamDataUseCase = async (
