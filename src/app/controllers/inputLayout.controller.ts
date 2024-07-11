@@ -160,23 +160,40 @@ export class InputLayoutController {
       (i) => (i as HTMLButtonElement).value,
     );
 
-    let value = e.key;
-    if ((e.ctrlKey || e.metaKey) && /^[1-5]$/.test(e.key)) {
-      e.preventDefault();
-      value += '*';
+    let value = e.key.toUpperCase();
+    if (e.altKey || (navigator.userAgent.includes('Mac') && e.ctrlKey)) {
+      if (/^[0-5]$/.test(e.key)) {
+        e.preventDefault();
+        value += '*';
+      } else if (value === 'N') {
+        e.preventDefault();
+        value = 'NT*';
+      }
+    } else {
+      if (value === 'N') {
+        e.preventDefault();
+        value = 'NT';
+      } else if (value === 'U') {
+        e.preventDefault();
+        value = 'UNK';
+      }
     }
 
     switch (value) {
+      case '0':
       case '1':
       case '2':
       case '3':
       case '4':
       case '5':
+      case 'NT':
+      case 'UNK':
+      case '0*':
       case '1*':
       case '2*':
       case '3*':
       case '4*':
-      case '5*':
+      case 'NT*':
         if (validValues.includes(value)) {
           setCellsValueUseCase(
             value,
