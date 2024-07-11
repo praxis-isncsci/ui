@@ -161,10 +161,19 @@ export class InputLayoutController {
     );
 
     let value = e.key.toUpperCase();
-    if (e.altKey || (navigator.userAgent.includes('Mac') && e.ctrlKey)) {
-      if (/^[0-5]$/.test(e.key)) {
+    const shiftKeys = {
+      ')': '0',
+      '!': '1',
+      '@': '2',
+      '#': '3',
+      '$': '4',
+      '%': '5'
+    };
+
+    if (e.shiftKey) {
+      if (shiftKeys[value]) {
         e.preventDefault();
-        value += '*';
+        value = shiftKeys[value] + '*';
       } else if (value === 'N') {
         e.preventDefault();
         value = 'NT*';
