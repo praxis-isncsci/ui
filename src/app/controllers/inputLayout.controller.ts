@@ -37,6 +37,7 @@ export class InputLayoutController {
   private rightLowest: HTMLSelectElement | null = null;
   private leftLowest: HTMLSelectElement | null = null;
   private comments: HTMLTextAreaElement | null = null;
+  private keyMap: { [key: string]: string } = {};
 
   public constructor(
     appStore: IDataStore<IAppState>,
@@ -142,6 +143,20 @@ export class InputLayoutController {
     document.addEventListener('keydown', (e) => {
       this.inputValue_onKeydown(e as KeyboardEvent);
     });
+    this.keyMap['0'] = '0';
+    this.keyMap['1'] = '1';
+    this.keyMap['2'] = '2';
+    this.keyMap['3'] = '3';
+    this.keyMap['4'] = '4';
+    this.keyMap['5'] = '5';
+    this.keyMap['n'] = 'NT';
+    this.keyMap['u'] = 'UNK';
+    this.keyMap[')'] = '0*';
+    this.keyMap['!'] = '1*';
+    this.keyMap['@'] = '2*';
+    this.keyMap['#'] = '3*';
+    this.keyMap['$'] = '4*';
+    this.keyMap['N'] = 'NT*';
   }
 
   private inputValue_onKeydown(e: KeyboardEvent) {
@@ -159,97 +174,37 @@ export class InputLayoutController {
     const validValues = Array.from(inputs).map(
       (i) => (i as HTMLButtonElement).value,
     );
-
-    let value = e.key.toUpperCase();
-    const shiftKeys = {
-      ')': '0',
-      '!': '1',
-      '@': '2',
-      '#': '3',
-      '$': '4',
-      '%': '5'
-    };
-
-    if (e.shiftKey) {
-      if (shiftKeys[value]) {
-        e.preventDefault();
-        value = shiftKeys[value] + '*';
-      } else if (value === 'N') {
-        e.preventDefault();
-        value = 'NT*';
-      }
-    } else {
-      if (value === 'N') {
-        e.preventDefault();
-        value = 'NT';
-      } else if (value === 'U') {
-        e.preventDefault();
-        value = 'UNK';
-      }
+    const value = this.keyMap[e.key];
+    if (!value || !validValues.includes(value)) {
+      e.preventDefault();
+      return;
     }
 
-    switch (value) {
-      case '0':
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-      case 'NT':
-      case 'UNK':
-      case '0*':
-      case '1*':
-      case '2*':
-      case '3*':
-      case '4*':
-      case 'NT*':
-        if (validValues.includes(value)) {
-          setCellsValueUseCase(
-            value,
-            state.selectedCells.slice(),
-            state.gridModel.slice(),
-            state.vac,
-            state.dap,
-            state.rightLowestNonKeyMuscleWithMotorFunction,
-            state.leftLowestNonKeyMuscleWithMotorFunction,
-            state.comments,
-            true,
-            this.appStoreProvider,
-            this.externalMessageProvider,
-          );
-          const nextActiveCell = getNextActiveCellUseCase(
-            state.activeCell.name,
-            state.gridModel,
-          );
-          setActiveCellUseCase(
-            nextActiveCell,
-            state.activeCell,
-            'single',
-            state.selectedCells,
-            state.gridModel.slice(),
-            this.appStoreProvider,
-          );
-        }
-        break;
-      case '*':
-        const lastValue = state.activeCell?.value;
-        if (lastValue && validValues.includes(lastValue + '*')) {
-          setCellsValueUseCase(
-            lastValue + '*',
-            state.selectedCells.slice(),
-            state.gridModel.slice(),
-            state.vac,
-            state.dap,
-            state.rightLowestNonKeyMuscleWithMotorFunction,
-            state.leftLowestNonKeyMuscleWithMotorFunction,
-            state.comments,
-            true,
-            this.appStoreProvider,
-            this.externalMessageProvider,
-          );
-        }
-        break;
-    }
+    setCellsValueUseCase(
+      value,
+      state.selectedCells.slice(),
+      state.gridModel.slice(),
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
+      true,
+      this.appStoreProvider,
+      this.externalMessageProvider,
+    );
+    const nextActiveCell = getNextActiveCellUseCase(
+      state.activeCell.name,
+      state.gridModel,
+    );
+    setActiveCellUseCase(
+      nextActiveCell,
+      state.activeCell,
+      'single',
+      state.selectedCells,
+      state.gridModel.slice(),
+      this.appStoreProvider,
+    );
   }
 
   private registerGrids(grids: NodeListOf<HTMLElement>) {
