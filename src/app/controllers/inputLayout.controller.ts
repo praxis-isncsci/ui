@@ -13,6 +13,7 @@ import {
   setStarDetailsUseCase,
   setVacDapUseCase,
   getNextActiveCellUseCase,
+  clearSelectedCellsUseCase
 } from '@core/useCases';
 import { BinaryObservation } from '@core/domain';
 
@@ -157,9 +158,10 @@ export class InputLayoutController {
     this.keyMap['#'] = '3*';
     this.keyMap['$'] = '4*';
     this.keyMap['N'] = 'NT*';
+    this.keyMap['Delete'] = 'CLEAR';
   }
 
-  private inputValue_onKeydown(e: KeyboardEvent) {
+  private async inputValue_onKeydown(e: KeyboardEvent) {
     const state = appStore.getState();
     if (!state.activeCell) {
       return;
@@ -175,6 +177,24 @@ export class InputLayoutController {
       (i) => (i as HTMLButtonElement).value,
     );
     const value = this.keyMap[e.key];
+    if (value === 'CLEAR') {
+      const selectedCells = state.selectedCells;
+      if (selectedCells.length > 0) {
+        await clearSelectedCellsUseCase(
+          selectedCells,
+          state.gridModel.slice(),
+          state.vac,
+          state.dap,
+          state.rightLowestNonKeyMuscleWithMotorFunction,
+          state.leftLowestNonKeyMuscleWithMotorFunction,
+          state.comments,
+          this.appStoreProvider,
+          this.externalMessageProvider,
+        )
+      }
+      return;
+    }
+
     if (!value || !validValues.includes(value)) {
       e.preventDefault();
       return;

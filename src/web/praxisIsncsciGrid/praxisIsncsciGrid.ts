@@ -97,7 +97,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
   public constructor() {
     super();
 
-    this.attachShadow({mode: 'open'});
+    this.attachShadow({ mode: 'open' });
   }
 
   public connectedCallback() {
@@ -138,9 +138,8 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
     const slug = `${side}-${observationType}-${level.toLowerCase()}`;
     const value = this.getAttribute(slug);
-    return `<praxis-isncsci-cell data-observation="${slug}" ${observationType}>${
-      value ?? ''
-    }</praxis-isncsci-cell>`;
+    return `<praxis-isncsci-cell data-observation="${slug}" ${observationType}>${value ?? ''
+      }</praxis-isncsci-cell>`;
   }
 
   private getHeader(left: boolean) {
