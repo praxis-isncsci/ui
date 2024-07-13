@@ -158,7 +158,7 @@ export class InputLayoutController {
     this.keyMap['#'] = '3*';
     this.keyMap['$'] = '4*';
     this.keyMap['N'] = 'NT*';
-    this.keyMap['Delete'] = 'CLEAR';
+    this.keyMap['Delete'] = ' ';
   }
 
   private async inputValue_onKeydown(e: KeyboardEvent) {
@@ -176,26 +176,27 @@ export class InputLayoutController {
     const validValues = Array.from(inputs).map(
       (i) => (i as HTMLButtonElement).value,
     );
+    validValues.push(' ');
     const value = this.keyMap[e.key];
-    if (value === 'CLEAR') {
-      const selectedCells = state.selectedCells;
-      if (selectedCells.length > 0) {
-        await clearSelectedCellsUseCase(
-          selectedCells,
-          state.gridModel.slice(),
-          state.vac,
-          state.dap,
-          state.rightLowestNonKeyMuscleWithMotorFunction,
-          state.leftLowestNonKeyMuscleWithMotorFunction,
-          state.comments,
-          this.appStoreProvider,
-          this.externalMessageProvider,
-        )
-      }
-      return;
-    }
+    // if (value === 'CLEAR') {
+    //   const selectedCells = state.selectedCells;
+    //   if (selectedCells.length > 0) {
+    //     await clearSelectedCellsUseCase(
+    //       selectedCells,
+    //       state.gridModel.slice(),
+    //       state.vac,
+    //       state.dap,
+    //       state.rightLowestNonKeyMuscleWithMotorFunction,
+    //       state.leftLowestNonKeyMuscleWithMotorFunction,
+    //       state.comments,
+    //       this.appStoreProvider,
+    //       this.externalMessageProvider,
+    //     )
+    //   }
+    //   return;
+    // }
 
-    if (!value || !validValues.includes(value)) {
+    if ((!value && value !== ' ') || !validValues.includes(value)) {
       e.preventDefault();
       return;
     }
