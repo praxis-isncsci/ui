@@ -1,13 +1,13 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import {
   IExternalMessageProvider,
   IIsncsciAppStoreProvider,
 } from '@core/boundaries';
-import {Cell} from '@core/domain';
-import {bindExamDataToGridModel, findCell, motorCellRegex} from '@core/helpers';
-import {setCellsValueUseCase} from './setCellsValue.useCase';
-import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
-import {getEmptyExamData, getEmptyTotals} from '@core/helpers/examData.helper';
+import { Cell } from '@core/domain';
+import { bindExamDataToGridModel, findCell, motorCellRegex } from '@core/helpers';
+import { setCellsValueUseCase } from './setCellsValue.useCase';
+import { getAppStoreProviderMock } from '@testHelpers/appStoreProviderMocks';
+import { getEmptyExamData, getEmptyTotals } from '@core/helpers/examData.helper';
 
 describe('setCellValue.useCase.spec', () => {
   describe('setCellValueUseCase', () => {
@@ -66,7 +66,7 @@ describe('setCellValue.useCase.spec', () => {
 
       // Act
       await setCellsValueUseCase(
-        value,
+        value.trim(),
         selectedCells,
         gridModel,
         null,
@@ -82,8 +82,8 @@ describe('setCellValue.useCase.spec', () => {
       // Assert
       expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
         expectedCells,
-        value,
-        value,
+        value.trim(),
+        value.trim(),
         null,
         null,
         null,
@@ -92,6 +92,46 @@ describe('setCellValue.useCase.spec', () => {
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
     });
+
+
+
+    it('should set the value ` ` to only `left-pin-prick-c2` when only `left-pin-prick-c2` is selected, `value` is ` `, and `propagateDown` is `false`', async () => {
+      // Arrange
+      const value = ' ';
+      const selectedCells = [findCell('left-pin-prick-c2', gridModel)];
+      const propagateDown = false;
+      const expectedCells = selectedCells.slice();
+
+      // Act
+      await setCellsValueUseCase(
+        value.trim(),
+        selectedCells,
+        gridModel,
+        null,
+        null,
+        null,
+        null,
+        '',
+        propagateDown,
+        appStoreProvider,
+        externalMessageProvider,
+      );
+
+      // Assert
+      expect(appStoreProvider.setCellsValue).toHaveBeenCalledWith(
+        expectedCells,
+        value.trim(),
+        value.trim(),
+        null,
+        null,
+        null,
+        null,
+      );
+      expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
+      expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
+    });
+
+
 
     it('should not call `setCellsValue` when only `left-pin-prick-c2` is selected (sensory cell), `value` is `4` (motor value), and `propagateDown` is `true`', async () => {
       // Arrange
