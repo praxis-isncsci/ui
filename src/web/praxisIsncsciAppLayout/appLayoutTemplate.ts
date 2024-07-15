@@ -66,6 +66,7 @@ export const getInputLayoutTemplate = (): string => {
         <option value="L4">L4 - Hip: Extension, abduction, internal rotation - Knee: Flexion - Ankle: Inversion and eversion - Toe: MP and IP extension</option>
         <option value="L5">L5 - Hallux and Toe: DIP and PIP flexion and abduction</option>
         <option value="S1">S1 - Hallux: Adduction</option>
+        <option value="Unknown">Unknown</option>
       </select>
       <label for="left-lowest" slot="left-lowest-label">Left:</label>
       <select name="left-lowest" id="left-lowest" slot="left-lowest">
@@ -80,6 +81,7 @@ export const getInputLayoutTemplate = (): string => {
         <option value="L4">L4 - Hip: Extension, abduction, internal rotation - Knee: Flexion - Ankle: Inversion and eversion - Toe: MP and IP extension</option>
         <option value="L5">L5 - Hallux and Toe: DIP and PIP flexion and abduction</option>
         <option value="S1">S1 - Hallux: Adduction</option>
+        <option value="Unknown">Unknown</option>
       </select>
       <label for="comments" slot="comments-label">Comments:</label>
       <textarea name="comments" id="comments" slot="comments"></textarea>
@@ -96,11 +98,9 @@ export const getIsncsciInputTemplate = (
   sensory: boolean = false,
 ): string => {
   return `
-    <praxis-isncsci-input slot="input-controls" ${disabled ? 'disabled' : ''} ${
-    selectedValue ? `selected-value="${selectedValue}"` : ''
-  } ${showStarInput ? 'show-star-input' : ''} ${
-    showUnknown ? 'show-unknown' : ''
-  } ${sensory ? 'sensory' : ''}>
+    <praxis-isncsci-input slot="input-controls" ${disabled ? 'disabled' : ''} ${selectedValue ? `selected-value="${selectedValue}"` : ''
+    } ${showStarInput ? 'show-star-input' : ''} ${showUnknown ? 'show-unknown' : ''
+    } ${sensory ? 'sensory' : ''}>
       <label for="consider-normal" slot="consider-normal-label">Consider normal or not normal for classification:</label>
       <select name="consider-normal" id="consider-normal" slot="consider-normal">
         <option></option>
@@ -266,9 +266,8 @@ export const getAppLayoutTemplate = (
   showUnknown: boolean = false,
 ): string => {
   return `
-    <praxis-isncsci-app-layout classification-style="${classificationStyle}" ${
-    readonly ? 'readonly' : ''
-  }>
+    <praxis-isncsci-app-layout classification-style="${classificationStyle}" ${readonly ? 'readonly' : ''
+    }>
       ${getAppBarTemplate(iconsPath)}
       ${getInputLayoutTemplate()}
       ${getIsncsciInputTemplate(true, null, false, showUnknown)}
