@@ -12,8 +12,7 @@ import {
   setExtraInputsUseCase,
   setStarDetailsUseCase,
   setVacDapUseCase,
-  getNextActiveCellUseCase,
-  clearSelectedCellsUseCase
+  getNextActiveCellUseCase
 } from '@core/useCases';
 import { BinaryObservation } from '@core/domain';
 
@@ -178,23 +177,6 @@ export class InputLayoutController {
     );
     validValues.push(' ');
     const value = this.keyMap[e.key];
-    // if (value === 'CLEAR') {
-    //   const selectedCells = state.selectedCells;
-    //   if (selectedCells.length > 0) {
-    //     await clearSelectedCellsUseCase(
-    //       selectedCells,
-    //       state.gridModel.slice(),
-    //       state.vac,
-    //       state.dap,
-    //       state.rightLowestNonKeyMuscleWithMotorFunction,
-    //       state.leftLowestNonKeyMuscleWithMotorFunction,
-    //       state.comments,
-    //       this.appStoreProvider,
-    //       this.externalMessageProvider,
-    //     )
-    //   }
-    //   return;
-    // }
 
     if ((!value && value !== ' ') || !validValues.includes(value)) {
       e.preventDefault();

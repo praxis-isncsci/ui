@@ -9,4 +9,3 @@ export { setReadonlyUseCase } from './setReadonly.useCase';
 export { setStarDetailsUseCase } from './setStarDetails.useCase';
 export { setVacDapUseCase } from './setVacDap.useCase';
 export { getNextActiveCellUseCase } from './getNextActiveCell.useCase';
-export { clearSelectedCellsUseCase } from './clearSelectedCells.useCase'

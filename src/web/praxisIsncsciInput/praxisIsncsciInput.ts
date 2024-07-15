@@ -299,7 +299,7 @@ export class PraxisIsncsciInput extends HTMLElement {
   constructor() {
     super();
 
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.innerHTML = this.template();
   }
 
@@ -312,13 +312,18 @@ export class PraxisIsncsciInput extends HTMLElement {
   }
 
   private buttons_onClick(button: HTMLButtonElement) {
-    const value = button.value;
+    const isSelected = button.hasAttribute('selected');
+    const value = isSelected ? ' ' : button.value;
 
-    if (!value || !/^([0-4]\*?|5|UNK|NT\*{0,2})$/.test(value)) {
-      return;
+    button.toggleAttribute('selected', !isSelected);
+
+    if (isSelected) {
+      this.shadowRoot?.querySelectorAll('button[selected]').forEach((b) => b.removeAttribute('selected'));
     }
 
-    this.dispatchEvent(new CustomEvent('value_click', {detail: {value}}));
+    if (/^([0-4]\*?|5|UNK|NT\*{0,2})|\s+$/.test(value)) {
+      this.dispatchEvent(new CustomEvent('value_click', { detail: { value } }));
+    }
   }
 
   public attributeChangedCallback(
