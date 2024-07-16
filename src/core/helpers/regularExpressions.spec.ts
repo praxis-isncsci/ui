@@ -44,7 +44,7 @@ describe('regularExpressions', () => {
       'NT',
       'NT*',
       'NT**',
-      ' ',
+      '',
     ])('`motorValueRegex` should match %i', (v) =>
       expect(motorValueRegex.test(v)).toBeTruthy(),
     );
@@ -68,7 +68,7 @@ describe('regularExpressions', () => {
       'NT',
       'NT*',
       'NT**',
-      ' ',
+      '',
     ])('`sensoryValueRegex` should match %i', (v) =>
       expect(sensoryValueRegex.test(v)).toBeTruthy(),
     );
