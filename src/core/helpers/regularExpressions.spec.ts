@@ -1,10 +1,10 @@
-import {describe, expect, it} from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import {
   motorValueRegex,
   sensoryCellRegex,
   sensoryValueRegex,
 } from './regularExpressions';
-import {SensoryLevels} from '@core/domain';
+import { SensoryLevels } from '@core/domain';
 
 describe('regularExpressions', () => {
   describe('sensoryCellRegex', () => {
@@ -44,11 +44,12 @@ describe('regularExpressions', () => {
       'NT',
       'NT*',
       'NT**',
+      '',
     ])('`motorValueRegex` should match %i', (v) =>
       expect(motorValueRegex.test(v)).toBeTruthy(),
     );
 
-    it.each(['0***', '6', '5*', 'a', 'b', '00', 'NT***'])(
+    it.each(['0***', '6', '5*', 'a', 'b', '00', 'NT***', 'NaN'])(
       '`motorValueRegex` should not match %i',
       (v) => expect(motorValueRegex.test(v)).toBeFalsy(),
     );
@@ -67,11 +68,12 @@ describe('regularExpressions', () => {
       'NT',
       'NT*',
       'NT**',
+      '',
     ])('`sensoryValueRegex` should match %i', (v) =>
       expect(sensoryValueRegex.test(v)).toBeTruthy(),
     );
 
-    it.each(['1***', '3', '3*', '4', '4*', '5', 'a', 'b', '00', 'NT***'])(
+    it.each(['1***', '3', '3*', '4', '4*', '5', 'a', 'b', '00', 'NT***', 'NaN'])(
       '`sensoryValueRegex` should not match %i',
       (v) => expect(sensoryValueRegex.test(v)).toBeFalsy(),
     );

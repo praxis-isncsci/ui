@@ -12,7 +12,7 @@ import {
   setExtraInputsUseCase,
   setStarDetailsUseCase,
   setVacDapUseCase,
-  getNextActiveCellUseCase,
+  getNextActiveCellUseCase
 } from '@core/useCases';
 import { BinaryObservation } from '@core/domain';
 
@@ -157,6 +157,7 @@ export class InputLayoutController {
     this.keyMap['#'] = '3*';
     this.keyMap['$'] = '4*';
     this.keyMap['N'] = 'NT*';
+    this.keyMap['Delete'] = '';
   }
 
   private inputValue_onKeydown(e: KeyboardEvent) {
@@ -174,8 +175,10 @@ export class InputLayoutController {
     const validValues = Array.from(inputs).map(
       (i) => (i as HTMLButtonElement).value,
     );
+    validValues.push('');
     const value = this.keyMap[e.key];
-    if (!value || !validValues.includes(value)) {
+
+    if ((!value && value !== '') || !validValues.includes(value)) {
       e.preventDefault();
       return;
     }

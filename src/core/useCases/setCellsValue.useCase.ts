@@ -2,7 +2,7 @@ import {
   IExternalMessageProvider,
   IIsncsciAppStoreProvider,
 } from '@core/boundaries';
-import {BinaryObservation, Cell, MotorLevel} from '@core/domain';
+import { BinaryObservation, Cell, MotorLevel } from '@core/domain';
 import {
   getCellPosition,
   getCellRange,
@@ -12,7 +12,7 @@ import {
   sensoryValueRegex,
   getExamDataFromGridModel,
 } from '@core/helpers';
-import {getEmptyTotals} from '@core/helpers/examData.helper';
+import { getEmptyTotals } from '@core/helpers/examData.helper';
 
 /*
  * 1. Test value to make sure it is valid.
@@ -62,7 +62,7 @@ export const setCellsValueUseCase = async (
     }
 
     // 3.3. Get the range of cells to update.
-    const {motorRange, sensoryRange} = getCellRange(
+    const { motorRange, sensoryRange } = getCellRange(
       getCellPosition(selectedCells[0].name),
       null,
       gridModel,
@@ -101,7 +101,7 @@ export const setCellsValueUseCase = async (
     await appStoreProvider.clearTotalsAndErrors();
 
     // 8. Update external listeners
-    const {examData} = getExamDataFromGridModel(
+    const { examData } = getExamDataFromGridModel(
       gridModel,
       vac,
       dap,

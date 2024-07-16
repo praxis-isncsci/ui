@@ -1,13 +1,13 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import {
   IExternalMessageProvider,
   IIsncsciAppStoreProvider,
 } from '@core/boundaries';
-import {Cell} from '@core/domain';
-import {bindExamDataToGridModel, findCell, motorCellRegex} from '@core/helpers';
-import {setCellsValueUseCase} from './setCellsValue.useCase';
-import {getAppStoreProviderMock} from '@testHelpers/appStoreProviderMocks';
-import {getEmptyExamData, getEmptyTotals} from '@core/helpers/examData.helper';
+import { Cell } from '@core/domain';
+import { bindExamDataToGridModel, findCell, motorCellRegex } from '@core/helpers';
+import { setCellsValueUseCase } from './setCellsValue.useCase';
+import { getAppStoreProviderMock } from '@testHelpers/appStoreProviderMocks';
+import { getEmptyExamData, getEmptyTotals } from '@core/helpers/examData.helper';
 
 describe('setCellValue.useCase.spec', () => {
   describe('setCellValueUseCase', () => {
