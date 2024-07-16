@@ -59,7 +59,7 @@ export class PraxisIsncsciInput extends HTMLElement {
           padding: 0;
           transition: background-color ease 200ms, font-size ease 200ms;
         }
-        
+
         button.left {
           border-radius: var(--button-border-radius, 0.25rem)
             var(--button-border-radius-none, 0)
@@ -67,7 +67,7 @@ export class PraxisIsncsciInput extends HTMLElement {
             var(--button-border-radius, 0.25rem);
           border-right: none;
         }
-        
+
         button.right {
           border-radius: var(--button-border-radius-none, 0)
             var(--button-border-radius, 0.25rem)
@@ -76,7 +76,7 @@ export class PraxisIsncsciInput extends HTMLElement {
           border-left: none;
           width: 2.5rem;
         }
-        
+
         button.right::before {
           content: '';
           display: inline-block;
@@ -84,7 +84,7 @@ export class PraxisIsncsciInput extends HTMLElement {
           width: var(--button-divider-width, 0.0625rem);
           height: calc(100% - var(--button-divider-gap, 0.5rem));
         }
-        
+
         button.right *:last-child {
           flex-grow: 1;
         }
@@ -312,18 +312,23 @@ export class PraxisIsncsciInput extends HTMLElement {
   }
 
   private buttons_onClick(button: HTMLButtonElement) {
-    const isSelected = button.hasAttribute('selected');
-    const value = isSelected ? ' ' : button.value;
 
-    button.toggleAttribute('selected', !isSelected);
+    //THe update of the selected-value of the cell is done in the inputLayoutcontroller.ts
+    //Here is the flow
+    //inputLayout.controller.ts is capturning the 'value_click' event
+    //setCellsValueUseCase will be called in the callback function and will trigger the setCellsValueUseCase in the state provider
+    //within the callback function state provider function 'setCellsValueUserCase' will be called
+    //and 'SET_ACTIVE_CELLS' will be dispatched in the state provider function
+    //at the same time inputLayout.controller.ts is capturing the state change event
+    //updateInputButtons will be called to update the style of the cell
 
-    if (isSelected) {
-      this.shadowRoot?.querySelectorAll('button[selected]').forEach((b) => b.removeAttribute('selected'));
+    const value = button.hasAttribute('selected') ? "" : button.value;
+
+    if ((!value && value !== '') || !/^([0-4]\*?|5|UNK|NT\*{0,2})|\s*$/.test(value)) {
+      return;
     }
 
-    if (/^([0-4]\*?|5|UNK|NT\*{0,2})|\s+$/.test(value)) {
-      this.dispatchEvent(new CustomEvent('value_click', { detail: { value } }));
-    }
+    this.dispatchEvent(new CustomEvent('value_click', { detail: { value } }));
   }
 
   public attributeChangedCallback(

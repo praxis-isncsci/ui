@@ -86,13 +86,11 @@ export const setCellsValueUseCase = async (
   }
 
   try {
-    // trim value only when it's not empty or a space
-    const trimmedValue = value.trim() === '' ? value : value.trim();
     // 6. Call `appStoreProvider.setCellsValue` with the cells to update and the value.
     await appStoreProvider.setCellsValue(
       cellsToUpdate,
-      value.trim(),
-      trimmedValue.replace('**', '*'),
+      value,
+      value.replace('**', '*'),
       starErrorMessage,
       null,
       null,

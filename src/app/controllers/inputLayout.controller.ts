@@ -157,10 +157,10 @@ export class InputLayoutController {
     this.keyMap['#'] = '3*';
     this.keyMap['$'] = '4*';
     this.keyMap['N'] = 'NT*';
-    this.keyMap['Delete'] = ' ';
+    this.keyMap['Delete'] = '';
   }
 
-  private async inputValue_onKeydown(e: KeyboardEvent) {
+  private inputValue_onKeydown(e: KeyboardEvent) {
     const state = appStore.getState();
     if (!state.activeCell) {
       return;
@@ -175,10 +175,10 @@ export class InputLayoutController {
     const validValues = Array.from(inputs).map(
       (i) => (i as HTMLButtonElement).value,
     );
-    validValues.push(' ');
+    validValues.push('');
     const value = this.keyMap[e.key];
 
-    if ((!value && value !== ' ') || !validValues.includes(value)) {
+    if ((!value && value !== '') || !validValues.includes(value)) {
       e.preventDefault();
       return;
     }
