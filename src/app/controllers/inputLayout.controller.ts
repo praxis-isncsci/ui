@@ -161,10 +161,20 @@ export class InputLayoutController {
   }
 
   private inputValue_onKeydown(e: KeyboardEvent) {
+
+    //Check for non textbox input
+    if (e.target instanceof HTMLTextAreaElement
+      || e.target instanceof HTMLInputElement) {
+      return;
+    }
+
+    //Check for active cell
     const state = appStore.getState();
     if (!state.activeCell) {
       return;
     }
+
+    //Check for there are at least 1 enabled button for input
     const inputs =
       this.inputButtons.shadowRoot?.querySelectorAll(
         'button:not([disabled])',
@@ -172,14 +182,14 @@ export class InputLayoutController {
     if (!inputs || inputs.length === 0) {
       return;
     }
+
+    //Check for valid value
     const validValues = Array.from(inputs).map(
       (i) => (i as HTMLButtonElement).value,
     );
     validValues.push('');
     const value = this.keyMap[e.key];
-
     if ((!value && value !== '') || !validValues.includes(value)) {
-      e.preventDefault();
       return;
     }
 
