@@ -158,6 +158,7 @@ export class InputLayoutController {
     this.keyMap['$'] = '4*';
     this.keyMap['N'] = 'NT*';
     this.keyMap['Delete'] = '';
+    this.keyMap['Backspace'] = '';
   }
 
   private inputValue_onKeydown(e: KeyboardEvent) {
