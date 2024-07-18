@@ -66,7 +66,6 @@ export const getInputLayoutTemplate = (): string => {
         <option value="L4">L4 - Hip: Extension, abduction, internal rotation - Knee: Flexion - Ankle: Inversion and eversion - Toe: MP and IP extension</option>
         <option value="L5">L5 - Hallux and Toe: DIP and PIP flexion and abduction</option>
         <option value="S1">S1 - Hallux: Adduction</option>
-        <option value="unknown">Unknown</option>
       </select>
       <label for="left-lowest" slot="left-lowest-label">Left:</label>
       <select name="left-lowest" id="left-lowest" slot="left-lowest">
@@ -81,7 +80,6 @@ export const getInputLayoutTemplate = (): string => {
         <option value="L4">L4 - Hip: Extension, abduction, internal rotation - Knee: Flexion - Ankle: Inversion and eversion - Toe: MP and IP extension</option>
         <option value="L5">L5 - Hallux and Toe: DIP and PIP flexion and abduction</option>
         <option value="S1">S1 - Hallux: Adduction</option>
-        <option value="unknown">Unknown</option>
       </select>
       <label for="comments" slot="comments-label">Comments:</label>
       <textarea name="comments" id="comments" slot="comments"></textarea>
