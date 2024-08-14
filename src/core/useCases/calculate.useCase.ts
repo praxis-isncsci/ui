@@ -118,4 +118,5 @@ export const calculateUseCase = async (
   } catch (error) {
     console.log(error);
   }
+  return examData;
 };
