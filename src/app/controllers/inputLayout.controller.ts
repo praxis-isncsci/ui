@@ -518,17 +518,35 @@ export class InputLayoutController {
     if (!e.target || !(e.target instanceof HTMLElement)) {
       return;
     }
-
+  
     const name = (e.target as HTMLElement).getAttribute('data-observation');
-
+  
     if (!name) {
       return;
     }
-
-    const state = appStore.getState();
-    const selectionMode =
-      e.ctrlKey || e.metaKey ? 'multiple' : e.shiftKey ? 'range' : 'single';
-
+  
+    let state = appStore.getState();
+  
+    const isMultipleSelection = e.ctrlKey || e.metaKey;
+  
+    // If not in multiple selection mode
+    if (!isMultipleSelection) {
+      // If there is an activeCell and selectedCells.length > 1 (after a range selection)
+      if (state.activeCell && state.selectedCells.length > 1) {
+        // Reset activeCell and selectedCells to start a new selection
+        this.appStoreProvider.setActiveCell(null, []);
+        // Update the state after resetting
+        state = appStore.getState();
+      }
+    }
+  
+    // Determine the selection mode
+    const selectionMode = isMultipleSelection
+      ? 'multiple'
+      : state.activeCell
+        ? 'range'
+        : 'single';
+  
     setActiveCellUseCase(
       name,
       state.activeCell,
