@@ -1,6 +1,6 @@
-import {IIsncsciAppStoreProvider} from '@core/boundaries';
-import {Cell} from '@core/domain';
-import {findCell, getCellPosition, getCellRange} from '@core/helpers';
+import { IIsncsciAppStoreProvider } from '@core/boundaries';
+import { Cell } from '@core/domain';
+import { findCell, getCellPosition, getCellRange } from '@core/helpers';
 
 /*
  * Updates the state's active cell and cell selection through the app store provider.
@@ -23,9 +23,10 @@ import {findCell, getCellPosition, getCellRange} from '@core/helpers';
  *  3.3. If `cell` is not already included in the selected cells, add the new cell to the selection.
  *  3.4. Stop.
  * 4. If the selection mode is `range`,
- *  4.1. If there is no current active cell, stop, we cannot produce a range to add to the existing selection.
- *  4.2. Produce a new aggregated selection without duplicates between the range and the existing selection.
- *  4.3. Set the new selection.
+ *  4.1. If there is no current active cell or `cell` is null, treat as single selection.
+ *  4.2. Produce the range between the active cell and the new cell.
+ *  4.3. Replace the existing selection with the new range.
+ *  4.4. Stop
  */
 export const setActiveCellUseCase = async (
   cellName: string | null,
@@ -74,31 +75,28 @@ export const setActiveCellUseCase = async (
     return;
   }
 
-  // 4. If the selection mode is `range`,
+  // 4. If the selection mode is `range`
   // `range` mode will produce a new selection based on the range between the current active cell and the new cell.
-  // We use the current selection as starting point.
-  const selectedCells = [...currentCellsSelected];
+  if (selectionMode === 'range') {
+    // 4.1. If there is no current active cell or `cell` is null, treat as single selection.
+    if (!currentActiveCell || !cell) {
+      await appStoreProvider.setActiveCell(cell, cell ? [cell] : []);
+      return;
+    }
 
-  // 4.1. If there is no current active cell or no cell was selected, stop, we cannot produce a range to add to the existing selection.
-  if (!cell || !currentActiveCell) {
-    await appStoreProvider.setActiveCell(cell, selectedCells);
+    // 4.2. Produce the range between the active cell and the new cell.
+    const { motorRange, sensoryRange } = getCellRange(
+      getCellPosition(currentActiveCell.name),
+      getCellPosition(cell.name),
+      gridModel,
+    );
 
+    const rangeCells = motorRange.concat(sensoryRange);
+
+    // 4.3. Replace the existing selection with the new range.
+    await appStoreProvider.setActiveCell(cell, rangeCells);
+
+    // 4.4. Stop
     return;
   }
-
-  // 4.2. Produce a new aggregated selection without duplicates between the range and the existing selection.
-  const {motorRange, sensoryRange} = getCellRange(
-    getCellPosition(cell.name),
-    getCellPosition(currentActiveCell.name),
-    gridModel,
-  );
-
-  motorRange.concat(sensoryRange).forEach((cell) => {
-    if (!currentCellsSelected.find((c) => c.name === cell.name)) {
-      selectedCells.push(cell);
-    }
-  });
-
-  // 4.3. Set the new active cell and selection.
-  await appStoreProvider.setActiveCell(cell, selectedCells);
-};
+}
