@@ -160,10 +160,10 @@ describe('setActiveCell.useCase.ts', () => {
 
     it('should leave things as they are when `cellName` is null and selection mode is `range`', async () => {
       // Arrange
-      const cellName: string | null = null;
-      const currentActiveCell: Cell | null = null;
+      const cellName = null;
+      const currentActiveCell = null;
       const selectionMode = 'range';
-      const currentCellsSelected: Cell[] = [
+      const currentCellsSelected = [
         getEmptyCell('right-light-touch-c2'),
         getEmptyCell('right-motor-t1'),
       ];
@@ -181,7 +181,7 @@ describe('setActiveCell.useCase.ts', () => {
       // Assert
       expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(
         null,
-        currentCellsSelected,
+        [],
       );
     });
 
@@ -242,17 +242,17 @@ describe('setActiveCell.useCase.ts', () => {
       ]);
     });
 
-    it('should set the cell matching `cellName` as active cell but leave the current cell selection as is when `cellName` is not `null` but the current active cell is `null` and selection mode is `range`', async () => {
+    it('should set the cell matching `cellName` as active cell and update selection when current active cell is `null` and selection mode is `range`', async () => {
       // Arrange
       const cellName = 'right-light-touch-c5';
       const cell = getEmptyCell(cellName);
-      const currentActiveCell: Cell | null = null;
+      const currentActiveCell = null;
       const selectionMode = 'range';
-      const currentCellsSelected: Cell[] = [
+      const currentCellsSelected = [
         getEmptyCell('right-light-touch-c2'),
         getEmptyCell('right-motor-t1'),
       ];
-
+    
       // Act
       await setActiveCellUseCase(
         cellName,
@@ -262,12 +262,9 @@ describe('setActiveCell.useCase.ts', () => {
         gridModel,
         appStoreProvider,
       );
-
+    
       // Assert
-      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(
-        cell,
-        currentCellsSelected,
-      );
+      expect(appStoreProvider.setActiveCell).toHaveBeenCalledWith(cell, [cell]);
     });
 
     it('should set the cell matching `cellName` as active cell and add the range between `cell` and `currentCellSelected`, without any duplicates, when `cellName` and `currentSelectedCell` are not `null` and `selectionMode` is `range`', async () => {
@@ -276,12 +273,11 @@ describe('setActiveCell.useCase.ts', () => {
       const cell = getEmptyCell(cellName);
       const currentActiveCell = getEmptyCell('left-motor-t1');
       const selectionMode = 'range';
-      const currentCellsSelected: Cell[] = [
+      const currentCellsSelected = [
         getEmptyCell('right-light-touch-c2'),
         getEmptyCell('right-motor-t1'),
       ];
-      const expectedSelection: Cell[] = [
-        ...currentCellsSelected,
+      const expectedSelection = [
         getEmptyCell('left-motor-c5'),
         getEmptyCell('left-motor-c6'),
         getEmptyCell('left-motor-c7'),
