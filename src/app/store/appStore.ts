@@ -8,6 +8,7 @@ class AppStore implements IDataStore<IAppState> {
     activeCell: null,
     calculationError: '',
     comments: '',
+    cellComments: '',
     dap: null,
     gridModel: [],
     leftLowestNonKeyMuscleWithMotorFunction: null,

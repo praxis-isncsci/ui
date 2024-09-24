@@ -32,6 +32,7 @@ describe('setExtraInputs.useCase.ts', () => {
       const rightLowestNonKeyMuscleWithMotorFunction = 'C5';
       const leftLowestNonKeyMuscleWithMotorFunction = 'C6';
       const comments = 'This is a comment';
+      const cellComments = 'Specify cell comments'
 
       // Act
       await setExtraInputsUseCase(
@@ -41,6 +42,7 @@ describe('setExtraInputs.useCase.ts', () => {
         rightLowestNonKeyMuscleWithMotorFunction,
         leftLowestNonKeyMuscleWithMotorFunction,
         comments,
+        cellComments,
         appStoreProvider,
         externalMessageProvider,
       );

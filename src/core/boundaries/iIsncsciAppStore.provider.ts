@@ -19,6 +19,7 @@ export interface IIsncsciAppStoreProvider {
     leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     comments: string,
   ): Promise<void>;
+  setCellComments(cellComments: string | null): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
   setReadonly(readonly: boolean): Promise<void>;
   setTotals(totals: Totals): Promise<void>;

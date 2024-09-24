@@ -5,7 +5,7 @@ import {
   IIsncsciAppStoreProvider,
 } from '@core/boundaries';
 import { Cell, MotorLevel, Totals } from '@core/domain';
-import { cellsMatch, sensoryCellRegex } from '@core/helpers';
+import { cellsMatch, getCellPosition, getCellRange, sensoryCellRegex } from '@core/helpers';
 import {
   setActiveCellUseCase,
   setCellsValueUseCase,
@@ -15,6 +15,7 @@ import {
   getNextActiveCellUseCase
 } from '@core/useCases';
 import { BinaryObservation } from '@core/domain';
+import { setCellCommentsUseCase } from '@core/useCases/setCellComments.useCase';
 
 const allCellsHaveSameValues = (selectedCells: Cell[]) => {
   if (selectedCells.length === 0) {
@@ -37,7 +38,9 @@ export class InputLayoutController {
   private rightLowest: HTMLSelectElement | null = null;
   private leftLowest: HTMLSelectElement | null = null;
   private comments: HTMLTextAreaElement | null = null;
+  private cellCommentsDisplay: HTMLElement | null = null;
   private keyMap: { [key: string]: string } = {};
+  private inputLayout: HTMLElement;
 
   public constructor(
     appStore: IDataStore<IAppState>,
@@ -47,6 +50,8 @@ export class InputLayoutController {
     private inputButtons: HTMLElement,
     classificationView: HTMLElement,
   ) {
+    this.inputLayout = inputLayout;
+
     if (!inputLayout.shadowRoot) {
       throw new Error('The input layout has not been initialized');
     }
@@ -159,6 +164,13 @@ export class InputLayoutController {
     this.keyMap['N'] = 'NT*';
     this.keyMap['Delete'] = '';
     this.keyMap['Backspace'] = '';
+
+    if (!this.inputLayout.shadowRoot) {
+      throw new Error('The input layout has not been initialized');
+    }
+
+    this.cellCommentsDisplay = this.inputLayout.querySelector('#cell-comments-display');
+    console.log('cellCommentsDisplay:', this.cellCommentsDisplay);
   }
 
   private inputValue_onKeydown(e: KeyboardEvent) {
@@ -203,6 +215,7 @@ export class InputLayoutController {
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
       state.comments,
+      state.cellComments,
       true,
       this.appStoreProvider,
       this.externalMessageProvider,
@@ -378,7 +391,10 @@ export class InputLayoutController {
     rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     comments: string,
+    cellComments: string | null,
   ) {
+    console.log('updateExtraInputs called with cellComments:', cellComments);
+
     if (!this.rightLowest || !this.leftLowest || !this.comments) {
       throw new Error(
         'The input buttons for right and left lowest non-key muscle with motor function and comments have not been initialized',
@@ -388,6 +404,9 @@ export class InputLayoutController {
     this.rightLowest.value = rightLowestNonKeyMuscleWithMotorFunction ?? 'None';
     this.leftLowest.value = leftLowestNonKeyMuscleWithMotorFunction ?? 'None';
     this.comments.value = comments;
+    if (this.cellCommentsDisplay) {
+      this.cellCommentsDisplay.innerHTML = cellComments ?? '';
+    }
   }
 
   private inputValue_onClick(e: CustomEvent) {
@@ -406,6 +425,7 @@ export class InputLayoutController {
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
       state.comments,
+      state.cellComments,
       true,
       this.appStoreProvider,
       this.externalMessageProvider,
@@ -432,6 +452,7 @@ export class InputLayoutController {
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
       state.comments,
+      state.cellComments,
       this.appStoreProvider,
       this.externalMessageProvider,
     );
@@ -453,6 +474,7 @@ export class InputLayoutController {
       this.rightLowest.value as MotorLevel,
       this.leftLowest.value as MotorLevel,
       this.comments.value,
+      state.cellComments,
       this.appStoreProvider,
       this.externalMessageProvider,
     );
@@ -501,6 +523,14 @@ export class InputLayoutController {
           this.reasonImpairmentNotDueToSciSpecify,
         );
         break;
+      case Actions.SET_CELL_COMMENTS:
+        this.updateExtraInputs(
+          state.rightLowestNonKeyMuscleWithMotorFunction,
+          state.leftLowestNonKeyMuscleWithMotorFunction,
+          state.comments,
+          state.cellComments,
+        );
+        break;
       case Actions.SET_VAC_DAP:
         this.updateDropdowns(state.vac, state.dap);
         break;
@@ -509,6 +539,7 @@ export class InputLayoutController {
           state.rightLowestNonKeyMuscleWithMotorFunction,
           state.leftLowestNonKeyMuscleWithMotorFunction,
           state.comments,
+          state.cellComments,
         );
         break;
     }
@@ -518,17 +549,17 @@ export class InputLayoutController {
     if (!e.target || !(e.target instanceof HTMLElement)) {
       return;
     }
-  
+
     const name = (e.target as HTMLElement).getAttribute('data-observation');
-  
+
     if (!name) {
       return;
     }
-  
+
     let state = appStore.getState();
-  
+
     const isMultipleSelection = e.ctrlKey || e.metaKey;
-  
+
     // If not in multiple selection mode
     if (!isMultipleSelection) {
       // If there is an activeCell and selectedCells.length > 1 (after a range selection)
@@ -539,14 +570,14 @@ export class InputLayoutController {
         state = appStore.getState();
       }
     }
-  
+
     // Determine the selection mode
     const selectionMode = isMultipleSelection
       ? 'multiple'
       : state.activeCell
         ? 'range'
         : 'single';
-  
+
     setActiveCellUseCase(
       name,
       state.activeCell,
@@ -556,6 +587,24 @@ export class InputLayoutController {
       this.appStoreProvider,
     );
   }
+
+  private reasonOptionsMap: { [key: string]: string } = {
+    '1': 'Plexopathy',
+    '2': 'Peripheral neuropathy',
+    '3': 'Pre-existing myoneural disease (e.g. Stroke, MS, etc.)',
+    '6': 'Other (specify:)',
+  };
+  
+  private considerNormalMap: { [key: string]: string } = {
+    '1': 'Consider Normal',
+    '2': 'Consider Not Normal',
+  };
+
+  private typeMap: { [key: string]: string } = {
+    'LIGHT TOUCH': 'LT',
+    'PIN PRICK': 'PP',
+    'MOTOR': 'M',
+  };
 
   private starInput_change(e: Event) {
     if (
@@ -569,17 +618,129 @@ export class InputLayoutController {
     }
 
     const state = appStore.getState();
-    const considerNormal =
-      this.considerNormal.value === '1'
-        ? true
-        : this.considerNormal.value === '2'
-          ? false
-          : null;
+    const selectedCells = state.selectedCells;
+    const reasonValue = this.reasonImpairmentNotDueToSci.value;
+    const reasonText = this.reasonOptionsMap[reasonValue] || reasonValue;
+  
+    const considerNormalValue = this.considerNormal.value;
+    const considerNormalText = this.considerNormalMap[considerNormalValue] || considerNormalValue;
+  
+    const specifyText = this.reasonImpairmentNotDueToSciSpecify.value;
+  
+    let cellComments = state.cellComments || '';
+  
+    if (selectedCells.length > 0) {
+      
+      // Group cells by side and type
+      const cellsBySideAndType: { [key: string]: Cell[] } = {};
+      selectedCells.forEach((cell) => {
+        // Determine side
+        const side = cell.name.startsWith('right') ? 'Right' : 'Left';
+  
+        // Determine type
+        const typeMatch = cell.name.match(/(light-touch|pin-prick|motor)/i);
+        const typeKey = typeMatch ? typeMatch[1].toUpperCase().replace('-', ' ') : '';
+        const type = this.typeMap[typeKey] || typeKey;
+  
+        const key = `${side}-${type}`;
+  
+        if (!cellsBySideAndType[key]) {
+          cellsBySideAndType[key] = [];
+        }
+        cellsBySideAndType[key].push(cell);
+      });
+  
+      let commentsArray = cellComments ? cellComments.split('\n') : [];
+  
+      // For each group
+      for (const key in cellsBySideAndType) {
+        const groupCells = cellsBySideAndType[key];
+        const [groupSide, groupType] = key.split('-');
+  
+        // Extract levels
+        const levels = groupCells.map((cell) => {
+          const match = cell.name.match(/-([CTLS]\d+_?\d?)/i);
+          return match ? match[1].toUpperCase() : '';
+        });
+  
+        // Remove duplicates and sort levels
+        const uniqueLevels = Array.from(new Set(levels));
+        uniqueLevels.sort((a, b) => {
+          const parseLevel = (level: string) => {
+            const match = level.match(/^([A-Z])(\d+(\.\d+)?)/);
+            if (!match) return { region: '', number: 0 };
+            const region = match[1];
+            const number = parseFloat(match[2]);
+            return { region, number };
+          };
+  
+          const regionOrder: { [key: string]: number } = {
+            'C': 1,
+            'T': 2,
+            'L': 3,
+            'S': 4,
+          };
+  
+          const levelA = parseLevel(a);
+          const levelB = parseLevel(b);
+  
+          const regionAOrder = regionOrder[levelA.region];
+          const regionBOrder = regionOrder[levelB.region];
+  
+          if (regionAOrder !== regionBOrder) {
+            return regionAOrder - regionBOrder;
+          } else {
+            return levelA.number - levelB.number;
+          }
+        });
+  
+        // Determine the range
+        const range = uniqueLevels.length > 1
+          ? `${uniqueLevels[0]}-${uniqueLevels[uniqueLevels.length - 1]}`
+          : uniqueLevels[0];
+  
+        // Build the comment
+        let newComment = `${range} ${groupSide} ${groupType}: `;
+        newComment += considerNormalText ? `${considerNormalText} for classification. ` : '';
+        if (reasonText) {
+          newComment += `Reason: ${reasonText}. `;
+        }
+        if (specifyText) {
+          newComment += `Specify: ${specifyText};`;
+        }
+  
+        // Remove existing comments for the same range and type
+        const commentIdentifier = `${range} ${groupSide} ${groupType}:`;
+        commentsArray = commentsArray.filter(
+          (comment) => !comment.startsWith(commentIdentifier)
+        );
+  
+        // Append the new comment
+        commentsArray.push(newComment);
+      }
+  
+      // Join the comments back into a string
+      cellComments = commentsArray.join('\n');
+    }
+
+    // Update cell comments
+    setCellCommentsUseCase(
+      cellComments,
+      state.gridModel.slice(),
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
+      this.appStoreProvider,
+      this.externalMessageProvider,
+    );
 
     setStarDetailsUseCase(
-      considerNormal,
+      considerNormalValue === '1' ? true : considerNormalValue === '2' ? false : null,
       this.reasonImpairmentNotDueToSci.value,
       this.reasonImpairmentNotDueToSciSpecify.value,
+      specifyText,
       state.selectedCells,
       state.gridModel,
       state.vac,
@@ -587,6 +748,7 @@ export class InputLayoutController {
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
       state.comments,
+      cellComments,
       true,
       this.appStoreProvider,
       this.externalMessageProvider,

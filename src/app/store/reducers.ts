@@ -9,6 +9,7 @@ export class Actions {
   public static SET_ACTIVE_CELL = 'SET_ACTIVE_CELL';
   public static SET_CALCULATION_ERROR = 'SET_CALCULATION_ERROR';
   public static SET_CELLS_VALUE = 'SET_CELLS_VALUE';
+  public static SET_CELL_COMMENTS = 'SET_CELL_COMMENTS';
   public static SET_EXTRA_INPUTS = 'SET_EXTRA_INPUTS';
   public static SET_GRID_MODEL = 'SET_GRID_MODEL';
   public static SET_READONLY = 'SET_READONLY';
@@ -168,6 +169,21 @@ const values = (
   }
 };
 
+const cellComments = (
+  state: IAppState,
+  action: IActionWithPayload<string | null>,
+): IAppState => {
+  switch (action.type) {
+    case Actions.SET_CELL_COMMENTS:
+      return {
+        ...state,
+        cellComments: action.payload, // fix fix action.payload.cellComments
+      };
+    default:
+      return state;
+  }
+};
+
 export {
   activeCell,
   calculationError,
@@ -178,6 +194,7 @@ export {
   totals,
   vacDap,
   values,
+  cellComments,
 };
 
 export default [
@@ -190,4 +207,5 @@ export default [
   totals,
   vacDap,
   values,
+  cellComments,
 ];

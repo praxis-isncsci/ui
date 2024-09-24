@@ -39,6 +39,7 @@ export const calculateUseCase = async (
   rightLowestNonKeyMuscle: MotorLevel | null,
   leftLowestNonKeyMuscle: MotorLevel | null,
   comments: string,
+  cellComments,
   appStoreProvider: IIsncsciAppStoreProvider,
   examProvider: IIsncsciExamProvider,
   externalMessageProvider: IExternalMessageProvider,
@@ -51,6 +52,7 @@ export const calculateUseCase = async (
     rightLowestNonKeyMuscle,
     leftLowestNonKeyMuscle,
     comments,
+    cellComments,
   );
 
   // 2. Check for missing values

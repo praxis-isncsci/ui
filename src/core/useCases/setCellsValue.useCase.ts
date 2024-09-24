@@ -36,6 +36,7 @@ export const setCellsValueUseCase = async (
   rightLowestNonKeyMuscle: MotorLevel | null,
   leftLowestNonKeyMuscle: MotorLevel | null,
   comments: string,
+  cellComments: string | null,
   propagateDown: boolean,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
@@ -108,6 +109,7 @@ export const setCellsValueUseCase = async (
       rightLowestNonKeyMuscle,
       leftLowestNonKeyMuscle,
       comments,
+      cellComments,
     );
 
     await externalMessageProvider.sendOutExamData(examData);

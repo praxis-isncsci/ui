@@ -3,6 +3,7 @@ import {MotorLevel} from './isncsciLevels';
 
 export type ExamData = {
   comments: string | null;
+  cellComments?: string | null;
   deepAnalPressure: BinaryObservation | null;
   voluntaryAnalContraction: BinaryObservation | null;
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;

@@ -273,6 +273,7 @@ export class PraxisIsncsciWebApp extends HTMLElement {
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
       state.comments,
+      state.cellComments,
       this.appStoreProvider,
       this.isncsciExamProvider,
       this.externalMessagePortProvider,

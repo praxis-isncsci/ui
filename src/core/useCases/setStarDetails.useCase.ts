@@ -52,6 +52,7 @@ export const setStarDetailsUseCase = async (
   considerNormal: boolean | null,
   reason: string | null,
   details: string | null,
+  reasonImpairmentNotDueToSciSpecify: string | null,
   selectedCells: Cell[],
   gridModel: Array<Cell | null>[],
   vac: BinaryObservation | null,
@@ -59,6 +60,7 @@ export const setStarDetailsUseCase = async (
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   comments: string,
+  cellComments: string | null,
   propagateDown: boolean,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
@@ -127,6 +129,7 @@ export const setStarDetailsUseCase = async (
       rightLowestNonKeyMuscleWithMotorFunction,
       leftLowestNonKeyMuscleWithMotorFunction,
       comments,
+      cellComments,
     );
 
     await externalMessageProvider.sendOutExamData(examData);

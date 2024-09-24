@@ -218,6 +218,7 @@ export const getExamDataFromGridModel = (
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   comments: string | null,
+  cellComments: string | null,
 ) => {
   const examData = getEmptyExamData();
   examData.voluntaryAnalContraction = voluntaryAnalContraction;
@@ -227,6 +228,7 @@ export const getExamDataFromGridModel = (
   examData.leftLowestNonKeyMuscleWithMotorFunction =
     leftLowestNonKeyMuscleWithMotorFunction;
   examData.comments = comments;
+  examData.cellComments = cellComments;
 
   const missingValues: string[] = [];
 
@@ -418,6 +420,7 @@ export const getEmptyExamData = (): ExamData => {
     errors: [],
     missingValues: [],
     comments: null,
+    cellComments: null,
     deepAnalPressure: null,
     voluntaryAnalContraction: null,
     rightLowestNonKeyMuscleWithMotorFunction: null,

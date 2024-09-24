@@ -15,6 +15,7 @@ export const setVacDapUseCase = async (
   rightLowestNonKeyMuscle: MotorLevel | null,
   leftLowestNonKeyMuscle: MotorLevel | null,
   comments: string,
+  cellComments: string | null,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
 ) => {
@@ -33,6 +34,7 @@ export const setVacDapUseCase = async (
       rightLowestNonKeyMuscle,
       leftLowestNonKeyMuscle,
       comments,
+      cellComments,
     );
 
     // 4. Update external listeners

@@ -13,5 +13,6 @@ export const getAppStoreProviderMock = (): IIsncsciAppStoreProvider => {
     setTotals: jest.fn(() => Promise.resolve()),
     setVacDap: jest.fn(() => Promise.resolve()),
     updateStatus: jest.fn(() => Promise.resolve()),
+    setCellComments: jest.fn(() => Promise.resolve()),
   };
 };

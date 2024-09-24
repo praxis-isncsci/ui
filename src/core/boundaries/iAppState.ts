@@ -10,6 +10,7 @@ export interface IAppState {
   activeCell: Cell | null;
   calculationError: string;
   comments: string;
+  cellComments: string | null;
   dap: BinaryObservation | null;
   gridModel: Array<Cell | null>[];
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null;

@@ -60,6 +60,15 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     return Promise.resolve();
   }
 
+  public async setCellComments(cellComments: string | null): Promise<void> {
+    console.log('Dispatching SET_CELL_COMMENTS with payload:', cellComments);
+    this.appStore.dispatch({
+      type: Actions.SET_CELL_COMMENTS,
+      payload: cellComments,
+    });
+    return Promise.resolve();
+  }
+
   public setExtraInputs(
     rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,

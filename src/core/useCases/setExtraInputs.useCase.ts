@@ -15,6 +15,7 @@ export const setExtraInputsUseCase = async (
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   comments: string,
+  cellComments: string | null,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
 ) => {
@@ -36,6 +37,7 @@ export const setExtraInputsUseCase = async (
     rightLowestNonKeyMuscleWithMotorFunction,
     leftLowestNonKeyMuscleWithMotorFunction,
     comments,
+    cellComments,
   );
 
   try {
