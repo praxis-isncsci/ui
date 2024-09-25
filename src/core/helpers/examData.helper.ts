@@ -1114,10 +1114,10 @@ export const getCellComments = (gridModel: Array<(Cell | null)[]>): string => {
       comment += `${considerNormalText}. `;
     }
     if (reasonText) {
-      comment += `Reason: ${reasonText}. `;
+      comment += `${reasonText}. `;
     }
     if (reasonSpecifyValue) {
-      comment += `Specify: ${reasonSpecifyValue};`;
+      comment += `${reasonSpecifyValue};`;
     }
 
     commentsArray.push(comment.trim());
