@@ -5,7 +5,7 @@ import {
   IIsncsciAppStoreProvider,
 } from '@core/boundaries';
 import { Cell, MotorLevel, Totals } from '@core/domain';
-import { cellsMatch, sensoryCellRegex } from '@core/helpers';
+import { cellsMatch, sensoryCellRegex, getCellComments } from '@core/helpers';
 import {
   setActiveCellUseCase,
   setCellsValueUseCase,
@@ -458,6 +458,22 @@ export class InputLayoutController {
     );
   }
 
+  private updateCellCommentsDisplay(gridModel: Array<(Cell | null)[]>) {
+    const cellCommentsDisplay = document.querySelector('#cell-comments-display');
+    if (cellCommentsDisplay) {
+      cellCommentsDisplay.innerHTML = '';
+      const cellComments = getCellComments(gridModel);
+      const comments = cellComments.split(';');
+      comments.forEach(c => {
+        const comment = document.createElement('div') as HTMLDivElement;
+        comment.textContent = c.replace(';', '');
+        comment.style.paddingBottom = '2px';
+        comment.style.fontSize = '0.75rem';
+        cellCommentsDisplay.append(comment);
+      })
+    }
+  }
+
   private stateChanged(state: IAppState, actionType: string) {
     if (
       !this.considerNormal ||
@@ -500,6 +516,7 @@ export class InputLayoutController {
           this.reasonImpairmentNotDueToSci,
           this.reasonImpairmentNotDueToSciSpecify,
         );
+        this.updateCellCommentsDisplay(state.gridModel);
         break;
       case Actions.SET_VAC_DAP:
         this.updateDropdowns(state.vac, state.dap);
@@ -518,17 +535,17 @@ export class InputLayoutController {
     if (!e.target || !(e.target instanceof HTMLElement)) {
       return;
     }
-  
+
     const name = (e.target as HTMLElement).getAttribute('data-observation');
-  
+
     if (!name) {
       return;
     }
-  
+
     let state = appStore.getState();
-  
+
     const isMultipleSelection = e.ctrlKey || e.metaKey;
-  
+
     // If not in multiple selection mode
     if (!isMultipleSelection) {
       // If there is an activeCell and selectedCells.length > 1 (after a range selection)
@@ -539,14 +556,14 @@ export class InputLayoutController {
         state = appStore.getState();
       }
     }
-  
+
     // Determine the selection mode
     const selectionMode = isMultipleSelection
       ? 'multiple'
       : state.activeCell
         ? 'range'
         : 'single';
-  
+
     setActiveCellUseCase(
       name,
       state.activeCell,

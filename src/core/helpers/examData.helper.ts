@@ -15,6 +15,7 @@ import {
 } from './regularExpressions';
 import { BinaryObservation } from '@core/domain';
 import { ValidBinaryObservationValues } from '@core/domain/binaryObservation';
+import { gridModel } from '@app/store/reducers';
 
 const validateValue = (
   dataKey: string,
@@ -238,6 +239,9 @@ export const getExamDataFromGridModel = (
     missingValues.push('deepAnalPressure');
   }
 
+  // Call getCellComments to generate the cell comments
+  examData.cellComments = getCellComments(gridModel);
+
   gridModel.flat().forEach((cell) => {
     if (cell) {
       const key = cell.name.replace(/-([a-z])/gi, (a: string) =>
@@ -418,6 +422,7 @@ export const getEmptyExamData = (): ExamData => {
     errors: [],
     missingValues: [],
     comments: null,
+    cellComments: null,
     deepAnalPressure: null,
     voluntaryAnalContraction: null,
     rightLowestNonKeyMuscleWithMotorFunction: null,
@@ -1020,4 +1025,144 @@ export const cloneExamData = (
   });
 
   return clonedExamData;
+};
+
+export const getCellComments = (gridModel: Array<(Cell | null)[]>): string => {
+  const commentsArray: string[] = [];
+  const cellsByGroup: { [key: string]: Cell[] } = {};
+
+  const reasonOptionsMap: { [key: string]: string } = {
+    '1': 'Plexopathy',
+    '2': 'Peripheral neuropathy',
+    '3': 'Pre-existing myoneural disease (e.g. Stroke, MS, etc.)',
+    '6': 'Other (specify:)',
+  };
+
+  const considerNormalMap: { [key: string]: string } = {
+    'true': 'Consider Normal for classification',
+    'false': 'Consider Not Normal for classification',
+  };
+
+  // Loop through the grid model
+  for (const row of gridModel) {
+    for (const cell of row) {
+      if (cell && cell.value && cell.value.includes('*')) {
+        // Determine side (Left or Right)
+        const side = cell.name.startsWith('right') ? 'Right' : 'Left';
+
+        // Determine type (Motor, Light Touch, Pin Prick)
+        const typeMatch = cell.name.match(/(motor|light-touch|pin-prick)/);
+        const typeKey = typeMatch ? typeMatch[1] : '';
+        const typeMap: { [key: string]: string } = {
+          'motor': 'M',
+          'light-touch': 'LT',
+          'pin-prick': 'PP',
+        };
+        const type = typeMap[typeKey] || typeKey;
+
+        // Get attributes
+        const considerNormal = cell.considerNormal ?? '';
+        const reason = cell.reasonImpairmentNotDueToSci ?? '';
+        const reasonSpecify = cell.reasonImpairmentNotDueToSciSpecify ?? '';
+
+        // Create a group key that includes attributes
+        const groupKey = `${side}-${type}-${considerNormal}-${reason}-${reasonSpecify}`;
+
+        // Initialize the group if it doesn't exist
+        if (!cellsByGroup[groupKey]) {
+          cellsByGroup[groupKey] = [];
+        }
+
+        // Add the cell to the group
+        cellsByGroup[groupKey].push(cell);
+      }
+    }
+  }
+
+  // Generate comments for each group
+  for (const groupKey in cellsByGroup) {
+    const groupCells = cellsByGroup[groupKey];
+
+    // Extract levels from cell names
+    const levels = groupCells.map((cell) => {
+      const match = cell.name.match(/-([ctls]\d+_?\d?)/i);
+      return match ? match[1].toUpperCase() : '';
+    });
+
+    // Sort levels to create a range
+    const sortedLevels = sortLevels(levels);
+
+    // Create a level range
+    const levelRange = createLevelRange(sortedLevels);
+
+    // Get side and type from the group key
+    const [side, type] = groupKey.split('-', 2);
+
+    // Get attributes from the group key
+    const attributes = groupKey.split('-').slice(2);
+    const considerNormalValue = attributes[0];
+    const reasonValue = attributes[1];
+    const reasonSpecifyValue = attributes[2];
+
+    // Map considerNormal and reason values
+    const considerNormalText = considerNormalMap[considerNormalValue] || '';
+    const reasonText = reasonOptionsMap[reasonValue] || reasonValue; // Use the reason code if not in map
+
+    // Build the comment string
+    let comment = `${levelRange} ${side} ${type}: `;
+    if (considerNormalText) {
+      comment += `${considerNormalText}. `;
+    }
+    if (reasonText) {
+      comment += `${reasonText}. `;
+    }
+    if (reasonSpecifyValue) {
+      comment += `${reasonSpecifyValue};`;
+    }
+
+    commentsArray.push(comment.trim());
+  }
+
+  return commentsArray.join('; ');
+};
+
+// Helper function to sort levels
+const sortLevels = (levels: string[]): string[] => {
+  const levelOrder: { [key: string]: number } = {
+    'C': 1,
+    'T': 2,
+    'L': 3,
+    'S': 4,
+  };
+
+  return levels.sort((a, b) => {
+    const parseLevel = (level: string) => {
+      const match = level.match(/^([CTLS])(\d+)(?:_(\d+))?$/i);
+      if (!match) return { region: '', number: 0, subNumber: 0 };
+      const region = match[1].toUpperCase();
+      const number = parseInt(match[2], 10);
+      const subNumber = match[3] ? parseInt(match[3], 10) : 0;
+      return { region, number, subNumber };
+    };
+
+    const levelA = parseLevel(a);
+    const levelB = parseLevel(b);
+
+    if (levelOrder[levelA.region] !== levelOrder[levelB.region]) {
+      return levelOrder[levelA.region] - levelOrder[levelB.region];
+    } else if (levelA.number !== levelB.number) {
+      return levelA.number - levelB.number;
+    } else {
+      return levelA.subNumber - levelB.subNumber;
+    }
+  });
+};
+
+// Helper function to create level range
+const createLevelRange = (levels: string[]): string => {
+  if (levels.length === 1) {
+    return levels[0];
+  } else {
+    return `${levels[0]}-${levels[levels.length - 1]}`;
+  }
 };

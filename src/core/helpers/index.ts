@@ -12,6 +12,7 @@ export {
   getExamDataFromGridModel,
   getExamDataWithAllNormalValues,
   validateExamData,
+  getCellComments
 } from './examData.helper';
 
 export {

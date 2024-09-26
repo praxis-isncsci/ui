@@ -82,6 +82,7 @@ export const getInputLayoutTemplate = (): string => {
         <option value="S1">S1 - Hallux: Adduction</option>
       </select>
       <label for="comments" slot="comments-label">Comments:</label>
+      <div id="cell-comments-display" slot="comments"></div>
       <textarea name="comments" id="comments" slot="comments"></textarea>
       <praxis-isncsci-key-points-diagram slot="key-points-diagram"></praxis-isncsci-key-points-diagram>
     </praxis-isncsci-input-layout>
