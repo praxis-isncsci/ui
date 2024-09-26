@@ -38,6 +38,7 @@ export class InputLayoutController {
   private leftLowest: HTMLSelectElement | null = null;
   private comments: HTMLTextAreaElement | null = null;
   private keyMap: { [key: string]: string } = {};
+  private cellCommentsDisplay: HTMLDivElement | null = null;
 
   public constructor(
     appStore: IDataStore<IAppState>,
@@ -54,6 +55,9 @@ export class InputLayoutController {
     if (!classificationView.shadowRoot) {
       throw new Error('The totals have not been initialized');
     }
+
+    this.cellCommentsDisplay = inputLayout.querySelector('#cell-comments-display') as HTMLDivElement | null;
+
 
     this.classificationTotals = Array.from(
       classificationView.querySelectorAll('[data-total]'),
@@ -459,9 +463,8 @@ export class InputLayoutController {
   }
 
   private updateCellCommentsDisplay(gridModel: Array<(Cell | null)[]>) {
-    const cellCommentsDisplay = document.querySelector('#cell-comments-display');
-    if (cellCommentsDisplay) {
-      cellCommentsDisplay.innerHTML = '';
+    if (this.cellCommentsDisplay) {
+      this.cellCommentsDisplay.innerHTML = '';
       const cellComments = getCellComments(gridModel);
       const comments = cellComments.split(';');
       comments.forEach(c => {
@@ -469,7 +472,7 @@ export class InputLayoutController {
         comment.textContent = c.replace(';', '');
         comment.style.paddingBottom = '2px';
         comment.style.fontSize = '0.75rem';
-        cellCommentsDisplay.append(comment);
+        this.cellCommentsDisplay?.append(comment);
       })
     }
   }
