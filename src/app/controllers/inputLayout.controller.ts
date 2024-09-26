@@ -461,8 +461,16 @@ export class InputLayoutController {
   private updateCellCommentsDisplay(gridModel: Array<(Cell | null)[]>) {
     const cellCommentsDisplay = document.querySelector('#cell-comments-display');
     if (cellCommentsDisplay) {
+      cellCommentsDisplay.innerHTML = '';
       const cellComments = getCellComments(gridModel);
-      cellCommentsDisplay.textContent = cellComments;
+      const comments = cellComments.split(';');
+      comments.forEach(c => {
+        const comment = document.createElement('div') as HTMLDivElement;
+        comment.textContent = c.replace(';', '');
+        comment.style.paddingBottom = '2px';
+        comment.style.fontSize = '0.75rem';
+        cellCommentsDisplay.append(comment);
+      })
     }
   }
 

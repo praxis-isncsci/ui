@@ -1123,7 +1123,7 @@ export const getCellComments = (gridModel: Array<(Cell | null)[]>): string => {
     commentsArray.push(comment.trim());
   }
 
-  return commentsArray.join('\n');
+  return commentsArray.join('; ');
 };
 
 // Helper function to sort levels
