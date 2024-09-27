@@ -101,6 +101,7 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
       <slot name="left-lowest-label" slot="left-lowest-label"></slot>
       <slot name="left-lowest" slot="left-lowest"></slot>
       <slot name="comments-label" slot="comments-label"></slot>
+      <slot name="cell-comments-display" slot="cell-comments-display"></slot>
       <slot name="comments" slot="comments"></slot>
     </praxis-isncsci-extra-inputs>
   `;
@@ -108,7 +109,7 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
   public constructor() {
     super();
 
-    const shadowRoot: ShadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot: ShadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.innerHTML = this.template;
   }
 

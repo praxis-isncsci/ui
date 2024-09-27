@@ -95,6 +95,7 @@ export class PraxisIsncsciExtraInputs extends HTMLElement {
       </div>
       <div class="comments">
         <slot name="comments-label"></slot>
+        <slot name="cell-comments-display"></slot>
         <slot name="comments"></slot>
       </div>
     `;
