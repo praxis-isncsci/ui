@@ -58,6 +58,10 @@ export class InputLayoutController {
 
     this.cellCommentsDisplay = inputLayout.querySelector('#cell-comments-display') as HTMLDivElement | null;
 
+    window.addEventListener('DOMContentLoaded', () => {
+      this.cellCommentsDisplay = inputLayout.querySelector('#cell-comments-display') as HTMLDivElement | null;
+      console.log('cellCommentsDisplay:', this.cellCommentsDisplay);
+    });
 
     this.classificationTotals = Array.from(
       classificationView.querySelectorAll('[data-total]'),
