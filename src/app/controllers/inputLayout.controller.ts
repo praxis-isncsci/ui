@@ -211,18 +211,24 @@ export class InputLayoutController {
       this.appStoreProvider,
       this.externalMessageProvider,
     );
-    const nextActiveCell = getNextActiveCellUseCase(
-      state.activeCell.name,
-      state.gridModel,
-    );
-    setActiveCellUseCase(
-      nextActiveCell,
-      state.activeCell,
-      'single',
-      state.selectedCells,
-      state.gridModel.slice(),
-      this.appStoreProvider,
-    );
+    if (state.selectedCells.length > 1) {
+      // clear selection after enter values into selected range
+      this.appStoreProvider.setActiveCell(null, []);
+    } else {
+      // moving to next cell if selected as a single cell 
+      const nextActiveCell = getNextActiveCellUseCase(
+        state.activeCell.name,
+        state.gridModel,
+      );
+      setActiveCellUseCase(
+        nextActiveCell,
+        state.activeCell,
+        'single',
+        state.selectedCells,
+        state.gridModel.slice(),
+        this.appStoreProvider,
+      );
+    }
   }
 
   private registerGrids(grids: NodeListOf<HTMLElement>) {
