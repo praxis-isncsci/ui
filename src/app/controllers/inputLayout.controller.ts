@@ -165,17 +165,52 @@ export class InputLayoutController {
     this.keyMap['Backspace'] = '';
   }
 
+  private handleValueInput(value: string) {
+    //Check for active cell
+    const state = appStore.getState();
+    if (!state.activeCell) {
+      return;
+    }
+
+    setCellsValueUseCase(
+      value,
+      state.selectedCells.slice(),
+      state.gridModel.slice(),
+      state.vac,
+      state.dap,
+      state.rightLowestNonKeyMuscleWithMotorFunction,
+      state.leftLowestNonKeyMuscleWithMotorFunction,
+      state.comments,
+      true,
+      this.appStoreProvider,
+      this.externalMessageProvider,
+    );
+
+    if (state.selectedCells.length > 1) {
+      // clear selection after enter values into selected range
+      this.appStoreProvider.setActiveCell(null, []);
+    } else {
+      // moving to next cell if selected as a single cell
+      const nextActiveCell = getNextActiveCellUseCase(
+        state.activeCell.name,
+        state.gridModel,
+      );
+      setActiveCellUseCase(
+        nextActiveCell,
+        state.activeCell,
+        'single',
+        state.selectedCells,
+        state.gridModel.slice(),
+        this.appStoreProvider,
+      );
+    }
+  }
+
   private inputValue_onKeydown(e: KeyboardEvent) {
 
     //Check for non textbox input
     if (e.target instanceof HTMLTextAreaElement
       || e.target instanceof HTMLInputElement) {
-      return;
-    }
-
-    //Check for active cell
-    const state = appStore.getState();
-    if (!state.activeCell) {
       return;
     }
 
@@ -198,37 +233,7 @@ export class InputLayoutController {
       return;
     }
 
-    setCellsValueUseCase(
-      value,
-      state.selectedCells.slice(),
-      state.gridModel.slice(),
-      state.vac,
-      state.dap,
-      state.rightLowestNonKeyMuscleWithMotorFunction,
-      state.leftLowestNonKeyMuscleWithMotorFunction,
-      state.comments,
-      true,
-      this.appStoreProvider,
-      this.externalMessageProvider,
-    );
-    if (state.selectedCells.length > 1) {
-      // clear selection after enter values into selected range
-      this.appStoreProvider.setActiveCell(null, []);
-    } else {
-      // moving to next cell if selected as a single cell 
-      const nextActiveCell = getNextActiveCellUseCase(
-        state.activeCell.name,
-        state.gridModel,
-      );
-      setActiveCellUseCase(
-        nextActiveCell,
-        state.activeCell,
-        'single',
-        state.selectedCells,
-        state.gridModel.slice(),
-        this.appStoreProvider,
-      );
-    }
+    this.handleValueInput(value);
   }
 
   private registerGrids(grids: NodeListOf<HTMLElement>) {
@@ -401,25 +406,7 @@ export class InputLayoutController {
   }
 
   private inputValue_onClick(e: CustomEvent) {
-    const state = appStore.getState();
-
-    if (!state.activeCell) {
-      return;
-    }
-
-    setCellsValueUseCase(
-      e.detail.value,
-      state.selectedCells.slice(),
-      state.gridModel.slice(),
-      state.vac,
-      state.dap,
-      state.rightLowestNonKeyMuscleWithMotorFunction,
-      state.leftLowestNonKeyMuscleWithMotorFunction,
-      state.comments,
-      true,
-      this.appStoreProvider,
-      this.externalMessageProvider,
-    );
+    this.handleValueInput(e.detail.value);
   }
 
   private vacDap_onChange() {
