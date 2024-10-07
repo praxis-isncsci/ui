@@ -165,14 +165,17 @@ export class InputLayoutController {
     this.keyMap['Backspace'] = '';
   }
 
-  private handleValueInput(value: string) {
-    //Check for active cell
+  private async handleValueInput(value: string) {
+    
     const state = appStore.getState();
+  
     if (!state.activeCell) {
       return;
     }
+  
+    const propagateDown = true; 
 
-    setCellsValueUseCase(
+    const result = await setCellsValueUseCase(
       value,
       state.selectedCells.slice(),
       state.gridModel.slice(),
@@ -181,16 +184,19 @@ export class InputLayoutController {
       state.rightLowestNonKeyMuscleWithMotorFunction,
       state.leftLowestNonKeyMuscleWithMotorFunction,
       state.comments,
-      true,
+      propagateDown,
       this.appStoreProvider,
       this.externalMessageProvider,
     );
-
-    if (state.selectedCells.length > 1) {
-      // clear selection after enter values into selected range
+  
+    if (result.updatedCells.length > 1) {
+      // values were propagated down then clear the selection
+      this.appStoreProvider.setActiveCell(null, []);
+    } else if (state.selectedCells.length > 1) {
+      // clear selection after entering values into selected range
       this.appStoreProvider.setActiveCell(null, []);
     } else {
-      // moving to next cell if selected as a single cell
+      // moving to next cell if a single cell is selected
       const nextActiveCell = getNextActiveCellUseCase(
         state.activeCell.name,
         state.gridModel,
@@ -205,9 +211,9 @@ export class InputLayoutController {
       );
     }
   }
+  
 
-  private inputValue_onKeydown(e: KeyboardEvent) {
-
+  private async inputValue_onKeydown(e: KeyboardEvent) {
     //Check for non textbox input
     if (e.target instanceof HTMLTextAreaElement
       || e.target instanceof HTMLInputElement) {
@@ -232,8 +238,7 @@ export class InputLayoutController {
     if ((!value && value !== '') || !validValues.includes(value)) {
       return;
     }
-
-    this.handleValueInput(value);
+    await this.handleValueInput(value);
   }
 
   private registerGrids(grids: NodeListOf<HTMLElement>) {

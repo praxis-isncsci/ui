@@ -39,7 +39,7 @@ export const setCellsValueUseCase = async (
   propagateDown: boolean,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
-) => {
+): Promise<{ updatedCells: Cell[] }> => {
   // 1. Test value to make sure it is valid
   // Motor values are the superset of valid values
   if (!motorValueRegex.test(value)) {
@@ -58,7 +58,7 @@ export const setCellsValueUseCase = async (
   if (selectedCells.length === 1 && propagateDown) {
     // 3.2. If the selected cell is a sensory cell and the value is not a motor value, we stop. Nothing gets updated.
     if (sensoryCellRegex.test(selectedCells[0].name) && !isSensoryValue) {
-      return;
+      return { updatedCells: [] };
     }
 
     // 3.3. Get the range of cells to update.
@@ -82,7 +82,7 @@ export const setCellsValueUseCase = async (
 
   // 5. If there are no cells to update, we stop. Nothing gets updated.
   if (cellsToUpdate.length === 0) {
-    return;
+    return { updatedCells: [] };
   }
 
   try {
@@ -114,4 +114,5 @@ export const setCellsValueUseCase = async (
   } catch (error) {
     console.error('Error setting cells value', error);
   }
+  return { updatedCells: cellsToUpdate };
 };
