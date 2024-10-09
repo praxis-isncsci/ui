@@ -1054,7 +1054,7 @@ export const getCellComments = (gridModel: Array<(Cell | null)[]>): string => {
         const typeMatch = cell.name.match(/(motor|light-touch|pin-prick)/);
         const typeKey = typeMatch ? typeMatch[1] : '';
         const typeMap: { [key: string]: string } = {
-          'motor': 'M',
+          'motor': 'Motor',
           'light-touch': 'LT',
           'pin-prick': 'PP',
         };
