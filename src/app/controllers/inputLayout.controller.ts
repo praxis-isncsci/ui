@@ -39,6 +39,8 @@ export class InputLayoutController {
   private comments: HTMLTextAreaElement | null = null;
   private keyMap: { [key: string]: string } = {};
   private cellCommentsDisplay: HTMLDivElement | null = null;
+  private multipleSelectionToggle: HTMLInputElement | null = null;
+  private multipleSelectionEnabled: boolean = false;
 
   public constructor(
     appStore: IDataStore<IAppState>,
@@ -163,6 +165,22 @@ export class InputLayoutController {
     this.keyMap['N'] = 'NT*';
     this.keyMap['Delete'] = '';
     this.keyMap['Backspace'] = '';
+
+    // Initialize the multiple selection toggle
+    this.multipleSelectionToggle = document.querySelector('#multiple-selection-toggle') as HTMLInputElement;
+
+    if (this.multipleSelectionToggle) {
+      this.multipleSelectionEnabled = this.multipleSelectionToggle.checked; // Initialize state
+
+      this.multipleSelectionToggle.addEventListener('change', () => {
+        this.multipleSelectionEnabled = this.multipleSelectionToggle!.checked;
+
+        if (!this.multipleSelectionEnabled) {
+          // Clear existing selection when toggle is turned off
+          this.appStoreProvider.setActiveCell(null, []);
+        }
+      });
+    }
   }
 
   private async handleValueInput(value: string) {
@@ -545,26 +563,26 @@ export class InputLayoutController {
 
     let state = appStore.getState();
 
-    const isMultipleSelection = e.ctrlKey || e.metaKey;
+    const isCtrlPressed = e.ctrlKey || e.metaKey;
 
-    // If not in multiple selection mode
-    if (!isMultipleSelection) {
-      // If there is an activeCell and selectedCells.length > 1 (after a range selection)
-      if (state.activeCell && state.selectedCells.length > 1) {
-        // Reset activeCell and selectedCells to start a new selection
-        this.appStoreProvider.setActiveCell(null, []);
-        // Update the state after resetting
-        state = appStore.getState();
+    if (this.multipleSelectionEnabled) {
+      if (!isCtrlPressed) {
+        // If there is an activeCell and selectedCells.length > 1 (after a range selection)
+        if (state.activeCell && state.selectedCells.length > 1) {
+          // Reset activeCell and selectedCells to start a new selection
+          this.appStoreProvider.setActiveCell(null, []);
+          // Update the state after resetting
+          state = appStore.getState();
+        }
       }
-    }
 
     // Determine the selection mode
-    const selectionMode = isMultipleSelection
+    const selectionMode = isCtrlPressed
       ? 'multiple'
       : state.activeCell
         ? 'range'
         : 'single';
-
+        
     setActiveCellUseCase(
       name,
       state.activeCell,
@@ -573,7 +591,19 @@ export class InputLayoutController {
       state.gridModel.slice(),
       this.appStoreProvider,
     );
+  } else {
+    // When multiple selection is disabled - always single selection
+    this.appStoreProvider.setActiveCell(null, []); // Clear previous selection if any
+    setActiveCellUseCase(
+      name,
+      null, // No active cell for range selection
+      'single',
+      [],
+      state.gridModel.slice(),
+      this.appStoreProvider,
+    );
   }
+}
 
   private starInput_change(e: Event) {
     if (
