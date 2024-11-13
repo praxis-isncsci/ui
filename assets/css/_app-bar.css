@@ -9,3 +9,50 @@ praxis-isncsci-app-bar {
   --title-font-weight: var(--type-scale-subtitle-2-weight);
   --title-line-height: var(--type-scale-subtitle-2-line-height);
 }
+
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+}
+
+.toggle-switch .label-text {
+  margin-left: 0.25rem;
+  font-size: 0.8rem;
+  font-family: var(--text-font-family);
+}
+
+.toggle-switch input {
+  display: none;
+}
+
+.toggle-switch .slider {
+  position: relative;
+  display: inline-block;
+  width: 1.875rem;
+  height: 0.938rem;
+  background-color: #ccc;
+  border-radius: 0.938rem;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.toggle-switch .slider:before {
+  content: "";
+  position: absolute;
+  height: 0.688rem;
+  width: 0.688rem;
+  left: 0.125rem;
+  bottom: 0.125rem;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.4s;
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: #8221A3;
+}
+
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(0.938rem);
+}
+
