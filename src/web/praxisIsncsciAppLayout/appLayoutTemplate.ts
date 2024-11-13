@@ -17,7 +17,7 @@ const getAppBarTemplate = (iconsPath: string) => {
           ></praxis-isncsci-icon>
           <input type="checkbox" id="multiple-selection-toggle" />
           <span class="slider"></span>
-          Multiple cell selection
+          <span class="label-text">Multi-select</span>
         </label>
         <button class="button" action-clear-exam>
           <praxis-isncsci-icon
