@@ -167,7 +167,8 @@ export class InputLayoutController {
     this.keyMap['Backspace'] = '';
 
     // Initialize the multiple selection toggle
-    this.multipleSelectionToggle = document.querySelector('#multiple-selection-toggle') as HTMLInputElement;
+    //this.multipleSelectionToggle = document.querySelector('#multiple-selection-toggle') as HTMLInputElement;
+    this.multipleSelectionToggle = this.inputButtons.shadowRoot?.querySelector('#multiple-selection-toggle') as HTMLInputElement;
 
     if (this.multipleSelectionToggle) {
       this.multipleSelectionEnabled = this.multipleSelectionToggle.checked; // Initialize state
@@ -184,14 +185,14 @@ export class InputLayoutController {
   }
 
   private async handleValueInput(value: string) {
-    
+
     const state = appStore.getState();
-  
+
     if (!state.activeCell) {
       return;
     }
-  
-    const propagateDown = true; 
+
+    const propagateDown = true;
 
     const result = await setCellsValueUseCase(
       value,
@@ -206,7 +207,7 @@ export class InputLayoutController {
       this.appStoreProvider,
       this.externalMessageProvider,
     );
-  
+
     if (result.updatedCells.length > 1) {
       // values were propagated down then clear the selection
       this.appStoreProvider.setActiveCell(null, []);
@@ -229,7 +230,7 @@ export class InputLayoutController {
       );
     }
   }
-  
+
 
   private async inputValue_onKeydown(e: KeyboardEvent) {
     //Check for non textbox input
@@ -576,34 +577,34 @@ export class InputLayoutController {
         }
       }
 
-    // Determine the selection mode
-    const selectionMode = isCtrlPressed
-      ? 'multiple'
-      : state.activeCell
-        ? 'range'
-        : 'single';
-        
-    setActiveCellUseCase(
-      name,
-      state.activeCell,
-      selectionMode,
-      state.selectedCells,
-      state.gridModel.slice(),
-      this.appStoreProvider,
-    );
-  } else {
-    // When multiple selection is disabled - always single selection
-    this.appStoreProvider.setActiveCell(null, []); // Clear previous selection if any
-    setActiveCellUseCase(
-      name,
-      null, // No active cell for range selection
-      'single',
-      [],
-      state.gridModel.slice(),
-      this.appStoreProvider,
-    );
+      // Determine the selection mode
+      const selectionMode = isCtrlPressed
+        ? 'multiple'
+        : state.activeCell
+          ? 'range'
+          : 'single';
+
+      setActiveCellUseCase(
+        name,
+        state.activeCell,
+        selectionMode,
+        state.selectedCells,
+        state.gridModel.slice(),
+        this.appStoreProvider,
+      );
+    } else {
+      // When multiple selection is disabled - always single selection
+      this.appStoreProvider.setActiveCell(null, []); // Clear previous selection if any
+      setActiveCellUseCase(
+        name,
+        null, // No active cell for range selection
+        'single',
+        [],
+        state.gridModel.slice(),
+        this.appStoreProvider,
+      );
+    }
   }
-}
 
   private starInput_change(e: Event) {
     if (

@@ -9,16 +9,6 @@ const getAppBarTemplate = (iconsPath: string) => {
       </button>
       <span slot="title">&nbsp;</span>
       <div slot="actions">
-        <label class="toggle-switch">
-          <praxis-isncsci-icon
-            style="visibility: hidden"
-            href="${iconsPath}/regular.svg#icon-calculator-20"
-            size="20"
-          ></praxis-isncsci-icon>
-          <input type="checkbox" id="multiple-selection-toggle" />
-          <span class="slider"></span>
-          <span class="label-text">Multi-select</span>
-        </label>
         <button class="button" action-clear-exam>
           <praxis-isncsci-icon
             style="visibility: hidden"
