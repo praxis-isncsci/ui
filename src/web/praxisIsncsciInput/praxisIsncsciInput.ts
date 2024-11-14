@@ -11,6 +11,7 @@ export class PraxisIsncsciInput extends HTMLElement {
     return `
       <style>
         :host {
+          position: relative;
           align-items: center;
           background: var(--background, rgba(255, 255, 255, 0.4));
           border-radius: var(--border-radius, 0.5rem) var(--border-radius, 0.5rem) 0 0;
@@ -20,6 +21,7 @@ export class PraxisIsncsciInput extends HTMLElement {
           flex-direction: column;
           gap: 0;
           padding: var(--padding, 1rem);
+          padding-top: 50px;
         }
 
         :host([show-unknown]) [unk] {
@@ -198,6 +200,18 @@ export class PraxisIsncsciInput extends HTMLElement {
           display: none;
         }
 
+        .toggle-switch{
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+
+        @container(min-width: 580px){
+          :host{
+            padding-top: var(--padding, 1rem);
+          }
+        }
+
         @container (min-width: 48rem) {
           :host {
             border-radius: 0 0 var(--border-radius, 0.5rem) var(--border-radius, 0.5rem);
@@ -293,6 +307,11 @@ export class PraxisIsncsciInput extends HTMLElement {
           </div>
         </div>
       </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="multiple-selection-toggle" />
+        <span class="slider"></span>
+        <span class="label-text">Multi-select</span>
+      </label>
     `;
   }
 
