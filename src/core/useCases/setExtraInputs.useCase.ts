@@ -15,6 +15,7 @@ export const setExtraInputsUseCase = async (
   rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
   comments: string,
+  cellComments: string,
   appStoreProvider: IIsncsciAppStoreProvider,
   externalMessageProvider: IExternalMessageProvider,
 ) => {
@@ -23,6 +24,7 @@ export const setExtraInputsUseCase = async (
     rightLowestNonKeyMuscleWithMotorFunction,
     leftLowestNonKeyMuscleWithMotorFunction,
     comments,
+    cellComments,
   );
 
   // 2. Clear the totals and errors

@@ -35,5 +35,6 @@ export const loadExternalExamDataUseCase = async (
     examData.rightLowestNonKeyMuscleWithMotorFunction,
     examData.leftLowestNonKeyMuscleWithMotorFunction,
     examData.comments || '',
+    examData.cellComments || '',
   );
 };

@@ -18,6 +18,7 @@ export interface IIsncsciAppStoreProvider {
     rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     comments: string,
+    cellComments: string,
   ): Promise<void>;
   setGridModel(gridModel: Array<Cell | null>[]): Promise<void>;
   setReadonly(readonly: boolean): Promise<void>;

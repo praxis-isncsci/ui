@@ -67,6 +67,7 @@ const extraInputs = (
     rightLowestNonKeyMuscleWithMotorFunction: string | null;
     leftLowestNonKeyMuscleWithMotorFunction: string | null;
     comments: string;
+    cellComments: string;
   }>,
 ): IAppState => {
   switch (action.type) {
@@ -77,6 +78,7 @@ const extraInputs = (
         leftLowestNonKeyMuscleWithMotorFunction:
           action.payload.leftLowestNonKeyMuscleWithMotorFunction,
         comments: action.payload.comments,
+        cellComments: action.payload.cellComments,
       });
     default:
       return state;
