@@ -64,6 +64,7 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
     rightLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     leftLowestNonKeyMuscleWithMotorFunction: MotorLevel | null,
     comments: string,
+    cellComments: string,
   ): Promise<void> {
     this.appStore.dispatch({
       type: Actions.SET_EXTRA_INPUTS,
@@ -71,6 +72,7 @@ export class AppStoreProvider implements IIsncsciAppStoreProvider {
         rightLowestNonKeyMuscleWithMotorFunction,
         leftLowestNonKeyMuscleWithMotorFunction,
         comments,
+        cellComments,
       },
     });
 

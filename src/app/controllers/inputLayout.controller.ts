@@ -466,6 +466,7 @@ export class InputLayoutController {
     }
 
     const state = appStore.getState();
+    const cellComments = getCellComments(state.gridModel);
 
     setExtraInputsUseCase(
       state.gridModel.slice(),
@@ -474,6 +475,7 @@ export class InputLayoutController {
       this.rightLowest.value as MotorLevel,
       this.leftLowest.value as MotorLevel,
       this.comments.value,
+      cellComments,
       this.appStoreProvider,
       this.externalMessageProvider,
     );

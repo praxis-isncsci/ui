@@ -28,7 +28,7 @@ export const clearExamUseCase = async (
     await appStoreProvider.setGridModel(gridModel);
     await appStoreProvider.setTotals(totals);
     await appStoreProvider.setVacDap(null, null);
-    await appStoreProvider.setExtraInputs(null, null, '');
+    await appStoreProvider.setExtraInputs(null, null, '', '');
     await externalMessageProvider.sendOutExamData(emptyExamData);
   } catch (error) {
     console.log(error);
