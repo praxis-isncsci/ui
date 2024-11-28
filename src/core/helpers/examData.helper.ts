@@ -1028,7 +1028,7 @@ export const cloneExamData = (
 };
 
 export const getCellComments = (gridModel: Array<(Cell | null)[]>): string => {
-  const commentsArray: string[] = [];
+  const commentsArray: { order: number; comment: string }[] = [];
   const cellsByGroup: { [key: string]: Cell[] } = {};
 
   const reasonOptionsMap: { [key: string]: string } = {
@@ -1043,14 +1043,12 @@ export const getCellComments = (gridModel: Array<(Cell | null)[]>): string => {
     'false': 'Consider Not Normal for classification',
   };
 
-  // Loop through the grid model
+  // Group cells by side, type, and attributes
   for (const row of gridModel) {
     for (const cell of row) {
       if (cell && cell.value && cell.value.includes('*')) {
-        // Determine side (Left or Right)
         const side = cell.name.startsWith('right') ? 'Right' : 'Left';
 
-        // Determine type (Motor, Light Touch, Pin Prick)
         const typeMatch = cell.name.match(/(motor|light-touch|pin-prick)/);
         const typeKey = typeMatch ? typeMatch[1] : '';
         const typeMap: { [key: string]: string } = {
@@ -1060,105 +1058,120 @@ export const getCellComments = (gridModel: Array<(Cell | null)[]>): string => {
         };
         const type = typeMap[typeKey] || typeKey;
 
-        // Get attributes
-        const considerNormal = cell.considerNormal ?? '';
+        const considerNormal = cell.considerNormal?.toString() ?? '';
         const reason = cell.reasonImpairmentNotDueToSci ?? '';
         const reasonSpecify = cell.reasonImpairmentNotDueToSciSpecify ?? '';
 
-        // Create a group key that includes attributes
         const groupKey = `${side}-${type}-${considerNormal}-${reason}-${reasonSpecify}`;
 
-        // Initialize the group if it doesn't exist
         if (!cellsByGroup[groupKey]) {
           cellsByGroup[groupKey] = [];
         }
 
-        // Add the cell to the group
         cellsByGroup[groupKey].push(cell);
       }
     }
   }
 
-  // Generate comments for each group
+  // Process ea. group
   for (const groupKey in cellsByGroup) {
     const groupCells = cellsByGroup[groupKey];
 
-    // Extract levels from cell names
-    const levels = groupCells.map((cell) => {
-      const match = cell.name.match(/-([ctls]\d+_?\d?)/i);
-      return match ? match[1].toUpperCase() : '';
-    });
+    // Sort cells by order
+    groupCells.sort(compareCells);
 
-    // Sort levels to create a range
-    const sortedLevels = sortLevels(levels);
+    // Create subgroups of contiguous levels
+    const subGroups: Cell[][] = [];
+    let currentSubGroup: Cell[] = [];
 
-    // Create a level range
-    const levelRange = createLevelRange(sortedLevels);
+    for (let i = 0; i < groupCells.length; i++) {
+      const currentCell = groupCells[i];
 
-    // Get side and type from the group key
-    const [side, type] = groupKey.split('-', 2);
+      if (currentSubGroup.length === 0) {
+        currentSubGroup.push(currentCell);
+      } else {
+        const lastCell = currentSubGroup[currentSubGroup.length - 1];
 
-    // Get attributes from the group key
-    const attributes = groupKey.split('-').slice(2);
-    const considerNormalValue = attributes[0];
-    const reasonValue = attributes[1];
-    const reasonSpecifyValue = attributes[2];
-
-    // Map considerNormal and reason values
-    const considerNormalText = considerNormalMap[considerNormalValue] || '';
-    const reasonText = reasonOptionsMap[reasonValue] || reasonValue; // Use the reason code if not in map
-
-    // Build the comment string
-    let comment = `${levelRange} ${side} ${type}: `;
-    if (considerNormalText) {
-      comment += `${considerNormalText}. `;
-    }
-    if (reasonText) {
-      comment += `${reasonText}. `;
-    }
-    if (reasonSpecifyValue) {
-      comment += `${reasonSpecifyValue};`;
+        if (areCellsContiguous(lastCell, currentCell)) {
+          currentSubGroup.push(currentCell);
+        } else {
+          subGroups.push(currentSubGroup);
+          currentSubGroup = [currentCell];
+        }
+      }
     }
 
-    commentsArray.push(comment.trim());
+    if (currentSubGroup.length > 0) {
+      subGroups.push(currentSubGroup);
+    }
+
+    // Generate comments for each subgroup
+    for (const subGroup of subGroups) {
+      const levels = subGroup.map((cell) => getLevelName(cell.name));
+      const levelRange = createLevelRange(levels);
+
+      const [side, type, considerNormalValue, reasonValue, reasonSpecifyValue] = groupKey.split('-', 5);
+
+      const considerNormalText = considerNormalMap[considerNormalValue] || '';
+      const reasonText = reasonOptionsMap[reasonValue] || reasonValue;
+
+      let comment = `${levelRange} ${side} ${type}: `;
+      if (considerNormalText) {
+        comment += `${considerNormalText}. `;
+      }
+      if (reasonText) {
+        comment += `${reasonText}. `;
+      }
+      if (reasonSpecifyValue) {
+        comment += `${reasonSpecifyValue}`;
+      }
+
+      // Get the starting level's order for sorting comments
+      const levelOrder = getLevelOrder(subGroup[0].name);
+
+      commentsArray.push({ order: levelOrder, comment: comment.trim() });
+    }
   }
 
-  return commentsArray.join('; ');
+  // Sort comments based on anatomical order
+  commentsArray.sort((a, b) => a.order - b.order);
+
+  // Build the final comments string
+  const sortedComments = commentsArray.map((item) => item.comment);
+
+  return sortedComments.join('; ');
 };
 
-// Helper function to sort levels
-const sortLevels = (levels: string[]): string[] => {
-  const levelOrder: { [key: string]: number } = {
-    'C': 1,
-    'T': 2,
-    'L': 3,
-    'S': 4,
-  };
+const levelsInOrder = [
+  'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8',
+  'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',
+  'L1', 'L2', 'L3', 'L4', 'L5',
+  'S1', 'S2', 'S3', 'S4_5'
+];
 
-  return levels.sort((a, b) => {
-    const parseLevel = (level: string) => {
-      const match = level.match(/^([CTLS])(\d+)(?:_(\d+))?$/i);
-      if (!match) return { region: '', number: 0, subNumber: 0 };
-      const region = match[1].toUpperCase();
-      const number = parseInt(match[2], 10);
-      const subNumber = match[3] ? parseInt(match[3], 10) : 0;
-      return { region, number, subNumber };
-    };
-
-    const levelA = parseLevel(a);
-    const levelB = parseLevel(b);
-
-    if (levelOrder[levelA.region] !== levelOrder[levelB.region]) {
-      return levelOrder[levelA.region] - levelOrder[levelB.region];
-    } else if (levelA.number !== levelB.number) {
-      return levelA.number - levelB.number;
-    } else {
-      return levelA.subNumber - levelB.subNumber;
-    }
-  });
+const getLevelName = (cellName: string): string => {
+  const match = cellName.match(/-([CTLS]\d+_?\d?)/i);
+  return match ? match[1].toUpperCase() : '';
 };
 
-// Helper function to create level range
+const getLevelOrder = (cellName: string): number => {
+  const levelName = getLevelName(cellName);
+  const order = levelsInOrder.indexOf(levelName) + 1; 
+  return order;
+};
+
+const compareCells = (a: Cell, b: Cell): number => {
+  const orderA = getLevelOrder(a.name);
+  const orderB = getLevelOrder(b.name);
+  return orderA - orderB;
+};
+
+const areCellsContiguous = (cellA: Cell, cellB: Cell): boolean => {
+  const orderA = getLevelOrder(cellA.name);
+  const orderB = getLevelOrder(cellB.name);
+  return orderB === orderA + 1;
+};
+
 const createLevelRange = (levels: string[]): string => {
   if (levels.length === 1) {
     return levels[0];
