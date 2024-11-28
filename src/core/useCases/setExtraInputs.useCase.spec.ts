@@ -52,6 +52,7 @@ describe('setExtraInputs.useCase.ts', () => {
         rightLowestNonKeyMuscleWithMotorFunction,
         leftLowestNonKeyMuscleWithMotorFunction,
         comments,
+        cellComments,
       );
       expect(externalMessageProvider.sendOutExamData).toHaveBeenCalled();
       expect(appStoreProvider.clearTotalsAndErrors).toHaveBeenCalled();
