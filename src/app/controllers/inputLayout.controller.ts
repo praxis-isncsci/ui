@@ -510,6 +510,7 @@ export class InputLayoutController {
     switch (actionType) {
       case Actions.SET_GRID_MODEL:
         this.updateView(state.gridModel.slice());
+        this.updateCellCommentsDisplay(state.gridModel);
         break;
       case Actions.SET_TOTALS:
       case Actions.CLEAR_TOTALS_AND_ERRORS:
@@ -549,6 +550,7 @@ export class InputLayoutController {
           state.leftLowestNonKeyMuscleWithMotorFunction,
           state.comments,
         );
+        this.updateCellCommentsDisplay(state.gridModel);
         break;
     }
   }
