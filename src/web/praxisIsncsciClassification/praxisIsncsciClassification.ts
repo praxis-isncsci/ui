@@ -31,6 +31,7 @@ export class PraxisIsncsciClassification extends HTMLElement {
         <slot name="neurological-levels"></slot>
         <slot name="nli"></slot>
         <slot name="ais"></slot>
+        <slot name="injury-complete"></slot>
         <slot name="zpp"></slot>
         <slot name="sub-scores"></slot>
       </div>
