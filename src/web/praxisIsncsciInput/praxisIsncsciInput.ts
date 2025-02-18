@@ -290,7 +290,7 @@ export class PraxisIsncsciInput extends HTMLElement {
             </div>
           </div>
           <div class="star-input-entry">
-            <div class="label-container">
+            <div class="label-container" dynamic-label>
               <slot name="reason-for-impairment-not-due-to-sci-label"></slot>
             </div>
             <div class="input-container">
@@ -360,6 +360,19 @@ export class PraxisIsncsciInput extends HTMLElement {
     }
 
     if (name === 'sensory') {
+      const labelEl = this.shadowRoot?.querySelector('[dynamic-label]');
+      if (labelEl) {
+        if (newValue === null) {
+          // for motor values
+          labelEl.textContent =
+            'If motor impairment not due to SCI, please indicate reason:';
+        } else {
+          // for sensory values
+          labelEl.textContent =
+            'If sensory impairment not due to SCI, please indicate reason:';
+        }
+      }
+      
       if (newValue === null) {
         this.shadowRoot?.querySelectorAll('[motor-only]').forEach((b) => {
           b.removeAttribute('disabled');
@@ -370,19 +383,19 @@ export class PraxisIsncsciInput extends HTMLElement {
         });
       }
     }
-
+  
     if (name === 'selected-value') {
       this.shadowRoot
         ?.querySelectorAll('[selected]')
         .forEach((b) => b.removeAttribute('selected'));
-
+  
       const simplifiedValue = newValue?.replace(/\*\*$/, '*');
-
+  
       this.shadowRoot
         ?.querySelectorAll(`button[value="${simplifiedValue}"]`)
         .forEach((b) => b.setAttribute('selected', ''));
     }
-
+  
     if (name === 'disabled') {
       if (newValue === null) {
         const selector = this.hasAttribute('sensory')
