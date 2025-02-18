@@ -64,6 +64,20 @@ const getAisTemplate = () => {
   </praxis-isncsci-classification-grid>`;
 };
 
+const getInjuryCompleteTemplate = () => {
+  return html`<praxis-isncsci-classification-grid slot="injury-complete">
+    <h3 slot="heading">Complete or<br />Incomplete?</h3>
+    <div slot="grid">
+      <praxis-isncsci-classification-total
+        >C</praxis-isncsci-classification-total
+      >
+      <praxis-isncsci-classification-total
+        >Incomplete</praxis-isncsci-classification-total
+      >
+    </div>
+  </praxis-isncsci-classification-grid>`;
+};
+
 const getZppTemplate = () => {
   return html`<praxis-isncsci-classification-grid slot="zpp">
     <h3 slot="heading">Zone of partial preservation</h3>
@@ -155,7 +169,7 @@ const getTemplate = (args) =>
           </button>
         </div>
       </praxis-isncsci-dialog-header>
-      ${getNeurologicalLevelsTemplate()} ${getNliTemplate()} ${getAisTemplate()}
+      ${getNeurologicalLevelsTemplate()} ${getNliTemplate()} ${getAisTemplate()} ${getInjuryCompleteTemplate()}
       ${getZppTemplate()} ${getSubScoresTemplate()}
     </praxis-isncsci-classification>
   `;
