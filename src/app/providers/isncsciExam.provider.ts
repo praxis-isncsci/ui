@@ -1,6 +1,6 @@
-import {Exam, ISNCSCI} from 'isncsci';
-import {IIsncsciExamProvider} from '@core/boundaries';
-import {ExamData, MotorLevel, MotorLevels, SensoryLevels} from '@core/domain';
+import { Exam, ISNCSCI } from 'isncsci';
+import { IIsncsciExamProvider } from '@core/boundaries';
+import { ExamData, MotorLevel, MotorLevels, SensoryLevels } from '@core/domain';
 
 export class IsncsciExamProvider implements IIsncsciExamProvider {
   private bindExamDataToExam(examData: ExamData) {
@@ -8,15 +8,16 @@ export class IsncsciExamProvider implements IIsncsciExamProvider {
       deepAnalPressure: examData.deepAnalPressure,
       voluntaryAnalContraction: examData.voluntaryAnalContraction,
       right: {
-        // lowestNonKeyMuscleWithMotorFunction: "C8",
         motor: {},
         lightTouch: {},
         pinPrick: {},
+        lowestNonKeyMuscleWithMotorFunction: examData.rightLowestNonKeyMuscleWithMotorFunction
       },
       left: {
         motor: {},
         lightTouch: {},
         pinPrick: {},
+        lowestNonKeyMuscleWithMotorFunction: examData.leftLowestNonKeyMuscleWithMotorFunction
       },
     };
 
