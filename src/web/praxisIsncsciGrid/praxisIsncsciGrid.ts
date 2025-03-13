@@ -173,12 +173,12 @@ export class PraxisIsncsciGrid extends HTMLElement {
             ${this.getCell('left', 'motor', level)}
 
             <div class="label left"> 
-            ${level} <slot name="${level}-icon"></slot>
+            ${level} <slot name="${level}-icon-left"></slot>
             </div>
           `
         : `
             <div class="label right">
-            <slot name="${level}-icon"></slot> ${level}
+            <slot name="${level}-icon-right"></slot> ${level}
             </div>
             ${this.getCell('right', 'motor', level)}
             ${this.getCell('right', 'light-touch', level)}

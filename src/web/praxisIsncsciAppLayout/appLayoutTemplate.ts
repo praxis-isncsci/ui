@@ -32,6 +32,7 @@ const getAppBarTemplate = (iconsPath: string) => {
 export const getInputLayoutTemplate = (): string => {
   return `
     <praxis-isncsci-input-layout slot="input-layout">
+  <div>helllllllloooooooooo</div>
       <div slot="vac" class="anal-function right">
           <label for="vac"><span class="intermittent">(</span>VAC<span class="intermittent">) Voluntary anal contraction</span></label>
           <select name="vac" id="vac">
