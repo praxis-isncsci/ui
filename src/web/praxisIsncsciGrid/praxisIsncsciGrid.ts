@@ -76,8 +76,16 @@ export class PraxisIsncsciGrid extends HTMLElement {
         align-items: center;
         display: flex;
         grid-column: label;
-        justify-content: right;
         padding-right: 12px;
+        white-space: nowrap;
+      }
+      
+      .left {
+        justify-content: left;
+      }
+
+      .right {
+        justify-content: right;
       }
 
       [motor] {
@@ -164,10 +172,14 @@ export class PraxisIsncsciGrid extends HTMLElement {
             ${this.getCell('left', 'pin-prick', level)}
             ${this.getCell('left', 'motor', level)}
 
-            <div class="label">${level}</div>
+            <div class="label left"> 
+            ${level} <slot name="${level}-icon-left"></slot>
+            </div>
           `
         : `
-            <div class="label">${level}</div>
+            <div class="label right">
+            <slot name="${level}-icon-right"></slot> ${level}
+            </div>
             ${this.getCell('right', 'motor', level)}
             ${this.getCell('right', 'light-touch', level)}
             ${this.getCell('right', 'pin-prick', level)}
