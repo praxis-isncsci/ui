@@ -16,7 +16,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   public static get observedAttributes(): string[] {
-    return ['highlighted-cells', 'left'];
+    return ['highlighted-cells', 'left', 'help-mode'];
   }
 
   private template: string = `
@@ -130,6 +130,10 @@ export class PraxisIsncsciGrid extends HTMLElement {
       this.updateHighlights(newValue);
       return;
     }
+
+    if (name === 'help-mode') {
+      this.updateView(this.hasAttribute('left'));
+    }
   }
 
   private getCell(
@@ -163,22 +167,47 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   private getLevels(left: boolean) {
+    const helpMode = this.hasAttribute('help-mode');
+
     let levels = '';
 
     SensoryLevels.forEach((level) => {
+      const isMotorLevel = MotorLevels.includes(level as MotorLevel);
       levels += left
         ? `
             ${this.getCell('left', 'light-touch', level)}
             ${this.getCell('left', 'pin-prick', level)}
             ${this.getCell('left', 'motor', level)}
 
-            <div class="label left"> 
-            ${level} <slot name="${level}-icon-left"></slot>
-            </div>
+            <div class="label left">
+            ${level}
+            ${
+              helpMode
+                ? `<button
+                      class="help-icon sensory"
+                      data-type="sensory"
+                      data-level="${level}"
+                      data-side="left"
+                  >
+                  </button>` 
+                : ''
+            }
+          </div>
           `
         : `
             <div class="label right">
-            <slot name="${level}-icon-right"></slot> ${level}
+              ${
+                helpMode && isMotorLevel
+                  ? `<button
+                      class="help-icon motor"
+                      data-type="motor"
+                      data-level="${level}"
+                      data-side="right"
+                    >
+                    </button>`
+                  : ''
+              }
+              ${level}
             </div>
             ${this.getCell('right', 'motor', level)}
             ${this.getCell('right', 'light-touch', level)}
@@ -201,6 +230,24 @@ export class PraxisIsncsciGrid extends HTMLElement {
       ${this.getHeader(left)}
       ${this.getLevels(left)}
     `;
+    const buttons = this.shadowRoot.querySelectorAll('button.help-icon');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const buttonEl = e.currentTarget as HTMLButtonElement;
+        const level = buttonEl.getAttribute('data-level') || '';
+        const side = buttonEl.getAttribute('data-side') || (left ? 'left' : 'right');
+        const type = buttonEl.getAttribute('data-type') || 'sensory';
+
+        // Dispatch a custom event for the outside to catch
+        this.dispatchEvent(
+          new CustomEvent('help-icon-clicked', {
+            detail: { level, side, type },
+            bubbles: true,
+            composed: true
+          })
+        );
+      });
+    });
   }
 
   private updateHighlights(newValue: string) {
