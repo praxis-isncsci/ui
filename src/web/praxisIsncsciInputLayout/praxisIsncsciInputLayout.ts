@@ -11,7 +11,7 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
   }
 
   public static get observedAttributes(): string[] {
-    return ['readonly'];
+    return ['readonly', 'help-mode'];
   }
 
   private template: string = `
@@ -126,6 +126,24 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
     });
   }
 
+  private updateHelpAttributes(name: string, value: string | null) {
+  if (!this.shadowRoot) return;
+
+  // For the right side grid
+  const rightGrid = this.shadowRoot.querySelector('praxis-isncsci-grid:not([left])');
+  // For the left side grid
+  const leftGrid = this.shadowRoot.querySelector('praxis-isncsci-grid[left]');
+
+  [rightGrid, leftGrid].forEach(gridEl => {
+    if (!gridEl) return;
+    if (value === null) {
+      gridEl.removeAttribute(name);
+    } else {
+      gridEl.setAttribute(name, value);
+    }
+  });
+}
+
   public attributeChangedCallback(
     name: string,
     oldValue: string,
@@ -137,6 +155,9 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
 
     if (name === 'readonly') {
       this.updateReadonly(newValue !== null);
+    }
+    if (name === 'help-mode') {
+      this.updateHelpAttributes(name, newValue);
     }
   }
 }
