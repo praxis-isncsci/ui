@@ -80,8 +80,37 @@ export class PraxisIsncsciGrid extends HTMLElement {
         white-space: nowrap;
       }
       
+      .help-icon {
+        color: #333;
+        padding: 0.15rem 0.5rem;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      .help-icon.sensory {
+        background-color: #ff4961;
+        color: #ffffff;
+      }
+
+      .help-icon.sensory:hover {
+        background-color: #e04056;
+      }
+
+      .help-icon.motor {
+        background-color: #3780ff;
+        color: #ffffff;
+        margin-right: 10px
+      }
+
+      .help-icon.motor:hover {
+        background-color: #2f6be0;
+      }
+      
       .left {
-        justify-content: left;
+        justify-content: space-between;
+        width: 50px;
       }
 
       .right {
@@ -188,8 +217,8 @@ export class PraxisIsncsciGrid extends HTMLElement {
                       data-type="sensory"
                       data-level="${level}"
                       data-side="left"
-                  >
-                  </button>` 
+                  >i
+                  </button>`
                 : ''
             }
           </div>
@@ -203,7 +232,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
                       data-type="motor"
                       data-level="${level}"
                       data-side="right"
-                    >
+                    >i
                     </button>`
                   : ''
               }
