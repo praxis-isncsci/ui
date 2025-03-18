@@ -217,7 +217,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
                       data-type="sensory"
                       data-level="${level}"
                       data-side="left"
-                  >
+                  >i
                   </button>`
                 : ''
             }
@@ -232,7 +232,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
                       data-type="motor"
                       data-level="${level}"
                       data-side="right"
-                    >
+                    >i
                     </button>`
                   : ''
               }
