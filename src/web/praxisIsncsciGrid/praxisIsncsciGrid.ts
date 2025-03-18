@@ -235,7 +235,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
               data-type="sensory"
               data-level="${level}"
               data-side="left"
-              style="display: ${helpMode ? 'inline-block' : 'none'}"
+              style="display: ${helpMode && !isMotorLevel ? 'inline-block' : 'none'}"
             >
               i
             </button>
