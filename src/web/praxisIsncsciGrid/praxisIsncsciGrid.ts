@@ -141,6 +141,25 @@ export class PraxisIsncsciGrid extends HTMLElement {
     this.updateView(this.hasAttribute('left'));
   }
 
+  private toggleHelpIcons(on: boolean) {
+    if (!this.shadowRoot) return;
+  
+    const sensoryIcons = this.shadowRoot.querySelectorAll<HTMLButtonElement>(
+      'button.help-icon.sensory',
+    );
+    const motorIcons = this.shadowRoot.querySelectorAll<HTMLButtonElement>(
+      'button.help-icon.motor',
+    );
+  
+    if (on) {
+      sensoryIcons.forEach((icon) => (icon.style.display = 'inline-block'));
+      motorIcons.forEach((icon) => (icon.style.display = 'inline-block'));
+    } else {
+      sensoryIcons.forEach((icon) => (icon.style.display = 'none'));
+      motorIcons.forEach((icon) => (icon.style.display = 'none'));
+    }
+  }
+
   public attributeChangedCallback(
     name: string,
     oldValue: string,
@@ -161,7 +180,8 @@ export class PraxisIsncsciGrid extends HTMLElement {
     }
 
     if (name === 'help-mode') {
-      this.updateView(this.hasAttribute('left'));
+      this.toggleHelpIcons(newValue != null);
+      return;
     }
   }
 
@@ -210,32 +230,28 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
             <div class="label left">
             ${level}
-            ${
-              helpMode
-                ? `<button
-                      class="help-icon sensory"
-                      data-type="sensory"
-                      data-level="${level}"
-                      data-side="left"
-                  >i
-                  </button>`
-                : ''
-            }
+            <button
+              class="help-icon sensory"
+              data-type="sensory"
+              data-level="${level}"
+              data-side="left"
+              style="display: ${helpMode ? 'inline-block' : 'none'}"
+            >
+              i
+            </button>
           </div>
           `
         : `
             <div class="label right">
-              ${
-                helpMode && isMotorLevel
-                  ? `<button
-                      class="help-icon motor"
-                      data-type="motor"
-                      data-level="${level}"
-                      data-side="right"
-                    >i
-                    </button>`
-                  : ''
-              }
+              <button
+                class="help-icon motor"
+                data-type="motor"
+                data-level="${level}"
+                data-side="right"
+                style="display: ${helpMode && isMotorLevel ? 'inline-block' : 'none'}"
+              >
+                i
+              </button>
               ${level}
             </div>
             ${this.getCell('right', 'motor', level)}
