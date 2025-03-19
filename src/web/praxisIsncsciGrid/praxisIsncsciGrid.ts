@@ -152,8 +152,6 @@ export class PraxisIsncsciGrid extends HTMLElement {
     );
   
     if (on) {
-      sensoryIcons.forEach((icon) => (icon.style.display = 'inline-block'));
-      motorIcons.forEach((icon) => (icon.style.display = 'inline-block'));
     } else {
       sensoryIcons.forEach((icon) => (icon.style.display = 'none'));
       motorIcons.forEach((icon) => (icon.style.display = 'none'));
@@ -222,6 +220,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
     SensoryLevels.forEach((level) => {
       const isMotorLevel = MotorLevels.includes(level as MotorLevel);
+      const isSensoryLevel = SensoryLevels.includes(level as SensoryLevel);
       levels += left
         ? `
             ${this.getCell('left', 'light-touch', level)}
@@ -235,7 +234,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
               data-type="sensory"
               data-level="${level}"
               data-side="left"
-              style="display: ${helpMode && !isMotorLevel ? 'inline-block' : 'none'}"
+              style="display: ${helpMode && isSensoryLevel ? 'inline-block' : 'none'}"
             >
               i
             </button>
