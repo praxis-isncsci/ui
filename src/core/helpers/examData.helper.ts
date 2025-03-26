@@ -1179,3 +1179,162 @@ const createLevelRange = (levels: string[]): string => {
     return `${levels[0]}-${levels[levels.length - 1]}`;
   }
 };
+
+
+const RANGE_REGEX = /^(?:[A-Z0-9]+(?:\*)?)(?:,[A-Z0-9]+(?:\*)?)*$/i;
+const LEVEL_ORDER: { [level: string]: number } = (() => {
+  const levels = [
+    ...Array.from({ length: 8 }, (_, i) => `C${i+1}`),   // C1–C8
+    ...Array.from({ length: 12 }, (_, i) => `T${i+1}`),  // T1–T12
+    ...Array.from({ length: 5 }, (_, i) => `L${i+1}`),   // L1–L5
+    ...Array.from({ length: 5 }, (_, i) => `S${i+1}`)    // S1–S4_5
+  ];
+  const orderMap: { [level: string]: number } = {};
+  levels.forEach((lvl, idx) => { orderMap[lvl] = idx + 1; });
+  return orderMap;
+})();
+
+const compressContiguousLevels = (sortedLevels: string[]): string[] => {
+  const result: string[] = [];
+  if (sortedLevels.length === 0) return result;
+  let rangeStart = sortedLevels[0];
+  let prevLevel = sortedLevels[0];
+  for (let i = 1; i < sortedLevels.length; i++) {
+    const currLevel = sortedLevels[i];
+    // Check if current level is the next in order of the previous level
+    const prevOrder = LEVEL_ORDER[prevLevel];
+    const currOrder = LEVEL_ORDER[currLevel];
+    if (currOrder === prevOrder + 1) {
+      // It's cont. (next level) continue the range
+      prevLevel = currLevel;
+      continue;
+    }
+    // Not cont. close the prev. range
+    if (rangeStart === prevLevel) {
+      // Single level range, adding just that level
+      result.push(rangeStart);
+    } else {
+      // Multiple levels from rangeStart to prevLevel
+      result.push(`${rangeStart}–${prevLevel}`);
+    }
+    // Start a new range at the current level
+    rangeStart = currLevel;
+    prevLevel = currLevel;
+  }
+  // Close the final range when loop ends
+  if (rangeStart === prevLevel) {
+    result.push(rangeStart);
+  } else {
+    result.push(`${rangeStart}–${prevLevel}`);
+  }
+  return result;
+}
+
+const transformRange = (rawValue: string): { text: string, hasStar: boolean } => {
+  if (!rawValue || rawValue.trim() === "") {
+    return { text: "", hasStar: false };
+  }
+  const raw = rawValue.trim();
+
+  // If the entire value is just "NA" or "NT", return it directly
+  if (raw === "NA" || raw === "NT") {
+    return { text: raw, hasStar: false };
+  }
+
+  // Split into tokens and trim ea token
+  const tokens = raw.split(",").map(t => t.trim()).filter(t => t !== "");
+  let hasStar = false;
+  const levelTokens: string[] = [];    // recognized spinal levels without stars
+  const specialTokens: string[] = [];
+
+  for (const token of tokens) {
+    if (!token) continue;
+    let t = token;
+    if (t.startsWith("*")) {
+      hasStar = true;
+      t = t.slice(1);
+    }
+    if (t.endsWith("*")) { 
+      hasStar = true;
+      t = t.slice(0, -1);
+    }
+    t = t.trim();
+    if (t === "") continue;
+
+    // Classify the token
+    if (LEVEL_ORDER[t] !== undefined) {
+      levelTokens.push(t);
+    } else if (t === "S4-5") {
+      levelTokens.push("S4");
+    } else {
+      specialTokens.push(t);
+    }
+  }
+
+  // Sort and deduplicate the level tokens in ascending order
+  levelTokens.sort((a, b) => {
+    const orderA = LEVEL_ORDER[a] || Number.MAX_VALUE;
+    const orderB = LEVEL_ORDER[b] || Number.MAX_VALUE;
+    return orderA - orderB;
+  });
+  const uniqueLevels = Array.from(new Set(levelTokens));
+
+  const compressedLevels = compressContiguousLevels(uniqueLevels);
+
+  let outputParts: string[] = [];
+  if (specialTokens.length > 0 && compressedLevels.length > 0) {
+    if (tokens.length === 2 && specialTokens.length === 1 && compressedLevels.length === 1) {
+      const firstOriginal = tokens[0];
+      const firstWasSpecial = firstOriginal.includes("NA") || firstOriginal.includes("NT");
+      if (firstWasSpecial) {
+        outputParts = [specialTokens[0], compressedLevels[0]];
+      } else {
+        outputParts = [compressedLevels[0], specialTokens[0]];
+      }
+    } else {
+      outputParts = [...compressedLevels, ...specialTokens];
+    }
+  } else {
+    outputParts = compressedLevels.length ? compressedLevels : specialTokens;
+  }
+
+  // Join if multiple, and replace "S4–5" with "INT"
+  let outputText = outputParts.join(", ");
+  if (outputText === "S4–S5") {
+    outputText = "INT"; 
+  }
+
+  return { text: outputText, hasStar: hasStar };
+}
+
+export const formatLevelName = (rawValue: string): string => {
+  const { text: rangeText, hasStar } = transformRange(rawValue);
+  if (!rangeText) {
+    return "";
+  }
+  const multipleLevels = rangeText.includes(",") || rangeText.includes("–");
+  if (multipleLevels || hasStar) {
+    const prefix = hasStar ? "ND*:" : "ND:";
+    return `${prefix} ${rangeText}`;
+  }
+  return rangeText;
+}
+
+
+export function formatASIAImpairmentScale(rawAIS: string): string {
+  if (!rawAIS || rawAIS.trim() === "") {
+    return "";
+  }
+  let ais = rawAIS.trim();
+  let hasStar = false;
+  if (ais.startsWith("*") || ais.endsWith("*")) {
+    hasStar = true;
+    ais = ais.replace(/\*/g, "").trim();
+  }
+  const multipleGrades = ais.indexOf("/") !== -1 || ais.indexOf(",") !== -1 || ais.indexOf(" ") !== -1;
+  if (multipleGrades || hasStar) {
+    const prefix = hasStar ? "ND*:" : "ND:";
+    return `${prefix} ${ais}`;
+  }
+  return ais;
+}
