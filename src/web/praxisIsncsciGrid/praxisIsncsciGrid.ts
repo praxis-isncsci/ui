@@ -16,7 +16,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   public static get observedAttributes(): string[] {
-    return ['highlighted-cells', 'left', 'help-mode'];
+    return ['highlighted-cells', 'left'];
   }
 
   private template: string = `
@@ -76,45 +76,8 @@ export class PraxisIsncsciGrid extends HTMLElement {
         align-items: center;
         display: flex;
         grid-column: label;
-        padding-right: 12px;
-        white-space: nowrap;
-      }
-      
-      .help-icon {
-        color: #333;
-        padding: 0.15rem 0.5rem;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background-color 0.2s ease-in-out;
-      }
-
-      .help-icon.sensory {
-        background-color: #ff4961;
-        color: #ffffff;
-      }
-
-      .help-icon.sensory:hover {
-        background-color: #e04056;
-      }
-
-      .help-icon.motor {
-        background-color: #3780ff;
-        color: #ffffff;
-        margin-right: 10px
-      }
-
-      .help-icon.motor:hover {
-        background-color: #2f6be0;
-      }
-      
-      .left {
-        justify-content: space-between;
-        width: 50px;
-      }
-
-      .right {
         justify-content: right;
+        padding-right: 12px;
       }
 
       [motor] {
@@ -141,23 +104,6 @@ export class PraxisIsncsciGrid extends HTMLElement {
     this.updateView(this.hasAttribute('left'));
   }
 
-  private toggleHelpIcons(on: boolean) {
-    if (!this.shadowRoot) return;
-  
-    const sensoryIcons = this.shadowRoot.querySelectorAll<HTMLButtonElement>(
-      'button.help-icon.sensory',
-    );
-    const motorIcons = this.shadowRoot.querySelectorAll<HTMLButtonElement>(
-      'button.help-icon.motor',
-    );
-  
-    if (on) {
-    } else {
-      sensoryIcons.forEach((icon) => (icon.style.display = 'none'));
-      motorIcons.forEach((icon) => (icon.style.display = 'none'));
-    }
-  }
-
   public attributeChangedCallback(
     name: string,
     oldValue: string,
@@ -174,11 +120,6 @@ export class PraxisIsncsciGrid extends HTMLElement {
 
     if (name === 'highlighted-cells') {
       this.updateHighlights(newValue);
-      return;
-    }
-
-    if (name === 'help-mode') {
-      this.toggleHelpIcons(newValue != null);
       return;
     }
   }
@@ -214,45 +155,19 @@ export class PraxisIsncsciGrid extends HTMLElement {
   }
 
   private getLevels(left: boolean) {
-    const helpMode = this.hasAttribute('help-mode');
-
     let levels = '';
 
     SensoryLevels.forEach((level) => {
-      const isMotorLevel = MotorLevels.includes(level as MotorLevel);
-      const isSensoryLevel = SensoryLevels.includes(level as SensoryLevel);
       levels += left
         ? `
             ${this.getCell('left', 'light-touch', level)}
             ${this.getCell('left', 'pin-prick', level)}
             ${this.getCell('left', 'motor', level)}
 
-            <div class="label left">
-            ${level}
-            <button
-              class="help-icon sensory"
-              data-type="sensory"
-              data-level="${level}"
-              data-side="left"
-              style="display: ${helpMode && isSensoryLevel ? 'inline-block' : 'none'}"
-            >
-              i
-            </button>
-          </div>
+            <div class="label">${level}</div>
           `
         : `
-            <div class="label right">
-              <button
-                class="help-icon motor"
-                data-type="motor"
-                data-level="${level}"
-                data-side="right"
-                style="display: ${helpMode && isMotorLevel ? 'inline-block' : 'none'}"
-              >
-                i
-              </button>
-              ${level}
-            </div>
+            <div class="label">${level}</div>
             ${this.getCell('right', 'motor', level)}
             ${this.getCell('right', 'light-touch', level)}
             ${this.getCell('right', 'pin-prick', level)}
