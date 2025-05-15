@@ -18,7 +18,7 @@
       "caption-2": {
         "foreground": {
           "type": "color",
-          "value": "{light.foreground.subdued}"
+          "value": "{light.foreground.primary}"
         }
       },
       "caption": {
@@ -28,13 +28,13 @@
         }
       },
       "border": {
-        "cell": {
-          "type": "color",
-          "value": "{color.gray.050}"
-        },
         "cell-total": {
           "type": "color",
           "value": "{color.gray.100}"
+        },
+        "cell": {
+          "type": "color",
+          "value": "{color.gray.700}"
         }
       }
     },
@@ -59,13 +59,13 @@
         "type": "color",
         "value": "{color.gray.1000}"
       },
-      "caption-2": {
-        "type": "color",
-        "value": "{color.gray.500}"
-      },
       "primary": {
         "type": "color",
         "value": "{color.gray.1000}"
+      },
+      "caption-2": {
+        "type": "color",
+        "value": "{color.gray.500}"
       },
       "subdued": {
         "type": "color",
@@ -196,16 +196,16 @@
       "type": "color",
       "value": "#f2dcd4"
     },
-    "drop-down": {
-      "border": {
-        "type": "color",
-        "value": "{light.input.border}"
-      }
-    },
     "text-area": {
       "border": {
         "type": "color",
         "value": "{color.gray.200}"
+      }
+    },
+    "drop-down": {
+      "border": {
+        "type": "color",
+        "value": "{light.input.border}"
       }
     },
     "totals": {
@@ -303,7 +303,7 @@
       },
       "weight": {
         "type": "number",
-        "value": "{font.weight.normal}"
+        "value": "{font.weight.medium}"
       },
       "line-height": {
         "type": "number",
@@ -720,9 +720,9 @@
     }
   },
   "classification-total": {
-    "padding-left": {
+    "padding-top": {
       "type": "number",
-      "value": "{space.2}"
+      "value": "{space.1}"
     },
     "padding-right": {
       "type": "number",
@@ -732,9 +732,9 @@
       "type": "number",
       "value": "{space.1}"
     },
-    "padding-top": {
+    "padding-left": {
       "type": "number",
-      "value": "{space.1}"
+      "value": "{space.2}"
     }
   },
   "acrylic": {
