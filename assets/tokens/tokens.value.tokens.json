@@ -30,7 +30,7 @@
       "border": {
         "cell": {
           "type": "color",
-          "value": "{color.gray.050}"
+          "value": "{color.gray.100}"
         },
         "cell-total": {
           "type": "color",

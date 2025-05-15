@@ -7,7 +7,7 @@
 }
 
 .anal-function select {
-  border-color: var(--light-dropdown-border, #ababab);
+  border-color: var(--light-dropdown-border, #525252);
   border-radius: var(--isncsci-anal-function-border-radius, 0.25rem);
   height: var(--isncsci-anal-function-height, 2.25rem);
   width: var(--isncsci-anal-function-width, 5rem);

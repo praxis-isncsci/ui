@@ -23,7 +23,7 @@ export class PraxisIsncsciInputLayout extends HTMLElement {
       }
 
       [grid-section] {
-        --grid-gap: var(--space-12);
+        --grid-gap: var(--space-8);
         display: flex;
         justify-content: center;
       }

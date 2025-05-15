@@ -16,7 +16,7 @@ export class PraxisIsncsciCell extends HTMLElement {
         align-items: center;
         background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
         box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
-        border: solid .5px rgba(0, 0, 0, .2);
+        border: solid .5px #525252;
         border-radius: 2px;
         display: flex;
         flex-direction: column;

@@ -50,7 +50,7 @@ export class PraxisIsncsciGrid extends HTMLElement {
       }
 
       .header {
-        font-weight: lighter;
+        font-weight: 300;
         margin: 0;
         padding: 0;
         text-align: center;
