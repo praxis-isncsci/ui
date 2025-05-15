@@ -42,15 +42,15 @@ export class PraxisIsncsciExtraInputs extends HTMLElement {
         }
 
         ::slotted([slot="non-key-muscles-header"]) {
-          color: var(--header-color, #5e5e5e);
+          color: var(--header-color, #303030);
           font-family: var(--header-font-family, sans-serif);
           font-size: var(--header-font-size, 0.75rem);
-          font-weight: var(--header-font-weight, 600);
+          font-weight: var(--header-font-weight, 500);
           line-height: var(--header-line-height, 1rem);
         }
 
         ::slotted(label) {
-          color: var(--label-color, #5e5e5e);
+          color: var(--label-color, #303030);
           font-family: var(--label-font-family, sans-serif);
           font-size: var(--label-font-size, 0.75rem);
           font-weight: var(--label-font-weight, 400);
@@ -59,7 +59,7 @@ export class PraxisIsncsciExtraInputs extends HTMLElement {
 
         ::slotted(select),
         ::slotted(textarea) {
-          border-color: var(--input-border-color, #848484);
+          border-color: var(--input-border-color, #525252);
           border-radius: var(--input-border-radius, 0.125rem);
         }
 
