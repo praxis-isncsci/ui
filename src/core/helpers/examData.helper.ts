@@ -1292,6 +1292,7 @@ export const formatLevelName = (levelStr: string): string => {
 
   // compress cont. ranges
   const compressed: string[] = [];
+  let anyStarInAnyRange = false;
   let i = 0;
   while (i < levelsInfo.length) {
     const first = levelsInfo[i];
@@ -1331,20 +1332,20 @@ export const formatLevelName = (levelStr: string): string => {
     if (first.region === last.region && first.start === last.end) {
       part = first.originalLabel;
     } else if (first.region === last.region) {
-      if (last.originalLabel.includes("-")) {
-        part = `${first.region}${first.start}–${last.originalLabel}`;
+      if (/_|-/.test(last.originalLabel)) {
+        const normalized = last.originalLabel.replace('_', '-');
+        part = `${first.region}${first.start}–${normalized}`;
       } else {
-        part = `${first.region}${first.start}–${last.end}`;
+        part = `${first.region}${first.start}–${last.region}${last.end}`;
       }
     } else {
       part = `${first.region}${first.start}–${last.region}${last.end}`;
     }
 
-    // star if any in that range was starred
-    if (anyStar && !part.endsWith("*")) {
-      part += "*";
+    if (anyStar) {
+      anyStarInAnyRange = true;
     }
-
+    
     compressed.push(part);
     i = j;
   }
@@ -1373,9 +1374,8 @@ export const formatLevelName = (levelStr: string): string => {
   // if final output has multiple levels with commas or a range dash -> ND or ND* needed
   const multipleParts = finalOutput.includes(",") || finalOutput.includes("–");
   if (multipleParts) {
-    const hasStar = finalOutput.includes("*");
-    const prefix = hasStar ? "ND*:" : "ND:";
-    finalOutput = prefix + " " + finalOutput;
+    const prefix = anyStarInAnyRange ? "ND*:" : "ND:";
+    finalOutput = prefix + " " + finalOutput.replace(/\*/g, "");
   }
 
   return finalOutput;
@@ -1385,16 +1385,31 @@ export const formatASIAImpairmentScale = (rawAIS: string): string => {
   if (!rawAIS || rawAIS.trim() === "") {
     return "";
   }
+
   let ais = rawAIS.trim();
-  let hasStar = false;
-  if (ais.startsWith("*") || ais.endsWith("*")) {
-    hasStar = true;
-    ais = ais.replace(/\*/g, "").trim();
-  }
-  const multipleGrades = ais.indexOf("/") !== -1 || ais.indexOf(",") !== -1 || ais.indexOf(" ") !== -1;
-  if (multipleGrades || hasStar) {
+
+  // check if there is any star anywhere in the string
+  const hasStar = /\*/.test(ais);
+
+  ais = ais.replace(/\*/g, "").trim();
+
+  const multipleGrades =
+    ais.indexOf("/") !== -1 || ais.indexOf(",") !== -1 || ais.indexOf(" ") !== -1;
+
+  if (multipleGrades) {
+    // multiple values --> ND or ND*
     const prefix = hasStar ? "ND*:" : "ND:";
     return `${prefix} ${ais}`;
   }
-  return ais;
-}
+
+  // single value
+  return hasStar ? `${ais}*` : ais;
+};
+
+export const formatCompleteIncomplete = (raw: string): string => {
+  if (!raw) return "";
+  const cleaned = raw.replace(/\*/g, "").replace(/\s+/g, "");
+  // if multiple --> prefix with ND:
+  if (/[,\s/]/.test(raw)) return `ND: ${cleaned}`;
+  return cleaned;
+};
