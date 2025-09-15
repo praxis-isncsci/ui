@@ -1342,11 +1342,6 @@ export const formatLevelName = (levelStr: string): string => {
       part = `${first.region}${first.start}–${last.region}${last.end}`;
     }
 
-    // star if any in that range was starred
-    // if (anyStar && !part.endsWith("*")) {
-    //   part += "*";
-    // }
-
     if (anyStar) {
       anyStarInAnyRange = true;
     }
