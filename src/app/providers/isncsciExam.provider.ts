@@ -1,7 +1,7 @@
 import { Exam, ISNCSCI } from 'isncsci';
 import { IIsncsciExamProvider } from '@core/boundaries';
 import { ExamData, MotorLevel, MotorLevels, SensoryLevels } from '@core/domain';
-import { formatASIAImpairmentScale, formatLevelName } from '@core/helpers/examData.helper';
+import { formatASIAImpairmentScale, formatLevelName, formatCompleteIncomplete } from '@core/helpers/examData.helper';
 
 export class IsncsciExamProvider implements IIsncsciExamProvider {
   private bindExamDataToExam(examData: ExamData) {
@@ -46,7 +46,7 @@ export class IsncsciExamProvider implements IIsncsciExamProvider {
 
     return Promise.resolve({
       asiaImpairmentScale: formatASIAImpairmentScale(classification.ASIAImpairmentScale),
-      injuryComplete: classification.injuryComplete,
+      injuryComplete: formatCompleteIncomplete(classification.injuryComplete),
       leftLightTouchTotal: totals.left.lightTouch,
       leftLowerMotorTotal: totals.left.lowerExtremity,
       leftMotor: formatLevelName(classification.neurologicalLevels.motorLeft),
