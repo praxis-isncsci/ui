@@ -169,15 +169,6 @@ const getClassificationTemplate = (iconsPath: string) => {
           >
         </div>
       </praxis-isncsci-classification-grid>
-      <!-- AIS -->
-      <praxis-isncsci-classification-grid slot="ais">
-        <h3 slot="heading">Asia Impairment Scale<br />(AIS)</h3>
-        <div slot="grid">
-          <praxis-isncsci-classification-total data-total="asia-impairment-scale"
-            >&nbsp;</praxis-isncsci-classification-total
-          >
-        </div>
-        </praxis-isncsci-classification-grid>
 
       <!-- Injury Complete or Incomplete -->
       <praxis-isncsci-classification-grid slot="injury-complete">
@@ -188,6 +179,15 @@ const getClassificationTemplate = (iconsPath: string) => {
           >
         </div>
       </praxis-isncsci-classification-grid>
+      <!-- AIS -->
+      <praxis-isncsci-classification-grid slot="ais">
+        <h3 slot="heading">Asia Impairment Scale<br />(AIS)</h3>
+        <div slot="grid">
+          <praxis-isncsci-classification-total data-total="asia-impairment-scale"
+            >&nbsp;</praxis-isncsci-classification-total
+          >
+        </div>
+        </praxis-isncsci-classification-grid>
       
       <!-- ZPP -->
       <praxis-isncsci-classification-grid slot="zpp">
