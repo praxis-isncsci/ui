@@ -208,26 +208,35 @@ export class InputLayoutController {
       this.externalMessageProvider,
     );
 
+    const isStar = /\*$/.test(value);
+
     if (result.updatedCells.length > 1) {
-      // values were propagated down then clear the selection
-      this.appStoreProvider.setActiveCell(null, []);
+      if (!isStar) {
+        // values were propagated down then clear the selection
+        this.appStoreProvider.setActiveCell(null, []);
+      }
     } else if (state.selectedCells.length > 1) {
-      // clear selection after entering values into selected range
-      this.appStoreProvider.setActiveCell(null, []);
+      if (!isStar) {
+        // clear selection after entering values into selected range
+        this.appStoreProvider.setActiveCell(null, []);
+      }
+      //keeps selection if star value
     } else {
-      // moving to next cell if a single cell is selected
-      const nextActiveCell = getNextActiveCellUseCase(
-        state.activeCell.name,
-        state.gridModel,
-      );
-      setActiveCellUseCase(
-        nextActiveCell,
-        state.activeCell,
-        'single',
-        state.selectedCells,
-        state.gridModel.slice(),
-        this.appStoreProvider,
-      );
+      if (!isStar) {
+        // moving to next cell if a single cell is selected - no star values
+        const nextActiveCell = getNextActiveCellUseCase(
+          state.activeCell.name,
+          state.gridModel,
+        );
+        setActiveCellUseCase(
+          nextActiveCell,
+          state.activeCell,
+          'single',
+          state.selectedCells,
+          state.gridModel.slice(),
+          this.appStoreProvider,
+        );
+      }
     }
   }
 
