@@ -1186,7 +1186,7 @@ export const formatLevelName = (levelStr: string): string => {
   }
 
   // Split string by commas, trim, and filter out empty tokens
-  const tokens = levelStr.split(",").map(t => t.trim()).filter(t => t !== "");
+  const tokens = levelStr.split(",").map(t => t.trim()).filter(Boolean);
   if (tokens.length === 0) {
     return "";
   }
@@ -1197,187 +1197,83 @@ export const formatLevelName = (levelStr: string): string => {
 
   // Classify tokens into special codes vs. normal levels
   const leadingCodes: string[] = [];
-  let trailingINT = ""; // if "INT" is present
+  let trailingINT = "";  // if "INT" is present
   const normalLevels: string[] = [];
 
   for (const token of tokens) {
     const base = token.toUpperCase();
-    if (base === "NA" || base === "NT") {
-      // NA or NT at the front
-      if (!leadingCodes.includes(base)) {
-        leadingCodes.push(base);
-      }
-    } else if (base === "INT") {
-      // INT at the end
-      trailingINT = "INT";
-    } else {
-      // Otherwise, normal spinal level
-      normalLevels.push(token);
-    }
+    if (base === "NA" || base === "NT") leadingCodes.push(base);
+    else if (base === "INT") trailingINT = "INT";
+    else normalLevels.push(token);
   }
 
-  leadingCodes.sort((a, b) => {
-    if (a === b) return 0;
-    if (a === "NA") return -1;
-    if (b === "NA") return 1;
-    if (a === "NT") return -1;
-    if (b === "NT") return 1;
-    return a.localeCompare(b);
-  });
+  // parse levels w/ star flag
+  type L = { region: "C"|"T"|"L"|"S"; start: number; end: number; starred: boolean; raw: string };
+  const parse = (tok: string): L => {
+    const starred = /\*$/.test(tok);
+    const base = tok.replace(/\*/g, "").toUpperCase().replace(/\s+/g,"");
+    const region = base[0] as L["region"];
+    const rem = base.slice(1);
+    let start:number, end:number;
+    if (/-|_/.test(rem)) { const [a,b]=rem.split(/[-_]/).map(n=>parseInt(n,10)); start=a; end=b; }
+    else { const n = parseInt(rem,10); start=n; end=n; }
+    return { region, start, end, starred, raw: tok.trim() };
+  };
 
-  // normalLevels to range compression
-  interface LevelInfo {
-    region: string;
-    start: number;
-    end: number;
-    starred: boolean;
-    originalLabel: string;
-  }
-
-  // tracking if base level is starred
-  const levelMap: { [baseLevel: string]: boolean } = {};
-  for (const lvl of normalLevels) {
-    let base = lvl.toUpperCase();
-    let isStarred = false;
-    if (base.endsWith("*")) {
-      isStarred = true;
-      base = base.slice(0, -1);
-    }
-    // Remove internal spaces
-    base = base.replace(/\s+/g, "");
-
-    if (base in levelMap) {
-      levelMap[base] = levelMap[base] || isStarred;
-    } else {
-      levelMap[base] = isStarred;
-    }
-  }
+  const levels = normalLevels.map(parse);
 
   // convert ea. unique base level to a structured LevelInfo
-  const regionOrder: { [r: string]: number } = { C: 1, T: 2, L: 3, S: 4 };
-  const levelsInfo: LevelInfo[] = [];
-  for (const baseLevel in levelMap) {
-    const starred = levelMap[baseLevel];
-    const region = baseLevel.charAt(0);
-    const remainder = baseLevel.slice(1);
+  const regionOrder: Record<string, number> = { C:1, T:2, L:3, S:4 };
+  const contiguous = (a: L, b: L) => {
+    if (a.region === b.region) return a.end + 1 === b.start;
+    return (
+      (a.region==="C" && a.end===8 && b.region==="T" && b.start===1) ||
+      (a.region==="T" && a.end===12 && b.region==="L" && b.start===1) ||
+      (a.region==="L" && a.end===5 && b.region==="S" && b.start===1)
+    );
+  };
 
-    let startNum: number;
-    let endNum: number;
-    // If it's S4-5, or S4_5, handle as a combined segment
-    if (remainder.includes("-") || remainder.includes("_")) {
-      const parts = remainder.split(/[-_]/).map(n => parseInt(n, 10));
-      startNum = parts[0];
-      endNum = parts[1];
-    } else {
-      const num = parseInt(remainder, 10);
-      startNum = num;
-      endNum = num;
-    }
-
-    levelsInfo.push({
-      region,
-      start: startNum,
-      end: endNum,
-      starred,
-      originalLabel: `${region}${remainder}`,
-    });
-  }
-
-  levelsInfo.sort((a, b) => {
-    if (a.region !== b.region) {
-      return (regionOrder[a.region] || 99) - (regionOrder[b.region] || 99);
-    }
-    return a.start - b.start;
+  levels.sort((x,y)=>{
+    if (x.region!==y.region) return regionOrder[x.region]-regionOrder[y.region];
+    return x.start - y.start;
   });
 
-  // compress cont. ranges
-  const compressed: string[] = [];
-  let anyStarInAnyRange = false;
-  let i = 0;
-  while (i < levelsInfo.length) {
-    const first = levelsInfo[i];
-    let last = first;
-    let anyStar = first.starred;
-
-    let j = i + 1;
-    while (j < levelsInfo.length) {
-      const next = levelsInfo[j];
-      let contiguous = false;
-
-      if (next.region === last.region) {
-        // Same region => check numeric continuity
-        if (last.end + 1 === next.start) {
-          contiguous = true;
-        }
-      } else {
-        if (
-          (last.region === "C" && last.end === 8 && next.region === "T" && next.start === 1) ||
-          (last.region === "T" && last.end === 12 && next.region === "L" && next.start === 1) ||
-          (last.region === "L" && last.end === 5 && next.region === "S" && next.start === 1)
-        ) {
-          contiguous = true;
-        }
-      }
-
-      if (!contiguous) break;
-      if (next.starred) {
-        anyStar = true;
-      }
-      last = next;
-      j++;
+  const groups: L[][] = [];
+  let g: L[] = [];
+  for (const lv of levels) {
+    if (g.length===0) g.push(lv);
+    else {
+      const last = g[g.length-1];
+      if (contiguous(last, lv) && last.starred === lv.starred) g.push(lv);
+      else { groups.push(g); g = [lv]; }
     }
-
-    // label for [first..last]
-    let part: string;
-    if (first.region === last.region && first.start === last.end) {
-      part = first.originalLabel;
-    } else if (first.region === last.region) {
-      if (/_|-/.test(last.originalLabel)) {
-        const normalized = last.originalLabel.replace('_', '-');
-        part = `${first.region}${first.start}-${normalized}`;
-      } else {
-        part = `${first.region}${first.start}-${last.region}${last.end}`;
-      }
-    } else {
-      part = `${first.region}${first.start}-${last.region}${last.end}`;
-    }
-
-    if (anyStar) {
-      anyStarInAnyRange = true;
-    }
-    
-    compressed.push(part);
-    i = j;
   }
+  if (g.length) groups.push(g);
 
-  // assembling the final string in order:
-  // leadingCodes (NA) -> compressed levels -> INT 
-  let finalOutput = "";
-  if (leadingCodes.length > 0) {
-    finalOutput = leadingCodes.join(", ");
-  }
-  if (compressed.length > 0) {
-    // if we already have leading codes, add a comma
-    if (finalOutput) {
-      finalOutput += ", ";
-    }
-    finalOutput += compressed.join(", ");
-  }
-  if (trailingINT) {
-    // if we have INT, place it at the end
-    if (finalOutput) {
-      finalOutput += ", ";
-    }
-    finalOutput += trailingINT;
-  }
+  const renderGroup = (arr: L[]) => {
+    if (arr.length === 1) return arr[0].raw;
+    const first = arr[0], last = arr[arr.length-1];
+    const start = `${first.region}${first.start}${first.starred ? "*" : ""}`;
+    const end   = `${last.region}${last.end}${last.starred ? "*" : ""}`;
+    return `${start}-${end}`;
+  };
 
-  // ✅ Minimal fix: treat hyphen "-" **or** en-dash "–" as range markers
-  const multipleParts = finalOutput.includes(",") || /[-–]/.test(finalOutput);
-  if (multipleParts) {
-    const prefix = anyStarInAnyRange ? "ND*:" : "ND:";
-    finalOutput = prefix + " " + finalOutput.replace(/\*/g, "");
-  }
+  const parts: string[] = [];
+  if (leadingCodes.length) parts.push(leadingCodes.join(", "));
+  parts.push(...groups.map(renderGroup));
+  if (trailingINT) parts.push(trailingINT);
 
+  const finalOutput = parts.join(", ");
+
+  // ND/ND* prefix
+  const anyStar = groups.some(grp => grp.some(l => l.starred));
+  const anyNoStar = groups.some(grp => grp.some(l => !l.starred));
+  const needsPrefix = finalOutput.includes(",") || finalOutput.includes("-") || leadingCodes.length>0 || !!trailingINT;
+
+  if (needsPrefix) {
+    const prefix = anyStar && anyNoStar ? "ND*:" : (anyStar ? "ND*:" : "ND:");
+    return `${prefix} ${finalOutput}`;
+  }
   return finalOutput;
 };
 

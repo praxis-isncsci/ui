@@ -2830,7 +2830,7 @@
         "asiaImpairmentScale": "ND*: B*, C*, D",
         "rightSensoryZpp": "NA",
         "leftSensoryZpp": "NA",
-        "rightMotorZpp": "ND*: L3-S1",
+        "rightMotorZpp": "ND*: L3, L4*, L5, S1*",
         "leftMotorZpp": "ND: L3, L5"
         }
     },
