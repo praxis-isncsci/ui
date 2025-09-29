@@ -1334,12 +1334,12 @@ export const formatLevelName = (levelStr: string): string => {
     } else if (first.region === last.region) {
       if (/_|-/.test(last.originalLabel)) {
         const normalized = last.originalLabel.replace('_', '-');
-        part = `${first.region}${first.start}–${normalized}`;
+        part = `${first.region}${first.start}-${normalized}`;
       } else {
-        part = `${first.region}${first.start}–${last.region}${last.end}`;
+        part = `${first.region}${first.start}-${last.region}${last.end}`;
       }
     } else {
-      part = `${first.region}${first.start}–${last.region}${last.end}`;
+      part = `${first.region}${first.start}-${last.region}${last.end}`;
     }
 
     if (anyStar) {
@@ -1371,8 +1371,8 @@ export const formatLevelName = (levelStr: string): string => {
     finalOutput += trailingINT;
   }
 
-  // if final output has multiple levels with commas or a range dash -> ND or ND* needed
-  const multipleParts = finalOutput.includes(",") || finalOutput.includes("–");
+  // ✅ Minimal fix: treat hyphen "-" **or** en-dash "–" as range markers
+  const multipleParts = finalOutput.includes(",") || /[-–]/.test(finalOutput);
   if (multipleParts) {
     const prefix = anyStarInAnyRange ? "ND*:" : "ND:";
     finalOutput = prefix + " " + finalOutput.replace(/\*/g, "");
@@ -1381,30 +1381,33 @@ export const formatLevelName = (levelStr: string): string => {
   return finalOutput;
 };
 
+
 export const formatASIAImpairmentScale = (rawAIS: string): string => {
   if (!rawAIS || rawAIS.trim() === "") {
     return "";
   }
 
-  let ais = rawAIS.trim();
+  const original = rawAIS.trim();
 
-  // check if there is any star anywhere in the string
-  const hasStar = /\*/.test(ais);
+  // check if any grade has a star (based on unmodified string)
+  const hasStar = /\*/.test(original);
 
-  ais = ais.replace(/\*/g, "").trim();
+  const multipleGrades = /[,\s/]/.test(original.replace(/\s+/g, " ").trim());
 
-  const multipleGrades =
-    ais.indexOf("/") !== -1 || ais.indexOf(",") !== -1 || ais.indexOf(" ") !== -1;
+  const normalizedList = original
+    .replace(/\s*,\s*/g, ", ")
+    .replace(/\s*\/\s*/g, "/")
+    .replace(/\s+/g, " ")
+    .trim();
 
   if (multipleGrades) {
-    // multiple values --> ND or ND*
     const prefix = hasStar ? "ND*:" : "ND:";
-    return `${prefix} ${ais}`;
+    return `${prefix} ${normalizedList}`;
   }
 
-  // single value
-  return hasStar ? `${ais}*` : ais;
+  return normalizedList;
 };
+
 
 export const formatCompleteIncomplete = (raw: string): string => {
   if (!raw) return "";
