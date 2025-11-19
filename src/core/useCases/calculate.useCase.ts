@@ -7,6 +7,34 @@ import { BinaryObservation, Cell, MotorLevel, Totals } from '@core/domain';
 import { getExamDataFromGridModel, validateExamData } from '@core/helpers';
 import { cloneExamData } from '@core/helpers/examData.helper';
 
+const formatFieldName = (fieldName: string): string => {
+  const specialCases: Record<string, string> = {
+    'voluntaryAnalContraction': 'Voluntary Anal Contraction',
+    'deepAnalPressure': 'Deep Anal Pressure',
+    'rightLowestNonKeyMuscleWithMotorFunction': 'Right Lowest Non-Key Muscle',
+    'leftLowestNonKeyMuscleWithMotorFunction': 'Left Lowest Non-Key Muscle',
+  };
+
+  if (specialCases[fieldName]) {
+    return specialCases[fieldName];
+  }
+
+  let formatted = fieldName;
+
+  formatted = formatted
+    .replace(/-/g, ' ')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    // Capitalize first letter of ea word
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+    // level indicators
+    .replace(/\b([CTLS])(\d+)/gi, (match, letter, number) => 
+      `${letter.toUpperCase()}${number}`
+    )
+    // S4_5 or S4-5
+    .replace(/S(\d+)[_-](\d+)/gi, 'S$1-$2');
+
+  return formatted;
+};
 /*
  * This use case is responsible for calculating the totals
  * and updating the state of the application
@@ -58,8 +86,11 @@ export const calculateUseCase = async (
     try {
       // 2.1 If missing values are found,
       // 2.1.1 add the missing values as calculation errors to the model
+
+      const formattedMissingValues = missingValues.map(formatFieldName);
+
       await appStoreProvider.setCalculationError(
-        `Missing values:\n${missingValues.join('\n')}`,
+        `Missing values:\n${formattedMissingValues.join('\n')}`,
       );
 
       // 2.1.2 Update the external listeners so they are informed of the errors

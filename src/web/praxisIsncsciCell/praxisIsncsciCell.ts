@@ -29,8 +29,8 @@ export class PraxisIsncsciCell extends HTMLElement {
       }
 
       :host([highlighted]) {
-        transform: scale(1.1);
-        border: solid 1px var(--highlighted-cell-border-color, orange);
+        transform: scale(1.03);
+        border: solid 1.4px var(--highlighted-cell-border-color, orange);
       }
 
       :host([error]) {
