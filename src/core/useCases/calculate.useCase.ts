@@ -111,8 +111,21 @@ export const calculateUseCase = async (
     try {
       // 3.1 If errors are found,
       // 3.1.1 add the calculation errors
+
+      const formattedErrors = errors.map(error => {
+        // format any field names found in the error message
+        return error.replace(
+          /\b([a-z]+(?:[A-Z][a-z]*)*(?:[A-Z]\d+)?)\b/gi,
+          (match) => {
+            if (/[A-Z]/.test(match)) {
+              return formatFieldName(match);
+            }
+            return match;
+          }
+        );
+      });
       await appStoreProvider.setCalculationError(
-        `The exam contains errors:\n${errors.join('\n')}`,
+        `The exam contains errors:\n${formattedErrors.join('\n')}`,
       );
 
       // 3.1.2 Update the external listeners so they are informed of the errors
