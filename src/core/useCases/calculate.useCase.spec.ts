@@ -80,7 +80,7 @@ describe('calculate.useCase.ts', () => {
 
     // Assert
     expect(appStoreProvider.setCalculationError).toBeCalledWith(
-      'Missing values:\nright-pin-prick-t5',
+      'Missing values:\nRight Pin Prick T5',
     );
     expect(externalMessageProvider.sendOutExamData).toBeCalled();
     expect(appStoreProvider.setTotals).not.toBeCalled();
@@ -114,7 +114,7 @@ describe('calculate.useCase.ts', () => {
 
     // Assert
     expect(appStoreProvider.setCalculationError).toBeCalledWith(
-      'The exam contains errors:\nInvalid value (5) for rightPinPrickT5',
+      'The exam contains errors:\nInvalid value (5) for Right Pin Prick T5',
     );
     expect(externalMessageProvider.sendOutExamData).toBeCalled();
     expect(appStoreProvider.setTotals).not.toBeCalled();
